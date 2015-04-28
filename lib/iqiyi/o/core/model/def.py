@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# core_model_def.py, part for evparse : EisF Video Parse, evdh Video Parse. 
-# core_model_def: iqiyi, com.qiyi.player.core.model.def 
+# def.py, part for evparse : EisF Video Parse, evdh Video Parse. 
+# def: iqiyi, com.qiyi.player.core.model.def 
 
 # import
-from .base_pub import EnumItem
+from ....base.pub import EnumItem
 
 # class
 class DefinitionEnum(object):
@@ -32,6 +32,6 @@ class DefinitionEnum(object):
         self.FOUR_K 	= EnumItem(10, '4k', items)
         # done
 
-# end core_model_def.py
+# end def.py
 
 

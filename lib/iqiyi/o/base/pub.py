@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# base_pub.py, part for evparse : EisF Video Parse, evdh Video Parse. 
-# base_pub: iqiyi, com.qiyi.player.base.pub 
+# pub.py, part for evparse : EisF Video Parse, evdh Video Parse. 
+# pub: iqiyi, com.qiyi.player.base.pub 
 
 class EnumItem(object):
     

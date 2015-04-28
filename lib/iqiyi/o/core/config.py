@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# core_config.py, part for evparse : EisF Video Parse, evdh Video Parse. 
-# core_config: iqiyi, com.qiyi.player.core 
+# config.py, part for evparse : EisF Video Parse, evdh Video Parse. 
+# config: iqiyi, com.qiyi.player.core 
 
 class Config(object):
     
@@ -25,6 +25,6 @@ class Config(object):
         
         # done
 
-# end core_config.py
+# end config.py
 
 
