@@ -6,6 +6,9 @@
 
 import random
 
+from .. import exports
+base = exports.base
+
 # global static config
 UUID_URL = 'http://data.video.qiyi.com/uid'
 
@@ -28,8 +31,9 @@ class UUIDManager(object):
     def load_from_server(self):
         # make a url to request
         url_to = UUID_URL + '?tn=' + str(random.random())
-        
-        # TODO http request
+        # get uuid by http request
+        info = base.get_html_content(url_to)
+        # TODO analyse received url
         
         pass
     

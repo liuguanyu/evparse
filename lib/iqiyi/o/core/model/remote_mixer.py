@@ -8,7 +8,11 @@ import random
 
 from ..config import Config
 from ....base.utils_md5 import md5_hash
-from ........flash import getTimer
+from ....base.uuid import UUIDManager
+
+from ....exports import flash
+
+getTimer = flash.getTimer
 
 # class
 
@@ -16,10 +20,11 @@ class MixerRemote(object):
     
     def __init__(self, param1=None):
         
-        self._holder = param1;
+        # TODO just reserved
+        # self._holder = param1;
         
-        # add some flags, TODO support these flags
-        self.flag_is_vip_video = False
+        # add some flags
+        self.flag_is_vip = False
         self.flag_show_vinfo = True
         self.flag_set_um = False
         self.flag_instance_boss = False
@@ -27,18 +32,17 @@ class MixerRemote(object):
         # add some static config
         self.passportID = ''	# passportID of the user
         
-        # add some static data, TODO support these data
+        # add some static data
         self.vid = ''
         self.tvid = ''
-        # TODO support this
-        self.uuid = ''
+        # to get uuid
+        self.uuid_m = UUIDManager()
+        self.uuid = self.uuid_m.get_uuid()
         
         # can only pass null
         self.ugcAuthKey = ''	# password string of the video
         self.thdKey = ''
         self.thdToken = ''
-        
-        pass
     
     def getRequest(self):
         
@@ -68,7 +72,7 @@ class MixerRemote(object):
         else:
             _loc8_ = '0'
         
-        if not self.flag_is_vip_video:
+        if not self.flag_is_vip:
             _loc1_ = Config.MIXER_VX_URL
             _ap = ''
             _ap += '?key=fvip&src=1702633101b340d8917a69cf8a4b8c7c'

@@ -3,7 +3,6 @@
 # utils_key: iqiyi, com.qiyi.player.base.utils 
 
 # import
-import hashlib
 import math
 
 from .utils_md5 import md5_hash
