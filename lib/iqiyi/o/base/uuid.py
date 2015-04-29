@@ -5,6 +5,8 @@
 # import
 
 import random
+import re
+import json
 
 # import from out
 base = None
@@ -28,7 +30,7 @@ class UUIDManager(object):
         if self.uuid != '':
             return self.uuid
         # load from server
-        self._load_from_server()
+        self.uuid = self._load_from_server()
         return self.uuid
     
     # load a user uuid from iqiyi server
@@ -37,13 +39,15 @@ class UUIDManager(object):
         url_to = UUID_URL + '?tn=' + str(random.random())
         # get uuid by http request
         info = base.get_html_content(url_to)
-        # TODO analyse received url
-        # FIXME not finished, only debug
-        print('DEBUG: url \"' + url_to + '\"')
-        print('DEBUG: result [' + info + '] ')
-        pass
-    
-    pass
+        # an example of info
+        # 'var uid={"uid":"f21e1ae1c44f6c40f0674316ba7cf55b"};'
+        # analyse received text
+        uid_raw = re.findall('var uid=([^;]+);', info)
+        json_text = uid_raw[0]
+        uid_info = json.loads(json_text)
+        uid = uid_info['uid']
+        # done
+        return uid
 
 # end uuid.py
 

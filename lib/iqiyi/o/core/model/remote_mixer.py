@@ -81,9 +81,14 @@ class MixerRemote(object):
             _loc7_ = ''
         
         if self.flag_set_um:
-            _loc8_ = '1'
+            _loc8_ = 1
         else:
-            _loc8_ = '0'
+            _loc8_ = 0
+        
+        # before generate url, fix local to string
+        _loc2_ = str(_loc2_)
+        _loc4_ = str(_loc4_)
+        _loc8_ = str(_loc8_)
         
         if not self.flag_is_vip:
             _loc1_ = Config.MIXER_VX_URL

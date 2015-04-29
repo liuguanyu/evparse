@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # flash.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # flash: support some flash functions (action script 3) in python3. 
-# version 0.0.1.0 test201504282146
+# version 0.0.1.2 test201504292246
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.04. 
 # copyright 2015 sceext
 #
@@ -38,8 +38,10 @@ def _get_ms():
     return int(round(time.time() * 1e3))
 
 def getTimer(start=0):
+    global _GET_TIMER_START_MS
     _GET_TIMER_START_MS -= start
-    return (_get_ms - _GET_TIMER_START_MS)
+    now_ms = _get_ms()
+    return (now_ms - _GET_TIMER_START_MS)
 
 # init
 

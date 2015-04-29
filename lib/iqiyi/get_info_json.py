@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # get_info_json.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # get_info_json: evparse/lib/iqiyi 
-# version 0.0.0.2 test201504291505
+# version 0.0.1.0 test201504292239
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.04. 
 # copyright 2015 sceext
 #
@@ -43,6 +43,8 @@ def get_info(vid_info):
     mixer.tvid = vid_info['tvid']
     # get request url
     url_to = mixer.getRequest()
+    # FIXME debug here
+    print('DEBUG: info json url \"' + url_to + '\"')
     # TODO
     pass
 

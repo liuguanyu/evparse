@@ -14,9 +14,9 @@ class DefinitionEnum(object):
         
         # 官方清晰度	实际清晰度	hd
         items = self.ITEMS
-        # (极速)	超渣		-3
+        # (极速)	渣清		-3
         self.LIMIT 	= EnumItem(96, 'topspeed', items)
-        # (流畅)	渣清		-2
+        # (流畅)	超低清		-2
         self.NONE 	= EnumItem(0, 'none', items)
         # (标清)	低清		-1
         self.STANDARD 	= EnumItem(1, 'standard', items)
@@ -28,7 +28,7 @@ class DefinitionEnum(object):
         self.SUPER_HIGH = EnumItem(4, 'super-high', items)
         # (1080p)	1080p		4
         self.FULL_HD 	= EnumItem(5, 'fullhd', items)
-        # (4K)		4K		5
+        # (4K)		4K		7
         self.FOUR_K 	= EnumItem(10, '4k', items)
         # done
 
