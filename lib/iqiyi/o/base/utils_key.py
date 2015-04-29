@@ -34,10 +34,7 @@ def getVRSXORCode(param1, param2):
 
 class KeyUtils(object):
     
-    def __init__(self):
-        pass
-    
-    def getVrsEncodeCode(self, param1):
+    def getVrsEncodeCode(param1):
         _loc6_ = 0
         _loc2_ = ''
         _loc3_ = param1.split('-')
@@ -50,12 +47,12 @@ class KeyUtils(object):
             _loc5_ -= 1
         return _loc2_
     
-    def getDispatchKey(self, param1, param2):
+    def getDispatchKey(param1, param2):
         _loc3_ = ')(*&^flash@#$%a'
         _loc4_ = math.floor(float(param1) / (10 * 60))
         return md5_hash(str(_loc4_) + _loc3_ + param2)
     
-    def getPassportKey(self, param1):
+    def getPassportKey(param1):
         _loc2_ = param1
         _loc3_ = 2.391461978E9
         _loc4_ = _loc3_ % 17

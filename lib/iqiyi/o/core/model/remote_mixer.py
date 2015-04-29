@@ -14,7 +14,7 @@ from ........flash import getTimer
 
 class MixerRemote(object):
     
-    def __init__(self, param1):
+    def __init__(self, param1=None):
         
         self._holder = param1;
         
@@ -32,9 +32,9 @@ class MixerRemote(object):
         self.tvid = ''
         # TODO support this
         self.uuid = ''
-        self.ugcAuthKey = ''	# TODO, runtimeData.ugcAuthKey
         
         # can only pass null
+        self.ugcAuthKey = ''	# password string of the video
         self.thdKey = ''
         self.thdToken = ''
         
@@ -43,29 +43,31 @@ class MixerRemote(object):
     def getRequest(self):
         
         # TODO
-        self._requestDuration = getTimer()
-        # TODO following line
-        if self._holder.pingBack:
-            self._holder.pingBack.sendStartLoadVrs()
+        # just reserved
+        # self._requestDuration = getTimer()
+        # if self._holder.pingBack:
+        #     self._holder.pingBack.sendStartLoadVrs()
         
         if self.flag_show_vinfo:
             _loc2_ = 1
         else:
             _loc2_ = 0
+        
         _loc3_ = 'aw6UWGtp'
         _loc4_ = getTimer()
         _loc5_ = md5_hash(_loc3_ + str(_loc4_) + self.tvid)
-        _loc6_ = md5_hash(md5_hash(ugcAuthKey) + str(_loc4_) + self.tvid)
+        _loc6_ = md5_hash(md5_hash(self.ugcAuthKey) + str(_loc4_) + self.tvid)
+        
         if self.flag_instance_boss:
             _loc7_ = '&vv=821d3c731e374feaa629dcdaab7c394b'
         else:
             _loc7_ = ''
-        # TODO following line
-        # _loc8_ = (UserManager.getInstance().user) && !(UserManager.getInstance().user.level == UserDef.USER_LEVEL_NORMAL)?"1":"0"
+        
         if self.flag_set_um:
             _loc8_ = '1'
         else:
             _loc8_ = '0'
+        
         if not self.flag_is_vip_video:
             _loc1_ = Config.MIXER_VX_URL
             _ap = ''
@@ -84,7 +86,7 @@ class MixerRemote(object):
             _ap += '&tn=' + str(random.random())
             
             # TODO not reset runtimeData.ugcAuthKey
-            self.ugcAuthKey = ''
+            # self.ugcAuthKey = ''
         # an example for up method 'http://cache.video.qiyi.com/vms?key=fvip&src=1702633101b340d8917a69cf8a4b8c7c&tvId=362184200&vid=0e8947a1b4fcbde51e943fe9e21f25a1&vinfo=1&tm=796&enc=afbf5e4414ddfec2155093f953449fe8&qyid=cccaa2d11b684850103b7b2f047114ed&puid=&authKey=bb59cba92736f1a251b6f085b943bc91&um=0&thdk=&thdt=&tn=0.7928885882720351'
         '''
         http://cache.video.qiyi.com/vms
