@@ -7,12 +7,20 @@
 import random
 
 from ..config import Config
-from ....base.utils_md5 import md5_hash
-from ....base.uuid import UUIDManager
+from ...base.utils_md5 import md5_hash
+from ...base.uuid import UUIDManager
 
-from ....exports import flash
+# import from out
+getTimer = None
+# NOTE should be set by exports
+def set_import(flash):
+    # just set getTimer
+    global getTimer
+    getTimer = flash.getTimer
 
-getTimer = flash.getTimer
+# FIXME just reserved
+# def getTimer(*args, **kw):
+#     return flash.getTimer(*args, **kw)
 
 # class
 
@@ -43,6 +51,11 @@ class MixerRemote(object):
         self.ugcAuthKey = ''	# password string of the video
         self.thdKey = ''
         self.thdToken = ''
+        
+        # data only for vip
+        self.key = ''
+        self.QY00001 = ''
+        self.communicationlId = ''	# .communicationlId
     
     def getRequest(self):
         
@@ -91,7 +104,36 @@ class MixerRemote(object):
             
             # TODO not reset runtimeData.ugcAuthKey
             # self.ugcAuthKey = ''
-        # an example for up method 'http://cache.video.qiyi.com/vms?key=fvip&src=1702633101b340d8917a69cf8a4b8c7c&tvId=362184200&vid=0e8947a1b4fcbde51e943fe9e21f25a1&vinfo=1&tm=796&enc=afbf5e4414ddfec2155093f953449fe8&qyid=cccaa2d11b684850103b7b2f047114ed&puid=&authKey=bb59cba92736f1a251b6f085b943bc91&um=0&thdk=&thdt=&tn=0.7928885882720351'
+        # NOTE vip video, not support finished now. 
+        else:
+            _loc1_ = Config.MIXER_VX_VIP_URL
+            _ap = ''
+            # FIXME key=fvinp, different from no vip video
+            _ap += '?key=fvinp&src=1702633101b340d8917a69cf8a4b8c7c'
+            
+            _ap += '&tvId=' + self.tvid
+            _ap += '&vid=' + self.vid
+            
+            # TODO only for VIP, start
+            _ap += '&cid=' + self.communicationlId
+            _ap += '&token=' + self.key
+            _ap += '&uid=' + self.QY00001
+            _ap += '&pf=b6c13e26323c537d'
+            # TODO only for vip end
+            
+            _ap += '&vinfo=' + _loc2_
+            _ap += '&tm=' + _loc4_
+            _ap += '&enc=' + _loc5_
+            _ap += '&qyid=' + self.uuid
+            _ap += '&puid=' + self.passportID
+            _ap += '&authKey=' + _loc6_
+            _ap += '&um=' + _loc8_ + _loc7_
+            _ap += '&thdk=' + self.thdKey
+            _ap += '&thdt=' + self.thdToken
+            _ap += '&tn=' + str(random.random())
+        # just return request URL
+        return _loc1_ + _ap
+        # an example for not vip method 'http://cache.video.qiyi.com/vms?key=fvip&src=1702633101b340d8917a69cf8a4b8c7c&tvId=362184200&vid=0e8947a1b4fcbde51e943fe9e21f25a1&vinfo=1&tm=796&enc=afbf5e4414ddfec2155093f953449fe8&qyid=cccaa2d11b684850103b7b2f047114ed&puid=&authKey=bb59cba92736f1a251b6f085b943bc91&um=0&thdk=&thdt=&tn=0.7928885882720351'
         '''
         http://cache.video.qiyi.com/vms
         ?key=fvip
@@ -112,38 +154,6 @@ class MixerRemote(object):
         &thdt=
         &tn=0.7928885882720351
         '''
-        
-        # NOTE vip video, not support finished now. 
-        else:
-            _loc1_ = Config.MIXER_VX_VIP_URL
-            _ap = ''
-            # FIXME key=fvinp, different from no vip video
-            _ap += '?key=fvinp&src=1702633101b340d8917a69cf8a4b8c7c'
-            
-            _ap += '&tvId=' + self.tvid
-            _ap += '&vid=' + self.vid
-            
-            # FIXME only for VIP
-            _ap += '&cid=' + runtimeData.communicationlId
-            # FIXME only for VIP
-            _ap += '&token=' runtimeData.key
-            # FIXME only for VIP
-            _ap += '&uid=' + runtimeData.QY00001
-            # FIXME only for VIP
-            _ap += '&pf=b6c13e26323c537d'
-            
-            _ap += '&vinfo=' + _loc2_
-            _ap += '&tm=' + _loc4_
-            _ap += '&enc=' + _loc5_
-            _ap += '&qyid=' + self.uuid
-            _ap += '&puid=' + self.passportID
-            _ap += '&authKey=' + _loc6_
-            _ap += '&um=' + _loc8_ + _loc7_
-            _ap += '&thdk=' + self.thdKey
-            _ap += '&thdt=' + self.thdToken
-            _ap += '&tn=' + str(random.random())
-        # just return request URL
-        return _loc1_ + _ap
     
     pass
 

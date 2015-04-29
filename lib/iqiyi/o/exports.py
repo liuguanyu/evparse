@@ -4,17 +4,25 @@
 
 # import
 
-from .... import flash as flash0
-from .... import base as base0
+# import out
+from ... import flash
+from ... import base
 
+# import in
 from .core.model import remote_mixer
 
+from .base import uuid as uuid1
+
+# set in
+remote_mixer.set_import(flash)
+
+uuid1.set_import(base)
+
 # exports
-
-flash = flash0
-base = base0
-
 MixerRemote = remote_mixer.MixerRemote
+
+# FIXME debug export
+UUIDManager = uuid1.UUIDManager
 
 # end exports.py
 
