@@ -54,13 +54,44 @@ package com.adobe.images {
 		}
 		
 		private static function K102553ADDE26F326D54936BF096FFCDC0213C0373516K(param1:Array, param2:Array) : Array {
-			/*
-			 * Decompilation error
-			 * Code may be obfuscated
-			 * Deobfuscation is activated but decompilation still failed. If the file is NOT obfuscated, disable "Automatic deobfuscation" for better results.
-			 * Error type: TranslateException
-			 */
-			throw new flash.errors.IllegalOperationError("Not decompiled due to error");
+			var _loc12_:Array = null;
+			var _loc3_:int = param1.length - 1;
+			if(_loc3_ < 1) {
+				return param1;
+			}
+			if(param2.length < 4) {
+				_loc12_ = new Array();
+				_loc12_ = param2.slice();
+				var param2:Array = _loc12_;
+			}
+			while(param2.length < 4) {
+				param2.push(0);
+			}
+			var _loc4_:uint = param1[_loc3_];
+			var _loc5_:uint = param1[0];
+			var _loc6_:uint = 2.654435769E9;
+			var _loc7_:uint = 0;
+			var _loc8_:uint = 0;
+			var _loc9_:* = 0;
+			var _loc10_:int = 6 + 52 / (_loc3_ + 1);
+			while(_loc10_-- > 0) {
+				_loc7_ = uint(_loc7_ + _loc6_);
+				_loc8_ = _loc7_ >>> 2 & 3;
+				_loc9_ = 0;
+				while(_loc9_ < _loc3_) {
+					_loc5_ = param1[_loc9_ + 1];
+					_loc4_ = uint(param1[_loc9_] = param1[_loc9_] + ((_loc4_ >>> 5 ^ _loc5_ << 2) + (_loc5_ >>> 3 ^ _loc4_ << 4) ^ (_loc7_ ^ _loc5_) + (param2[_loc9_ & 3 ^ _loc8_] ^ _loc4_)));
+					_loc9_++;
+				}
+				_loc5_ = param1[0];
+				_loc4_ = uint(param1[_loc3_] = param1[_loc3_] + ((_loc4_ >>> 5 ^ _loc5_ << 2) + (_loc5_ >>> 3 ^ _loc4_ << 4) ^ (_loc7_ ^ _loc5_) + (param2[_loc9_ & 3 ^ _loc8_] ^ _loc4_)));
+			}
+			var _loc11_:uint = 0;
+			while(_loc11_ < param1.length) {
+				param1[_loc11_] = uint(param1[_loc11_]);
+				_loc11_++;
+			}
+			return param1;
 		}
 		
 		private static function K1025532A41C7ED9E674FF0923ACCF65BCA3A2A373516K(param1:Array, param2:Array) : Array {
