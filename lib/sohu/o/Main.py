@@ -7,6 +7,7 @@
 import urllib
 import time
 import math
+import random
 
 from .PlayerConfig import PlayerConfig
 
@@ -15,15 +16,16 @@ from .PlayerConfig import PlayerConfig
 class Main(object):
     
     def __init__(self):
-        self.flag_isTransition = False
-        
-        # TODO
-        self.domainProperty = ''
+        self.domainProperty = 0
+        # may be 0, 1, 2, 3
+        # 0 default sohu domain
+        # 1 unknow
+        # 2 other
+        # 3 56.com domain
         self.currentPageUrl = ''
-        
-        pass
+        # self.flag_isTransition = False
     
-    def fetchVideoInfo(_vid):
+    def fetchVideoInfo(self, _vid):
         param1 = _vid
         # reserved
         # _loc20_ = None
@@ -102,7 +104,9 @@ class Main(object):
         # return (_loc2_ + _loc3_ + _loc5_ + _loc6_ + _loc14_ + _loc4_ + _loc8_ + _loc9_ + _loc16_ + _loc10_ + _loc11_ + _loc13_ + _loc17_ + _loc19_ + _loc18_ + '&out=' + PlayerConfig.domainProperty + _loc15_ + '&g=' + Math.abs(new Date().getTimezoneOffset() / 60) + _loc12_)	# TODO
         # delete _loc4_, _loc5_, _loc6_, _loc7_, _loc8_, _loc9_, _loc10_, _loc11_, _loc13_, _loc14_, _loc15_, _loc16_, _loc17_, _loc18_, _loc19_
         # NOTE new Date().getTimezoneOffset() to time.timezone / 60
-        url_to = _loc2_ + _loc3_ + '&out=' + self.domainProperty + '&g=' + math.abs(time.timezone / 60 / 60) + _loc12_
+        url_to = _loc2_ + _loc3_ + '&out=' + str(self.domainProperty) + '&g=' + math.abs(time.timezone / 60 / 60) + _loc12_
+        # add tn
+        url_to += '&t=' + str(random.random())
         # done
         return url_to
     pass

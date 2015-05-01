@@ -5,15 +5,16 @@
 # import
 
 # import out
-from ... import flash
-from ... import base
 
 # import in
 
+from .Main import Main0
+
 # set in
-#remote_mixer.set_import(flash)
 
 # exports
+
+Main = Main0
 
 # end exports.py
 
