@@ -39,7 +39,7 @@ USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:37.0) Gecko/20100101 Firefo
 
 def re1(re0, text):
     result = re.findall(re0, text)
-    return result[0]
+    return result[0][0]
 
 # just return the content of the url as raw string
 # TODO this may be not stable
@@ -56,15 +56,15 @@ def simple_http_get(url, user_agent, referer):
     data = res.read()
     # check 'Content-Encoding'
     try:
-        ch = re1(res.getheader('Content-Type'), r'charset=([\w-]+)')
-    except:
+        ch = re1(r'charset=([\w-]+)', res.getheader('Content-Type'))
+    except BaseException as err:
         ch = 'utf-8'
-    if type(ce) != type(''):
+    if type(ch) != type(''):
         ch = 'utf-8'
-    if ce == '':
+    if ch == '':
         ch = 'utf-8'
     # just use this charset
-    content = data.decode(ch)
+    content = data.decode(ch, 'ignore')
     # done
     return content
 

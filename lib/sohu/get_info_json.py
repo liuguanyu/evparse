@@ -27,13 +27,36 @@
 
 # import
 
-from .o import exports
+# FIXME for debug
+import json
 
+from .o import exports
 from .. import base
 
 # global vars
 
 # functions
+
+def get_vids(info):
+    data = info['data']
+    vid = {}
+    vid['relative']	= data['relativeId']	# 未知
+    
+    vid['nor']		= data['norVid']	# 标清
+    vid['nor_h265']	= data['h265norVid']	# 标清 h265
+    vid['high']		= data['highVid']	# 高清
+    vid['high_h265']	= data['h265highVid']	# 高清 h265
+    vid['super']	= data['superVid']	# 超清
+    vid['super_h265']	= data['h265superVid']	# 超清 h265
+    vid['ori']		= data['oriVid']	# 原画
+    vid['ori_h265']	= data['h265oriVid']	# 原画 h265
+    
+    vid['4k_h264']	= data['h2644kVid']	# 4K h264
+    vid['4k_h265']	= data['h2654kVid']	# 4K h265
+    
+    vid['4m_h265']	= data['h2654mVid']	# 4M h265, 未知
+    # done
+    return vid
 
 def get_info(vid_info, raw_url):
     # create Main
@@ -43,9 +66,22 @@ def get_info(vid_info, raw_url):
     # get request url
     url_to = m.fetchVideoInfo(vid_info['vid'])
     # FIXME debug here
-    return url_to
+    print('DEBUG: frist url \"' + url_to + '\"')
+    # load it as json
+    info = base.get_json_info(url_to)
+    # get vids from it
+    vids = get_vids(info)
+    # FIXME debug here
+    print('DEBUG: got vids')
+    print(json.dumps(vids))
+    # create urls for vids
+    urls = []
+    for vid in vids:
+        one = m.fetchVideoInfo(vid)
+        urls.append(one)
+    # FIXME debug here
+    return urls
     # TODO
-    pass
 
 # end get_info_json.py
 

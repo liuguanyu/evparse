@@ -32,7 +32,7 @@ import re
 from .. import base
 
 # global vars
-RE_VID = r'\Wvid\s*[\:=]\s*[\'"]?(\d+)[\'"]?'
+RE_VID = 'var vid="([0-9]+)";'
 
 # functions
 
@@ -41,7 +41,7 @@ def get_vid(url):
     html_text = base.get_html_content(url)
     # use re to get vid and tvid
     vids = re.findall(RE_VID, html_text)
-    vid = vids[0][1]
+    vid = vids[0]
     # done
     vid_info = {}
     vid_info['vid'] = vid

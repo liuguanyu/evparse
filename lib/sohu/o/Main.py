@@ -4,9 +4,8 @@
 
 # import
 
-import urllib
+from urllib.parse import quote
 import time
-import math
 import random
 
 from .PlayerConfig import PlayerConfig
@@ -80,8 +79,8 @@ class Main(object):
         # _loc11_ = ''
         
         # _loc12_ = '&referer=' + (PlayerConfig.currentPageUrl == '' ? escape(PlayerConfig.outReferer) : escape(PlayerConfig.currentPageUrl))
-        # NOTE javascript escape() to urllib.quote()
-        _loc12_ = '&referer=' + urllib.quote(self.currentPageUrl)
+        # NOTE javascript escape() to urllib.parse.quote()
+        _loc12_ = '&referer=' + quote(self.currentPageUrl)
         
         # PlayerConfig.needP2PLive = false
         # _loc13_ = PlayerConfig.plid != '' ? '&plid=' + PlayerConfig.plid : ''
@@ -104,7 +103,8 @@ class Main(object):
         # return (_loc2_ + _loc3_ + _loc5_ + _loc6_ + _loc14_ + _loc4_ + _loc8_ + _loc9_ + _loc16_ + _loc10_ + _loc11_ + _loc13_ + _loc17_ + _loc19_ + _loc18_ + '&out=' + PlayerConfig.domainProperty + _loc15_ + '&g=' + Math.abs(new Date().getTimezoneOffset() / 60) + _loc12_)	# TODO
         # delete _loc4_, _loc5_, _loc6_, _loc7_, _loc8_, _loc9_, _loc10_, _loc11_, _loc13_, _loc14_, _loc15_, _loc16_, _loc17_, _loc18_, _loc19_
         # NOTE new Date().getTimezoneOffset() to time.timezone / 60
-        url_to = _loc2_ + _loc3_ + '&out=' + str(self.domainProperty) + '&g=' + math.abs(time.timezone / 60 / 60) + _loc12_
+        _g = int(round(abs(time.timezone / 60 / 60)))
+        url_to = _loc2_ + _loc3_ + '&out=' + str(self.domainProperty) + '&g=' + str(_g) + _loc12_
         # add tn
         url_to += '&t=' + str(random.random())
         # done

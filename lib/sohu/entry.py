@@ -43,9 +43,7 @@ def parse(url):	# this site entry main entry function
     # FIXME debug here
     print('DEBUG: got vid \"' + vid_info['vid'] + '\" ')
     # get info_json
-    # FIXME debug here
-    url_to = get_info_json.get_info(vid_info, url)
-    print('DEBUG: ' + url_to)
+    info = get_info_json.get_info(vid_info, url)
     # TODO
     pass
 
