@@ -81,7 +81,7 @@ class Main(object):
         
         # _loc12_ = '&referer=' + (PlayerConfig.currentPageUrl == '' ? escape(PlayerConfig.outReferer) : escape(PlayerConfig.currentPageUrl))
         # NOTE javascript escape() to urllib.quote()
-        _loc12_ = '&referer=' urllib.quote(self.currentPageUrl)
+        _loc12_ = '&referer=' + urllib.quote(self.currentPageUrl)
         
         # PlayerConfig.needP2PLive = false
         # _loc13_ = PlayerConfig.plid != '' ? '&plid=' + PlayerConfig.plid : ''

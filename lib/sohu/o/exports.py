@@ -8,7 +8,7 @@
 
 # import in
 
-from .Main import Main0
+from .Main import Main as Main0
 
 # set in
 

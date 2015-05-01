@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # base.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # base: base part. 
-# version 0.0.3.0 test201504291907
-# author sceext <sceext@foxmail.com> 2009EisF2015, 2015.04. 
+# version 0.0.4.0 test201505011747
+# author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
 # This is FREE SOFTWARE, released under GNU GPLv3+ 
@@ -28,6 +28,7 @@
 # import
 
 from urllib import request
+import re
 import json
 
 # global vars
@@ -35,6 +36,10 @@ import json
 USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:37.0) Gecko/20100101 Firefox/37.0'
 
 # functions
+
+def re1(re0, text):
+    result = re.findall(re0, text)
+    return result[0]
 
 # just return the content of the url as raw string
 # TODO this may be not stable
@@ -49,8 +54,17 @@ def simple_http_get(url, user_agent, referer):
     # res, response
     res = request.urlopen(req)
     data = res.read()
-    # TODO not check 'Content-Encoding'
-    content = data.decode('utf-8')
+    # check 'Content-Encoding'
+    try:
+        ch = re1(res.getheader('Content-Type'), r'charset=([\w-]+)')
+    except:
+        ch = 'utf-8'
+    if type(ce) != type(''):
+        ch = 'utf-8'
+    if ce == '':
+        ch = 'utf-8'
+    # just use this charset
+    content = data.decode(ch)
     # done
     return content
 
