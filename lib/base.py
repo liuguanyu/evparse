@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # base.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # base: base part. 
-# version 0.0.4.0 test201505011747
+# version 0.0.5.0 test201505012000
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -39,7 +39,7 @@ USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:37.0) Gecko/20100101 Firefo
 
 def re1(re0, text):
     result = re.findall(re0, text)
-    return result[0][0]
+    return result[0]
 
 # just return the content of the url as raw string
 # TODO this may be not stable

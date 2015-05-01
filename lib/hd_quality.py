@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # hd_quality.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # hd_quality: definition of video hd and quality. 
-# version 0.0.1.0 test201505011443
-# author sceext <sceext@foxmail.com> 2009EisF2015, 2015.04. 
+# version 0.0.2.0 test201505012000
+# author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
 # This is FREE SOFTWARE, released under GNU GPLv3+ 

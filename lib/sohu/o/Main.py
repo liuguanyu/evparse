@@ -104,7 +104,7 @@ class Main(object):
         # delete _loc4_, _loc5_, _loc6_, _loc7_, _loc8_, _loc9_, _loc10_, _loc11_, _loc13_, _loc14_, _loc15_, _loc16_, _loc17_, _loc18_, _loc19_
         # NOTE new Date().getTimezoneOffset() to time.timezone / 60
         _g = int(round(abs(time.timezone / 60 / 60)))
-        url_to = _loc2_ + _loc3_ + '&out=' + str(self.domainProperty) + '&g=' + str(_g) + _loc12_
+        url_to = _loc2_ + str(_loc3_) + '&out=' + str(self.domainProperty) + '&g=' + str(_g) + _loc12_
         # add tn
         url_to += '&t=' + str(random.random())
         # done
