@@ -18,10 +18,6 @@ def set_import(flash):
     global getTimer
     getTimer = flash.getTimer
 
-# FIXME just reserved
-# def getTimer(*args, **kw):
-#     return flash.getTimer(*args, **kw)
-
 # class
 
 class MixerRemote(object):

@@ -109,6 +109,9 @@ class Main(object):
         url_to += '&t=' + str(random.random())
         # done
         return url_to
+    
+    def parseVInfo(self):	# please see TvSohuNetStream.update_info()
+        pass
     pass
 
 # end Main.py

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # flash.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # flash: support some flash functions (action script 3) in python3. 
-# version 0.0.1.2 test201504292246
-# author sceext <sceext@foxmail.com> 2009EisF2015, 2015.04. 
+# version 0.0.2.0 test201505021356
+# author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
 # This is FREE SOFTWARE, released under GNU GPLv3+ 
@@ -28,6 +28,7 @@
 # import
 
 import time
+import base64
 
 # global vars
 _GET_TIMER_START_MS = 0
@@ -42,6 +43,68 @@ def getTimer(start=0):
     _GET_TIMER_START_MS -= start
     now_ms = _get_ms()
     return (now_ms - _GET_TIMER_START_MS)
+
+# convert data to uint format
+def uint(num):
+    n = int(num)	# int is of 4 bytes
+    b = n.to_bytes(4, 'little', signed=True)
+    return int.from_bytes(b, 'little', signed=False)
+
+# class
+
+class ByteArray(object):
+    
+    def __init__(self):
+        self._data = bytearray()
+        self.position = 0	# TODO
+    
+    def __len__(self):
+        return len(self._data)
+    
+    def __str__(self):
+        return str(self._data)
+    
+    def __getitem__(self, n):
+        return self._data[n]
+    
+    @property
+    def bytesAvailable(self):
+        return (len(self._data) - self.position - 1)
+    
+    def writeUTFBytes(self, string):
+        # create bytearray
+        b = bytearray(string, 'utf-8')
+        # just set and update data
+        i = self.position
+        self._data[i : i + len(b)] = b
+        # increase position
+        self.position += len(b)
+    
+    def writeByte(self, num):
+        # make byte
+        n = int(num)
+        b = n.to_bytes(4, 'little')[:1]
+        # set it
+        i = self.position
+        self._data[i] = b
+        self.position += 1
+    
+    def readByte(self):
+        # get byte
+        i = self.position
+        b = self._data[i]
+        self.position += 1
+        # make byte
+        return int.from_bytes(b, 'little', signed=True)
+    
+    def clear(self):
+        self._data = bytearray()
+        self.position = 0
+    
+    # NOTE add by me, not a method of flash ByteArray
+    def encode_base64(self):
+        return base64.b64encode(self._data)
+    # end ByteArray
 
 # init
 

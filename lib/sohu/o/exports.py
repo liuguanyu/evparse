@@ -5,12 +5,15 @@
 # import
 
 # import out
+from ... import flash
 
 # import in
 
 from .Main import Main as Main0
+from .adobe_images import ButtonUi as ButtonUi0
 
 # set in
+ButtonUi0.set_import(flash)
 
 # exports
 
