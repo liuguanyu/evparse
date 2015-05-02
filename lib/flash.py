@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # flash.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # flash: support some flash functions (action script 3) in python3. 
-# version 0.0.2.0 test201505021356
+# version 0.0.3.0 test201505021445
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -56,7 +56,7 @@ class ByteArray(object):
     
     def __init__(self):
         self._data = bytearray()
-        self.position = 0	# TODO
+        self.position = 0
     
     def __len__(self):
         return len(self._data)
@@ -64,12 +64,17 @@ class ByteArray(object):
     def __str__(self):
         return str(self._data)
     
+    def __repr__(self):
+        return repr(self._data)
+    
     def __getitem__(self, n):
-        return self._data[n]
+        b = self._data[n:n + 1]
+        # make byte
+        return int.from_bytes(b, 'little', signed=True)
     
     @property
     def bytesAvailable(self):
-        return (len(self._data) - self.position - 1)
+        return (len(self._data) - self.position)
     
     def writeUTFBytes(self, string):
         # create bytearray
@@ -86,13 +91,13 @@ class ByteArray(object):
         b = n.to_bytes(4, 'little')[:1]
         # set it
         i = self.position
-        self._data[i] = b
+        self._data[i: i + 1] = b
         self.position += 1
     
     def readByte(self):
         # get byte
         i = self.position
-        b = self._data[i]
+        b = self._data[i:i + 1]
         self.position += 1
         # make byte
         return int.from_bytes(b, 'little', signed=True)
