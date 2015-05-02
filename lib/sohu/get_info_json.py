@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # get_info_json.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # get_info_json: evparse/lib/sohu 
-# version 0.0.1.0 test201505012001
+# version 0.0.2.0 test201505021720
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -26,9 +26,6 @@
 #
 
 # import
-
-# FIXME for debug
-import json
 
 from .o import exports
 from .. import base
@@ -71,9 +68,6 @@ def get_info(vid_info, raw_url):
     info = base.get_json_info(url_to)
     # get vids from it
     vids = get_vids(info)
-    # FIXME debug here
-    print('DEBUG: got vids')
-    print(json.dumps(vids))
     # create urls for vids
     urls = {}
     for t in vids:
@@ -82,8 +76,6 @@ def get_info(vid_info, raw_url):
             one = m.fetchVideoInfo(vid)
             urls[t] = one
     # FIXME debug here
-    print('DEBUG: created urls')
-    print(json.dumps(urls))
     return urls
     # TODO
 

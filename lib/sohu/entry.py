@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # entry.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # entry: evparse/lib/sohu 
-# version 0.0.1.0 test201505012000
+# version 0.0.2.0 test201505021721
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -29,6 +29,7 @@
 
 from . import get_vid
 from . import get_info_json
+from . import get_video_url as get_video_url0
 
 # global vars
 
@@ -44,10 +45,13 @@ def parse(url):	# this site entry main entry function
     print('DEBUG: got vid \"' + vid_info['vid'] + '\" ')
     # get info_json
     info = get_info_json.get_info(vid_info, url)
+    # FIXME debug here
+    return info
     # TODO
-    pass
 
-# class
+# FIXME for debug
+def get_video_url(info_url):
+    return get_video_url0.get_video_urls(info_url)
 
 # end entry.py
 

@@ -10,6 +10,7 @@ from ... import flash
 # import in
 
 from .Main import Main as Main0
+from .netstream import TvSohuNetStream as NetStream0
 from .adobe_images import ButtonUi as ButtonUi0
 
 # set in
@@ -18,6 +19,7 @@ ButtonUi0.set_import(flash)
 # exports
 
 Main = Main0
+NetStream = NetStream0
 
 # end exports.py
 

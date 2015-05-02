@@ -13,16 +13,20 @@ from .PlayerConfig import PlayerConfig
 
 class TvSohuNetStream(object):
     
+    def __len__(self):
+        return len(self.clipsURL)
+    
     def update_info(self, info):	# info is got by Main.fetchVideoInfo()
         # this function is from Main.parseVInfo()
-        self.synUrl = info['data']
+        self.synUrl = info['data']['su']
         self.backupGSLBIP = info['reserveIp'].split(';')
         self.key = info['data']['ck']
         self.gslbIp = info['allot']
         self.currentVid = str(info['id'])
         self.tvid = info['tvid']	# reserved
         
-        self.bfd = info['data']['bfd']
+        if 'bfd' in info['data']:
+            self.bfd = info['data']['bfd']
         
         self.cdnMd = PlayerConfig.cdnMd	# NOTE reserved FIXME
         
@@ -118,9 +122,9 @@ class TvSohuNetStream(object):
         _ap += synUrl
         # _ap += ips
         _ap += key
-        _ap += vid
-        _ap += '&tvid=' + self.tvid
-        _ap += uid
+        _ap += str(vid)
+        _ap += '&tvid=' + str(self.tvid)
+        _ap += str(uid)
         # _ap += ta
         _ap += newInfoStr
         # if (self.bfd != None) and (self.bfd[_clipNo] != ''):
@@ -133,7 +137,7 @@ class TvSohuNetStream(object):
         return url
     
     def getUrlPath(self, text):
-        param1 = param1.replace('http://data.vod.itc.cn', '')
+        param1 = text.replace('http://data.vod.itc.cn', '')
         return param1.split('?')[0]
     # done
 
