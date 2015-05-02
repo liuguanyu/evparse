@@ -7,6 +7,8 @@
 import random
 from urllib.parse import quote
 
+from .PlayerConfig import PlayerConfig
+
 # class
 
 class TvSohuNetStream(object):
@@ -47,8 +49,8 @@ class TvSohuNetStream(object):
         
         self.userId = ''	# TODO reserved, may be null
         
-        self.clientWidth = 1920
-        self.clientHeight = 1080
+        self.clientWidth = PlayerConfig.clientWidth
+        self.clientHeight = PlayerConfig.clientHeight
         # reserved
         # self._errCdnIds = []
         # self.ta_jm = ''

@@ -6,10 +6,12 @@
 
 # import from out
 ByteArray = None
+uint = None
 # NOTE should be set by exports
 def set_import(flash):
     # just set ByteArray
     global ByteArray
+    global uint
     ByteArray = flash.ByteArray
     uint = flash.uint
 
@@ -18,10 +20,6 @@ def set_import(flash):
 class ButtonUi(object):
     
     _Xtime_Sbox_CDN = [99,100,110,48,49,48,49,48,53,48,48,48,51,52,98,97]
-    
-    def __init__(self):
-        pass
-    # TODO start
     
     # def K1(param1:ByteArray, param2:Boolean): Array
     def K1(param1, param2 = False):
@@ -153,7 +151,7 @@ class ButtonUi(object):
         return _loc3_
     
     # def drawBtnCDN(... rest): String
-    def drawBtnCDN(self, *rest):
+    def drawBtnCDN(*rest):
         # _loc2_:String
         # _loc3_:*
         _loc2_ = rest[0]
@@ -171,7 +169,7 @@ class ButtonUi(object):
         if len(_loc4_) == 0:
             return _loc2_
         return K6(K4(K2(K1(_loc4_, True), K1(_loc5_, False)), False))
-# TODO end
+    # end ButtonUi
 
 # end ButtonUi.py
 

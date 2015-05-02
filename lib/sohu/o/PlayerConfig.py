@@ -5,34 +5,36 @@
 class PlayerConfig(object):
     
     FETCH_VINFO_PATH = 'http://hot.vrs.sohu.com/vrs_flash.action?vid='
-    FETCH_VINFO_PATH_TRANSITION = 'http://hot.vrs.sohu.com/vrs_vms.action?p=flash&old='
-    FETCH_VINFO_PATH_MYTV = 'http://my.tv.sohu.com/play/videonew.do?vid='
-    FETCH_LIVE_PATH = 'http://live.tv.sohu.com/live/player_json.jhtml?encoding=utf-8&lid='
+    # FETCH_VINFO_PATH_TRANSITION = 'http://hot.vrs.sohu.com/vrs_vms.action?p=flash&old='
+    # FETCH_VINFO_PATH_MYTV = 'http://my.tv.sohu.com/play/videonew.do?vid='
+    # FETCH_LIVE_PATH = 'http://live.tv.sohu.com/live/player_json.jhtml?encoding=utf-8&lid='
     
     FETCH_VINFO_SUB_IP = ['220.181.118.25','220.181.118.181','123.126.48.47','123.126.48.48']
     
-    STAT_IP = ['qf1.hd.sohu.com.cn','qf2.hd.sohu.com.cn']
-    STAT_IP_QFCLIPS = ['qf3.hd.sohu.com.cn','qf4.hd.sohu.com.cn','qf5.hd.sohu.com.cn']
+    # STAT_IP = ['qf1.hd.sohu.com.cn','qf2.hd.sohu.com.cn']
+    # STAT_IP_QFCLIPS = ['qf3.hd.sohu.com.cn','qf4.hd.sohu.com.cn','qf5.hd.sohu.com.cn']
+    
+    VERSION = '201504291040'
+    
+    # static config, useful
+    clientWidth = 1920
+    clientHeight = 1080
     
     def __init__(self):
-        self.passportUID = ''
-        self.passportMail = ''
-        self.xuid = ''
         
-        self.apiKey = ''
-        self.userAgent = ''
+        # self.hashId = []
+        # self.key = []
+        # self.fileSize = []
         
-        self.hashId = []
-        self.key = []
-        self.fileSize = []
+        # self.clientIp = ''
+        # self.cdnIp = ''
+        # self.cdnId = ''
         
-        self.clientIp = ''
-        self.cdnIp = ''
-        self.cdnId = ''
+        # self.filePrimaryReferer = ''
+        # self.currentPageUrl = ''
+        # self.outReferer = ''
         
-        self.filePrimaryReferer = ''
-        
-        self.vid = ''
+        # self.vid = ''
         self.norVid = ''	# 标清
         self.hdVid = ''		# 高清
         self.superVid = ''	# 超清
@@ -50,26 +52,15 @@ class PlayerConfig(object):
         # h265oriVid	原画, h265
         # h2654mVid	(未知)
         # h2654kVid	4K, h265
-        
-        self.cid = ''
         self.relativeId = ''
         self.currentVid = ''
-        
-        self.sid = ''
-        self.nid = ''
-        self.pid = ''
-        
-        self.userId = ''
-        self.myTvUid = ''
-        self.myTvUserId = ''
-        self.uuid = ''
-        
         self.tvid = ''
-        
-        self.currentPageUrl = ''
-        self.outReferer = ''
-        
-        self.isLive = False
+        # self.cid = ''
+        # self.userId = ''
+        # self.myTvUid = ''
+        # self.myTvUserId = ''
+        # self.uuid = ''
+        # self.isLive = False
         
         # done
 

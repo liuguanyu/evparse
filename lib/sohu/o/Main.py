@@ -9,6 +9,7 @@ import time
 import random
 
 from .PlayerConfig import PlayerConfig
+from .adobe_images.ButtonUi import ButtonUi
 
 # class
 
@@ -112,7 +113,18 @@ class Main(object):
     
     def parseVInfo(self):	# please see TvSohuNetStream.update_info()
         pass
-    pass
+    
+    def sysInit(param1=''):
+        # str1 = PlayerConfig.clientWidth + '_' + PlayerConfig.clientHeight + '/' + PlayerConfig.VERSION
+        # ran = int(int(Number(PlayerConfig.clientWidth) % 127) * int(Number(PlayerConfig.clientHeight) % 127) % 127) + 100
+        str1 = str(PlayerConfig.clientWidth) + '_' + str(PlayerConfig.clientHeight) + '/' + str(PlayerConfig.VERSION)
+        ran = int(int(float(PlayerConfig.clientWidth) % 127) * int(float(PlayerConfig.clientHeight) % 127) % 127) + 100
+        
+        # PlayerConfig.cdnMd = this._btnUi.drawBtnCDN(str,PlayerConfig.clientWidth,PlayerConfig.clientHeight) + ran
+        cdnMd = ButtonUi.drawBtnCDN(str1, PlayerConfig.clientWidth, PlayerConfig.clientHeight) + str(ran)
+        # done
+        return cdnMd
+    # end Main
 
 # end Main.py
 
