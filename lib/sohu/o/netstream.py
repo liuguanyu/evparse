@@ -24,7 +24,7 @@ class TvSohuNetStream(object):
         
         self.bfd = info['data']['bfd']
         
-        self.cdnMd = 	# TODO
+        self.cdnMd = PlayerConfig.cdnMd	# NOTE reserved FIXME
         
         self.clipsURL = info['data']['clipsURL']
         # self._gslbUrl = 

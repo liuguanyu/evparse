@@ -17,8 +17,14 @@ class PlayerConfig(object):
     VERSION = '201504291040'
     
     # static config, useful
-    clientWidth = 1920
-    clientHeight = 1080
+    # clientWidth = 1920
+    # clientHeight = 1080
+    # for debug
+    clientWidth = 1005
+    clientHeight = 531
+    
+    # cdnMd for this clientWidth 1005, clientHeight 531 and VERSION '201504291040'
+    cdnMd = 'ENf8NUCIbC0pBUaXlEtROwyOwvq5S+w+tFaG9g==101'
     
     def __init__(self):
         

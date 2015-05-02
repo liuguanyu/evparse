@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # flash.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # flash: support some flash functions (action script 3) in python3. 
-# version 0.0.3.0 test201505021445
+# version 0.0.4.0 test201505021619
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -47,8 +47,31 @@ def getTimer(start=0):
 # convert data to uint format
 def uint(num):
     n = int(num)	# int is of 4 bytes
-    b = n.to_bytes(4, 'little', signed=True)
-    return int.from_bytes(b, 'little', signed=False)
+    b = None
+    out = None
+    try:	# fix for overflow, may not be right
+        b = n.to_bytes(4, 'little', signed=True)
+    except OverflowError as err:
+        try:
+            b = n.to_bytes(8, 'little', signed=True)
+        except OverflowError as err2:
+            # print('DEBUG: flash.uint() 8 Bytes failed')
+            try:
+                b = n.to_bytes(16, 'little', signed=True)
+            except OverflowError as err3:
+                print('DEBUG: flash.uint() 16 Bytes failed')
+                try:
+                    b = n.to_bytes(32, 'little', signed=True)
+                except OverflowError as err4:
+                    print('DEBUG: flash.uint() 32 Bytes failed')
+                    try:
+                        b = n.to_bytes(64, 'little', signed=True)
+                    except OverflowError as err5:
+                        print('DEBUG: flash.uint() 64 Bytes failed')
+                        b = n.to_bytes(128, 'little', signed=True)
+    finally:
+        out = int.from_bytes(b[:4], 'little', signed=False)
+    return out
 
 # class
 
@@ -110,6 +133,49 @@ class ByteArray(object):
     def encode_base64(self):
         return base64.b64encode(self._data)
     # end ByteArray
+
+class Array(object):
+    
+    def __init__(self):
+        self._data = []
+    
+    def __len__(self):
+        return len(self._data)
+    
+    def __str__(self):
+        return str(self._data)
+    
+    def __repr__(self):
+        return repr(self._data)
+    
+    def __getitem__(self, n):
+        # check slice
+        if isinstance(n, slice):
+            return self._data[n.start:n.step:n.stop]
+        # check len
+        if n > len(self._data) - 1:
+            return None
+        return self._data[n]
+    
+    def __setitem__(self, n, item):
+        # check max length
+        if isinstance(n, slice):
+            max_i = n.stop
+        else:
+            max_i = n + 1
+        # check array length
+        while len(self._data) < max_i:
+            self._data.append(None)
+        # check slice
+        if isinstance(n, slice):
+            self._data[n.start:n.step:n.stop] = item
+        else:
+            # set it
+            self._data[n] = item
+    
+    def append(self, item):
+        self._data.append(item)
+    # end Array
 
 # init
 
