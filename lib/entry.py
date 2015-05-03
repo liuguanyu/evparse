@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # entry.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # evparse:lib/entry: evparse main lib entry. 
-# version 0.0.3.0 test201505031557
+# version 0.0.4.0 test201505031802
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -35,13 +35,13 @@ from . import hd_quality
 
 # global config obj
 etc = {}
-etc.flag_debug = False
+etc['flag_debug'] = False
 
-etc.hd_max = hd_quality.HD_MAX
-etc.hd_min = hd_quality.HD_MIN
+etc['hd_max'] = hd_quality.HD_MAX
+etc['hd_min'] = hd_quality.HD_MIN
 
-etc.EV_INFO_VERSION = 'evdh info_source info_version 0.2.0.0 test201505031420'
-etc.EV_INFO_SOURCE = 'evparse1'
+etc['EV_INFO_VERSION'] = 'evdh info_source info_version 0.2.0.0 test201505031420'
+etc['EV_INFO_SOURCE'] = 'evparse1'
 
 # lists
 
@@ -49,7 +49,7 @@ LIST_URL_TO_EXTRACTOR = {	# re of url to extractor_name
     # http://www.iqiyi.com/v_19rrn64t40.html
     '^http://www\.iqiyi\.com/v_.+\.html$' : 'iqiyi', 
     # http://tv.sohu.com/20150215/n409034362.shtml
-    '^http://tv\.sohu\.com/(19|20)[0-9]{4}/n[0-9]+\.shtml$' : 'sohu', 
+    '^http://tv\.sohu\.com/(19|20)[0-9]{6}/n[0-9]+\.shtml$' : 'sohu', 
 }
 
 LIST_SITE = {	# list of site to site_name
@@ -103,8 +103,8 @@ def dy_import_extractor(extractor_name):
 def add_more_info(evinfo):
     # add info for evinfo.info part
     info = evinfo['info']
-    info['info_version'] = etc.EV_INFO_VERSION
-    info['info_source'] = etc.EV_INFO_SOURCE
+    info['info_version'] = etc['EV_INFO_VERSION']
+    info['info_source'] = etc['EV_INFO_SOURCE']
     if not 'error' in info:	# no error
         info['error'] = ''
     info['extractor_name'] = LIST_EXTRACTOR_NAME[info['extractor']]
@@ -147,13 +147,13 @@ def parse(url_to, config=etc):
     if extractor_name == None:	# not support this url
         raise Exception('not support this url \"' + url_to + '\" ')
     # import extractor
-    extractor = dy_import(extractor_name)
+    extractor = dy_import_extractor(extractor_name)
     # set it
     extractor.set_config(config)
     # just parse
     evinfo0 = extractor.parse(url_to)
     # add more info
-    evinfo['info']['extractor'] = extractor_name	# set in extractor_name
+    evinfo0['info']['extractor'] = extractor_name	# set in extractor_name
     evinfo = add_more_info(evinfo0)
     # done
     return evinfo
