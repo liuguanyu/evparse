@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # get_video_info.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # get_video_info: evparse/lib/sohu 
-# version 0.0.5.0 test201505032138
+# version 0.1.0.0 test201505032158
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -123,7 +123,7 @@ def get_info(info_list, hd_max=0, hd_min=0, flag_debug=False):
     real_urls = base.map_do(todo_url, get_one_real_url, pool_size=POOL_SIZE_GET_REAL_URL)
     # update real_urls
     url_i = 0
-    for j in video:
+    for j in vinfo:
         for i in j['file']:
             i['url'] = real_urls[url_i]
             url_i += 1
