@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # get_video_info.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # get_video_info: evparse/lib/sohu 
-# version 0.0.2.0 test201505021720
+# version 0.0.3.0 test201505031739
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -57,6 +57,57 @@ def get_video_urls(info_url):
     info = get_info_obj(info_url)
     urls = get_final_url(info)
     return urls
+
+# FIXME TODO
+
+def get_file_info(info):	# TODO
+    return []
+    pass
+
+def get_one_info(item):	# item, todo_item
+    url = item['url']
+    info = get_info_obj(url)
+    # add some info
+    vinfo = {}
+    vinfo['hd'] = item['hd']
+    if 'quality' in item:
+        vinfo['quality'] = item['quality']
+    vinfo['format'] = 'mp4'	# the format of video file is mp4 now
+    vinfo['size_px'] = [info['data']['width'], info['data']['height']]	# size of video in px
+    vinfo['file'] = []
+    # add size_byte and time_s
+    vinfo['size_byte'] = info['data']['totalBytes']
+    vinfo['time_s'] = info['data']['totalDuration']
+    # TODO reserved now FIXME
+    # check flag, and get file info
+    # if item['flag_get_file']:
+    #     vinfo['file'] = get_file_info(info)
+    #     # clear size_byte and time_s
+    #     del vinfo['size_byte']
+    #     del vinfo['time_s']
+    # done
+    return vinfo
+
+def get_info(info_list, hd_max=0, hd_min=0, flag_debug=False):
+    # make to_do list
+    todo_list = []
+    for i in info_list:
+        # set flag_get_file
+        hd = i['hd']
+        i['flag_get_file'] = False
+        if (hd >= hd_min) and (hd <= hd_max):
+            i['flag_get_file'] = True
+        todo_list.append(i)
+    # sort video by hd
+    todo_list.sort(key=lambda item:item['hd'], reverse=False)
+    # FIXME should use pool.map to get many at the same time
+    vinfo = []	# video info
+    for i in todo_list:	# get each info
+        one_info = get_one_info(i)
+        vinfo.append(one_info)
+    # TODO get real urls
+    # done
+    return vinfo
 
 # end get_video_info.py
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # entry.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # evparse:lib/entry: evparse main lib entry. 
-# version 0.0.2.1 test201505031507
+# version 0.0.3.0 test201505031557
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -133,8 +133,10 @@ def add_more_info_one_video(one):
         size_byte += i['size']
         time_s += i['time_s']
     # add count
-    one['size_byte'] = size_byte
-    one['time_s'] = time_s
+    if not(('size_byte' in one) and (size_byte == 0)):
+        one['size_byte'] = size_byte
+    if not(('time_s' in one) and (time_s == 0)):
+        one['time_s'] = time_s
     # done
     return one
 

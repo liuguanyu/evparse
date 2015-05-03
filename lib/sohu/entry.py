@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # entry.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # entry: evparse/lib/sohu 
-# version 0.0.2.0 test201505021721
+# version 0.0.3.0 test201505031740
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -53,7 +53,6 @@ def set_config(config):
     etc.hd_min = config.hd_min
 
 def parse(url_to):	# this site entry main entry function
-    
     # frist re-check url, if supported by this
     if not re.match(RE_SUPPORT_URL, url_to)
         raise Exception('not support this url \"' + url_to + '\" ')
@@ -72,8 +71,14 @@ def parse(url_to):	# this site entry main entry function
     # get base, more info
     info, more = get_base_info.get_info(vid_info, url, flag_debug=etc.flag_debug)
     # add more info
-    
-    # TODO
+    evinfo['info']['title'] = more['title']
+    evinfo['info']['sub_title'] = more['sub_title']
+    evinfo['info']['short_title'] = more['short_title']
+    evinfo['info']['no'] = more['no']
+    # get video info
+    evinfo['video'] = get_video_info.get_info(info, hd_max=etc.hd_max, hd_min=etc.hd_min, flag_debug=etc.flag_debug)
+    # done
+    return evinfo
 
 # end entry.py
 
