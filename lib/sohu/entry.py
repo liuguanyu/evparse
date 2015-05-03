@@ -35,6 +35,9 @@ from . import get_video_url as get_video_url0
 
 # functions
 
+def set_config(config):
+    pass
+
 def parse(url):	# this site entry main entry function
     
     # frist re-check url, if supported by this

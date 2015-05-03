@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # hd_quality.py, part for evparse : EisF Video Parse, evdh Video Parse. 
-# hd_quality: definition of video hd and quality. 
-# version 0.0.2.0 test201505012000
+# evparse:lib/hd_quality: definition of video hd and quality. 
+# version 0.0.4.0 test201505031334
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -24,8 +24,6 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-
-# import
 
 # description								sites
 # hd	quality		english			note			iqiyi				sohu
@@ -57,6 +55,8 @@
 
 defi = {}
 
+HD_MIN = -7	# min hd number
+
 defi['-8'] = ''	# reserved
 defi['-7'] = '无语渣'
 defi['-6'] = '极其渣'
@@ -79,6 +79,8 @@ defi['9'] = ''	# reserved
 defi['10'] = ''	# reserved
 defi['11'] = '8K'
 defi['12'] = ''	# reserved
+
+HD_MAX = 8	# max hd number
 
 # functions
 def get(hd):
