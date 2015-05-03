@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # get_base_info.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # get_base_info: evparse/lib/sohu 
-# version 0.0.4.0 test201505031801
+# version 0.0.5.1 test201505031917
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -103,8 +103,8 @@ def get_info(vid_info, raw_url, flag_debug=False):
     out = {}	# output info obj
     out['title'] = info['data']['tvName']
     out['sub_title'] = info['data']['subName']
-    out['short_title'] = ''	# FIXME not support this now
-    out['no'] = -1		# FIXME not support this now
+    out['short_title'] = info['keyword'].split(';')[0]	# TODO this method may not be stable
+    out['no'] = info['data']['num']
     # process urls
     vid_info = []
     for t in urls:
