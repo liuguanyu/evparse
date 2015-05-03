@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # get_base_info.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # get_base_info: evparse/lib/sohu 
-# version 0.0.5.1 test201505031917
+# version 0.0.7.0 test201505032007
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -42,8 +42,8 @@ VID_TO_HD = {	# vid to hd translate
     'ori' 	: 4, 
     'ori_h265' 	: 4, 
     '4k_h264' 	: 7, 
-    '4k_h265' 	: 8, 
-    '4m_h265' 	: 8, 
+    '4k_h265' 	: 7, 	# normal 4K, not high bitrate 4K
+    '4m_h265' 	: 5, 	# NOTE 4m: 高码1080p, high bitrate 1080p
 }
 
 VID_MORE_QUALITY = {	# more quality info for vid
@@ -52,7 +52,7 @@ VID_MORE_QUALITY = {	# more quality info for vid
     'super_h265' : 'h265', 
     'ori_h265' : 'h265', 
     '4k_h265' : 'h265', 
-    '4m_h265' : 'h265_4m', 
+    '4m_h265' : 'h265', 
 }
 
 # functions
@@ -112,7 +112,7 @@ def get_info(vid_info, raw_url, flag_debug=False):
         ov['url'] = urls[t]
         ov['hd'] = VID_TO_HD[t]
         if t in VID_MORE_QUALITY:
-            ov['quailty'] = VID_MORE_QUALITY[t]
+            ov['quality'] = VID_MORE_QUALITY[t]
         # add one
         vid_info.append(ov)
     # done
