@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # get_video_info.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # get_video_info: evparse/lib/sohu 
-# version 0.0.4.0 test201505031909
+# version 0.0.5.0 test201505032138
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -32,10 +32,17 @@ from .. import base
 
 # global vars
 
+POOL_SIZE_GET_VINFO = 4
+POOL_SIZE_GET_REAL_URL = 8
+
 # functions
 
 def get_info_obj(info_url):
     return base.get_json_info(info_url)
+
+def get_one_real_url(final_url):	# get the url of the video file to download
+    info = get_info_obj(final_url)
+    return info['url']
 
 def get_final_url(info):
     # create NetStream
@@ -105,12 +112,21 @@ def get_info(info_list, hd_max=0, hd_min=0, flag_debug=False):
         todo_list.append(i)
     # sort video by hd
     todo_list.sort(key=lambda item:item['hd'], reverse=False)
-    # FIXME should use pool.map to get many at the same time
-    vinfo = []	# video info
-    for i in todo_list:	# get each info
-        one_info = get_one_info(i)
-        vinfo.append(one_info)
-    # TODO get real urls
+    # use map_do
+    vinfo = base.map_do(todo_list, get_one_info, pool_size=POOL_SIZE_GET_VINFO)
+    # get urls to get real urls
+    todo_url = []
+    for j in vinfo:
+        for i in j['file']:
+            todo_url.append(i['url'])
+    # use map_do to get real_urls
+    real_urls = base.map_do(todo_url, get_one_real_url, pool_size=POOL_SIZE_GET_REAL_URL)
+    # update real_urls
+    url_i = 0
+    for j in video:
+        for i in j['file']:
+            i['url'] = real_urls[url_i]
+            url_i += 1
     # done
     return vinfo
 
