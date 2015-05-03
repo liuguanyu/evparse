@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # entry.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # entry: evparse/lib/iqiyi 
-# version 0.0.0.1 test201504291446
-# author sceext <sceext@foxmail.com> 2009EisF2015, 2015.04. 
+# version 0.0.1.0 test201505031448
+# author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
 # This is FREE SOFTWARE, released under GNU GPLv3+ 
@@ -33,6 +33,10 @@ from . import get_vid
 
 # functions
 
+def set_config(config):
+    raise Exception('this extractor has not been finished')
+    pass
+
 def parse(url):	# this site entry main entry function
     
     # frist re-check url, if supported by this
@@ -41,8 +45,6 @@ def parse(url):	# this site entry main entry function
     vid_info = get_vid.get_vid(url)
     # TODO
     pass
-
-# class
 
 # end entry.py
 

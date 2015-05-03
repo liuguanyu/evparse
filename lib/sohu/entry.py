@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # entry.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # entry: evparse/lib/sohu 
-# version 0.0.2.0 test201505021721
+# version 0.1.0.0 test201505032159
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -27,31 +27,58 @@
 
 # import
 
+import re
+
 from . import get_vid
-from . import get_info_json
-from . import get_video_url as get_video_url0
+from . import get_base_info
+from . import get_video_info
 
 # global vars
 
+# http://tv.sohu.com/20150215/n409034362.shtml
+RE_SUPPORT_URL = '^http://tv\.sohu\.com/(19|20)[0-9]{6}/n[0-9]+\.shtml$'
+
+# global config obj
+etc = {}	# NOTE should be set
+etc['flag_debug'] = False
+etc['hd_max'] = 0
+etc['hd_min'] = 0
+
 # functions
 
-def parse(url):	# this site entry main entry function
-    
-    # frist re-check url, if supported by this
-    # TODO
-    # get vid
-    vid_info = get_vid.get_vid(url)
-    # FIXME debug here
-    print('DEBUG: got vid \"' + vid_info['vid'] + '\" ')
-    # get info_json
-    info = get_info_json.get_info(vid_info, url)
-    # FIXME debug here
-    return info
-    # TODO
+def set_config(config):
+    # just copy it
+    etc['flag_debug'] = config['flag_debug']
+    etc['hd_max'] = config['hd_max']
+    etc['hd_min'] = config['hd_min']
 
-# FIXME for debug
-def get_video_url(info_url):
-    return get_video_url0.get_video_urls(info_url)
+def parse(url_to):	# this site entry main entry function
+    # frist re-check url, if supported by this
+    if not re.match(RE_SUPPORT_URL, url_to):
+        raise Exception('not support this url \"' + url_to + '\" ')
+    # create evinfo
+    evinfo = {}
+    evinfo['info'] = {}
+    evinfo['video'] = []
+    # add some base info
+    evinfo['info']['url'] = url_to
+    evinfo['info']['site'] = 'sohu'
+    # get vid
+    vid_info = get_vid.get_vid(url_to)
+    # DEBUG info
+    if etc['flag_debug']:
+        print('lib.sohu: DEBUG: got vid \"' + vid_info['vid'] + '\" ')
+    # get base, more info
+    info, more = get_base_info.get_info(vid_info, url_to, flag_debug=etc['flag_debug'])
+    # add more info
+    evinfo['info']['title'] = more['title']
+    evinfo['info']['title_sub'] = more['sub_title']
+    evinfo['info']['title_short'] = more['short_title']
+    evinfo['info']['title_no'] = more['no']
+    # get video info
+    evinfo['video'] = get_video_info.get_info(info, hd_max=etc['hd_max'], hd_min=etc['hd_min'], flag_debug=etc['flag_debug'])
+    # done
+    return evinfo
 
 # end entry.py
 

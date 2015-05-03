@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # hd_quality.py, part for evparse : EisF Video Parse, evdh Video Parse. 
-# hd_quality: definition of video hd and quality. 
-# version 0.0.2.0 test201505012000
+# evparse:lib/hd_quality: definition of video hd and quality. 
+# version 0.0.5.0 test201505031539
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -25,29 +25,27 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# import
-
 # description								sites
 # hd	quality		english			note			iqiyi				sohu
 #
-# -8			(reserved)
+# -8			(reserved)									TODO
 # -7	无语渣		very very bad		清晰度 (分辨率) 太低
 # -6	极其渣		very very bad		清晰度 (分辨率) 太低
 # -5	渣的受不了	very very bad		清晰度 (分辨率) 太低
 # -4	超渣		very very bad		清晰度 (分辨率) 太低
 # -3	渣清		very very bad		清晰度 (分辨率) 太低	极速	LIMIT, topspeed
 # -2	超低清		very low		清晰度 (分辨率) 太低	流畅	NONE, none
-# -1	低清		low			较低清晰度		标清	STANDARD, standard
+# -1	低清		low			较低清晰度		标清	STANDARD, standard	标清, norvid, h265norVid
 #
-# 0	普清		normal			普通清晰度		高清	HIGH, high
+# 0	普清		normal			普通清晰度		高清	HIGH, high		高清, highVid, h265highVid
 # 1	高清		high			较高清晰度		超清	SUPER, super
-# 2	720p		1280 x 720		分辨率约 1280 x 720	720p	SUPER_HIGH, super-high	x
+# 2	720p		1280 x 720		分辨率约 1280 x 720	720p	SUPER_HIGH, super-high	超清, superVid, h265superVid
 # 3			(reserved)
-# 4	1080p		1920 x 1080		分辨率约 1920 x 1080	1080p	FULL_HD, fullhd
+# 4	1080p		1920 x 1080		分辨率约 1920 x 1080	1080p	FULL_HD, fullhd		原画, oriVid, h265oriVid
 # 5	高码1080p	high bitrate 1080p	高码率 1080p
 # 6			(reserved)
-# 7	4K		4096 x 2160		分辨率约 4096 x 2160	4K	FOUR_K, 4k
-# 8	4K_h265		4K with h265 encode	h265 编码的 4K
+# 7	4K		4096 x 2160		分辨率约 4096 x 2160	4K	FOUR_K, 4k		4K, h2644kVid
+# 8	高码4K		high bitrate 4K		高码率 4K						4K_h265, h2654kVid, h2654mVid
 # 9			(reserved)
 # 10			(reserved)
 # 11	8K		8192 x 4320		分辨率约 8192 x 4320
@@ -56,6 +54,8 @@
 # definition
 
 defi = {}
+
+HD_MIN = -7	# min hd number
 
 defi['-8'] = ''	# reserved
 defi['-7'] = '无语渣'
@@ -74,11 +74,13 @@ defi['4'] = '1080p'
 defi['5'] = '高码1080p'
 defi['6'] = ''	# reserved
 defi['7'] = '4K'
-defi['8'] = '4K_h265'
+defi['8'] = '高码4K'
 defi['9'] = ''	# reserved
 defi['10'] = ''	# reserved
 defi['11'] = '8K'
 defi['12'] = ''	# reserved
+
+HD_MAX = 8	# max hd number
 
 # functions
 def get(hd):

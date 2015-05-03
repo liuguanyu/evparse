@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# get_info_json.py, part for evparse : EisF Video Parse, evdh Video Parse. 
-# get_info_json: evparse/lib/sohu 
-# version 0.0.2.0 test201505021720
+# get_base_info.py, part for evparse : EisF Video Parse, evdh Video Parse. 
+# get_base_info: evparse/lib/sohu 
+# version 0.1.0.0 test201505032157
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -32,12 +32,35 @@ from .. import base
 
 # global vars
 
+VID_TO_HD = {	# vid to hd translate
+    'nor' 	: -1, 
+    'nor_h265' 	: -1, 
+    'high' 	: 0, 
+    'high_h265' : 0, 
+    'super' 	: 2, 
+    'super_h265': 2, 
+    'ori' 	: 4, 
+    'ori_h265' 	: 4, 
+    '4k_h264' 	: 7, 
+    '4k_h265' 	: 7, 	# normal 4K, not high bitrate 4K
+    '4m_h265' 	: 5, 	# NOTE 4m: 高码1080p, high bitrate 1080p
+}
+
+VID_MORE_QUALITY = {	# more quality info for vid
+    'nor_h265' : 'h265', 
+    'high_h265' : 'h265', 
+    'super_h265' : 'h265', 
+    'ori_h265' : 'h265', 
+    '4k_h265' : 'h265', 
+    '4m_h265' : 'h265', 
+}
+
 # functions
 
 def get_vids(info):
     data = info['data']
     vid = {}
-    vid['relative']	= data['relativeId']	# 未知
+    # vid['relative']	= data['relativeId']	# 未知
     
     vid['nor']		= data['norVid']	# 标清
     vid['nor_h265']	= data['h265norVid']	# 标清 h265
@@ -55,15 +78,16 @@ def get_vids(info):
     # done
     return vid
 
-def get_info(vid_info, raw_url):
+def get_info(vid_info, raw_url, flag_debug=False):
     # create Main
     m = exports.Main()
     # set data
     m.currentPageUrl = raw_url
     # get request url
     url_to = m.fetchVideoInfo(vid_info['vid'])
-    # FIXME debug here
-    print('DEBUG: frist url \"' + url_to + '\"')
+    # DEBUG info
+    if flag_debug:
+        print('lib.sohu: DEBUG: frist url \"' + url_to + '\"')
     # load it as json
     info = base.get_json_info(url_to)
     # get vids from it
@@ -75,10 +99,25 @@ def get_info(vid_info, raw_url):
         if vid != 0:
             one = m.fetchVideoInfo(vid)
             urls[t] = one
-    # FIXME debug here
-    return urls
-    # TODO
+    # get more info
+    out = {}	# output info obj
+    out['title'] = info['data']['tvName']
+    out['sub_title'] = info['data']['subName']
+    out['short_title'] = info['keyword'].split(';')[0]	# TODO this method may not be stable
+    out['no'] = info['data']['num']
+    # process urls
+    vid_info = []
+    for t in urls:
+        ov = {}	# one_vid
+        ov['url'] = urls[t]
+        ov['hd'] = VID_TO_HD[t]
+        if t in VID_MORE_QUALITY:
+            ov['quality'] = VID_MORE_QUALITY[t]
+        # add one
+        vid_info.append(ov)
+    # done
+    return vid_info, out
 
-# end get_info_json.py
+# end get_base_info.py
 
 
