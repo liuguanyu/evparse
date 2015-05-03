@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # get_video_info.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # get_video_info: evparse/lib/sohu 
-# version 0.0.3.0 test201505031739
+# version 0.0.4.0 test201505031909
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -53,16 +53,22 @@ def get_final_url(info):
     # done
     return urls
 
-def get_video_urls(info_url):
-    info = get_info_obj(info_url)
-    urls = get_final_url(info)
-    return urls
-
-# FIXME TODO
-
-def get_file_info(info):	# TODO
-    return []
-    pass
+def get_file_info(info):
+    # get info
+    file_size = info['data']['clipsBytes']
+    file_time = info['data']['clipsDuration']
+    # get urls
+    raw_urls = get_final_url(info)
+    # create file info struct
+    finfo = []
+    for i in range(len(raw_urls)):
+        one = {}
+        one['time_s'] = file_time[i]
+        one['size'] = file_size[i]
+        one['url'] = raw_urls[i]
+        finfo.append(one)
+    # done
+    return finfo
 
 def get_one_info(item):	# item, todo_item
     url = item['url']
@@ -78,13 +84,12 @@ def get_one_info(item):	# item, todo_item
     # add size_byte and time_s
     vinfo['size_byte'] = info['data']['totalBytes']
     vinfo['time_s'] = info['data']['totalDuration']
-    # TODO reserved now FIXME
     # check flag, and get file info
-    # if item['flag_get_file']:
-    #     vinfo['file'] = get_file_info(info)
-    #     # clear size_byte and time_s
-    #     del vinfo['size_byte']
-    #     del vinfo['time_s']
+    if item['flag_get_file']:
+        vinfo['file'] = get_file_info(info)
+        # clear size_byte and time_s
+        del vinfo['size_byte']
+        del vinfo['time_s']
     # done
     return vinfo
 
