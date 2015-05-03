@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# get_video_url.py, part for evparse : EisF Video Parse, evdh Video Parse. 
-# get_video_url: evparse/lib/sohu 
+# get_video_info.py, part for evparse : EisF Video Parse, evdh Video Parse. 
+# get_video_info: evparse/lib/sohu 
 # version 0.0.2.0 test201505021720
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
@@ -58,6 +58,6 @@ def get_video_urls(info_url):
     urls = get_final_url(info)
     return urls
 
-# end get_info_json.py
+# end get_video_info.py
 
 

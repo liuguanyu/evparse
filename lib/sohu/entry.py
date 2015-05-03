@@ -27,34 +27,53 @@
 
 # import
 
+import re
+
 from . import get_vid
-from . import get_info_json
-from . import get_video_url as get_video_url0
+from . import get_base_info
+from . import get_video_info
 
 # global vars
+
+# http://tv.sohu.com/20150215/n409034362.shtml
+RE_SUPPORT_URL = '^http://tv\.sohu\.com/(19|20)[0-9]{4}/n[0-9]+\.shtml$'
+
+# global config obj
+etc = {}	# NOTE should be set
+etc.flag_debug = False
+etc.hd_max = 0
+etc.hd_min = 0
 
 # functions
 
 def set_config(config):
-    pass
+    # just copy it
+    etc.flag_debug = config.flag_debug
+    etc.hd_max = config.hd_max
+    etc.hd_min = config.hd_min
 
-def parse(url):	# this site entry main entry function
+def parse(url_to):	# this site entry main entry function
     
     # frist re-check url, if supported by this
-    # TODO
+    if not re.match(RE_SUPPORT_URL, url_to)
+        raise Exception('not support this url \"' + url_to + '\" ')
+    # create evinfo
+    evinfo = {}
+    evinfo['info'] = {}
+    evinfo['video'] = []
+    # add some base info
+    evinfo['info']['url'] = url_to
+    evinfo['info']['site'] = 'sohu'
     # get vid
     vid_info = get_vid.get_vid(url)
-    # FIXME debug here
-    print('DEBUG: got vid \"' + vid_info['vid'] + '\" ')
-    # get info_json
-    info = get_info_json.get_info(vid_info, url)
-    # FIXME debug here
-    return info
+    # DEBUG info
+    if etc.flag_debug:
+        print('lib.sohu: DEBUG: got vid \"' + vid_info['vid'] + '\" ')
+    # get base, more info
+    info, more = get_base_info.get_info(vid_info, url, flag_debug=etc.flag_debug)
+    # add more info
+    
     # TODO
-
-# FIXME for debug
-def get_video_url(info_url):
-    return get_video_url0.get_video_urls(info_url)
 
 # end entry.py
 

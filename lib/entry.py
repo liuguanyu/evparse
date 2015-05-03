@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # entry.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # evparse:lib/entry: evparse main lib entry. 
-# version 0.0.2.0 test201505031500
+# version 0.0.2.1 test201505031507
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -111,7 +111,7 @@ def add_more_info(evinfo):
     info['site_name'] = LIST_SITE[info['site']]
     # add info for evinfo.video part
     video = evinfo['video']
-    for i in video:
+    for i in range(len(video)):
         video[i] = add_more_info_one_video(video[i])
     # done
     return evinfo
