@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # evparse.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # evparse:bin/evparse: evparse main bin file. 
-# version 0.0.2.0 test201505032309
+# version 0.1.0.0 test201505032327
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -46,7 +46,7 @@ def set_import(entry0, error0):
 
 # global config obj
 
-EVPARSE_VERSION = 'evparse version 0.0.2.0 test201505032240'
+EVPARSE_VERSION = 'evparse version 0.1.0.0 test201505032324'
 
 etc = {}
 etc['flag_debug'] = False
@@ -104,8 +104,12 @@ Options:
     --version show version of evparse
     --help    show this help information of evparse
   
-  More help info please see <https://github.com/sceext2/evparse>. 
+  More help info please see <https://github.com/sceext2/evparse> 
 ''')
+
+def print_help_notice():
+    print('evparse: ERROR: command line format error. Please try \"' + sys.argv[0] + ' --help\" ')
+    return 1
 
 # start parse
 def start_parse():
@@ -119,9 +123,9 @@ def start_parse():
         t = json.dumps(evinfo, indent=4, sort_keys=True, ensure_ascii=etc['flag_fix_unicode'])
         print(t)
     except error.NotSupportURLError as err:
-        msg, url = err
+        msg, url = err.args
         print('evparse: ERROR: not support this url \"' + url + '\"')
-        return 1
+        return 2
     # done
 
 # get args
@@ -129,21 +133,21 @@ def get_args():
     # get args
     args = sys.argv[1:]
     # FIXME easy support for --version and --help
-    # get first arg
-    first = args[0]
-    arg_type = {}
-    arg_type['--help'] = 'mode_help'
-    arg_type['--version'] = 'mode_version'
-    arg_type[''] = 'mode_help'
-    if first in arg_type:
-        etc['global_mode'] = arg_type[frist]
+    # check args length
+    if len(args) < 1:
+        etc['global_mode'] = 'mode_help_notice'
     else:
-        etc['global_mode'] = 'mode_url'
-        second = args[1]
-        # check url
-        if second == '':
-            etc['global_mode'] = 'mode_help'
-        etc['url_to'] = second
+        # get first arg
+        first = args[0]
+        arg_type = {}
+        arg_type['--help'] = 'mode_help'
+        arg_type['--version'] = 'mode_version'
+        arg_type[''] = 'mode_help_notice'
+        if first in arg_type:
+            etc['global_mode'] = arg_type[first]
+        else:	# frist arg should be a url
+            etc['global_mode'] = 'mode_url'
+            etc['url_to'] = first
     # done
 
 # main function
@@ -155,6 +159,7 @@ def main():
     mode_list['mode_url'] = start_parse
     mode_list['mode_version'] = print_version
     mode_list['mode_help'] = print_help
+    mode_list['mode_help_notice'] = print_help_notice
     # get mode entry
     mode = etc['global_mode']
     mode_entry = mode_list[mode]
