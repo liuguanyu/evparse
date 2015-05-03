@@ -1,8 +1,7 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# evp, part for evparse : EisF Video Parse, evdh Video Parse. 
-# evp: evparse start script, should be run in python3. 
-# version 0.1.0.0 test201505032327
+# error.py, part for evparse : EisF Video Parse, evdh Video Parse. 
+# evparse:lib/error: evparse error define. 
+# version 0.0.1.0 test201505032228
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -28,24 +27,14 @@
 
 # import
 
-from lib import entry
-from lib import error
-from bin import evparse
+# class
 
-# main function
-def main():
-    # set import
-    evparse.set_import(entry, error)
-    # just start it
-    return evparse.main()
+class EvparseError(Exception):
+    pass
 
-# start from main
-if __name__ == '__main__':
-    ret = main()
-    if ret == None:
-        ret = 0
-    exit(ret)
+class NotSupportURLError(EvparseError):
+    pass
 
-# end evp
+# end error.py
 
 

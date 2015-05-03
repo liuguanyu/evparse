@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # entry.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # entry: evparse/lib/sohu 
-# version 0.1.0.0 test201505032159
+# version 0.1.1.0 test201505032232
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -29,11 +29,16 @@
 
 import re
 
+from .. import error
+
 from . import get_vid
 from . import get_base_info
 from . import get_video_info
 
 # global vars
+
+# version of this extractor
+THIS_EXTRACTOR_VERSION = 'evparse lib/sohu version 0.1.1.0 test201505032232'
 
 # http://tv.sohu.com/20150215/n409034362.shtml
 RE_SUPPORT_URL = '^http://tv\.sohu\.com/(19|20)[0-9]{6}/n[0-9]+\.shtml$'
@@ -55,7 +60,7 @@ def set_config(config):
 def parse(url_to):	# this site entry main entry function
     # frist re-check url, if supported by this
     if not re.match(RE_SUPPORT_URL, url_to):
-        raise Exception('not support this url \"' + url_to + '\" ')
+        raise error.NotSupportURLError('not support this url', url_to)
     # create evinfo
     evinfo = {}
     evinfo['info'] = {}

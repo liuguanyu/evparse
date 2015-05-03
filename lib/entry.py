@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # entry.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # evparse:lib/entry: evparse main lib entry. 
-# version 0.0.4.0 test201505031802
+# version 0.0.5.0 test201505032230
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -30,6 +30,7 @@
 import re
 
 from . import hd_quality
+from . import error
 
 # static data
 
@@ -145,7 +146,7 @@ def parse(url_to, config=etc):
     # check input url
     extractor_name = url_to_extractor(url_to)
     if extractor_name == None:	# not support this url
-        raise Exception('not support this url \"' + url_to + '\" ')
+        raise error.NotSupportURLError('not support this url', url_to)
     # import extractor
     extractor = dy_import_extractor(extractor_name)
     # set it
