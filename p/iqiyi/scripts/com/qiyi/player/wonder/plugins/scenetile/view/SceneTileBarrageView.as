@@ -289,13 +289,41 @@ package com.qiyi.player.wonder.plugins.scenetile.view {
 		}
 		
 		public function updateBarrageItemCoordinate(param1:Boolean) : void {
-			/*
-			 * Decompilation error
-			 * Code may be obfuscated
-			 * Deobfuscation is activated but decompilation still failed. If the file is NOT obfuscated, disable "Automatic deobfuscation" for better results.
-			 * Error type: TranslateException
-			 */
-			throw new flash.errors.IllegalOperationError("Not decompiled due to error");
+			var _loc2_:BarrageItem = null;
+			var _loc4_:uint = 0;
+			var _loc5_:* = NaN;
+			var _loc6_:* = NaN;
+			var _loc3_:uint = 0;
+			while(_loc3_ < this._barrageItemArray.length) {
+				if(this._rollOverRow != _loc3_ + 1) {
+					if((param1) && _loc3_ < SceneTileDef.BARRAGE_STAR_ROW_NUM) {
+						_loc5_ = 0;
+						_loc4_ = 0;
+						while(_loc4_ < this._barrageItemArray[_loc3_].length) {
+							_loc5_ = _loc5_ + (this._barrageItemArray[_loc3_][_loc4_].width + SceneTileDef.BARRAGE_ITEM_GAP);
+							_loc4_++;
+						}
+						_loc6_ = (GlobalStage.stage.stageWidth - _loc5_) / 2;
+						_loc4_ = 0;
+						while(_loc4_ < this._barrageItemArray[_loc3_].length) {
+							if(_loc5_ >= GlobalStage.stage.stageWidth - SceneTileDef.BARRAGE_ITEM_GAP * 2) {
+								_loc5_ = _loc5_ - (this._barrageItemArray[_loc3_][_loc4_].width + SceneTileDef.BARRAGE_ITEM_GAP);
+								_loc6_ = (GlobalStage.stage.stageWidth - _loc5_) / 2;
+								this._barrageItemArray[_loc3_][_loc4_].updateCoordinateOnStar();
+							} else {
+								this._barrageItemArray[_loc3_][_loc4_].updateCoordinateOnStar(_loc6_);
+								_loc6_ = _loc6_ + (this._barrageItemArray[_loc3_][_loc4_].width + SceneTileDef.BARRAGE_ITEM_GAP);
+							}
+							_loc4_++;
+						}
+					} else {
+						for each(_loc2_ in this._barrageItemArray[_loc3_]) {
+							_loc2_.updateCoordinate();
+						}
+					}
+				}
+				_loc3_++;
+			}
 		}
 		
 		public function checkAddBarrageItem(param1:Boolean, param2:uint, param3:Boolean) : void {

@@ -298,6 +298,9 @@ package com.qiyi.player.wonder.plugins.tips.view.parts {
 			}
 			catch(e:Error) {
 			}
+			finally {
+				return result;
+			}
 		}
 		
 		private static function saveConditions() : void {
@@ -659,13 +662,108 @@ package com.qiyi.player.wonder.plugins.tips.view.parts {
 		}
 		
 		private static function checkField(param1:String, param2:XML) : Boolean {
-			/*
-			 * Decompilation error
-			 * Code may be obfuscated
-			 * Deobfuscation is activated but decompilation still failed. If the file is NOT obfuscated, disable "Automatic deobfuscation" for better results.
-			 * Error type: TranslateException
-			 */
-			throw new flash.errors.IllegalOperationError("Not decompiled due to error");
+			var _loc5_:XMLList = null;
+			var _loc6_:* = 0;
+			var _loc7_:XML = null;
+			var _loc8_:String = null;
+			var _loc9_:Object = null;
+			var _loc10_:String = null;
+			var _loc11_:String = null;
+			var _loc12_:String = null;
+			var _loc13_:Array = null;
+			var _loc14_:String = null;
+			var _loc15_:String = null;
+			var _loc16_:Array = null;
+			var _loc3_:* = false;
+			var _loc4_:XML = param2.fields[0];
+			if(_loc4_) {
+				_loc5_ = _loc4_..field;
+				_loc6_ = 0;
+				while(_loc6_ < _loc5_.length()) {
+					_loc3_ = false;
+					_loc7_ = _loc5_[_loc6_];
+					_loc8_ = _loc7_.@operator;
+					_loc9_ = getFieldValue(_loc7_.@name,param1,param2);
+					if((_loc8_) && !(_loc8_ == "")) {
+						_loc10_ = _loc7_.@value?_loc7_.@value:"";
+						switch(_loc8_) {
+							case "eq":
+								if(String(_loc9_) == _loc10_) {
+									_loc3_ = true;
+								}
+								break;
+							case "neq":
+								if((_loc9_) && !(String(_loc9_) == _loc10_)) {
+									_loc3_ = true;
+								}
+								break;
+							case "is":
+								if(_loc9_) {
+									if(_loc9_ is Array && _loc9_.length > 0) {
+										_loc3_ = true;
+									} else if(String(_loc9_).length > 0) {
+										_loc3_ = true;
+									} else {
+										_loc3_ = false;
+									}
+									
+								}
+								break;
+							case "not":
+								if(_loc9_ == null) {
+									_loc3_ = true;
+								} else if(_loc9_ is Array && _loc9_.length == 0) {
+									_loc3_ = true;
+								} else if(String(_loc9_) == "") {
+									_loc3_ = true;
+								}
+								
+								
+								break;
+							case "gt":
+								if(!isNaN(Number(_loc9_)) && !isNaN(Number(_loc10_)) && Number(_loc9_) > Number(_loc10_)) {
+									_loc3_ = true;
+								}
+								break;
+							case "lt":
+								if(!isNaN(Number(_loc9_)) && !isNaN(Number(_loc10_)) && Number(_loc9_) < Number(_loc10_)) {
+									_loc3_ = true;
+								}
+								break;
+							case "arr":
+								if(_loc9_ is Array) {
+									if(_loc9_.length > 1) {
+										_loc3_ = true;
+									}
+								}
+								break;
+							case "in":
+								_loc11_ = "," + _loc10_ + ",";
+								_loc12_ = "," + String(_loc9_) + ",";
+								_loc13_ = _loc11_.match(_loc12_);
+								if(_loc13_) {
+									_loc3_ = true;
+								}
+								break;
+							case "ex":
+								_loc14_ = "," + String(_loc10_) + ",";
+								_loc15_ = "," + String(_loc9_) + ",";
+								_loc16_ = _loc14_.match(_loc15_);
+								if(_loc16_ == null) {
+									_loc3_ = true;
+								}
+								break;
+						}
+					}
+					if(_loc3_ == false) {
+						break;
+					}
+					_loc6_++;
+				}
+			} else {
+				_loc3_ = true;
+			}
+			return _loc3_;
 		}
 		
 		private static function checkFrequency(param1:String, param2:XML) : Boolean {
@@ -896,6 +994,10 @@ package com.qiyi.player.wonder.plugins.tips.view.parts {
 			catch(name_3:Error) {
 				instance._log.debug("TipManager : playerDuration_subscribeTipShowTime_arr error");
 			}
+			finally {
+				instance._log.debug("finally get lso local playerDuration_subscribeTipShowTime_arr ：" + result);
+				return result;
+			}
 		}
 		
 		private static function getSubscribeTipShowTime() : uint {
@@ -914,6 +1016,10 @@ package com.qiyi.player.wonder.plugins.tips.view.parts {
 			}
 			catch(name_3:Error) {
 				instance._log.debug("TipManager : _subscribeTipShowTime： error");
+			}
+			finally {
+				instance._log.debug("finally get lso local _subscribeTipShowTime ：" + result);
+				return result;
 			}
 		}
 		

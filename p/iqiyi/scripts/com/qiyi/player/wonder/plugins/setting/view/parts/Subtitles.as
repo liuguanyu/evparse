@@ -66,33 +66,105 @@ package com.qiyi.player.wonder.plugins.setting.view.parts {
 		}
 		
 		private function initSubtitlesColor() : void {
-			/*
-			 * Decompilation error
-			 * Code may be obfuscated
-			 * Deobfuscation is activated but decompilation still failed. If the file is NOT obfuscated, disable "Automatic deobfuscation" for better results.
-			 * Error type: TranslateException
-			 */
-			throw new flash.errors.IllegalOperationError("Not decompiled due to error");
+			var _loc2_:SelectTextField = null;
+			var _loc5_:SelectTextField = null;
+			while(this._subtitlesColorItem.length > 0) {
+				_loc5_ = this._subtitlesColorItem.shift();
+				removeChild(_loc5_);
+				_loc5_.removeEventListener(MouseEvent.CLICK,this.onLanguageItemClick);
+				_loc5_.destroy();
+				_loc5_ = null;
+			}
+			var _loc1_:Number = this._subtitlesColor.width + this._subtitlesColor.x + 10;
+			var _loc3_:* = false;
+			var _loc4_:uint = 0;
+			while(_loc4_ < SettingDef.FONT_COLOR_LIST.length) {
+				_loc2_ = new SelectTextField(SettingDef.FONT_COLOR_SHOW_LIST[_loc4_],14);
+				_loc2_.x = _loc1_;
+				_loc2_.y = this._subtitlesColor.y - _loc2_.height + 24;
+				_loc1_ = _loc1_ + _loc2_.width + 10;
+				_loc2_.data = SettingDef.FONT_COLOR_LIST[_loc4_];
+				this._subtitlesColorItem.push(_loc2_);
+				addChild(_loc2_);
+				if(Settings.instance.subtitleColor == SettingDef.FONT_COLOR_LIST[_loc4_]) {
+					_loc3_ = _loc2_.isSelected = true;
+					this._currColor = SettingDef.FONT_COLOR_LIST[_loc4_];
+				}
+				_loc2_.addEventListener(MouseEvent.CLICK,this.onSubtitlesColorClick);
+				_loc4_++;
+			}
+			if(!_loc3_ && this._subtitlesColorItem.length > 0) {
+				this._subtitlesColorItem[0].isSelected = true;
+				this._currColor = uint(this._subtitlesColorItem[0].data);
+			}
 		}
 		
 		private function initSubtitlesFontSize() : void {
-			/*
-			 * Decompilation error
-			 * Code may be obfuscated
-			 * Deobfuscation is activated but decompilation still failed. If the file is NOT obfuscated, disable "Automatic deobfuscation" for better results.
-			 * Error type: TranslateException
-			 */
-			throw new flash.errors.IllegalOperationError("Not decompiled due to error");
+			var _loc2_:SelectTextField = null;
+			var _loc5_:SelectTextField = null;
+			while(this._subtitlesFontSizeItem.length > 0) {
+				_loc5_ = this._subtitlesFontSizeItem.shift();
+				removeChild(_loc5_);
+				_loc5_.removeEventListener(MouseEvent.CLICK,this.onLanguageItemClick);
+				_loc5_.destroy();
+				_loc5_ = null;
+			}
+			var _loc1_:Number = this._subtitlesFontSize.width + this._subtitlesFontSize.x + 10;
+			var _loc3_:* = false;
+			var _loc4_:* = 0;
+			while(_loc4_ < SettingDef.FONT_SIZE_LIST.length) {
+				_loc2_ = new SelectTextField("Aa",SettingDef.FONT_SIZE_LIST[_loc4_]);
+				_loc2_.x = _loc1_;
+				_loc2_.y = this._subtitlesFontSize.y - (_loc2_.height - 24) + _loc4_ * 2;
+				_loc1_ = _loc1_ + _loc2_.width + 10;
+				_loc2_.data = SettingDef.FONT_SIZE_LIST[_loc4_];
+				this._subtitlesFontSizeItem.push(_loc2_);
+				addChild(_loc2_);
+				if(Settings.instance.subtitleSize == SettingDef.FONT_SIZE_LIST[_loc4_]) {
+					_loc3_ = _loc2_.isSelected = true;
+					this._currFontSize = SettingDef.FONT_SIZE_LIST[_loc4_];
+				}
+				_loc2_.addEventListener(MouseEvent.CLICK,this.onFontSizeItemClick);
+				_loc4_++;
+			}
+			if(!_loc3_ && this._subtitlesFontSizeItem.length > 0) {
+				this._subtitlesFontSizeItem[SettingDef.DEFAULT_SUBTITLE_SIZE_INDEX].isSelected = true;
+				this._currFontSize = uint(this._subtitlesFontSizeItem[SettingDef.DEFAULT_SUBTITLE_SIZE_INDEX].data);
+			}
 		}
 		
 		private function initSubtitlesLanguage() : void {
-			/*
-			 * Decompilation error
-			 * Code may be obfuscated
-			 * Deobfuscation is activated but decompilation still failed. If the file is NOT obfuscated, disable "Automatic deobfuscation" for better results.
-			 * Error type: TranslateException
-			 */
-			throw new flash.errors.IllegalOperationError("Not decompiled due to error");
+			var _loc2_:SelectTextField = null;
+			var _loc5_:SelectTextField = null;
+			while(this._subtitlesLanguageItem.length > 0) {
+				_loc5_ = this._subtitlesLanguageItem.shift();
+				removeChild(_loc5_);
+				_loc5_.removeEventListener(MouseEvent.CLICK,this.onLanguageItemClick);
+				_loc5_.destroy();
+				_loc5_ = null;
+			}
+			var _loc1_:Number = this._subtitlesLanguage.width + this._subtitlesLanguage.x + 10;
+			var _loc3_:* = false;
+			var _loc4_:uint = 0;
+			while(_loc4_ < this._subtitlesLanguageData.length) {
+				_loc2_ = new SelectTextField(ChineseNameOfLangAudioDef.getLanguageName(this._subtitlesLanguageData[_loc4_].lang),14);
+				_loc2_.x = _loc1_;
+				_loc2_.y = this._subtitlesLanguage.y - _loc2_.height + 24;
+				_loc1_ = _loc1_ + _loc2_.width + 10;
+				_loc2_.data = this._subtitlesLanguageData[_loc4_].lang;
+				this._subtitlesLanguageItem.push(_loc2_);
+				addChild(_loc2_);
+				if(!_loc3_ && this._subtitlesLanguageData[_loc4_].lang == Settings.instance.subtitleLang) {
+					_loc3_ = _loc2_.isSelected = true;
+					this._currLanguage = this._subtitlesLanguageData[_loc4_].lang;
+				}
+				_loc2_.addEventListener(MouseEvent.CLICK,this.onLanguageItemClick);
+				_loc4_++;
+			}
+			if(!_loc3_ && this._subtitlesLanguageItem.length > 0) {
+				this._subtitlesLanguageItem[0].isSelected = true;
+				this._currLanguage = this._subtitlesLanguageItem[0].data as EnumItem;
+			}
 		}
 		
 		private function onLanguageItemClick(param1:MouseEvent) : void {

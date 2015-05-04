@@ -35,13 +35,42 @@ package com.qiyi.player.wonder.plugins.setting.view.parts {
 		}
 		
 		public function set soundTrackLangVector(param1:Vector.<IAudioTrackInfo>) : void {
-			/*
-			 * Decompilation error
-			 * Code may be obfuscated
-			 * Deobfuscation is activated but decompilation still failed. If the file is NOT obfuscated, disable "Automatic deobfuscation" for better results.
-			 * Error type: TranslateException
-			 */
-			throw new flash.errors.IllegalOperationError("Not decompiled due to error");
+			var _loc3_:SelectTextField = null;
+			var _loc5_:uint = 0;
+			var _loc6_:SelectTextField = null;
+			this._soundTrackLangVector = param1;
+			if(!this._soundTrackLangVector) {
+				return;
+			}
+			while(this._subtitlesTypeVector.length > 0) {
+				_loc6_ = this._subtitlesTypeVector.shift();
+				removeChild(_loc6_);
+				_loc6_.removeEventListener(MouseEvent.CLICK,this.onItemClick);
+				_loc6_.destroy();
+				_loc6_ = null;
+			}
+			var _loc2_:Number = this._label.width + this._label.x + 10;
+			var _loc4_:* = false;
+			_loc5_ = 0;
+			while(_loc5_ < this._soundTrackLangVector.length) {
+				_loc3_ = new SelectTextField(ChineseNameOfLangAudioDef.getAudioName(this._soundTrackLangVector[_loc5_].type),14);
+				_loc3_.x = _loc2_;
+				_loc3_.y = this._label.y - _loc3_.height + 24;
+				_loc2_ = _loc2_ + _loc3_.width + 10;
+				_loc3_.data = this._soundTrackLangVector[_loc5_].type;
+				this._subtitlesTypeVector.push(_loc3_);
+				addChild(_loc3_);
+				if(Settings.instance.audioTrack == this._soundTrackLangVector[_loc5_].type) {
+					_loc4_ = _loc3_.isSelected = true;
+					this._currSoundTrackLang = this._soundTrackLangVector[_loc5_].type;
+				}
+				_loc3_.addEventListener(MouseEvent.CLICK,this.onItemClick);
+				_loc5_++;
+			}
+			if(!_loc4_ && this._subtitlesTypeVector.length > 0) {
+				this._subtitlesTypeVector[0].isSelected = true;
+				this._currSoundTrackLang = this._subtitlesTypeVector[0].data as EnumItem;
+			}
 		}
 		
 		private function onItemClick(param1:MouseEvent) : void {

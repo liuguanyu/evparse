@@ -73,13 +73,33 @@ package com.adobe.serialization.json {
 		private var jsonString:String;
 		
 		private function objectToString(param1:Object) : String {
-			/*
-			 * Decompilation error
-			 * Code may be obfuscated
-			 * Deobfuscation is activated but decompilation still failed. If the file is NOT obfuscated, disable "Automatic deobfuscation" for better results.
-			 * Error type: TranslateException
-			 */
-			throw new flash.errors.IllegalOperationError("Not decompiled due to error");
+			var value:Object = null;
+			var key:String = null;
+			var v:XML = null;
+			var o:Object = param1;
+			var s:String = "";
+			var classInfo:XML = describeType(o);
+			if(classInfo.@name.toString() == "Object") {
+				for(key in o) {
+					value = o[key];
+					if(!(value is Function)) {
+						if(s.length > 0) {
+							s = s + ",";
+						}
+						s = s + (escapeString(key) + ":" + convertToString(value));
+					}
+				}
+			} else {
+				for each(v in classInfo..*.(name() == "variable" || name() == "accessor" && attribute("access").charAt(0) == "r")) {
+					if(!((v.metadata) && v.metadata.(@name == "Transient").length() > 0)) {
+						if(s.length > 0) {
+							s = s + ",";
+						}
+						s = s + (escapeString(v.@name.toString()) + ":" + convertToString(o[v.@name]));
+					}
+				}
+			}
+			return "{" + s + "}";
 		}
 		
 		private function convertToString(param1:*) : String {
