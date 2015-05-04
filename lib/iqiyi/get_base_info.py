@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# get_info_json.py, part for evparse : EisF Video Parse, evdh Video Parse. 
-# get_info_json: evparse/lib/iqiyi 
-# version 0.0.1.0 test201504292239
-# author sceext <sceext@foxmail.com> 2009EisF2015, 2015.04. 
+# get_base_info.py, part for evparse : EisF Video Parse, evdh Video Parse. 
+# get_base_info: evparse/lib/iqiyi 
+# version 0.0.3.0 test201505050126
+# author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
 # This is FREE SOFTWARE, released under GNU GPLv3+ 
@@ -28,14 +28,24 @@
 # import
 
 from .o import exports
-
 from .. import base
 
 # global vars
 
 # functions
 
-def get_info(vid_info):
+def get_more_info(info):
+    more = {}	# output more info
+    data = info['data']
+    vi = data['vi']
+    more['title'] = vi['vn']
+    more['sub_title'] = vi['subt']
+    more['short_title'] = vi['an']
+    more['no'] = vi['pd']
+    # done
+    return more
+
+def get_info(vid_info, flag_debug=False):
     # create MixerRemote
     mixer = exports.MixerRemote()
     # set data
@@ -43,11 +53,16 @@ def get_info(vid_info):
     mixer.tvid = vid_info['tvid']
     # get request url
     url_to = mixer.getRequest()
-    # FIXME debug here
-    print('DEBUG: info json url \"' + url_to + '\"')
-    # TODO
-    pass
+    # DEBUG info
+    if flag_debug:
+        print('lib.iqiyi: DEBUG: first url \"' + url_to + '\"')
+    # load it
+    info = base.get_json_info(url_to)
+    # get more info
+    more = get_more_info(info)
+    # done
+    return info, more
 
-# end get_info_json.py
+# end get_base_info.py
 
 

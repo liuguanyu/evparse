@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # entry.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # entry: evparse/lib/iqiyi 
-# version 0.0.1.0 test201505031448
+# version 0.0.4.0 test201505050142
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -27,24 +27,58 @@
 
 # import
 
-from . import get_vid
+import re
+
+from .. import error
+from . import get_vid, get_base_info, get_video_info
 
 # global vars
+
+# TODO this extractor now can not get video real download url, can only get video meta data. 
+# version of this extractor
+THIS_EXTRACTOR_VERSION = 'evparse lib/iqiyi version 0.0.2.0 test201505050142'
+
+# http://www.iqiyi.com/v_19rrn64t40.html
+RE_SUPPORT_URL = '^http://www\.iqiyi\.com/v_.+\.html$'
+
+# global config obj
+etc = {}	# NOTE should be set
+etc['flag_debug'] = False
+etc['hd_max'] = 0
+etc['hd_min'] = 0
 
 # functions
 
 def set_config(config):
-    raise Exception('this extractor has not been finished')
-    pass
+    # just copy it
+    etc['flag_debug'] = config['flag_debug']
+    etc['hd_max'] = config['hd_max']
+    etc['hd_min'] = config['hd_min']
 
-def parse(url):	# this site entry main entry function
-    
+def parse(url_to):	# this site entry main entry function
     # frist re-check url, if supported by this
-    # TODO
+    if not re.match(RE_SUPPORT_URL, url_to):
+        raise error.NotSupportURLError('not support this url', url_to)
+    # create evinfo
+    evinfo = {}
+    evinfo['info'] = {}
+    evinfo['video'] = []
+    # add some base info
+    evinfo['info']['url'] = url_to
+    evinfo['info']['site'] = 'iqiyi'
     # get vid
-    vid_info = get_vid.get_vid(url)
-    # TODO
-    pass
+    vid_info = get_vid.get_vid(url_to)
+    # get base, more info
+    info, more = get_base_info.get_info(vid_info, flag_debug=etc['flag_debug'])
+    # add more info
+    evinfo['info']['title'] = more['title']
+    evinfo['info']['title_sub'] = more['sub_title']
+    evinfo['info']['title_short'] = more['short_title']
+    evinfo['info']['title_no'] = more['no']
+    # get video info
+    evinfo['video'] = get_video_info.get_info(info, hd_min=etc['hd_min'], hd_max=etc['hd_max'], flag_debug=etc['flag_debug'])
+    # done
+    return evinfo
 
 # end entry.py
 
