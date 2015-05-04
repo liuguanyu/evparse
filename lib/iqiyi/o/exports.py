@@ -22,7 +22,7 @@ uuid0.set_import(base)
 MixerRemote = remote_mixer.MixerRemote
 
 # FIXME debug export
-UUIDManager = uuid1.UUIDManager
+UUIDManager = uuid0.UUIDManager
 
 # end exports.py
 

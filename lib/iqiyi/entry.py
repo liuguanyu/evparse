@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # entry.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # entry: evparse/lib/iqiyi 
-# version 0.0.3.0 test201505050028
+# version 0.0.4.0 test201505050142
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -36,7 +36,7 @@ from . import get_vid, get_base_info, get_video_info
 
 # TODO this extractor now can not get video real download url, can only get video meta data. 
 # version of this extractor
-THIS_EXTRACTOR_VERSION = 'evparse lib/iqiyi version 0.0.1.0 test201505050013'
+THIS_EXTRACTOR_VERSION = 'evparse lib/iqiyi version 0.0.2.0 test201505050142'
 
 # http://www.iqiyi.com/v_19rrn64t40.html
 RE_SUPPORT_URL = '^http://www\.iqiyi\.com/v_.+\.html$'

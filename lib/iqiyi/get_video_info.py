@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # get_video_info.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # get_video_info: evparse/lib/iqiyi 
-# version 0.0.2.0 test201505050125
+# version 0.0.3.0 test201505050135
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -28,6 +28,7 @@
 # import
 
 import xml.etree.ElementTree as etree
+import math
 
 from .o import exports
 from .. import base
@@ -70,6 +71,12 @@ def get_one_video_meta_data(meta_url):
     # done
     return meta
 
+def number(string):	# convert number to string, use int or float
+    f = float(string)	# make it float frist
+    if math.floor(f) == f:	# check it is int
+        return int(f)
+    return f
+
 def get_one_info(one_raw):
     raw = one_raw
     vinfo = {}
@@ -80,9 +87,9 @@ def get_one_info(one_raw):
     meta_url = raw['meta_base'] + raw['meta_url']
     meta = get_one_video_meta_data(meta_url)
     # add more info
-    vinfo['size_byte'] = float(meta['filesize'])
-    vinfo['time_s'] = float(meta['duration'])
-    vinfo['size_px'] = [float(meta['width']), float(meta['height'])]
+    vinfo['size_byte'] = number(meta['filesize'])
+    vinfo['time_s'] = number(meta['duration'])
+    vinfo['size_px'] = [number(meta['width']), number(meta['height'])]
     # check flag_get_file
     if raw['flag_get_file']:
         pass	# TODO get real urls
