@@ -216,8 +216,11 @@ package com.qiyi.player.wonder.plugins.dock.view {
 				}
 				_loc8_++;
 			}
-			_loc3_;
-			this._bg.height = 0;
+			if(_loc3_ <= 0) {
+				this._bg.height = 0;
+			} else {
+				this._bg.height = _loc3_ * (_loc1_ + _loc2_ * 2 + _loc6_) - _loc2_ * 2 - _loc6_;
+			}
 			this.onResize(GlobalStage.stage.stageWidth,GlobalStage.stage.stageHeight);
 		}
 		

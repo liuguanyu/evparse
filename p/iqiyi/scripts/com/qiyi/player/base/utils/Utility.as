@@ -68,7 +68,9 @@ package com.qiyi.player.base.utils {
 				if(param1.substr(_loc5_,1) == "/") {
 					_loc4_++;
 				}
-				_loc4_;
+				if(_loc4_ == 3) {
+					break;
+				}
 				_loc5_++;
 			}
 			_loc3_ = param1.substr(0,_loc5_ + 1) + param2 + param1.substr(_loc5_);

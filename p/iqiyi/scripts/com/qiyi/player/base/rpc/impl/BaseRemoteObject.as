@@ -175,6 +175,14 @@ package com.qiyi.player.base.rpc.impl {
 					setStatus(RemoteObjectStatusEnum.SecurityError);
 				}
 			}
+			catch(e:Error) {
+				_tempStatus = RemoteObjectStatusEnum.UnknownError;
+				__log.warn(this._name + ": catch unknown error:" + e.message);
+				this.dispatchEvent(new RemoteObjectEvent(RemoteObjectEvent.Evt_Exception,e));
+				if(!exceptionHandler()) {
+					setStatus(RemoteObjectStatusEnum.UnknownError);
+				}
+			}
 		}
 		
 		public function getData() : Object {
