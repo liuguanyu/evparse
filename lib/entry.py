@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # entry.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # evparse:lib/entry: evparse main lib entry. 
-# version 0.0.5.0 test201505032230
+# version 0.0.6.0 test201505071447
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -31,12 +31,14 @@ import re
 
 from . import hd_quality
 from . import error
+from . import restruct
 
 # static data
 
 # global config obj
 etc = {}
 etc['flag_debug'] = False
+etc['flag_restruct'] = True
 
 etc['hd_max'] = hd_quality.HD_MAX
 etc['hd_min'] = hd_quality.HD_MIN
@@ -157,6 +159,8 @@ def parse(url_to, config=etc):
     evinfo0['info']['extractor'] = extractor_name	# set in extractor_name
     evinfo = add_more_info(evinfo0)
     # done
+    if etc['flag_restruct']:
+        return restruct.restruct_evinfo(evinfo)
     return evinfo
 
 # end entry.py

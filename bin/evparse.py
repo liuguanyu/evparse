@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # evparse.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # evparse:bin/evparse: evparse main bin file. 
-# version 0.1.0.0 test201505032327
+# version 0.1.1.0 test201505071445
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -51,6 +51,7 @@ EVPARSE_VERSION = 'evparse version 0.1.0.0 test201505032324'
 etc = {}
 etc['flag_debug'] = False
 etc['flag_fix_unicode'] = False
+etc['flag_evinfo_sort_keys'] = False
 etc['hd_max'] = None
 etc['hd_min'] = None
 
@@ -120,7 +121,7 @@ def start_parse():
     try:
         evinfo = entry.parse(url_to)
         # just print info as json
-        t = json.dumps(evinfo, indent=4, sort_keys=True, ensure_ascii=etc['flag_fix_unicode'])
+        t = json.dumps(evinfo, indent=4, sort_keys=etc['flag_evinfo_sort_keys'], ensure_ascii=etc['flag_fix_unicode'])
         print(t)
     except error.NotSupportURLError as err:
         msg, url = err.args
