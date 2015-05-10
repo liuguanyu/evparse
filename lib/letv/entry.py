@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # entry.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # entry: evparse/lib/letv 
-# version 0.0.2.0 test201505102203
+# version 0.0.3.0 test201505102349
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -88,17 +88,14 @@ def parse(url_to):	# this site entry main entry function
     # get base, more info
     info, more = get_base_info.get_info(vid_info, flag_debug=etc['flag_debug'])
     
-    # FIXME TODO debug here, not finished
-    exit()	# FIXME debug here
-    return evinfo
-    # TODO
     # add more info
     evinfo['info']['title'] = more['title']
     evinfo['info']['title_sub'] = more['sub_title']
     evinfo['info']['title_short'] = more['short_title']
     evinfo['info']['title_no'] = more['no']
+    # TODO FIXME reserved
     # get video info
-    evinfo['video'] = get_video_info.get_info(info, hd_max=etc['hd_max'], hd_min=etc['hd_min'], flag_debug=etc['flag_debug'])
+    # evinfo['video'] = get_video_info.get_info(info, hd_max=etc['hd_max'], hd_min=etc['hd_min'], flag_debug=etc['flag_debug'])
     # done
     return evinfo
 

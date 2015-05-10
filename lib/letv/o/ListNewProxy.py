@@ -19,9 +19,8 @@ class ListNewProxy(object):
         self.vid = ''
         # other data
         self.page = 0
-        self.page_size = 100
+        self.page_size = 10000	# NOTE get all info
         # done
-        pass
     
     def load(self):
         # make url
