@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # entry.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # evparse:lib/entry: evparse main lib entry. 
-# version 0.0.5.0 test201505032230
+# version 0.0.7.0 test201505071458
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -31,12 +31,14 @@ import re
 
 from . import hd_quality
 from . import error
+from . import restruct
 
 # static data
 
 # global config obj
 etc = {}
 etc['flag_debug'] = False
+etc['flag_restruct'] = True
 
 etc['hd_max'] = hd_quality.HD_MAX
 etc['hd_min'] = hd_quality.HD_MIN
@@ -51,16 +53,21 @@ LIST_URL_TO_EXTRACTOR = {	# re of url to extractor_name
     '^http://www\.iqiyi\.com/v_.+\.html$' : 'iqiyi', 
     # http://tv.sohu.com/20150215/n409034362.shtml
     '^http://tv\.sohu\.com/(19|20)[0-9]{6}/n[0-9]+\.shtml$' : 'sohu', 
+    # http://www.letv.com/ptv/vplay/22695165.html
+    # http://www.letv.com/ptv/vplay/22699924.html
+    '^http://www\.letv\.com/ptv/vplay/[0-9]+\.html$' : 'letv', 
 }
 
 LIST_SITE = {	# list of site to site_name
     'iqiyi' : '爱奇艺', 
     'sohu' : '搜狐视频', 
+    'letv' : '乐视网', 
 }
 
 LIST_EXTRACTOR_NAME = {	# export evinfo extractor_name
     'iqiyi' : 'iqiyi1', 
     'sohu' : 'sohu1', 
+    'letv' : 'letv1', 
 }
 
 # functions
@@ -86,10 +93,15 @@ def extractor_import_sohu():
     from .sohu import entry as entry0
     return entry0
 
+def extractor_import_letv():
+    from .letv import entry as entry0
+    return entry0
+
 # list used for extractor_name to extractor
 EXTRACTOR_IMPORT_LIST = {
     'iqiyi' : extractor_import_iqiyi, 
     'sohu' : extractor_import_sohu, 
+    'letv' : extractor_import_letv, 
 }
 
 def dy_import_extractor(extractor_name):
@@ -157,6 +169,8 @@ def parse(url_to, config=etc):
     evinfo0['info']['extractor'] = extractor_name	# set in extractor_name
     evinfo = add_more_info(evinfo0)
     # done
+    if etc['flag_restruct']:
+        return restruct.restruct_evinfo(evinfo)
     return evinfo
 
 # end entry.py
