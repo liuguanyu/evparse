@@ -11,6 +11,7 @@ from ... import flash
 
 from .k import TimeStamp as TimeStamp0
 from .k import transfer as transfer0
+from . import ListNewProxy as ListNewProxy0
 
 # set in
 TimeStamp0.set_import(flash)
@@ -18,6 +19,7 @@ TimeStamp0.set_import(flash)
 # exports
 
 transfer = transfer0
+ListNewProxy = ListNewProxy0.ListNewProxy
 
 # end exports.py
 
