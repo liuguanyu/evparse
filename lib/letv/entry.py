@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # entry.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # entry: evparse/lib/letv 
-# version 0.0.3.0 test201505102349
+# version 0.0.4.0 test201505102357
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -37,7 +37,7 @@ from . import get_video_info
 # global vars
 
 # version of this extractor
-THIS_EXTRACTOR_VERSION = 'evparse lib/letv version 0.0.1.0 test201505102156'
+THIS_EXTRACTOR_VERSION = 'evparse lib/letv version 0.0.2.0 test201505102357'
 
 # http://www.letv.com/ptv/vplay/22695165.html
 # http://www.letv.com/ptv/vplay/22699924.html

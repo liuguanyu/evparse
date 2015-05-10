@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # get_base_info.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # evparse: lib/letv/get_base_info
-# version 0.0.3.0 test201505102348
+# version 0.0.3.2 test201505102354
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -53,12 +53,12 @@ def get_info(vid_info, flag_debug=False):
 def get_more_info(info, more_raw):
     more = {}	# more info
     video_no = more_raw['position']
-    this_info = more_raw['data'][video_no]
+    this_info = more_raw['data'][video_no - 1]
     # get it
     more['title'] = this_info['title']
     more['sub_title'] = this_info['subTitle']
     more['short_title'] = ''	# TODO not support this now
-    more['title_no'] = this_info['key']
+    more['no'] = this_info['key']
     # done
     return more
 
