@@ -34,7 +34,7 @@ class IDTransfer(object):
         self.timestamp.stime = stime
     
     # make the URL to get video info json, with tkey
-    def getURL(vid):
+    def getURL(self, vid):
         _loc2_ = self.base_url + str(vid)
         
         _loc2_ += '&platid='
