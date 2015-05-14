@@ -1,9 +1,12 @@
-package feedback {
+package feedback
+{
 	import flash.display.Sprite;
 	
-	public dynamic class OverseaUI extends Sprite {
+	public dynamic class OverseaUI extends Sprite
+	{
 		
-		public function OverseaUI() {
+		public function OverseaUI()
+		{
 			super();
 		}
 	}

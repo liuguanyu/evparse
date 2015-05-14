@@ -1,4 +1,5 @@
-package com.qiyi.player.core.video.engine.rtmp {
+package com.qiyi.player.core.video.engine.rtmp
+{
 	import flash.events.EventDispatcher;
 	import com.qiyi.player.core.IDestroy;
 	import com.qiyi.player.core.player.coreplayer.ICorePlayer;
@@ -22,18 +23,8 @@ package com.qiyi.player.core.video.engine.rtmp {
 	import flash.utils.setTimeout;
 	import com.qiyi.player.base.logging.Log;
 	
-	public class RtmpStream extends EventDispatcher implements IDestroy {
-		
-		public function RtmpStream(param1:ICorePlayer) {
-			this._log = Log.getLogger("com.qiyi.player.core.video.engine.rtmp.RtmpStream");
-			super();
-			this._holder = param1;
-			this._dispatcher = new Dispatcher(this._holder);
-			this._dispatcher.addEventListener(DispatcherEvent.Evt_Success,this.onDispatcherSuccess);
-			this._dispatcher.addEventListener(DispatcherEvent.Evt_Failed,this.onDispatcherFailed);
-			Settings.instance.addEventListener(Settings.Evt_MuteChanged,this.onVolumeChanged);
-			Settings.instance.addEventListener(Settings.Evt_VolumeChanged,this.onVolumeChanged);
-		}
+	public class RtmpStream extends EventDispatcher implements IDestroy
+	{
 		
 		public static const Evt_Stuck:String = "stuck";
 		
@@ -71,31 +62,51 @@ package com.qiyi.player.core.video.engine.rtmp {
 		
 		private var _log:ILogger;
 		
-		public function get decoder() : Decoder {
+		public function RtmpStream(param1:ICorePlayer)
+		{
+			this._log = Log.getLogger("com.qiyi.player.core.video.engine.rtmp.RtmpStream");
+			super();
+			this._holder = param1;
+			this._dispatcher = new Dispatcher(this._holder);
+			this._dispatcher.addEventListener(DispatcherEvent.Evt_Success,this.onDispatcherSuccess);
+			this._dispatcher.addEventListener(DispatcherEvent.Evt_Failed,this.onDispatcherFailed);
+			Settings.instance.addEventListener(Settings.Evt_MuteChanged,this.onVolumeChanged);
+			Settings.instance.addEventListener(Settings.Evt_VolumeChanged,this.onVolumeChanged);
+		}
+		
+		public function get decoder() : Decoder
+		{
 			return this._ns;
 		}
 		
-		public function get bufferTime() : Number {
-			if(this._seeking) {
+		public function get bufferTime() : Number
+		{
+			if(this._seeking)
+			{
 				return this._seekTime;
 			}
-			if(this._ns == null) {
+			if(this._ns == null)
+			{
 				return 0;
 			}
 			return this.time + this._ns.bufferLength * 1000;
 		}
 		
-		public function get time() : Number {
-			if(this._seeking) {
+		public function get time() : Number
+		{
+			if(this._seeking)
+			{
 				return this._seekTime;
 			}
-			if(this._ns == null) {
+			if(this._ns == null)
+			{
 				return 0;
 			}
 			return this._ns.time * 1000;
 		}
 		
-		public function bind(param1:Segment) : void {
+		public function bind(param1:Segment) : void
+		{
 			this._segment = param1;
 			this._streamFileName = "mp4:fms/" + this._segment.url.split("fms/")[1];
 			this._retryCount = 0;
@@ -107,15 +118,18 @@ package com.qiyi.player.core.video.engine.rtmp {
 			this._dispatcher.start(this._segment);
 		}
 		
-		public function pause() : void {
+		public function pause() : void
+		{
 			this._paused = true;
 		}
 		
-		public function resume() : void {
+		public function resume() : void
+		{
 			this._paused = false;
 		}
 		
-		private function createNetConnection(param1:String) : void {
+		private function createNetConnection(param1:String) : void
+		{
 			this.destroyNetConnection();
 			this._cn = new NetConnection();
 			this._cn.client = new NetClient(this);
@@ -126,7 +140,8 @@ package com.qiyi.player.core.video.engine.rtmp {
 			this._cn.connect(param1);
 		}
 		
-		private function createDecoder() : void {
+		private function createDecoder() : void
+		{
 			this.destroyDecoder();
 			this._ns = new Decoder(this._cn);
 			this._ns.addEventListener(NetStatusEvent.NET_STATUS,this.onNetStatus);
@@ -136,8 +151,10 @@ package com.qiyi.player.core.video.engine.rtmp {
 			this.onVolumeChanged();
 		}
 		
-		private function destroyNetConnection() : void {
-			if(this._cn) {
+		private function destroyNetConnection() : void
+		{
+			if(this._cn)
+			{
 				this._cn.removeEventListener(NetStatusEvent.NET_STATUS,this.onConnectionNetStatus);
 				this._cn.removeEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onConnectionSecurityError);
 				this._cn.removeEventListener(AsyncErrorEvent.ASYNC_ERROR,this.onConnectionAasyncError);
@@ -147,8 +164,10 @@ package com.qiyi.player.core.video.engine.rtmp {
 			}
 		}
 		
-		private function destroyDecoder() : void {
-			if(this._ns) {
+		private function destroyDecoder() : void
+		{
+			if(this._ns)
+			{
 				this._ns.removeEventListener(NetStatusEvent.NET_STATUS,this.onNetStatus);
 				this._ns.removeEventListener(AsyncErrorEvent.ASYNC_ERROR,this.onAsyncError);
 				this._ns.removeEventListener(IOErrorEvent.IO_ERROR,this.onIOError);
@@ -158,21 +177,25 @@ package com.qiyi.player.core.video.engine.rtmp {
 			this._isStart = false;
 		}
 		
-		public function destroy() : void {
-			if(this._dispatcher) {
+		public function destroy() : void
+		{
+			if(this._dispatcher)
+			{
 				this._dispatcher.removeEventListener(DispatcherEvent.Evt_Success,this.onDispatcherSuccess);
 				this._dispatcher.removeEventListener(DispatcherEvent.Evt_Failed,this.onDispatcherFailed);
 				this._dispatcher.stop();
 				this._dispatcher = null;
 			}
-			if(this._ns) {
+			if(this._ns)
+			{
 				this._ns.removeEventListener(NetStatusEvent.NET_STATUS,this.onNetStatus);
 				this._ns.removeEventListener(AsyncErrorEvent.ASYNC_ERROR,this.onAsyncError);
 				this._ns.removeEventListener(IOErrorEvent.IO_ERROR,this.onIOError);
 				this._ns.close();
 				this._ns = null;
 			}
-			if(this._cn) {
+			if(this._cn)
+			{
 				this._cn.removeEventListener(NetStatusEvent.NET_STATUS,this.onConnectionNetStatus);
 				this._cn.removeEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onConnectionSecurityError);
 				this._cn.removeEventListener(AsyncErrorEvent.ASYNC_ERROR,this.onConnectionAasyncError);
@@ -180,7 +203,8 @@ package com.qiyi.player.core.video.engine.rtmp {
 				this._cn.close();
 				this._cn = null;
 			}
-			if(this._timeoutForEmpty) {
+			if(this._timeoutForEmpty)
+			{
 				clearTimeout(this._timeoutForEmpty);
 				this._timeoutForEmpty = 0;
 			}
@@ -188,53 +212,67 @@ package com.qiyi.player.core.video.engine.rtmp {
 			Settings.instance.removeEventListener(Settings.Evt_VolumeChanged,this.onVolumeChanged);
 		}
 		
-		private function onVolumeChanged(param1:Event = null) : void {
-			var _loc2_:SoundTransform = null;
-			if(this._ns) {
-				_loc2_ = new SoundTransform();
-				_loc2_.volume = Settings.instance.mute?0:Settings.instance.volumn / 100;
-				this._ns.soundTransform = _loc2_;
+		private function onVolumeChanged(param1:Event = null) : void
+		{
+			var _loc2:SoundTransform = null;
+			if(this._ns)
+			{
+				_loc2 = new SoundTransform();
+				_loc2.volume = Settings.instance.mute?0:Settings.instance.volumn / 100;
+				this._ns.soundTransform = _loc2;
 			}
 		}
 		
-		private function onDispatcherFailed(param1:DispatcherEvent) : void {
+		private function onDispatcherFailed(param1:DispatcherEvent) : void
+		{
 			dispatchEvent(new ProviderEvent(ProviderEvent.Evt_Failed));
 		}
 		
-		public function seek(param1:int) : void {
+		public function seek(param1:int) : void
+		{
 			this._log.debug("RtmpStream(index: " + this._segment.index + ") seek: " + param1);
-			if(this._segment.endTime - param1 <= 1000 || (this._isStop) && param1 > this._stopTime) {
+			if(this._segment.endTime - param1 <= 1000 || (this._isStop) && param1 > this._stopTime)
+			{
 				dispatchEvent(new ProviderEvent(ProviderEvent.Evt_Stop));
-			} else {
+			}
+			else
+			{
 				this._isStop = false;
 				this._stopTime = 0;
 				this._seeking = true;
 				this._seeked = true;
 				this._seekTime = param1;
 				this._segment.seek(this._seekTime);
-				if(this._ns) {
+				if(this._ns)
+				{
 					this._ns.seek(this._seekTime);
 				}
 			}
 		}
 		
-		private function onDispatcherSuccess(param1:DispatcherEvent) : void {
-			var _loc2_:String = (param1.data as String).substr(7);
-			this.createNetConnection("rtmpe://" + _loc2_.substring(0,_loc2_.indexOf("/")) + "/flvwww");
+		private function onDispatcherSuccess(param1:DispatcherEvent) : void
+		{
+			var _loc2:String = (param1.data as String).substr(7);
+			this.createNetConnection("rtmpe://" + _loc2.substring(0,_loc2.indexOf("/")) + "/flvwww");
 		}
 		
-		private function onConnectionNetStatus(param1:NetStatusEvent) : void {
+		private function onConnectionNetStatus(param1:NetStatusEvent) : void
+		{
 			this._log.info(param1.info.code);
-			switch(param1.info.code) {
+			switch(param1.info.code)
+			{
 				case "NetConnection.Connect.NetworkChange":
 					break;
 				case "NetConnection.Connect.Success":
 					this.createDecoder();
 					dispatchEvent(new ProviderEvent(ProviderEvent.Evt_Connected));
 					this._ns.play(this._streamFileName);
-					if(this._paused) {
+					if(this._paused)
+					{
 						this._ns.pause();
-					} else {
+					}
+					else
+					{
 						this._ns.resume();
 					}
 					break;
@@ -244,42 +282,53 @@ package com.qiyi.player.core.video.engine.rtmp {
 			}
 		}
 		
-		private function onConnectionSecurityError(param1:SecurityErrorEvent) : void {
+		private function onConnectionSecurityError(param1:SecurityErrorEvent) : void
+		{
 			this._log.info("RtmpStream: NetConnection SecurityError");
 			this._holder.runtimeData.preErrorCode = "4100";
 			this.retry();
 		}
 		
-		private function onConnectionAasyncError(param1:AsyncErrorEvent) : void {
+		private function onConnectionAasyncError(param1:AsyncErrorEvent) : void
+		{
 		}
 		
-		private function onConnectionIOError(param1:IOErrorEvent) : void {
+		private function onConnectionIOError(param1:IOErrorEvent) : void
+		{
 			this._log.info("RtmpStream: NetConnection IOError");
 			this._holder.runtimeData.preErrorCode = "4100";
 			this.retry();
 		}
 		
-		protected function onAsyncError(param1:AsyncErrorEvent) : void {
+		protected function onAsyncError(param1:AsyncErrorEvent) : void
+		{
 		}
 		
-		protected function onIOError(param1:IOErrorEvent) : void {
+		protected function onIOError(param1:IOErrorEvent) : void
+		{
 			this._log.info("RtmpStream (" + this._segment.index + ") trigger IOError: " + param1.type);
 			dispatchEvent(new ProviderEvent(ProviderEvent.Evt_Failed));
 		}
 		
-		private function onNetStatus(param1:NetStatusEvent) : void {
-			switch(param1.info.code) {
+		private function onNetStatus(param1:NetStatusEvent) : void
+		{
+			switch(param1.info.code)
+			{
 				case "NetStream.Play.Start":
-					if((this._seeking) && !this._isStart) {
+					if((this._seeking) && !this._isStart)
+					{
 						this._firstFull = true;
 						this._ns.seek(this._seekTime);
 					}
 					this._isStart = true;
 					break;
 				case "NetStream.Buffer.Empty":
-					if(this._isStop) {
+					if(this._isStop)
+					{
 						dispatchEvent(new ProviderEvent(ProviderEvent.Evt_Stop));
-					} else if(!this._seeked) {
+					}
+					else if(!this._seeked)
+					{
 						clearTimeout(this._timeoutForEmpty);
 						this._timeoutForEmpty = setTimeout(this.sendEmptyPingback,1000);
 						dispatchEvent(new Event(Evt_Stuck));
@@ -290,15 +339,19 @@ package com.qiyi.player.core.video.engine.rtmp {
 					clearTimeout(this._timeoutForEmpty);
 					this._timeoutForEmpty = 0;
 					this._seeked = false;
-					if(this._firstFull) {
+					if(this._firstFull)
+					{
 						this._firstFull = false;
 						this._ns.seek(this._seekTime);
 					}
 					break;
 				case "NetStream.Play.Stop":
-					if(this._segment.endTime - this.time <= 1000) {
+					if(this._segment.endTime - this.time <= 1000)
+					{
 						dispatchEvent(new ProviderEvent(ProviderEvent.Evt_Stop));
-					} else {
+					}
+					else
+					{
 						this._isStop = true;
 						this._stopTime = this.time;
 					}
@@ -332,22 +385,28 @@ package com.qiyi.player.core.video.engine.rtmp {
 			}
 		}
 		
-		private function sendEmptyPingback() : void {
+		private function sendEmptyPingback() : void
+		{
 			clearTimeout(this._timeoutForEmpty);
 			this._timeoutForEmpty = 0;
 			this._holder.runtimeData.bufferEmpty++;
 			this._holder.pingBack.sendError(4015);
 		}
 		
-		private function retry() : void {
+		private function retry() : void
+		{
 			this._holder.runtimeData.currentSpeed = 0;
 			this._log.info("RtmpStream(index: " + this._segment.index + ") failed, errno=" + this._holder.runtimeData.preErrorCode);
-			if(this._retryCount >= Config.STREAM_MAX_RETRY) {
+			if(this._retryCount >= Config.STREAM_MAX_RETRY)
+			{
 				dispatchEvent(new ProviderEvent(ProviderEvent.Evt_Failed));
-			} else {
+			}
+			else
+			{
 				this._retryCount++;
 				this._holder.runtimeData.retryCount = this._retryCount;
-				if(this._ns) {
+				if(this._ns)
+				{
 					this._seekTime = this._ns.time * 1000 + this._segment.startTime;
 					this._segment.seek(this._seekTime);
 				}
@@ -359,7 +418,8 @@ package com.qiyi.player.core.video.engine.rtmp {
 			}
 		}
 		
-		public function onMetaData(param1:Object) : void {
+		public function onMetaData(param1:Object) : void
+		{
 			trace("RtmpStream: NetConnection onMetaData");
 		}
 	}

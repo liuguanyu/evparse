@@ -1,13 +1,11 @@
-package controllbar {
+package controllbar
+{
 	import flash.display.Sprite;
 	import flash.display.MovieClip;
 	import flash.display.SimpleButton;
 	
-	public dynamic class ControlBarUI extends Sprite {
-		
-		public function ControlBarUI() {
-			super();
-		}
+	public dynamic class ControlBarUI extends Sprite
+	{
 		
 		public var repeatBtn:MovieClip;
 		
@@ -28,5 +26,10 @@ package controllbar {
 		public var foldBtn:SimpleButton;
 		
 		public var replayBtn:SimpleButton;
+		
+		public function ControlBarUI()
+		{
+			super();
+		}
 	}
 }

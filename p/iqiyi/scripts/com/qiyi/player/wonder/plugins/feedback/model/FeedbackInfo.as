@@ -1,15 +1,9 @@
-package com.qiyi.player.wonder.plugins.feedback.model {
-	public class FeedbackInfo extends Object {
-		
-		public function FeedbackInfo() {
-			super();
-		}
+package com.qiyi.player.wonder.plugins.feedback.model
+{
+	public class FeedbackInfo extends Object
+	{
 		
 		private static var _instance:FeedbackInfo;
-		
-		public static function get instance() : FeedbackInfo {
-			return _instance = _instance || new FeedbackInfo();
-		}
 		
 		private var _entry:String = "";
 		
@@ -37,19 +31,33 @@ package com.qiyi.player.wonder.plugins.feedback.model {
 		
 		private var _ticket:String = "";
 		
-		public function get ticket() : String {
+		public function FeedbackInfo()
+		{
+			super();
+		}
+		
+		public static function get instance() : FeedbackInfo
+		{
+			return _instance = _instance || new FeedbackInfo();
+		}
+		
+		public function get ticket() : String
+		{
 			return this._ticket;
 		}
 		
-		public function set ticket(param1:String) : void {
+		public function set ticket(param1:String) : void
+		{
 			this._ticket = param1;
 		}
 		
-		public function get userInfo() : Object {
+		public function get userInfo() : Object
+		{
 			return this._userInfo;
 		}
 		
-		public function set userInfo(param1:Object) : void {
+		public function set userInfo(param1:Object) : void
+		{
 			this._ip = param1.data.ip;
 			this._country = param1.data.country;
 			this._city = param1.data.city;
@@ -57,7 +65,8 @@ package com.qiyi.player.wonder.plugins.feedback.model {
 			this._userInfo = param1;
 		}
 		
-		public function updataVideoInfo(param1:String, param2:String, param3:String, param4:uint, param5:String, param6:String, param7:String) : void {
+		public function updataVideoInfo(param1:String, param2:String, param3:String, param4:uint, param5:String, param6:String, param7:String) : void
+		{
 			this._entry = param1;
 			this._vid = param2;
 			this._title = param3;
@@ -67,47 +76,58 @@ package com.qiyi.player.wonder.plugins.feedback.model {
 			this._channelId = param7;
 		}
 		
-		public function get isp() : String {
+		public function get isp() : String
+		{
 			return this._isp;
 		}
 		
-		public function get ip() : String {
+		public function get ip() : String
+		{
 			return this._ip;
 		}
 		
-		public function get city() : String {
+		public function get city() : String
+		{
 			return this._city;
 		}
 		
-		public function get country() : String {
+		public function get country() : String
+		{
 			return this._country;
 		}
 		
-		public function get channelId() : String {
+		public function get channelId() : String
+		{
 			return this._channelId;
 		}
 		
-		public function get playerVersion() : String {
+		public function get playerVersion() : String
+		{
 			return this._playerVersion;
 		}
 		
-		public function get logCookie() : String {
+		public function get logCookie() : String
+		{
 			return this._logCookie;
 		}
 		
-		public function get volume() : uint {
+		public function get volume() : uint
+		{
 			return this._volume;
 		}
 		
-		public function get title() : String {
+		public function get title() : String
+		{
 			return this._title;
 		}
 		
-		public function get vid() : String {
+		public function get vid() : String
+		{
 			return this._vid;
 		}
 		
-		public function get entry() : String {
+		public function get entry() : String
+		{
 			return this._entry;
 		}
 	}

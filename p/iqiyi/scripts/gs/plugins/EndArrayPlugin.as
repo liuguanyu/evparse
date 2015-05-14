@@ -1,64 +1,78 @@
-package gs.plugins {
+package gs.plugins
+{
 	import gs.*;
 	import flash.display.*;
 	import gs.utils.tween.*;
 	
-	public class EndArrayPlugin extends TweenPlugin {
+	public class EndArrayPlugin extends TweenPlugin
+	{
 		
-		public function EndArrayPlugin() {
+		public static const VERSION:Number = 1.01;
+		
+		public static const API:Number = 1;
+		
+		protected var _a:Array;
+		
+		protected var _info:Array;
+		
+		public function EndArrayPlugin()
+		{
 			_info = [];
 			super();
 			this.propName = "endArray";
 			this.overwriteProps = ["endArray"];
 		}
 		
-		public static const VERSION:Number = 1.01;
-		
-		public static const API:Number = 1;
-		
-		public function init(param1:Array, param2:Array) : void {
+		public function init(param1:Array, param2:Array) : void
+		{
 			_a = param1;
-			var _loc3_:int = param2.length - 1;
-			while(_loc3_ > -1) {
-				if(!(param1[_loc3_] == param2[_loc3_]) && !(param1[_loc3_] == null)) {
-					_info[_info.length] = new ArrayTweenInfo(_loc3_,_a[_loc3_],param2[_loc3_] - _a[_loc3_]);
+			var _loc3:int = param2.length - 1;
+			while(_loc3 > -1)
+			{
+				if(!(param1[_loc3] == param2[_loc3]) && !(param1[_loc3] == null))
+				{
+					_info[_info.length] = new ArrayTweenInfo(_loc3,_a[_loc3],param2[_loc3] - _a[_loc3]);
 				}
-				_loc3_--;
+				_loc3--;
 			}
 		}
 		
-		protected var _a:Array;
-		
-		override public function onInitTween(param1:Object, param2:*, param3:TweenLite) : Boolean {
-			if(!(param1 is Array) || !(param2 is Array)) {
+		override public function onInitTween(param1:Object, param2:*, param3:TweenLite) : Boolean
+		{
+			if(!(param1 is Array) || !(param2 is Array))
+			{
 				return false;
 			}
 			init(param1 as Array,param2);
 			return true;
 		}
 		
-		protected var _info:Array;
-		
-		override public function set changeFactor(param1:Number) : void {
-			var _loc2_:* = 0;
-			var _loc3_:ArrayTweenInfo = null;
-			var _loc4_:* = NaN;
-			var _loc5_:* = 0;
-			if(this.round) {
-				_loc2_ = _info.length - 1;
-				while(_loc2_ > -1) {
-					_loc3_ = _info[_loc2_];
-					_loc4_ = _loc3_.start + _loc3_.change * param1;
-					_loc5_ = _loc4_ < 0?-1:1;
-					_a[_loc3_.index] = _loc4_ % 1 * _loc5_ > 0.5?int(_loc4_) + _loc5_:int(_loc4_);
-					_loc2_--;
+		override public function set changeFactor(param1:Number) : void
+		{
+			var _loc2:* = 0;
+			var _loc3:ArrayTweenInfo = null;
+			var _loc4:* = NaN;
+			var _loc5:* = 0;
+			if(this.round)
+			{
+				_loc2 = _info.length - 1;
+				while(_loc2 > -1)
+				{
+					_loc3 = _info[_loc2];
+					_loc4 = _loc3.start + _loc3.change * param1;
+					_loc5 = _loc4 < 0?-1:1;
+					_a[_loc3.index] = _loc4 % 1 * _loc5 > 0.5?int(_loc4) + _loc5:int(_loc4);
+					_loc2--;
 				}
-			} else {
-				_loc2_ = _info.length - 1;
-				while(_loc2_ > -1) {
-					_loc3_ = _info[_loc2_];
-					_a[_loc3_.index] = _loc3_.start + _loc3_.change * param1;
-					_loc2_--;
+			}
+			else
+			{
+				_loc2 = _info.length - 1;
+				while(_loc2 > -1)
+				{
+					_loc3 = _info[_loc2];
+					_a[_loc3.index] = _loc3.start + _loc3.change * param1;
+					_loc2--;
 				}
 			}
 		}

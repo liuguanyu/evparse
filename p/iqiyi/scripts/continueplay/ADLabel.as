@@ -1,9 +1,12 @@
-package continueplay {
+package continueplay
+{
 	import flash.display.MovieClip;
 	
-	public dynamic class ADLabel extends MovieClip {
+	public dynamic class ADLabel extends MovieClip
+	{
 		
-		public function ADLabel() {
+		public function ADLabel()
+		{
 			super();
 		}
 	}

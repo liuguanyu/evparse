@@ -1,5 +1,7 @@
-package org.puremvc.as3.interfaces {
-	public interface IController {
+package org.puremvc.as3.interfaces
+{
+	public interface IController
+	{
 		
 		function registerCommand(param1:String, param2:Class) : void;
 		

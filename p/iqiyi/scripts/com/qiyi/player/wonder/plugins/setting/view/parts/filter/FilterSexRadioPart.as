@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.setting.view.parts.filter {
+package com.qiyi.player.wonder.plugins.setting.view.parts.filter
+{
 	import flash.display.Sprite;
 	import flash.text.TextField;
 	import com.qiyi.player.base.pub.EnumItem;
@@ -8,14 +9,8 @@ package com.qiyi.player.wonder.plugins.setting.view.parts.filter {
 	import com.qiyi.player.wonder.common.ui.FastCreator;
 	import flash.text.TextFieldAutoSize;
 	
-	public class FilterSexRadioPart extends Sprite {
-		
-		public function FilterSexRadioPart() {
-			super();
-			this._radioListItemVec = new Vector.<FilterRadioItem>();
-			this._tfDescribe = FastCreator.createLabel(STR_SEX_DESCRIBE,16777215,14,TextFieldAutoSize.LEFT);
-			addChild(this._tfDescribe);
-		}
+	public class FilterSexRadioPart extends Sprite
+	{
 		
 		private static const STR_SEX_SELECTED:Array = ["大众版","男生版","女生版"];
 		
@@ -29,71 +24,95 @@ package com.qiyi.player.wonder.plugins.setting.view.parts.filter {
 		
 		private var _curSelectedSex:EnumItem;
 		
-		public function setSexAttribute(param1:EnumItem, param2:Vector.<EnumItem>) : void {
-			var _loc3_:FilterRadioItem = null;
-			var _loc4_:uint = 0;
+		public function FilterSexRadioPart()
+		{
+			super();
+			this._radioListItemVec = new Vector.<FilterRadioItem>();
+			this._tfDescribe = FastCreator.createLabel(STR_SEX_DESCRIBE,16777215,14,TextFieldAutoSize.LEFT);
+			addChild(this._tfDescribe);
+		}
+		
+		public function setSexAttribute(param1:EnumItem, param2:Vector.<EnumItem>) : void
+		{
+			var _loc3:FilterRadioItem = null;
+			var _loc4:uint = 0;
 			this._sexList = param2;
 			this._curSelectedSex = param1;
 			this.destroy();
-			_loc4_ = 0;
-			while(_loc4_ < this._sexList.length) {
-				_loc3_ = new FilterRadioItem();
-				_loc3_.setTitle(this.getTitleByEnumItem(this._sexList[_loc4_]));
-				_loc3_.index = _loc4_;
-				_loc3_.x = 90 * _loc4_ + this._tfDescribe.width + 20;
-				if(this._sexList[_loc4_] == this._curSelectedSex) {
-					_loc3_.isSelected = true;
-				} else {
-					_loc3_.isSelected = false;
+			_loc4 = 0;
+			while(_loc4 < this._sexList.length)
+			{
+				_loc3 = new FilterRadioItem();
+				_loc3.setTitle(this.getTitleByEnumItem(this._sexList[_loc4]));
+				_loc3.index = _loc4;
+				_loc3.x = 90 * _loc4 + this._tfDescribe.width + 20;
+				if(this._sexList[_loc4] == this._curSelectedSex)
+				{
+					_loc3.isSelected = true;
 				}
-				addChild(_loc3_);
-				this._radioListItemVec.push(_loc3_);
-				_loc3_.addEventListener(MouseEvent.CLICK,this.onFilterSexRadioItemClick);
-				_loc4_++;
+				else
+				{
+					_loc3.isSelected = false;
+				}
+				addChild(_loc3);
+				this._radioListItemVec.push(_loc3);
+				_loc3.addEventListener(MouseEvent.CLICK,this.onFilterSexRadioItemClick);
+				_loc4++;
 			}
 		}
 		
-		private function onFilterSexRadioItemClick(param1:MouseEvent) : void {
-			var _loc3_:FilterRadioItem = null;
-			var _loc2_:FilterRadioItem = param1.target as FilterRadioItem;
-			if((_loc2_) && !(this._curSelectedSex == this._sexList[_loc2_.index])) {
-				this._curSelectedSex = this._sexList[_loc2_.index];
+		private function onFilterSexRadioItemClick(param1:MouseEvent) : void
+		{
+			var _loc3:FilterRadioItem = null;
+			var _loc2:FilterRadioItem = param1.target as FilterRadioItem;
+			if((_loc2) && !(this._curSelectedSex == this._sexList[_loc2.index]))
+			{
+				this._curSelectedSex = this._sexList[_loc2.index];
 				dispatchEvent(new SettingEvent(SettingEvent.Evt_FilterSexRadioClick,this._curSelectedSex));
-				for each(_loc3_ in this._radioListItemVec) {
-					if(this._sexList[_loc3_.index] == this._curSelectedSex) {
-						_loc3_.isSelected = true;
-					} else {
-						_loc3_.isSelected = false;
+				for each(_loc3 in this._radioListItemVec)
+				{
+					if(this._sexList[_loc3.index] == this._curSelectedSex)
+					{
+						_loc3.isSelected = true;
+					}
+					else
+					{
+						_loc3.isSelected = false;
 					}
 				}
 			}
 		}
 		
-		private function getTitleByEnumItem(param1:EnumItem) : String {
-			var _loc2_:* = "";
-			switch(param1) {
+		private function getTitleByEnumItem(param1:EnumItem) : String
+		{
+			var _loc2:* = "";
+			switch(param1)
+			{
 				case SkipPointEnum.ENJOYABLE_SUB_COMMON:
-					_loc2_ = STR_SEX_SELECTED[0];
+					_loc2 = STR_SEX_SELECTED[0];
 					break;
 				case SkipPointEnum.ENJOYABLE_SUB_MALE:
-					_loc2_ = STR_SEX_SELECTED[1];
+					_loc2 = STR_SEX_SELECTED[1];
 					break;
 				case SkipPointEnum.ENJOYABLE_SUB_FEMALE:
-					_loc2_ = STR_SEX_SELECTED[2];
+					_loc2 = STR_SEX_SELECTED[2];
 					break;
 			}
-			return _loc2_;
+			return _loc2;
 		}
 		
-		public function destroy() : void {
-			var _loc1_:FilterRadioItem = null;
-			while((this._radioListItemVec) && this._radioListItemVec.length > 0) {
-				_loc1_ = this._radioListItemVec.pop();
-				if(_loc1_.parent) {
-					_loc1_.parent.removeChild(_loc1_);
+		public function destroy() : void
+		{
+			var _loc1:FilterRadioItem = null;
+			while((this._radioListItemVec) && this._radioListItemVec.length > 0)
+			{
+				_loc1 = this._radioListItemVec.pop();
+				if(_loc1.parent)
+				{
+					_loc1.parent.removeChild(_loc1);
 				}
-				_loc1_.destroy();
-				_loc1_ = null;
+				_loc1.destroy();
+				_loc1 = null;
 			}
 		}
 	}

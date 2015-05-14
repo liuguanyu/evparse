@@ -1,12 +1,10 @@
-package com.qiyi.player.wonder.plugins.controllbar {
+package com.qiyi.player.wonder.plugins.controllbar
+{
 	import flash.text.TextFormat;
 	import flash.geom.Point;
 	
-	public class ControllBarDef extends Object {
-		
-		public function ControllBarDef() {
-			super();
-		}
+	public class ControllBarDef extends Object
+	{
 		
 		private static var statusBegin:int = 0;
 		
@@ -117,5 +115,10 @@ package com.qiyi.player.wonder.plugins.controllbar {
 		public static const IMAGE_PRE_BIG_COL:int = 10;
 		
 		public static const IMAGE_PRE_DELAYEDCALL:int = 500;
+		
+		public function ControllBarDef()
+		{
+			super();
+		}
 	}
 }

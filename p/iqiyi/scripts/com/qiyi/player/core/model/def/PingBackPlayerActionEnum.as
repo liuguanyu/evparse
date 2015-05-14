@@ -1,11 +1,9 @@
-package com.qiyi.player.core.model.def {
+package com.qiyi.player.core.model.def
+{
 	import com.qiyi.player.base.pub.EnumItem;
 	
-	public class PingBackPlayerActionEnum extends Object {
-		
-		public function PingBackPlayerActionEnum() {
-			super();
-		}
+	public class PingBackPlayerActionEnum extends Object
+	{
 		
 		public static const ITEMS:Array = [];
 		
@@ -28,5 +26,10 @@ package com.qiyi.player.core.model.def {
 		public static const ACTIVE_PLAY:EnumItem = new EnumItem(8,"activeplay",ITEMS);
 		
 		public static const READY:EnumItem = new EnumItem(9,"ready",ITEMS);
+		
+		public function PingBackPlayerActionEnum()
+		{
+			super();
+		}
 	}
 }

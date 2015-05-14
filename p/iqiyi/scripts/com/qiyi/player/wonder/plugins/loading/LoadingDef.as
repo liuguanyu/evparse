@@ -1,9 +1,7 @@
-package com.qiyi.player.wonder.plugins.loading {
-	public class LoadingDef extends Object {
-		
-		public function LoadingDef() {
-			super();
-		}
+package com.qiyi.player.wonder.plugins.loading
+{
+	public class LoadingDef extends Object
+	{
 		
 		private static var statusBegin:int = 0;
 		
@@ -20,5 +18,10 @@ package com.qiyi.player.wonder.plugins.loading {
 		public static const NOTIFIC_ADD_STATUS:String = "loadingAddStatus";
 		
 		public static const NOTIFIC_REMOVE_STATUS:String = "loadingRemoveStatus";
+		
+		public function LoadingDef()
+		{
+			super();
+		}
 	}
 }

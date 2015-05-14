@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.body.controller {
+package com.qiyi.player.wonder.body.controller
+{
 	import org.puremvc.as3.patterns.command.SimpleCommand;
 	import org.puremvc.as3.interfaces.INotification;
 	import com.qiyi.player.wonder.body.model.JavascriptAPIProxy;
@@ -19,23 +20,26 @@ package com.qiyi.player.wonder.body.controller {
 	import com.qiyi.player.wonder.plugins.topbar.TopBarPlugins;
 	import com.qiyi.player.wonder.plugins.videolink.VideoLinkPlugins;
 	
-	public class PrepModelCommand extends SimpleCommand {
+	public class PrepModelCommand extends SimpleCommand
+	{
 		
-		public function PrepModelCommand() {
+		public function PrepModelCommand()
+		{
 			super();
 		}
 		
-		override public function execute(param1:INotification) : void {
+		override public function execute(param1:INotification) : void
+		{
 			super.execute(param1);
-			var _loc2_:JavascriptAPIProxy = new JavascriptAPIProxy();
-			facade.registerProxy(_loc2_);
-			var _loc3_:UserProxy = new UserProxy();
-			facade.registerProxy(_loc3_);
-			var _loc4_:PlayerProxy = new PlayerProxy();
-			facade.registerProxy(_loc4_);
-			_loc2_.injectUserProxy(_loc3_);
-			_loc2_.injectPlayerProxy(_loc4_);
-			_loc3_.injectPlayerProxy(_loc4_);
+			var _loc2:JavascriptAPIProxy = new JavascriptAPIProxy();
+			facade.registerProxy(_loc2);
+			var _loc3:UserProxy = new UserProxy();
+			facade.registerProxy(_loc3);
+			var _loc4:PlayerProxy = new PlayerProxy();
+			facade.registerProxy(_loc4);
+			_loc2.injectUserProxy(_loc3);
+			_loc2.injectPlayerProxy(_loc4);
+			_loc3.injectPlayerProxy(_loc4);
 			ADPlugins.getInstance().initModel();
 			ContinuePlayPlugins.getInstance().initModel();
 			ControllBarPlugins.getInstance().initModel();

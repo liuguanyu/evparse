@@ -1,11 +1,9 @@
-package com.qiyi.player.core.video.def {
+package com.qiyi.player.core.video.def
+{
 	import com.qiyi.player.base.pub.EnumItem;
 	
-	public class VideoAccEnum extends Object {
-		
-		public function VideoAccEnum() {
-			super();
-		}
+	public class VideoAccEnum extends Object
+	{
 		
 		public static const ITEMS:Array = [];
 		
@@ -18,5 +16,10 @@ package com.qiyi.player.core.video.def {
 		public static const CPU_ACCELERATED:EnumItem = new EnumItem(3,"CPUAccelerated",ITEMS);
 		
 		public static const CPU_SOFTWARE:EnumItem = new EnumItem(4,"CPUSoftware",ITEMS);
+		
+		public function VideoAccEnum()
+		{
+			super();
+		}
 	}
 }

@@ -1,9 +1,12 @@
-package scenetile {
+package scenetile
+{
 	import flash.display.MovieClip;
 	
-	public dynamic class BarrageGreenColorBG extends MovieClip {
+	public dynamic class BarrageGreenColorBG extends MovieClip
+	{
 		
-		public function BarrageGreenColorBG() {
+		public function BarrageGreenColorBG()
+		{
 			super();
 		}
 	}

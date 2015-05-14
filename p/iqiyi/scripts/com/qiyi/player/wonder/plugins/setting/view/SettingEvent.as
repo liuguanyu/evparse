@@ -1,11 +1,9 @@
-package com.qiyi.player.wonder.plugins.setting.view {
+package com.qiyi.player.wonder.plugins.setting.view
+{
 	import com.qiyi.player.wonder.common.event.CommonEvent;
 	
-	public class SettingEvent extends CommonEvent {
-		
-		public function SettingEvent(param1:String, param2:Object = null) {
-			super(param1,param2);
-		}
+	public class SettingEvent extends CommonEvent
+	{
 		
 		public static const Evt_Open:String = "evtSettingOpen";
 		
@@ -52,5 +50,10 @@ package com.qiyi.player.wonder.plugins.setting.view {
 		public static const Evt_SettingTabChanged:String = "evtSettingSettingTabChanged";
 		
 		public static const Evt_OtherSettingItemChanged:String = "evtSettingOtherSettingsChanged";
+		
+		public function SettingEvent(param1:String, param2:Object = null)
+		{
+			super(param1,param2);
+		}
 	}
 }

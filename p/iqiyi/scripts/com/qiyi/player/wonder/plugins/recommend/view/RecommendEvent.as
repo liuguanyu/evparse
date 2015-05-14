@@ -1,11 +1,9 @@
-package com.qiyi.player.wonder.plugins.recommend.view {
+package com.qiyi.player.wonder.plugins.recommend.view
+{
 	import com.qiyi.player.wonder.common.event.CommonEvent;
 	
-	public class RecommendEvent extends CommonEvent {
-		
-		public function RecommendEvent(param1:String, param2:Object = null) {
-			super(param1,param2);
-		}
+	public class RecommendEvent extends CommonEvent
+	{
 		
 		public static const Evt_Finish_Open:String = "evtFinishRecommendOpen";
 		
@@ -20,5 +18,10 @@ package com.qiyi.player.wonder.plugins.recommend.view {
 		public static const Evt_PlayingItemClick:String = "evtPlayingItemClick";
 		
 		public static const Evt_PlayingClickCloseBtn:String = "evtPlayingClickCloseBtn";
+		
+		public function RecommendEvent(param1:String, param2:Object = null)
+		{
+			super(param1,param2);
+		}
 	}
 }

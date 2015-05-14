@@ -1,5 +1,7 @@
-package com.qiyi.player.base.logging {
-	public interface ILoggingTarget {
+package com.qiyi.player.base.logging
+{
+	public interface ILoggingTarget
+	{
 		
 		function get filters() : Array;
 		

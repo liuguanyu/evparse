@@ -1,9 +1,12 @@
-package controllbar {
+package controllbar
+{
 	import flash.display.SimpleButton;
 	
-	public dynamic class ForWardBtn extends SimpleButton {
+	public dynamic class ForWardBtn extends SimpleButton
+	{
 		
-		public function ForWardBtn() {
+		public function ForWardBtn()
+		{
 			super();
 		}
 	}

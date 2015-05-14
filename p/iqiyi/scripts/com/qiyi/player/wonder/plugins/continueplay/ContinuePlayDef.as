@@ -1,9 +1,7 @@
-package com.qiyi.player.wonder.plugins.continueplay {
-	public class ContinuePlayDef extends Object {
-		
-		public function ContinuePlayDef() {
-			super();
-		}
+package com.qiyi.player.wonder.plugins.continueplay
+{
+	public class ContinuePlayDef extends Object
+	{
 		
 		private static var statusBegin:int = 0;
 		
@@ -82,5 +80,10 @@ package com.qiyi.player.wonder.plugins.continueplay {
 		public static const SOURCE_QIYU_VALUE:uint = 2;
 		
 		public static const SOURCE_OTHER_VALUE:uint = 3;
+		
+		public function ContinuePlayDef()
+		{
+			super();
+		}
 	}
 }

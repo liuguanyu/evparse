@@ -1,9 +1,12 @@
-package feedback {
+package feedback
+{
 	import flash.display.SimpleButton;
 	
-	public dynamic class NetworkHelpBtn extends SimpleButton {
+	public dynamic class NetworkHelpBtn extends SimpleButton
+	{
 		
-		public function NetworkHelpBtn() {
+		public function NetworkHelpBtn()
+		{
 			super();
 		}
 	}

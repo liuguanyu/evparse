@@ -1,9 +1,12 @@
-package scenetile {
+package scenetile
+{
 	import flash.display.SimpleButton;
 	
-	public dynamic class ScoreCloseBtn extends SimpleButton {
+	public dynamic class ScoreCloseBtn extends SimpleButton
+	{
 		
-		public function ScoreCloseBtn() {
+		public function ScoreCloseBtn()
+		{
 			super();
 		}
 	}

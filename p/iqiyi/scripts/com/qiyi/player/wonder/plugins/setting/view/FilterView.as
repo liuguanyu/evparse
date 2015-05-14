@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.setting.view {
+package com.qiyi.player.wonder.plugins.setting.view
+{
 	import com.iqiyi.components.panelSystem.impls.BasePanel;
 	import com.qiyi.player.wonder.common.status.Status;
 	import com.qiyi.player.wonder.common.vo.UserInfoVO;
@@ -28,16 +29,8 @@ package com.qiyi.player.wonder.plugins.setting.view {
 	import com.qiyi.player.wonder.common.config.SystemConfig;
 	import flash.system.LoaderContext;
 	
-	public class FilterView extends BasePanel {
-		
-		public function FilterView(param1:DisplayObjectContainer, param2:Status, param3:UserInfoVO) {
-			super(NAME,param1);
-			this._container = param1;
-			this._status = param2;
-			this._userInfoVO = param3;
-			type = BodyDef.VIEW_TYPE_POPUP;
-			this.initUI();
-		}
+	public class FilterView extends BasePanel
+	{
 		
 		public static const NAME:String = "com.qiyi.player.wonder.plugins.setting.view.FilterView";
 		
@@ -95,27 +88,43 @@ package com.qiyi.player.wonder.plugins.setting.view {
 		
 		private var _timeList:Array = null;
 		
-		public function set guessSex(param1:uint) : void {
+		public function FilterView(param1:DisplayObjectContainer, param2:Status, param3:UserInfoVO)
+		{
+			super(NAME,param1);
+			this._container = param1;
+			this._status = param2;
+			this._userInfoVO = param3;
+			type = BodyDef.VIEW_TYPE_POPUP;
+			this.initUI();
+		}
+		
+		public function set guessSex(param1:uint) : void
+		{
 			this._guessSex = param1;
 		}
 		
-		public function get curTimeIndex() : uint {
+		public function get curTimeIndex() : uint
+		{
 			return this._curTimeIndex;
 		}
 		
-		public function set curTimeIndex(param1:uint) : void {
+		public function set curTimeIndex(param1:uint) : void
+		{
 			this._curTimeIndex = param1;
 		}
 		
-		public function get curSex() : EnumItem {
+		public function get curSex() : EnumItem
+		{
 			return this._curSex;
 		}
 		
-		public function set curSex(param1:EnumItem) : void {
+		public function set curSex(param1:EnumItem) : void
+		{
 			this._curSex = param1;
 		}
 		
-		private function initUI() : void {
+		private function initUI() : void
+		{
 			this._bg = new CommonBg();
 			this._bg.width = 430;
 			addChild(this._bg);
@@ -151,9 +160,11 @@ package com.qiyi.player.wonder.plugins.setting.view {
 			this._confirmBtn.addEventListener(MouseEvent.CLICK,this.onConfirmBtnClick);
 		}
 		
-		public function onAddStatus(param1:int) : void {
+		public function onAddStatus(param1:int) : void
+		{
 			this._status.addStatus(param1);
-			switch(param1) {
+			switch(param1)
+			{
 				case SettingDef.STATUS_FILTER_OPEN:
 					TweenLite.to(this._bg,10,{"onComplete":this.onCloseBtnClick});
 					this.loaderMovieClip();
@@ -162,9 +173,11 @@ package com.qiyi.player.wonder.plugins.setting.view {
 			}
 		}
 		
-		public function onRemoveStatus(param1:int) : void {
+		public function onRemoveStatus(param1:int) : void
+		{
 			this._status.removeStatus(param1);
-			switch(param1) {
+			switch(param1)
+			{
 				case SettingDef.STATUS_FILTER_OPEN:
 					TweenLite.killTweensOf(this._bg);
 					this.close();
@@ -172,19 +185,24 @@ package com.qiyi.player.wonder.plugins.setting.view {
 			}
 		}
 		
-		public function onUserInfoChanged(param1:UserInfoVO) : void {
+		public function onUserInfoChanged(param1:UserInfoVO) : void
+		{
 			this._userInfoVO = param1;
 		}
 		
-		override public function open(param1:DisplayObjectContainer = null) : void {
-			if(!isOnStage) {
+		override public function open(param1:DisplayObjectContainer = null) : void
+		{
+			if(!isOnStage)
+			{
 				super.open(param1);
 				dispatchEvent(new SettingEvent(SettingEvent.Evt_FilterOpen));
 			}
 		}
 		
-		override public function close() : void {
-			if(isOnStage) {
+		override public function close() : void
+		{
+			if(isOnStage)
+			{
 				super.close();
 				this.deletedSexRadioPart();
 				this.deletedTimeRadioPart();
@@ -192,23 +210,30 @@ package com.qiyi.player.wonder.plugins.setting.view {
 			}
 		}
 		
-		override protected function onAddToStage() : void {
+		override protected function onAddToStage() : void
+		{
 			super.onAddToStage();
 			this.onResize(GlobalStage.stage.stageWidth,GlobalStage.stage.stageHeight);
 			alpha = 0;
 			TweenLite.to(this,BodyDef.POPUP_TWEEN_TIME / 1000,{"alpha":1});
 		}
 		
-		override protected function onRemoveFromStage() : void {
+		override protected function onRemoveFromStage() : void
+		{
 			super.onRemoveFromStage();
 			TweenLite.killTweensOf(this);
 		}
 		
-		public function onResize(param1:int, param2:int) : void {
-			if(isOnStage) {
-				if((this._filterTimeRadio) || (this._filterSexRadio)) {
+		public function onResize(param1:int, param2:int) : void
+		{
+			if(isOnStage)
+			{
+				if((this._filterTimeRadio) || (this._filterSexRadio))
+				{
 					this._tfExplainSelect.visible = true;
-				} else {
+				}
+				else
+				{
 					this._tfExplainSelect.visible = false;
 				}
 				this._confirmBtn.y = this._confirmBtn.height + this._explainTime.y + int(this._tfExplainSelect.visible) * 34 + (this._filterSexRadio?34:0) + (this._filterTimeRadio?34:0);
@@ -219,11 +244,13 @@ package com.qiyi.player.wonder.plugins.setting.view {
 			}
 		}
 		
-		public function setPanelSexAttribute(param1:EnumItem, param2:Vector.<EnumItem>) : void {
+		public function setPanelSexAttribute(param1:EnumItem, param2:Vector.<EnumItem>) : void
+		{
 			this._sexList = param2;
 			this._curSex = param1;
 			this.deletedSexRadioPart();
-			if(this._sexList.length >= 2) {
+			if(this._sexList.length >= 2)
+			{
 				this._filterSexRadio = new FilterSexRadioPart();
 				this._filterSexRadio.setSexAttribute(this._curSex,this._sexList);
 				this._filterSexRadio.x = 68;
@@ -235,15 +262,18 @@ package com.qiyi.player.wonder.plugins.setting.view {
 			this.onResize(GlobalStage.stage.stageWidth,GlobalStage.stage.stageHeight);
 		}
 		
-		public function setPanelTimeAttribute(param1:Array, param2:uint = 0) : void {
+		public function setPanelTimeAttribute(param1:Array, param2:uint = 0) : void
+		{
 			this._timeList = param1;
-			if(!this._timeList) {
+			if(!this._timeList)
+			{
 				return;
 			}
 			this._curTimeIndex = param2 == 0?this._curTimeIndex:param2;
 			this._curTimeIndex = this._curTimeIndex > this._timeList.length - 1?0:this._curTimeIndex;
 			this.deletedTimeRadioPart();
-			if(param1.length >= 2) {
+			if(param1.length >= 2)
+			{
 				this._filterTimeRadio = new FilterTimeRadioPart();
 				this._filterTimeRadio.setTimeAttribute(this._curTimeIndex,param1);
 				this._filterTimeRadio.x = 68;
@@ -255,85 +285,102 @@ package com.qiyi.player.wonder.plugins.setting.view {
 			this.onResize(GlobalStage.stage.stageWidth,GlobalStage.stage.stageHeight);
 		}
 		
-		private function deletedSexRadioPart() : void {
-			if(this._filterSexRadio) {
+		private function deletedSexRadioPart() : void
+		{
+			if(this._filterSexRadio)
+			{
 				this._filterSexRadio.removeEventListener(SettingEvent.Evt_FilterSexRadioClick,this.onFilterSexRadioClick);
 				this._filterSexRadio.destroy();
-				if(this._filterSexRadio.parent) {
+				if(this._filterSexRadio.parent)
+				{
 					this._filterSexRadio.parent.removeChild(this._filterSexRadio);
 				}
 				this._filterSexRadio = null;
 			}
 		}
 		
-		private function deletedTimeRadioPart() : void {
-			if(this._filterTimeRadio) {
+		private function deletedTimeRadioPart() : void
+		{
+			if(this._filterTimeRadio)
+			{
 				this._filterTimeRadio.removeEventListener(SettingEvent.Evt_FilterTimeRadioClick,this.onFilterTimeRadioClick);
 				this._filterTimeRadio.destroy();
-				if(this._filterTimeRadio.parent) {
+				if(this._filterTimeRadio.parent)
+				{
 					this._filterTimeRadio.parent.removeChild(this._filterTimeRadio);
 				}
 				this._filterTimeRadio = null;
 			}
 		}
 		
-		private function onFilterSexRadioClick(param1:SettingEvent) : void {
+		private function onFilterSexRadioClick(param1:SettingEvent) : void
+		{
 			this._curSex = param1.data as EnumItem;
 			this._title.htmlText = this.getTitleStrBySex(this._curSex);
 			dispatchEvent(new SettingEvent(SettingEvent.Evt_FilterSexRadioClick,this._curSex));
 		}
 		
-		private function onFilterTimeRadioClick(param1:SettingEvent) : void {
+		private function onFilterTimeRadioClick(param1:SettingEvent) : void
+		{
 			this._curTimeIndex = int(param1.data);
-			if(!this._timeList) {
+			if(!this._timeList)
+			{
 				return;
 			}
 			this._curTimeIndex = this._curTimeIndex > this._timeList.length - 1?0:this._curTimeIndex;
 			this._time.text = uint(this._timeList[this._curTimeIndex] / 60 / 1000) + "分钟";
 		}
 		
-		private function getTitleStrBySex(param1:EnumItem) : String {
-			var _loc2_:* = "";
-			switch(param1) {
+		private function getTitleStrBySex(param1:EnumItem) : String
+		{
+			var _loc2:* = "";
+			switch(param1)
+			{
 				case SkipPointEnum.ENJOYABLE_SUB_COMMON:
-					_loc2_ = this.getNicknameByGuessSex(this._guessSex) + STR_EXPLAIN_TITLE_PART1 + "<font color=\'#699f00\'>" + (this._sexList.length > 1?STR_SEX_FILTER[1]:STR_SEX_FILTER[0]) + "</font>" + STR_EXPLAIN_TITLE_PART2;
+					_loc2 = this.getNicknameByGuessSex(this._guessSex) + STR_EXPLAIN_TITLE_PART1 + "<font color=\'#699f00\'>" + (this._sexList.length > 1?STR_SEX_FILTER[1]:STR_SEX_FILTER[0]) + "</font>" + STR_EXPLAIN_TITLE_PART2;
 					break;
 				case SkipPointEnum.ENJOYABLE_SUB_MALE:
-					_loc2_ = this.getNicknameByGuessSex(this._guessSex) + STR_EXPLAIN_TITLE_PART1 + "<font color=\'#699f00\'>" + STR_SEX_FILTER[2] + "</font>" + STR_EXPLAIN_TITLE_PART2;
+					_loc2 = this.getNicknameByGuessSex(this._guessSex) + STR_EXPLAIN_TITLE_PART1 + "<font color=\'#699f00\'>" + STR_SEX_FILTER[2] + "</font>" + STR_EXPLAIN_TITLE_PART2;
 					break;
 				case SkipPointEnum.ENJOYABLE_SUB_FEMALE:
-					_loc2_ = this.getNicknameByGuessSex(this._guessSex) + STR_EXPLAIN_TITLE_PART1 + "<font color=\'#699f00\'>" + STR_SEX_FILTER[3] + "</font>" + STR_EXPLAIN_TITLE_PART2;
+					_loc2 = this.getNicknameByGuessSex(this._guessSex) + STR_EXPLAIN_TITLE_PART1 + "<font color=\'#699f00\'>" + STR_SEX_FILTER[3] + "</font>" + STR_EXPLAIN_TITLE_PART2;
 					break;
 			}
-			return _loc2_;
+			return _loc2;
 		}
 		
-		private function getNicknameByGuessSex(param1:uint) : String {
-			var _loc2_:* = "";
-			switch(param1) {
+		private function getNicknameByGuessSex(param1:uint) : String
+		{
+			var _loc2:* = "";
+			switch(param1)
+			{
 				case UserDef.USER_SEX_MALE:
-					_loc2_ = STR_SEX[0] + "，";
+					_loc2 = STR_SEX[0] + "，";
 					break;
 				case UserDef.USER_SEX_FEMALE:
-					_loc2_ = STR_SEX[1] + "，";
+					_loc2 = STR_SEX[1] + "，";
 					break;
 			}
-			return _loc2_;
+			return _loc2;
 		}
 		
-		public function playSkipMovieClip() : void {
-			var _loc1_:MovieClip = null;
-			if(this._filterMovieClip == null && this._filterMovieClip.content == null) {
+		public function playSkipMovieClip() : void
+		{
+			var _loc1:MovieClip = null;
+			if(this._filterMovieClip == null && this._filterMovieClip.content == null)
+			{
 				return;
 			}
 			this._filterMovieClip.scaleX = GlobalStage.stage.stageWidth / 980;
 			this._filterMovieClip.scaleY = GlobalStage.stage.stageHeight / 480;
-			if(!this._filterMovieClip.parent) {
+			if(!this._filterMovieClip.parent)
+			{
 				this._container.addChild(this._bgShape);
 				this._container.addChild(this._filterMovieClip);
-				_loc1_ = this._filterMovieClip.contentLoaderInfo.content as MovieClip;
-				if(_loc1_) {
-					_loc1_.filterMovieClip.gotoAndPlay(1);
+				_loc1 = this._filterMovieClip.contentLoaderInfo.content as MovieClip;
+				if(_loc1)
+				{
+					_loc1.filterMovieClip.gotoAndPlay(1);
 				}
 				this._bgShape.alpha = 1;
 				this._bgShape.graphics.clear();
@@ -347,18 +394,23 @@ package com.qiyi.player.wonder.plugins.setting.view {
 			}
 		}
 		
-		private function onMCPlayComplete() : void {
+		private function onMCPlayComplete() : void
+		{
 			TweenLite.killTweensOf(this._bgShape);
-			if(this._filterMovieClip.parent) {
+			if(this._filterMovieClip.parent)
+			{
 				this._container.removeChild(this._filterMovieClip);
 			}
-			if(this._bgShape.parent) {
+			if(this._bgShape.parent)
+			{
 				this._container.removeChild(this._bgShape);
 			}
 		}
 		
-		private function loaderMovieClip() : void {
-			if((this._filterMovieClip) && (this._filterMovieClip.content)) {
+		private function loaderMovieClip() : void
+		{
+			if((this._filterMovieClip) && (this._filterMovieClip.content))
+			{
 				return;
 			}
 			this._filterMovieClip = new Loader();
@@ -368,11 +420,14 @@ package com.qiyi.player.wonder.plugins.setting.view {
 			this._filterMovieClip.load(new URLRequest(SystemConfig.FILTER_MOVIE_CLIP),new LoaderContext(true));
 		}
 		
-		private function onComplete(param1:Event) : void {
+		private function onComplete(param1:Event) : void
+		{
 		}
 		
-		private function onError(param1:Event = null) : void {
-			if(this._filterMovieClip == null) {
+		private function onError(param1:Event = null) : void
+		{
+			if(this._filterMovieClip == null)
+			{
 				return;
 			}
 			this._filterMovieClip.contentLoaderInfo.removeEventListener(Event.COMPLETE,this.onComplete);
@@ -381,7 +436,8 @@ package com.qiyi.player.wonder.plugins.setting.view {
 			this._filterMovieClip = null;
 		}
 		
-		private function onConfirmBtnClick(param1:MouseEvent) : void {
+		private function onConfirmBtnClick(param1:MouseEvent) : void
+		{
 			dispatchEvent(new SettingEvent(SettingEvent.Evt_FilterConfirmBtnClick,{
 				"curSex":this._curSex,
 				"timeIndex":this._curTimeIndex
@@ -389,7 +445,8 @@ package com.qiyi.player.wonder.plugins.setting.view {
 			this.close();
 		}
 		
-		private function onCloseBtnClick(param1:MouseEvent = null) : void {
+		private function onCloseBtnClick(param1:MouseEvent = null) : void
+		{
 			this.close();
 		}
 	}

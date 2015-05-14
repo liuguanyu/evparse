@@ -1,12 +1,9 @@
-package continueplay {
+package continueplay
+{
 	import flash.display.MovieClip;
 	
-	public dynamic class ContinueGridItem extends MovieClip {
-		
-		public function ContinueGridItem() {
-			super();
-			addFrameScript(0,this.frame1,1,this.frame2,2,this.frame3,3,this.frame4);
-		}
+	public dynamic class ContinueGridItem extends MovieClip
+	{
 		
 		public var mask4:MovieClip;
 		
@@ -20,19 +17,29 @@ package continueplay {
 		
 		public var mask2:MovieClip;
 		
-		function frame1() : * {
+		public function ContinueGridItem()
+		{
+			super();
+			addFrameScript(0,this.frame1,1,this.frame2,2,this.frame3,3,this.frame4);
+		}
+		
+		function frame1() : *
+		{
 			stop();
 		}
 		
-		function frame2() : * {
+		function frame2() : *
+		{
 			stop();
 		}
 		
-		function frame3() : * {
+		function frame3() : *
+		{
 			stop();
 		}
 		
-		function frame4() : * {
+		function frame4() : *
+		{
 			stop();
 		}
 	}

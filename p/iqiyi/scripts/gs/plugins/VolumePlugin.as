@@ -1,15 +1,11 @@
-package gs.plugins {
+package gs.plugins
+{
 	import flash.media.SoundTransform;
 	import flash.display.*;
 	import gs.*;
 	
-	public class VolumePlugin extends TweenPlugin {
-		
-		public function VolumePlugin() {
-			super();
-			this.propName = "volume";
-			this.overwriteProps = ["volume"];
-		}
+	public class VolumePlugin extends TweenPlugin
+	{
 		
 		public static const VERSION:Number = 1.01;
 		
@@ -19,8 +15,17 @@ package gs.plugins {
 		
 		protected var _st:SoundTransform;
 		
-		override public function onInitTween(param1:Object, param2:*, param3:TweenLite) : Boolean {
-			if((isNaN(param2)) || !param1.hasOwnProperty("soundTransform")) {
+		public function VolumePlugin()
+		{
+			super();
+			this.propName = "volume";
+			this.overwriteProps = ["volume"];
+		}
+		
+		override public function onInitTween(param1:Object, param2:*, param3:TweenLite) : Boolean
+		{
+			if((isNaN(param2)) || !param1.hasOwnProperty("soundTransform"))
+			{
 				return false;
 			}
 			_target = param1;
@@ -29,7 +34,8 @@ package gs.plugins {
 			return true;
 		}
 		
-		override public function set changeFactor(param1:Number) : void {
+		override public function set changeFactor(param1:Number) : void
+		{
 			updateTweens(param1);
 			_target.soundTransform = _st;
 		}

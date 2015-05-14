@@ -1,12 +1,21 @@
-package com.qiyi.player.wonder.plugins.continueplay.view.parts {
+package com.qiyi.player.wonder.plugins.continueplay.view.parts
+{
 	import continueplay.LoadingTip;
 	import flash.text.TextField;
 	import common.CommonLoadingMC;
 	import com.qiyi.player.wonder.common.ui.FastCreator;
 	
-	public class ContinueLoading extends LoadingTip {
+	public class ContinueLoading extends LoadingTip
+	{
 		
-		public function ContinueLoading() {
+		private static const TEXT_LOADING:String = "数据加载中";
+		
+		private var _loadingTF:TextField;
+		
+		private var _loadingMC:CommonLoadingMC;
+		
+		public function ContinueLoading()
+		{
 			this._loadingMC = new CommonLoadingMC();
 			this._loadingMC.x = 6;
 			this._loadingMC.y = 6;
@@ -18,11 +27,5 @@ package com.qiyi.player.wonder.plugins.continueplay.view.parts {
 			addChild(this._loadingTF);
 			super();
 		}
-		
-		private static const TEXT_LOADING:String = "数据加载中";
-		
-		private var _loadingTF:TextField;
-		
-		private var _loadingMC:CommonLoadingMC;
 	}
 }

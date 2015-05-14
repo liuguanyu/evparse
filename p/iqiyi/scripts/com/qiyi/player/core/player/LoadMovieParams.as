@@ -1,13 +1,10 @@
-package com.qiyi.player.core.player {
+package com.qiyi.player.core.player
+{
 	import com.qiyi.player.base.pub.EnumItem;
 	import com.qiyi.player.core.model.def.DefinitionEnum;
 	
-	public class LoadMovieParams extends Object {
-		
-		public function LoadMovieParams() {
-			this.autoDefinitionlimit = DefinitionEnum.HIGH;
-			super();
-		}
+	public class LoadMovieParams extends Object
+	{
 		
 		public var tvid:String;
 		
@@ -43,25 +40,32 @@ package com.qiyi.player.core.player {
 		
 		public var collectionID:String = "";
 		
-		public function clone() : LoadMovieParams {
-			var _loc1_:LoadMovieParams = new LoadMovieParams();
-			_loc1_.tvid = this.tvid;
-			_loc1_.vid = this.vid;
-			_loc1_.albumId = this.albumId;
-			_loc1_.startTime = this.startTime;
-			_loc1_.endTime = this.endTime;
-			_loc1_.prepareToPlayEnd = this.prepareToPlayEnd;
-			_loc1_.prepareToSkipPoint = this.prepareToSkipPoint;
-			_loc1_.cacheServerIP = this.cacheServerIP;
-			_loc1_.vrsDomain = this.vrsDomain;
-			_loc1_.communicationId = this.communicationId;
-			_loc1_.movieIsMember = this.movieIsMember;
-			_loc1_.recordHistory = this.recordHistory;
-			_loc1_.useHistory = this.useHistory;
-			_loc1_.tg = this.tg;
-			_loc1_.autoDefinitionlimit = this.autoDefinitionlimit;
-			_loc1_.collectionID = this.collectionID;
-			return _loc1_;
+		public function LoadMovieParams()
+		{
+			this.autoDefinitionlimit = DefinitionEnum.HIGH;
+			super();
+		}
+		
+		public function clone() : LoadMovieParams
+		{
+			var _loc1:LoadMovieParams = new LoadMovieParams();
+			_loc1.tvid = this.tvid;
+			_loc1.vid = this.vid;
+			_loc1.albumId = this.albumId;
+			_loc1.startTime = this.startTime;
+			_loc1.endTime = this.endTime;
+			_loc1.prepareToPlayEnd = this.prepareToPlayEnd;
+			_loc1.prepareToSkipPoint = this.prepareToSkipPoint;
+			_loc1.cacheServerIP = this.cacheServerIP;
+			_loc1.vrsDomain = this.vrsDomain;
+			_loc1.communicationId = this.communicationId;
+			_loc1.movieIsMember = this.movieIsMember;
+			_loc1.recordHistory = this.recordHistory;
+			_loc1.useHistory = this.useHistory;
+			_loc1.tg = this.tg;
+			_loc1.autoDefinitionlimit = this.autoDefinitionlimit;
+			_loc1.collectionID = this.collectionID;
+			return _loc1;
 		}
 	}
 }

@@ -1,9 +1,7 @@
-package com.qiyi.player.wonder.body {
-	public class BodyDef extends Object {
-		
-		public function BodyDef() {
-			super();
-		}
+package com.qiyi.player.wonder.body
+{
+	public class BodyDef extends Object
+	{
 		
 		private static var playerStatusBegin:int = 0;
 		
@@ -256,5 +254,10 @@ package com.qiyi.player.wonder.body {
 		public static const FILTER_OUT_ENJOYABLE_TIME:int = 10000;
 		
 		public static const BONUS_DEFAULT_COUNT_ONCE:int = 1;
+		
+		public function BodyDef()
+		{
+			super();
+		}
 	}
 }

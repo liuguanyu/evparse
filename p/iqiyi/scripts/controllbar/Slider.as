@@ -1,9 +1,12 @@
-package controllbar {
+package controllbar
+{
 	import flash.display.Sprite;
 	
-	public dynamic class Slider extends Sprite {
+	public dynamic class Slider extends Sprite
+	{
 		
-		public function Slider() {
+		public function Slider()
+		{
 			super();
 		}
 	}

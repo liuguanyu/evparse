@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder {
+package com.qiyi.player.wonder
+{
 	import org.puremvc.as3.patterns.facade.Facade;
 	import com.qiyi.player.wonder.body.BodyDef;
 	import com.qiyi.player.wonder.body.controller.StartupCommand;
@@ -33,28 +34,34 @@ package com.qiyi.player.wonder {
 	import com.qiyi.player.wonder.plugins.videolink.VideoLinkPlugins;
 	import com.qiyi.player.wonder.common.pingback.PingBack;
 	
-	public class AppFacade extends Facade {
+	public class AppFacade extends Facade
+	{
 		
-		public function AppFacade(param1:SingletonClass) {
+		public static var _instance:AppFacade;
+		
+		public function AppFacade(param1:SingletonClass)
+		{
 			this.initializePingBack();
 			this.initializePlugins();
 			super();
 		}
 		
-		public static var _instance:AppFacade;
-		
-		public static function getInstance() : AppFacade {
-			if(_instance == null) {
+		public static function getInstance() : AppFacade
+		{
+			if(_instance == null)
+			{
 				_instance = new AppFacade(new SingletonClass());
 			}
 			return _instance;
 		}
 		
-		public function startup(param1:Object) : void {
+		public function startup(param1:Object) : void
+		{
 			sendNotification(BodyDef.NOTIFIC_STARTUP,param1);
 		}
 		
-		override protected function initializeController() : void {
+		override protected function initializeController() : void
+		{
 			super.initializeController();
 			registerCommand(BodyDef.NOTIFIC_STARTUP,StartupCommand);
 			registerCommand(BodyDef.NOTIFIC_CHECK_USER,CheckUserCommand);
@@ -93,11 +100,13 @@ package com.qiyi.player.wonder {
 			VideoLinkPlugins.getInstance().initController();
 		}
 		
-		private function initializePingBack() : void {
+		private function initializePingBack() : void
+		{
 			PingBack.getInstance().init(this);
 		}
 		
-		private function initializePlugins() : void {
+		private function initializePlugins() : void
+		{
 			ADPlugins.getInstance().init(this);
 			ContinuePlayPlugins.getInstance().init(this);
 			ControllBarPlugins.getInstance().init(this);
@@ -115,9 +124,12 @@ package com.qiyi.player.wonder {
 		}
 	}
 }
-class SingletonClass extends Object {
+
+class SingletonClass extends Object
+{
 	
-	function SingletonClass() {
+	function SingletonClass()
+	{
 		super();
 	}
 }

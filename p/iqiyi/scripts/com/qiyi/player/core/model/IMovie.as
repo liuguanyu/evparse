@@ -1,4 +1,5 @@
-package com.qiyi.player.core.model {
+package com.qiyi.player.core.model
+{
 	import flash.events.IEventDispatcher;
 	import com.qiyi.player.core.IDestroy;
 	import com.qiyi.player.core.model.impls.AudioTrack;
@@ -6,7 +7,8 @@ package com.qiyi.player.core.model {
 	import com.qiyi.player.core.model.impls.Segment;
 	import com.qiyi.player.base.pub.EnumItem;
 	
-	public interface IMovie extends IMovieModel, IEventDispatcher, IDestroy {
+	public interface IMovie extends IMovieModel, IEventDispatcher, IDestroy
+	{
 		
 		function get ver() : String;
 		

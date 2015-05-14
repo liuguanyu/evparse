@@ -1,9 +1,12 @@
-package com.qiyi.player.components {
+package com.qiyi.player.components
+{
 	import flash.display.Sprite;
 	
-	public dynamic class YHTF extends Sprite {
+	public dynamic class YHTF extends Sprite
+	{
 		
-		public function YHTF() {
+		public function YHTF()
+		{
 			super();
 		}
 	}

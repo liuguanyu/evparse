@@ -1,9 +1,12 @@
-package topbar {
+package topbar
+{
 	import flash.display.Sprite;
 	
-	public dynamic class TopBarBG extends Sprite {
+	public dynamic class TopBarBG extends Sprite
+	{
 		
-		public function TopBarBG() {
+		public function TopBarBG()
+		{
 			super();
 		}
 	}

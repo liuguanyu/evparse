@@ -1,5 +1,7 @@
-package org.puremvc.as3.interfaces {
-	public interface INotification {
+package org.puremvc.as3.interfaces
+{
+	public interface INotification
+	{
 		
 		function getType() : String;
 		

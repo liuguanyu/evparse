@@ -1,9 +1,7 @@
-package com.qiyi.player.wonder.plugins.feedback {
-	public class FeedbackDef extends Object {
-		
-		public function FeedbackDef() {
-			super();
-		}
+package com.qiyi.player.wonder.plugins.feedback
+{
+	public class FeedbackDef extends Object
+	{
 		
 		private static var statusBegin:int = 0;
 		
@@ -63,5 +61,10 @@ package com.qiyi.player.wonder.plugins.feedback {
 		public static const FEEDBACK_LIMITED_AREA:uint = 502;
 		
 		public static const FEEDBACK_PRIVATEVIDEO_COUNTDOWN:uint = 15;
+		
+		public function FeedbackDef()
+		{
+			super();
+		}
 	}
 }

@@ -1,9 +1,12 @@
-package feedback {
+package feedback
+{
 	import flash.display.MovieClip;
 	
-	public dynamic class ConcurrencyLimitImg extends MovieClip {
+	public dynamic class ConcurrencyLimitImg extends MovieClip
+	{
 		
-		public function ConcurrencyLimitImg() {
+		public function ConcurrencyLimitImg()
+		{
 			super();
 		}
 	}

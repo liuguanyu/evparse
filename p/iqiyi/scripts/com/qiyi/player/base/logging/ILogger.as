@@ -1,7 +1,9 @@
-package com.qiyi.player.base.logging {
+package com.qiyi.player.base.logging
+{
 	import flash.events.IEventDispatcher;
 	
-	public interface ILogger extends IEventDispatcher {
+	public interface ILogger extends IEventDispatcher
+	{
 		
 		function get category() : String;
 		

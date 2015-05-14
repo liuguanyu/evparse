@@ -1,5 +1,7 @@
-package com.iqiyi.components.tooltip {
-	public interface IDefaultToolTip {
+package com.iqiyi.components.tooltip
+{
+	public interface IDefaultToolTip
+	{
 		
 		function set text(param1:String) : void;
 		

@@ -1,106 +1,133 @@
-package com.qiyi.player.core.video.decoder {
-	public class NetClient extends Object {
+package com.qiyi.player.core.video.decoder
+{
+	public class NetClient extends Object
+	{
 		
-		public function NetClient(param1:Object) {
+		private var callback:Object;
+		
+		public function NetClient(param1:Object)
+		{
 			super();
 			this.callback = param1;
 		}
 		
-		private var callback:Object;
-		
-		private function forward(param1:Object, param2:String) : void {
-			var _loc4_:String = null;
+		private function forward(param1:Object, param2:String) : void
+		{
+			var _loc4:String = null;
 			param1["type"] = param2;
-			var _loc3_:Object = new Object();
-			for(_loc4_ in param1) {
-				_loc3_[_loc4_] = param1[_loc4_];
+			var _loc3:Object = new Object();
+			for(_loc4 in param1)
+			{
+				_loc3[_loc4] = param1[_loc4];
 			}
-			this.callback.onMetaData(_loc3_);
+			this.callback.onMetaData(_loc3);
 		}
 		
-		public function close(... rest) : void {
+		public function close(... rest) : void
+		{
 			this.forward({"close":true},"close");
 		}
 		
-		public function onBWCheck(... rest) : Number {
+		public function onBWCheck(... rest) : Number
+		{
 			return 0;
 		}
 		
-		public function onBWDone(... rest) : void {
-			if(rest.length > 0) {
+		public function onBWDone(... rest) : void
+		{
+			if(rest.length > 0)
+			{
 				this.forward({"bandwidth":rest[0]},"bandwidth");
 			}
 		}
 		
-		public function onCaption(param1:String, param2:Number) : void {
+		public function onCaption(param1:String, param2:Number) : void
+		{
 			this.forward({
 				"captions":param1,
 				"speaker":param2
 			},"caption");
 		}
 		
-		public function onCaptionInfo(param1:Object) : void {
+		public function onCaptionInfo(param1:Object) : void
+		{
 			this.forward(param1,"captioninfo");
 		}
 		
-		public function onCuePoint(param1:Object) : void {
+		public function onCuePoint(param1:Object) : void
+		{
 			this.forward(param1,"cuepoint");
 		}
 		
-		public function onFCSubscribe(param1:Object) : void {
+		public function onFCSubscribe(param1:Object) : void
+		{
 			this.forward(param1,"fcsubscribe");
 		}
 		
-		public function onHeaderData(param1:Object) : void {
-			var _loc5_:String = null;
-			var _loc6_:String = null;
-			var _loc2_:Object = new Object();
-			var _loc3_:* = "-";
-			var _loc4_:* = "_";
-			for(_loc5_ in param1) {
-				_loc6_ = _loc5_.replace("-","_");
-				_loc2_[_loc6_] = param1[_loc5_];
+		public function onHeaderData(param1:Object) : void
+		{
+			var _loc5:String = null;
+			var _loc6:String = null;
+			var _loc2:Object = new Object();
+			var _loc3:* = "-";
+			var _loc4:* = "_";
+			for(_loc5 in param1)
+			{
+				_loc6 = _loc5.replace("-","_");
+				_loc2[_loc6] = param1[_loc5];
 			}
-			this.forward(_loc2_,"headerdata");
+			this.forward(_loc2,"headerdata");
 		}
 		
-		public function onID3(... rest) : void {
+		public function onID3(... rest) : void
+		{
 			this.forward(rest[0],"id3");
 		}
 		
-		public function onImageData(param1:Object) : void {
+		public function onImageData(param1:Object) : void
+		{
 			this.forward(param1,"imagedata");
 		}
 		
-		public function onLastSecond(param1:Object) : void {
+		public function onLastSecond(param1:Object) : void
+		{
 			this.forward(param1,"lastsecond");
 		}
 		
-		public function onMetaData(param1:Object) : void {
+		public function onMetaData(param1:Object) : void
+		{
 			this.forward(param1,"metadata");
 		}
 		
-		public function onPlayStatus(param1:Object) : void {
-			if(param1.code == "NetStream.Play.Complete") {
+		public function onPlayStatus(param1:Object) : void
+		{
+			if(param1.code == "NetStream.Play.Complete")
+			{
 				this.forward(param1,"complete");
-			} else {
+			}
+			else
+			{
 				this.forward(param1,"playstatus");
 			}
 		}
 		
-		public function onSDES(... rest) : void {
+		public function onSDES(... rest) : void
+		{
 			this.forward(rest[0],"sdes");
 		}
 		
-		public function onXMPData(... rest) : void {
+		public function onXMPData(... rest) : void
+		{
 			this.forward(rest[0],"xmp");
 		}
 		
-		public function RtmpSampleAccess(... rest) : void {
+		public function RtmpSampleAccess(... rest) : void
+		{
 			this.forward(rest[0],"rtmpsampleaccess");
 		}
 		
-		public function onTextData(param1:Object) : void {
+		public function onTextData(param1:Object) : void
+		{
 			this.forward(param1,"textdata");
 		}
 	}

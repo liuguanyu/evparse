@@ -1,5 +1,7 @@
-package org.puremvc.as3.interfaces {
-	public interface IFacade extends INotifier {
+package org.puremvc.as3.interfaces
+{
+	public interface IFacade extends INotifier
+	{
 		
 		function removeCommand(param1:String) : void;
 		

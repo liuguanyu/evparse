@@ -1,17 +1,11 @@
-package com.qiyi.player.core.player {
+package com.qiyi.player.core.player
+{
 	import com.qiyi.player.base.pub.EnumItem;
 	import com.qiyi.player.core.model.def.TryWatchEnum;
 	import com.qiyi.player.core.model.def.DefinitionEnum;
 	
-	public class RuntimeData extends Object {
-		
-		public function RuntimeData() {
-			this.userDisInfo = {};
-			this.tryWatchType = TryWatchEnum.NONE;
-			this.authentication = {};
-			this.autoDefinitionlimit = DefinitionEnum.HIGH;
-			super();
-		}
+	public class RuntimeData extends Object
+	{
 		
 		public static var VInfoDisIP:String = "";
 		
@@ -154,5 +148,14 @@ package com.qiyi.player.core.player {
 		public var thdKey:String = "";
 		
 		public var thdToken:String = "";
+		
+		public function RuntimeData()
+		{
+			this.userDisInfo = {};
+			this.tryWatchType = TryWatchEnum.NONE;
+			this.authentication = {};
+			this.autoDefinitionlimit = DefinitionEnum.HIGH;
+			super();
+		}
 	}
 }

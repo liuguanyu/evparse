@@ -1,9 +1,12 @@
-package feedback {
+package feedback
+{
 	import flash.display.MovieClip;
 	
-	public dynamic class ConcurrencyLimitCutoffRule extends MovieClip {
+	public dynamic class ConcurrencyLimitCutoffRule extends MovieClip
+	{
 		
-		public function ConcurrencyLimitCutoffRule() {
+		public function ConcurrencyLimitCutoffRule()
+		{
 			super();
 		}
 	}

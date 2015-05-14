@@ -1,10 +1,12 @@
-package com.qiyi.player.core.video.decoder {
+package com.qiyi.player.core.video.decoder
+{
 	import flash.events.IEventDispatcher;
 	import com.qiyi.player.core.IDestroy;
 	import flash.net.NetStream;
 	import com.qiyi.player.base.pub.EnumItem;
 	
-	public interface IDecoder extends IEventDispatcher, IDestroy {
+	public interface IDecoder extends IEventDispatcher, IDestroy
+	{
 		
 		function get netstream() : NetStream;
 		

@@ -1,5 +1,7 @@
-package com.qiyi.player.wonder.common.status {
-	public interface IStatus {
+package com.qiyi.player.wonder.common.status
+{
+	public interface IStatus
+	{
 		
 		function get status() : Status;
 		

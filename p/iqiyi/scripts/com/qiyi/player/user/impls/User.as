@@ -1,4 +1,5 @@
-package com.qiyi.player.user.impls {
+package com.qiyi.player.user.impls
+{
 	import flash.events.EventDispatcher;
 	import com.qiyi.player.user.IUser;
 	import flash.utils.Timer;
@@ -15,19 +16,8 @@ package com.qiyi.player.user.impls {
 	import flash.net.sendToURL;
 	import com.qiyi.player.base.logging.Log;
 	
-	public class User extends EventDispatcher implements IUser {
-		
-		public function User(param1:String, param2:String, param3:String, param4:String) {
-			this._type = UserDef.USER_TYPE_QIYI;
-			this._level = UserDef.USER_LEVEL_NORMAL;
-			this._limitationType = UserDef.USER_LIMITATION_NONE;
-			this._log = Log.getLogger("com.qiyi.player.user.impls.User");
-			super();
-			this._passportID = param1;
-			this._P00001 = param2;
-			this._profileID = param3;
-			this._profileCookie = param4;
-		}
+	public class User extends EventDispatcher implements IUser
+	{
 		
 		private const HEART_BEAT_MIN_TIME:int = 10000;
 		
@@ -63,48 +53,73 @@ package com.qiyi.player.user.impls {
 		
 		private var _log:ILogger;
 		
-		public function get passportID() : String {
+		public function User(param1:String, param2:String, param3:String, param4:String)
+		{
+			this._type = UserDef.USER_TYPE_QIYI;
+			this._level = UserDef.USER_LEVEL_NORMAL;
+			this._limitationType = UserDef.USER_LIMITATION_NONE;
+			this._log = Log.getLogger("com.qiyi.player.user.impls.User");
+			super();
+			this._passportID = param1;
+			this._P00001 = param2;
+			this._profileID = param3;
+			this._profileCookie = param4;
+		}
+		
+		public function get passportID() : String
+		{
 			return this._passportID;
 		}
 		
-		public function get P00001() : String {
+		public function get P00001() : String
+		{
 			return this._P00001;
 		}
 		
-		public function get profileID() : String {
+		public function get profileID() : String
+		{
 			return this._profileID;
 		}
 		
-		public function get profileCookie() : String {
+		public function get profileCookie() : String
+		{
 			return this._profileCookie;
 		}
 		
-		public function get nickName() : String {
+		public function get nickName() : String
+		{
 			return this._nickname;
 		}
 		
-		public function get id() : String {
+		public function get id() : String
+		{
 			return this._id;
 		}
 		
-		public function get type() : int {
+		public function get type() : int
+		{
 			return this._type;
 		}
 		
-		public function get level() : int {
+		public function get level() : int
+		{
 			return this._level;
 		}
 		
-		public function get limitationType() : int {
+		public function get limitationType() : int
+		{
 			return this._limitationType;
 		}
 		
-		public function set tvid(param1:String) : void {
+		public function set tvid(param1:String) : void
+		{
 			this._tvid = param1;
 		}
 		
-		public function checkUser() : void {
-			if(this._userCheckRemote) {
+		public function checkUser() : void
+		{
+			if(this._userCheckRemote)
+			{
 				this._userCheckRemote.removeEventListener(RemoteObjectEvent.Evt_StatusChanged,this.onCheckResult);
 				this._userCheckRemote.destroy();
 			}
@@ -113,30 +128,38 @@ package com.qiyi.player.user.impls {
 			this._userCheckRemote.initialize();
 		}
 		
-		public function openHeartBeat() : void {
-			if(this._level != UserDef.USER_LEVEL_NORMAL) {
+		public function openHeartBeat() : void
+		{
+			if(this._level != UserDef.USER_LEVEL_NORMAL)
+			{
 				this._isActivation = true;
-				if((this._heartBeatTimer) && !this._heartBeatTimer.running) {
+				if((this._heartBeatTimer) && !this._heartBeatTimer.running)
+				{
 					this.onHeartBeatTimer();
 					this._heartBeatTimer.start();
 				}
 			}
 		}
 		
-		public function closeHeartBeat() : void {
+		public function closeHeartBeat() : void
+		{
 			this._isActivation = false;
-			if((this._heartBeatTimer) && (this._heartBeatTimer.running)) {
+			if((this._heartBeatTimer) && (this._heartBeatTimer.running))
+			{
 				this._heartBeatTimer.stop();
 			}
 		}
 		
-		public function destroy() : void {
-			if(this._userCheckRemote) {
+		public function destroy() : void
+		{
+			if(this._userCheckRemote)
+			{
 				this._userCheckRemote.removeEventListener(RemoteObjectEvent.Evt_StatusChanged,this.onCheckResult);
 				this._userCheckRemote.destroy();
 				this._userCheckRemote = null;
 			}
-			if(this._heartBeatTimer) {
+			if(this._heartBeatTimer)
+			{
 				this._heartBeatTimer.removeEventListener(TimerEvent.TIMER,this.onHeartBeatTimer);
 				this._heartBeatTimer.stop();
 				this._heartBeatTimer = null;
@@ -144,38 +167,51 @@ package com.qiyi.player.user.impls {
 			this._isActivation = false;
 		}
 		
-		private function onCheckResult(param1:RemoteObjectEvent) : void {
-			var _loc2_:* = 0;
-			if(this._userCheckRemote.status == RemoteObjectStatusEnum.Success) {
-				if(this._userCheckRemote.userLevel == UserDef.USER_LEVEL_NORMAL) {
+		private function onCheckResult(param1:RemoteObjectEvent) : void
+		{
+			var _loc2:* = 0;
+			if(this._userCheckRemote.status == RemoteObjectStatusEnum.Success)
+			{
+				if(this._userCheckRemote.userLevel == UserDef.USER_LEVEL_NORMAL)
+				{
 					this._id = "";
 					this._nickname = "";
 					this._level = UserDef.USER_LEVEL_NORMAL;
 					this._type = UserDef.USER_TYPE_QIYI;
 					this._limitationType = this._userCheckRemote.limitationType;
-				} else if(this._userCheckRemote.userLevel == UserDef.USER_LEVEL_PRIMARY) {
+				}
+				else if(this._userCheckRemote.userLevel == UserDef.USER_LEVEL_PRIMARY)
+				{
 					this._id = this._userCheckRemote.userID;
 					this._nickname = this._userCheckRemote.userName;
 					this._level = this._userCheckRemote.userLevel;
 					this._type = this._userCheckRemote.userType;
-					_loc2_ = this._userCheckRemote.heartBeatTime;
-					if(_loc2_ > 0) {
-						if(_loc2_ < this.HEART_BEAT_MIN_TIME) {
-							_loc2_ = this.HEART_BEAT_MIN_TIME;
+					_loc2 = this._userCheckRemote.heartBeatTime;
+					if(_loc2 > 0)
+					{
+						if(_loc2 < this.HEART_BEAT_MIN_TIME)
+						{
+							_loc2 = this.HEART_BEAT_MIN_TIME;
 						}
-						if(this._heartBeatTimer == null) {
-							this._heartBeatTimer = new Timer(_loc2_);
+						if(this._heartBeatTimer == null)
+						{
+							this._heartBeatTimer = new Timer(_loc2);
 							this._heartBeatTimer.addEventListener(TimerEvent.TIMER,this.onHeartBeatTimer);
-						} else {
-							this._heartBeatTimer.delay = _loc2_;
 						}
-						if(this._isActivation) {
+						else
+						{
+							this._heartBeatTimer.delay = _loc2;
+						}
+						if(this._isActivation)
+						{
 							this._heartBeatTimer.start();
 						}
 					}
 				}
 				
-			} else if(this._userCheckRemote.status == RemoteObjectStatusEnum.Processing) {
+			}
+			else if(this._userCheckRemote.status == RemoteObjectStatusEnum.Processing)
+			{
 				return;
 			}
 			
@@ -186,39 +222,42 @@ package com.qiyi.player.user.impls {
 			dispatchEvent(new UserManagerEvent(UserManagerEvent.Evt_LoginSuccess));
 		}
 		
-		private function onHeartBeatTimer(param1:Event = null) : void {
-			var _loc2_:* = NaN;
-			var _loc3_:Array = null;
-			var _loc4_:String = null;
-			var _loc5_:uint = 0;
-			var _loc6_:String = null;
-			var _loc7_:URLRequest = null;
-			if(this._level != UserDef.USER_LEVEL_NORMAL) {
-				_loc2_ = Math.random();
-				_loc3_ = new Array();
-				_loc3_.push("authcookie=" + this._P00001);
-				_loc3_.push("tn=" + _loc2_);
-				_loc3_.push("tv_id=" + this._tvid);
-				_loc3_.push("device_id=" + UUIDManager.instance.uuid);
-				_loc3_.push("agenttype=" + 1);
-				_loc3_.sort();
-				_loc4_ = "";
-				_loc5_ = 0;
-				while(_loc5_ < _loc3_.length) {
-					_loc4_ = _loc4_ + (_loc3_[_loc5_] + "|");
-					_loc5_++;
+		private function onHeartBeatTimer(param1:Event = null) : void
+		{
+			var _loc2:* = NaN;
+			var _loc3:Array = null;
+			var _loc4:String = null;
+			var _loc5:uint = 0;
+			var _loc6:String = null;
+			var _loc7:URLRequest = null;
+			if(this._level != UserDef.USER_LEVEL_NORMAL)
+			{
+				_loc2 = Math.random();
+				_loc3 = new Array();
+				_loc3.push("authcookie=" + this._P00001);
+				_loc3.push("tn=" + _loc2);
+				_loc3.push("tv_id=" + this._tvid);
+				_loc3.push("device_id=" + UUIDManager.instance.uuid);
+				_loc3.push("agenttype=" + 1);
+				_loc3.sort();
+				_loc4 = "";
+				_loc5 = 0;
+				while(_loc5 < _loc3.length)
+				{
+					_loc4 = _loc4 + (_loc3[_loc5] + "|");
+					_loc5++;
 				}
-				_loc4_ = _loc4_ + this.KEY;
-				_loc4_ = MD5.calculate(_loc4_);
-				_loc6_ = this.HEART_BEAT_URL;
-				_loc6_ = _loc6_ + ("?authcookie=" + this._P00001);
-				_loc6_ = _loc6_ + ("&agenttype=" + 1);
-				_loc6_ = _loc6_ + ("&sign=" + _loc4_);
-				_loc6_ = _loc6_ + ("&device_id=" + UUIDManager.instance.uuid);
-				_loc6_ = _loc6_ + ("&tv_id=" + this._tvid);
-				_loc6_ = _loc6_ + ("&tn=" + _loc2_);
-				_loc7_ = new URLRequest(_loc6_);
-				sendToURL(_loc7_);
+				_loc4 = _loc4 + this.KEY;
+				_loc4 = MD5.calculate(_loc4);
+				_loc6 = this.HEART_BEAT_URL;
+				_loc6 = _loc6 + ("?authcookie=" + this._P00001);
+				_loc6 = _loc6 + ("&agenttype=" + 1);
+				_loc6 = _loc6 + ("&sign=" + _loc4);
+				_loc6 = _loc6 + ("&device_id=" + UUIDManager.instance.uuid);
+				_loc6 = _loc6 + ("&tv_id=" + this._tvid);
+				_loc6 = _loc6 + ("&tn=" + _loc2);
+				_loc7 = new URLRequest(_loc6);
+				sendToURL(_loc7);
 			}
 		}
 	}

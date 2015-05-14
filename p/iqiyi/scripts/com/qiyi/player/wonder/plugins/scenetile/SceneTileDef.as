@@ -1,9 +1,7 @@
-package com.qiyi.player.wonder.plugins.scenetile {
-	public class SceneTileDef extends Object {
-		
-		public function SceneTileDef() {
-			super();
-		}
+package com.qiyi.player.wonder.plugins.scenetile
+{
+	public class SceneTileDef extends Object
+	{
 		
 		private static var statusBegin:int = 0;
 		
@@ -130,5 +128,10 @@ package com.qiyi.player.wonder.plugins.scenetile {
 		public static const STAGE_GAP_1:int = 28;
 		
 		public static const STAGE_GAP_2:int = 0;
+		
+		public function SceneTileDef()
+		{
+			super();
+		}
 	}
 }

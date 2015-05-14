@@ -1,12 +1,9 @@
-package com.qiyi.cupid.adplayer.events {
+package com.qiyi.cupid.adplayer.events
+{
 	import flash.events.Event;
 	
-	public class AdPlayerEvent extends Event {
-		
-		public function AdPlayerEvent(param1:String, param2:Object = null, param3:Boolean = false, param4:Boolean = false) {
-			super(param1,param3,param4);
-			this._data = param2;
-		}
+	public class AdPlayerEvent extends Event
+	{
 		
 		public static const VIDEO_PAUSE:String = "video_pause";
 		
@@ -146,7 +143,14 @@ package com.qiyi.cupid.adplayer.events {
 		
 		private var _data:Object;
 		
-		public function get data() : Object {
+		public function AdPlayerEvent(param1:String, param2:Object = null, param3:Boolean = false, param4:Boolean = false)
+		{
+			super(param1,param3,param4);
+			this._data = param2;
+		}
+		
+		public function get data() : Object
+		{
 			return this._data;
 		}
 	}

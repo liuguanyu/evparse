@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.feedback.view.parts.copyrightexpired {
+package com.qiyi.player.wonder.plugins.feedback.view.parts.copyrightexpired
+{
 	import flash.display.Sprite;
 	import com.qiyi.player.wonder.IDestroy;
 	import feedback.CopyRightExpiredUI;
@@ -20,9 +21,45 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.copyrightexpired {
 	import flash.display.DisplayObject;
 	import com.qiyi.player.wonder.common.ui.FastCreator;
 	
-	public class CopyrightExpired extends Sprite implements IDestroy {
+	public class CopyrightExpired extends Sprite implements IDestroy
+	{
 		
-		public function CopyrightExpired(param1:String, param2:Boolean = true, param3:String = "") {
+		private static const TEXT_TITLE_EXPIRE:String = "很抱歉，您所观看的视频已经下线";
+		
+		private static const TEXT_TITLE_ERROR:String = "很抱歉，您所观看的视频暂无法观看";
+		
+		private static const TEXT_CLIENT_EXTEND:String = "<font color=\'#699f00\'>爱奇艺视频桌面版</font>说不定还能看，去试试？";
+		
+		private static const TEXT_DOWNLOAD_BTN:String = "立刻下载安装";
+		
+		private static const TEXT_LINK:String = "如果您有其他问题，<a href=\'event:onTextEventClick\'><u>请告知我们</u></a> 我们将尽快查找原因。";
+		
+		private static const TEXT_RECOMMEND:String = "这些视频最近很火，赶紧看看吧";
+		
+		private var _videoName:String = "";
+		
+		private var _searchPart:CopyrightExpiredSearchPart;
+		
+		private var _listPart:CopyrightExpiredListPart;
+		
+		private var _copyRightExpiredUI:CopyRightExpiredUI;
+		
+		private var _titleTF:TextField;
+		
+		private var _describeTF:TextField;
+		
+		private var _clientExtendTF:TextField;
+		
+		private var _downLoadBtn:DownLoadBtn;
+		
+		private var _downLoadTF:TextField;
+		
+		private var _recommendJson:Object = null;
+		
+		private var _recommendVector:Vector.<RecommendVO>;
+		
+		public function CopyrightExpired(param1:String, param2:Boolean = true, param3:String = "")
+		{
 			super();
 			this._copyRightExpiredUI = new CopyRightExpiredUI();
 			addChild(this._copyRightExpiredUI);
@@ -59,62 +96,33 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.copyrightexpired {
 			this.requestRecommendList(param1);
 		}
 		
-		private static const TEXT_TITLE_EXPIRE:String = "很抱歉，您所观看的视频已经下线";
-		
-		private static const TEXT_TITLE_ERROR:String = "很抱歉，您所观看的视频暂无法观看";
-		
-		private static const TEXT_CLIENT_EXTEND:String = "<font color=\'#699f00\'>爱奇艺视频桌面版</font>说不定还能看，去试试？";
-		
-		private static const TEXT_DOWNLOAD_BTN:String = "立刻下载安装";
-		
-		private static const TEXT_LINK:String = "如果您有其他问题，<a href=\'event:onTextEventClick\'><u>请告知我们</u></a> 我们将尽快查找原因。";
-		
-		private static const TEXT_RECOMMEND:String = "这些视频最近很火，赶紧看看吧";
-		
-		private var _videoName:String = "";
-		
-		private var _searchPart:CopyrightExpiredSearchPart;
-		
-		private var _listPart:CopyrightExpiredListPart;
-		
-		private var _copyRightExpiredUI:CopyRightExpiredUI;
-		
-		private var _titleTF:TextField;
-		
-		private var _describeTF:TextField;
-		
-		private var _clientExtendTF:TextField;
-		
-		private var _downLoadBtn:DownLoadBtn;
-		
-		private var _downLoadTF:TextField;
-		
-		private var _recommendJson:Object = null;
-		
-		private var _recommendVector:Vector.<RecommendVO>;
-		
-		public function get downLoadBtn() : DownLoadBtn {
+		public function get downLoadBtn() : DownLoadBtn
+		{
 			return this._downLoadBtn;
 		}
 		
-		private function requestRecommendList(param1:String) : void {
-			var _loc2_:URLLoader = new URLLoader();
-			_loc2_.addEventListener(Event.COMPLETE,this.onCompleteHandler);
-			_loc2_.addEventListener(IOErrorEvent.IO_ERROR,this.onErrorHander);
-			_loc2_.addEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onErrorHander);
-			_loc2_.load(new URLRequest(param1));
+		private function requestRecommendList(param1:String) : void
+		{
+			var _loc2:URLLoader = new URLLoader();
+			_loc2.addEventListener(Event.COMPLETE,this.onCompleteHandler);
+			_loc2.addEventListener(IOErrorEvent.IO_ERROR,this.onErrorHander);
+			_loc2.addEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onErrorHander);
+			_loc2.load(new URLRequest(param1));
 		}
 		
-		private function onCompleteHandler(param1:Event) : void {
+		private function onCompleteHandler(param1:Event) : void
+		{
 			var item:RecommendVO = null;
 			var i:uint = 0;
 			var var_5:Event = param1;
 			var urlLoader:URLLoader = var_5.target as URLLoader;
-			try {
+			try
+			{
 				this._recommendVector = new Vector.<RecommendVO>();
 				this._recommendJson = com.adobe.serialization.json.JSON.decode(urlLoader.data);
 				i = 0;
-				while(i < this._recommendJson.mixinVideos.length) {
+				while(i < this._recommendJson.mixinVideos.length)
+				{
 					item = new RecommendVO(i,this._recommendJson.mixinVideos[i]);
 					this._recommendVector.push(item);
 					i++;
@@ -122,7 +130,8 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.copyrightexpired {
 				this._listPart.recommendData = this._recommendVector;
 				this.onResize(GlobalStage.stage.stageWidth,GlobalStage.stage.stageHeight);
 			}
-			catch(e:Error) {
+			catch(e:Error)
+			{
 			}
 			urlLoader.removeEventListener(Event.COMPLETE,this.onCompleteHandler);
 			urlLoader.removeEventListener(IOErrorEvent.IO_ERROR,this.onErrorHander);
@@ -130,27 +139,32 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.copyrightexpired {
 			urlLoader = null;
 		}
 		
-		private function onErrorHander(param1:Event) : void {
-			var _loc2_:URLLoader = param1.target as URLLoader;
-			_loc2_.removeEventListener(Event.COMPLETE,this.onCompleteHandler);
-			_loc2_.removeEventListener(IOErrorEvent.IO_ERROR,this.onErrorHander);
-			_loc2_.removeEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onErrorHander);
-			_loc2_ = null;
+		private function onErrorHander(param1:Event) : void
+		{
+			var _loc2:URLLoader = param1.target as URLLoader;
+			_loc2.removeEventListener(Event.COMPLETE,this.onCompleteHandler);
+			_loc2.removeEventListener(IOErrorEvent.IO_ERROR,this.onErrorHander);
+			_loc2.removeEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onErrorHander);
+			_loc2 = null;
 		}
 		
-		public function get videoName() : String {
+		public function get videoName() : String
+		{
 			return this._videoName;
 		}
 		
-		public function set videoName(param1:String) : void {
+		public function set videoName(param1:String) : void
+		{
 			this._videoName = param1;
 		}
 		
-		public function get linkTextField() : TextField {
+		public function get linkTextField() : TextField
+		{
 			return this._describeTF;
 		}
 		
-		public function onResize(param1:int, param2:int) : void {
+		public function onResize(param1:int, param2:int) : void
+		{
 			graphics.clear();
 			graphics.beginFill(0);
 			graphics.drawRect(0,0,param1,param2);
@@ -165,52 +179,63 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.copyrightexpired {
 			this._listPart.y = this._searchPart.y + 70;
 		}
 		
-		private function onEvtItemClick(param1:FeedbackEvent) : void {
-			var _loc6_:Object = null;
-			var _loc2_:RecommendVO = param1.data as RecommendVO;
-			var _loc3_:* = "";
-			var _loc4_:* = "";
-			var _loc5_:* = "";
-			if(this._recommendJson) {
-				_loc6_ = this._recommendJson.attribute;
-				if((_loc6_) && (!(_loc6_.bkt == undefined) || !(_loc6_.bucket == undefined))) {
-					_loc4_ = _loc6_.bkt != undefined?_loc6_.bkt:_loc6_.bucket;
+		private function onEvtItemClick(param1:FeedbackEvent) : void
+		{
+			var _loc6:Object = null;
+			var _loc2:RecommendVO = param1.data as RecommendVO;
+			var _loc3:* = "";
+			var _loc4:* = "";
+			var _loc5:* = "";
+			if(this._recommendJson)
+			{
+				_loc6 = this._recommendJson.attribute;
+				if((_loc6) && (!(_loc6.bkt == undefined) || !(_loc6.bucket == undefined)))
+				{
+					_loc4 = _loc6.bkt != undefined?_loc6.bkt:_loc6.bucket;
 				}
-				if((_loc6_) && !(_loc6_.event_id == undefined)) {
-					_loc3_ = _loc6_.event_id;
+				if((_loc6) && !(_loc6.event_id == undefined))
+				{
+					_loc3 = _loc6.event_id;
 				}
-				if((_loc6_) && !(_loc6_.area == undefined)) {
-					_loc5_ = _loc6_.area;
+				if((_loc6) && !(_loc6.area == undefined))
+				{
+					_loc5 = _loc6.area;
 				}
 			}
-			PingBack.getInstance().recommendClick4QiyuPing(_loc2_.albumID,_loc3_,_loc4_,_loc5_,_loc2_.seatID.toString(),_loc2_.playUrl,_loc2_.channel);
-			navigateToURL(new URLRequest(_loc2_.playUrl),"_self");
+			PingBack.getInstance().recommendClick4QiyuPing(_loc2.albumID,_loc3,_loc4,_loc5,_loc2.seatID.toString(),_loc2.playUrl,_loc2.channel);
+			navigateToURL(new URLRequest(_loc2.playUrl),"_self");
 		}
 		
-		private function onSearchVideoClick(param1:FeedbackEvent) : void {
-			var _loc2_:* = SystemConfig.FEEDBACK_SEARCH_URL + encodeURIComponent(param1.data.toString()) + "?source=bqxx";
-			navigateToURL(new URLRequest(_loc2_),"_blank");
+		private function onSearchVideoClick(param1:FeedbackEvent) : void
+		{
+			var _loc2:* = SystemConfig.FEEDBACK_SEARCH_URL + encodeURIComponent(param1.data.toString()) + "?source=bqxx";
+			navigateToURL(new URLRequest(_loc2),"_blank");
 		}
 		
-		public function destroy() : void {
-			var _loc1_:DisplayObject = null;
-			if((this._searchPart) && (this._searchPart.parent)) {
+		public function destroy() : void
+		{
+			var _loc1:DisplayObject = null;
+			if((this._searchPart) && (this._searchPart.parent))
+			{
 				this._searchPart.removeEventListener(FeedbackEvent.Evt_CopyrightSearchBtnClick,this.onSearchVideoClick);
 				removeChild(this._searchPart);
 				this._searchPart.destory();
 				this._searchPart = null;
 			}
-			if((this._listPart) && (this._listPart.parent)) {
+			if((this._listPart) && (this._listPart.parent))
+			{
 				this._listPart.removeEventListener(FeedbackEvent.Evt_CopyrightRecItemClick,this.onEvtItemClick);
 				removeChild(this._listPart);
 				this._listPart.destory();
 				this._listPart = null;
 			}
-			if((this._copyRightExpiredUI) && (this._copyRightExpiredUI.parent)) {
-				while(this._copyRightExpiredUI.numChildren > 0) {
-					_loc1_ = this._copyRightExpiredUI.getChildAt(0);
-					this._copyRightExpiredUI.removeChild(_loc1_);
-					_loc1_ = null;
+			if((this._copyRightExpiredUI) && (this._copyRightExpiredUI.parent))
+			{
+				while(this._copyRightExpiredUI.numChildren > 0)
+				{
+					_loc1 = this._copyRightExpiredUI.getChildAt(0);
+					this._copyRightExpiredUI.removeChild(_loc1);
+					_loc1 = null;
 				}
 				removeChild(this._copyRightExpiredUI);
 				this._copyRightExpiredUI = null;

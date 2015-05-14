@@ -1,9 +1,12 @@
-package com.qiyi.player.components {
+package com.qiyi.player.components
+{
 	import flash.display.SimpleButton;
 	
-	public dynamic class MovieInfoCloseBtn extends SimpleButton {
+	public dynamic class MovieInfoCloseBtn extends SimpleButton
+	{
 		
-		public function MovieInfoCloseBtn() {
+		public function MovieInfoCloseBtn()
+		{
 			super();
 		}
 	}

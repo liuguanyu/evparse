@@ -1,11 +1,9 @@
-package com.qiyi.player.wonder.plugins.scenetile.model.barrage {
+package com.qiyi.player.wonder.plugins.scenetile.model.barrage
+{
 	import flash.utils.ByteArray;
 	
-	public class BarrageInfo extends Object {
-		
-		public function BarrageInfo() {
-			super();
-		}
+	public class BarrageInfo extends Object
+	{
 		
 		private var _contentId:String = "";
 		
@@ -27,47 +25,63 @@ package com.qiyi.player.wonder.plugins.scenetile.model.barrage {
 		
 		private var _bgType:uint = 100;
 		
-		public function get userInfo() : Object {
+		public function BarrageInfo()
+		{
+			super();
+		}
+		
+		public function get userInfo() : Object
+		{
 			return this._userInfo;
 		}
 		
-		public function get bgType() : uint {
+		public function get bgType() : uint
+		{
 			return this._bgType;
 		}
 		
-		public function get contentType() : uint {
+		public function get contentType() : uint
+		{
 			return this._contentType;
 		}
 		
-		public function get position() : uint {
+		public function get position() : uint
+		{
 			return this._position;
 		}
 		
-		public function get fontColor() : String {
+		public function get fontColor() : String
+		{
 			return this._fontColor;
 		}
 		
-		public function get fontSize() : uint {
+		public function get fontSize() : uint
+		{
 			return this._fontSize;
 		}
 		
-		public function get likes() : int {
+		public function get likes() : int
+		{
 			return this._likes;
 		}
 		
-		public function get content() : String {
+		public function get content() : String
+		{
 			return this._content;
 		}
 		
-		public function get showTime() : int {
+		public function get showTime() : int
+		{
 			return this._showTime;
 		}
 		
-		public function get contentId() : String {
+		public function get contentId() : String
+		{
 			return this._contentId;
 		}
 		
-		public function update(param1:String, param2:int, param3:String, param4:int, param5:uint, param6:String, param7:uint, param8:uint, param9:uint, param10:Object = null) : void {
+		public function update(param1:String, param2:int, param3:String, param4:int, param5:uint, param6:String, param7:uint, param8:uint, param9:uint, param10:Object = null) : void
+		{
 			this._content = param3;
 			this._contentId = param1;
 			this._likes = param4;
@@ -80,12 +94,13 @@ package com.qiyi.player.wonder.plugins.scenetile.model.barrage {
 			this._userInfo = param10;
 		}
 		
-		public function clone() : BarrageInfo {
-			var _loc1_:ByteArray = new ByteArray();
-			_loc1_.writeObject(this);
-			_loc1_.position = 0;
-			var _loc2_:BarrageInfo = _loc1_.readObject() as BarrageInfo;
-			return _loc2_;
+		public function clone() : BarrageInfo
+		{
+			var _loc1:ByteArray = new ByteArray();
+			_loc1.writeObject(this);
+			_loc1.position = 0;
+			var _loc2:BarrageInfo = _loc1.readObject() as BarrageInfo;
+			return _loc2;
 		}
 	}
 }

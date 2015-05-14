@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.controllbar.view.controllbar {
+package com.qiyi.player.wonder.plugins.controllbar.view.controllbar
+{
 	import flash.display.Sprite;
 	import controllbar.ControlBarBtnNormal;
 	import controllbar.ControlBarBtnHover;
@@ -11,9 +12,25 @@ package com.qiyi.player.wonder.plugins.controllbar.view.controllbar {
 	import com.qiyi.player.wonder.common.ui.FastCreator;
 	import flash.text.TextFieldAutoSize;
 	
-	public class ControllBarButton extends Sprite {
+	public class ControllBarButton extends Sprite
+	{
 		
-		public function ControllBarButton(param1:String) {
+		private var _normalBtnBg:ControlBarBtnNormal;
+		
+		private var _hoverBtnBg:ControlBarBtnHover;
+		
+		private var _selectedNormalBtnBg:ControlBarBtnSelectedNormal;
+		
+		private var _selectedHoverBtnBg:ControlBarBtnSelectedHover;
+		
+		private var _textField:TextField;
+		
+		private var _text:String = "";
+		
+		private var _isSelected:Boolean = false;
+		
+		public function ControllBarButton(param1:String)
+		{
 			super();
 			this._text = param1;
 			this._normalBtnBg = new ControlBarBtnNormal();
@@ -38,37 +55,29 @@ package com.qiyi.player.wonder.plugins.controllbar.view.controllbar {
 			this.updateLayout();
 		}
 		
-		private var _normalBtnBg:ControlBarBtnNormal;
-		
-		private var _hoverBtnBg:ControlBarBtnHover;
-		
-		private var _selectedNormalBtnBg:ControlBarBtnSelectedNormal;
-		
-		private var _selectedHoverBtnBg:ControlBarBtnSelectedHover;
-		
-		private var _textField:TextField;
-		
-		private var _text:String = "";
-		
-		private var _isSelected:Boolean = false;
-		
-		public function get text() : String {
+		public function get text() : String
+		{
 			return this._text;
 		}
 		
-		public function get isSelected() : Boolean {
+		public function get isSelected() : Boolean
+		{
 			return this._isSelected;
 		}
 		
-		public function set isSelected(param1:Boolean) : void {
+		public function set isSelected(param1:Boolean) : void
+		{
 			this._isSelected = param1;
-			if(this._isSelected) {
+			if(this._isSelected)
+			{
 				this._selectedHoverBtnBg.visible = false;
 				this._selectedNormalBtnBg.visible = true;
 				this._hoverBtnBg.visible = false;
 				this._normalBtnBg.visible = false;
 				this._textField.defaultTextFormat = ControllBarDef.SELECTED_FONT_COLOR;
-			} else {
+			}
+			else
+			{
 				this._selectedHoverBtnBg.visible = false;
 				this._selectedNormalBtnBg.visible = false;
 				this._hoverBtnBg.visible = false;
@@ -78,13 +87,15 @@ package com.qiyi.player.wonder.plugins.controllbar.view.controllbar {
 			this._textField.text = this._text;
 		}
 		
-		public function updateBtnText(param1:String) : void {
+		public function updateBtnText(param1:String) : void
+		{
 			this._text = param1;
 			this._textField.text = this._text;
 			this.updateLayout();
 		}
 		
-		private function updateLayout() : void {
+		private function updateLayout() : void
+		{
 			this._selectedHoverBtnBg.width = this._selectedNormalBtnBg.width = this._hoverBtnBg.width = this._normalBtnBg.width = this._textField.textWidth + ControllBarDef.GAP_BG_TEXT * 2;
 			this._selectedHoverBtnBg.y = this._selectedNormalBtnBg.y = this._hoverBtnBg.y = this._normalBtnBg.y = (BodyDef.VIDEO_BOTTOM_RESERVE - this._hoverBtnBg.height) / 2;
 			this._selectedHoverBtnBg.x = this._selectedNormalBtnBg.x = this._hoverBtnBg.x = this._normalBtnBg.x = ControllBarDef.GAP_BG_MOUSE;
@@ -96,14 +107,18 @@ package com.qiyi.player.wonder.plugins.controllbar.view.controllbar {
 			this.graphics.endFill();
 		}
 		
-		private function onMouseOver(param1:MouseEvent) : void {
-			if(this._isSelected) {
+		private function onMouseOver(param1:MouseEvent) : void
+		{
+			if(this._isSelected)
+			{
 				this._selectedHoverBtnBg.visible = true;
 				this._selectedNormalBtnBg.visible = false;
 				this._hoverBtnBg.visible = false;
 				this._normalBtnBg.visible = false;
 				this._textField.defaultTextFormat = ControllBarDef.SELECTED_FONT_COLOR;
-			} else {
+			}
+			else
+			{
 				this._selectedHoverBtnBg.visible = false;
 				this._selectedNormalBtnBg.visible = false;
 				this._hoverBtnBg.visible = true;
@@ -113,14 +128,18 @@ package com.qiyi.player.wonder.plugins.controllbar.view.controllbar {
 			this._textField.text = this._text;
 		}
 		
-		private function onMouseOut(param1:MouseEvent) : void {
-			if(this._isSelected) {
+		private function onMouseOut(param1:MouseEvent) : void
+		{
+			if(this._isSelected)
+			{
 				this._selectedHoverBtnBg.visible = false;
 				this._selectedNormalBtnBg.visible = true;
 				this._hoverBtnBg.visible = false;
 				this._normalBtnBg.visible = false;
 				this._textField.defaultTextFormat = ControllBarDef.SELECTED_FONT_COLOR;
-			} else {
+			}
+			else
+			{
 				this._selectedHoverBtnBg.visible = false;
 				this._selectedNormalBtnBg.visible = false;
 				this._hoverBtnBg.visible = false;

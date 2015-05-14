@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.controllbar.view.preview {
+package com.qiyi.player.wonder.plugins.controllbar.view.preview
+{
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	import flash.display.Bitmap;
@@ -23,13 +24,8 @@ package com.qiyi.player.wonder.plugins.controllbar.view.preview {
 	import flash.display.DisplayObject;
 	import com.qiyi.player.wonder.plugins.controllbar.view.ControllBarEvent;
 	
-	public class ImagePreviewItem extends Sprite {
-		
-		public function ImagePreviewItem() {
-			super();
-			this.initItem();
-			this.useHandCursor = this.buttonMode = true;
-		}
+	public class ImagePreviewItem extends Sprite
+	{
 		
 		private static const MERCHANDISE_IMG_SIZE:Point = new Point(33,33);
 		
@@ -69,23 +65,35 @@ package com.qiyi.player.wonder.plugins.controllbar.view.preview {
 		
 		private var _index:int = 0;
 		
-		public function get imageIndex() : int {
+		public function ImagePreviewItem()
+		{
+			super();
+			this.initItem();
+			this.useHandCursor = this.buttonMode = true;
+		}
+		
+		public function get imageIndex() : int
+		{
 			return this._imageIndex;
 		}
 		
-		public function get curTime() : Number {
+		public function get curTime() : Number
+		{
 			return this._curTime;
 		}
 		
-		public function get index() : int {
+		public function get index() : int
+		{
 			return this._index;
 		}
 		
-		public function set index(param1:int) : void {
+		public function set index(param1:int) : void
+		{
 			this._index = param1;
 		}
 		
-		private function initItem() : void {
+		private function initItem() : void
+		{
 			this._bg = new Shape();
 			this._imgContainer = new Sprite();
 			this._imgMark = new Sprite();
@@ -108,16 +116,20 @@ package com.qiyi.player.wonder.plugins.controllbar.view.preview {
 			PreviewImageLoader.instance.addEventListener(PreviewImageLoader.COMPLETE,this.onImageLoaderComplete);
 		}
 		
-		public function updateImageState(param1:Boolean, param2:Boolean) : void {
+		public function updateImageState(param1:Boolean, param2:Boolean) : void
+		{
 			this._isBigItem = param1;
 			this._isShowImage = param2;
-			if(this._isShowImage) {
-				if(this._isBigItem) {
+			if(this._isShowImage)
+			{
+				if(this._isBigItem)
+				{
 					addChild(this._bg);
 					addChild(this._tfTimeAndTitle);
 					addChild(this._sprTimeAndTitle);
 					this._imgContainer.visible = true;
-					if(this._imgContainer.parent) {
+					if(this._imgContainer.parent)
+					{
 						setChildIndex(this._imgContainer,numChildren - 1);
 					}
 					this._tfTimeAndTitle.width = this._imgUrl == ""?ControllBarDef.IMAGE_PRE_BIG_WH_SIZE.x:ControllBarDef.IMAGE_PRE_FOCUS_TIP_SIZE.x;
@@ -125,10 +137,13 @@ package com.qiyi.player.wonder.plugins.controllbar.view.preview {
 					this._bg.filters = [new GlowFilter(0,1,20,20,1)];
 					this._bg.graphics.clear();
 					this._bg.graphics.beginFill(0,BG_ALPHA);
-					if(this._tfTimeAndTitle.numLines <= 1 && this._imgUrl == "") {
+					if(this._tfTimeAndTitle.numLines <= 1 && this._imgUrl == "")
+					{
 						this._bg.graphics.drawRect(-BORDER_LINE_SIZE,-BORDER_LINE_SIZE,ControllBarDef.IMAGE_PRE_BIG_WH_SIZE.x + BORDER_LINE_SIZE * 2,ControllBarDef.IMAGE_PRE_BIG_WH_SIZE.y + ControllBarDef.IMAGE_PRE_TIME_SIZE.y + BORDER_LINE_SIZE * 2);
 						this._bg.y = -(ControllBarDef.IMAGE_PRE_BIG_WH_SIZE.y - ControllBarDef.IMAGE_PRE_SMALL_SIZE.y) - ControllBarDef.IMAGE_PRE_TIME_SIZE.y;
-					} else {
+					}
+					else
+					{
 						this._bg.graphics.drawRect(-BORDER_LINE_SIZE,-BORDER_LINE_SIZE,ControllBarDef.IMAGE_PRE_BIG_WH_SIZE.x + BORDER_LINE_SIZE * 2,ControllBarDef.IMAGE_PRE_BIG_WH_SIZE.y + ControllBarDef.IMAGE_PRE_FOCUS_TIP_SIZE.y + BORDER_LINE_SIZE * 2);
 						this._bg.y = -(ControllBarDef.IMAGE_PRE_BIG_WH_SIZE.y - ControllBarDef.IMAGE_PRE_SMALL_SIZE.y) - ControllBarDef.IMAGE_PRE_FOCUS_TIP_SIZE.y;
 					}
@@ -144,15 +159,20 @@ package com.qiyi.player.wonder.plugins.controllbar.view.preview {
 					this._sprTimeAndTitle.height = this._tfTimeAndTitle.height;
 					this._sprTimeAndTitle.x = this._tfTimeAndTitle.x;
 					this._sprTimeAndTitle.y = this._tfTimeAndTitle.y;
-				} else {
+				}
+				else
+				{
 					this._imgContainer.visible = false;
-					if(this._tfTimeAndTitle.parent) {
+					if(this._tfTimeAndTitle.parent)
+					{
 						removeChild(this._tfTimeAndTitle);
 					}
-					if(this._sprTimeAndTitle.parent) {
+					if(this._sprTimeAndTitle.parent)
+					{
 						removeChild(this._sprTimeAndTitle);
 					}
-					if(this._bg.parent) {
+					if(this._bg.parent)
+					{
 						removeChild(this._bg);
 					}
 					this._bitmap.width = ControllBarDef.IMAGE_PRE_SMALL_SIZE.x;
@@ -161,32 +181,41 @@ package com.qiyi.player.wonder.plugins.controllbar.view.preview {
 					this._bitmap.x = 0;
 				}
 				addChild(this._bitmap);
-				if(this._picLoadingMC) {
+				if(this._picLoadingMC)
+				{
 					this._picLoadingMC.x = this._bitmap.x + (this._bitmap.width - this._picLoadingMC.width) * 0.5;
 					this._picLoadingMC.y = this._bitmap.y + (this._bitmap.height - this._picLoadingMC.height) * 0.5;
 					addChild(this._picLoadingMC);
 				}
-			} else {
-				if((this._picLoadingMC) && (this._picLoadingMC.parent)) {
+			}
+			else
+			{
+				if((this._picLoadingMC) && (this._picLoadingMC.parent))
+				{
 					removeChild(this._picLoadingMC);
 				}
-				if(this._bitmap.parent) {
+				if(this._bitmap.parent)
+				{
 					removeChild(this._bitmap);
 				}
 				addChild(this._bg);
 				addChild(this._tfTimeAndTitle);
 				addChild(this._sprTimeAndTitle);
 				this._imgContainer.visible = true;
-				if(this._imgContainer.parent) {
+				if(this._imgContainer.parent)
+				{
 					setChildIndex(this._imgContainer,numChildren - 1);
 				}
 				this._tfTimeAndTitle.width = this._focusTip == ""?ControllBarDef.IMAGE_PRE_TIME_SIZE.x:this._imgUrl == ""?ControllBarDef.IMAGE_PRE_BIG_WH_SIZE.x:ControllBarDef.IMAGE_PRE_FOCUS_TIP_SIZE.x;
 				this._tfTimeAndTitle.text = this.getStringByTime();
 				this._bg.graphics.clear();
 				this._bg.graphics.beginFill(0,BG_ALPHA);
-				if(this._tfTimeAndTitle.numLines <= 1 && this._imgUrl == "") {
+				if(this._tfTimeAndTitle.numLines <= 1 && this._imgUrl == "")
+				{
 					this._bg.graphics.drawRect(0,0,this._focusTip == ""?ControllBarDef.IMAGE_PRE_TIME_SIZE.x:ControllBarDef.IMAGE_PRE_BIG_WH_SIZE.x,ControllBarDef.IMAGE_PRE_TIME_SIZE.y);
-				} else {
+				}
+				else
+				{
 					this._bg.graphics.drawRect(0,0,this._focusTip == ""?ControllBarDef.IMAGE_PRE_TIME_SIZE.x:ControllBarDef.IMAGE_PRE_BIG_WH_SIZE.x,ControllBarDef.IMAGE_PRE_FOCUS_TIP_SIZE.y);
 				}
 				this._bg.y = ControllBarDef.IMAGE_PRE_SMALL_SIZE.y - this._bg.height;
@@ -202,58 +231,80 @@ package com.qiyi.player.wonder.plugins.controllbar.view.preview {
 			}
 		}
 		
-		public function updateImageIndex(param1:int, param2:String = "", param3:String = "", param4:Number = -1) : void {
+		public function updateImageIndex(param1:int, param2:String = "", param3:String = "", param4:Number = -1) : void
+		{
 			this._imageIndex = param1;
 			this._focusTip = param2;
 			this._imgUrl = param3;
 			this._curTime = param4;
-			var _loc5_:BitmapData = PreviewImageLoader.instance.getImageByIndex(param1);
-			if(_loc5_) {
-				this._bitmap.bitmapData = _loc5_;
-				if(this._picLoadingMC) {
+			var _loc5:BitmapData = PreviewImageLoader.instance.getImageByIndex(param1);
+			if(_loc5)
+			{
+				this._bitmap.bitmapData = _loc5;
+				if(this._picLoadingMC)
+				{
 					this._picLoadingMC.stop();
-					if(this._picLoadingMC.parent) {
+					if(this._picLoadingMC.parent)
+					{
 						removeChild(this._picLoadingMC);
 					}
 					this._picLoadingMC = null;
 				}
 				this._bitmap.smoothing = true;
-			} else {
-				if(PreviewImageLoader.instance.getDefaultImage()) {
+			}
+			else
+			{
+				if(PreviewImageLoader.instance.getDefaultImage())
+				{
 					this._bitmap.bitmapData = PreviewImageLoader.instance.getDefaultImage();
 				}
-				if(!this._picLoadingMC) {
+				if(!this._picLoadingMC)
+				{
 					this._picLoadingMC = new CommonLoadingMC();
 				}
 			}
 			this._tfTimeAndTitle.text = this.getStringByTime();
-			if(this._imgUrl == "") {
+			if(this._imgUrl == "")
+			{
 				this.destroyLoader();
-			} else {
+			}
+			else
+			{
 				this.requestGoodsImage();
 			}
 		}
 		
-		private function getStringByTime() : String {
-			var _loc1_:* = "";
-			if(this._focusTip == "") {
-				if(this._curTime < 0) {
-					_loc1_ = Strings.formatAsTimeCode(this._imageIndex * 10,this._imageIndex * 10000 > ConstUtils.H_2_MS);
-				} else {
-					_loc1_ = Strings.formatAsTimeCode(this._curTime / 1000,this._curTime > ConstUtils.H_2_MS);
+		private function getStringByTime() : String
+		{
+			var _loc1:* = "";
+			if(this._focusTip == "")
+			{
+				if(this._curTime < 0)
+				{
+					_loc1 = Strings.formatAsTimeCode(this._imageIndex * 10,this._imageIndex * 10000 > ConstUtils.H_2_MS);
 				}
-			} else if(this._curTime < 0) {
-				_loc1_ = Strings.formatAsTimeCode(this._imageIndex * 10,this._imageIndex * 10000 > ConstUtils.H_2_MS) + "  " + this._focusTip;
-			} else {
-				_loc1_ = Strings.formatAsTimeCode(this._curTime / 1000,this._curTime > ConstUtils.H_2_MS) + "  " + this._focusTip;
+				else
+				{
+					_loc1 = Strings.formatAsTimeCode(this._curTime / 1000,this._curTime > ConstUtils.H_2_MS);
+				}
+			}
+			else if(this._curTime < 0)
+			{
+				_loc1 = Strings.formatAsTimeCode(this._imageIndex * 10,this._imageIndex * 10000 > ConstUtils.H_2_MS) + "  " + this._focusTip;
+			}
+			else
+			{
+				_loc1 = Strings.formatAsTimeCode(this._curTime / 1000,this._curTime > ConstUtils.H_2_MS) + "  " + this._focusTip;
 			}
 			
-			return _loc1_;
+			return _loc1;
 		}
 		
-		private function requestGoodsImage() : void {
+		private function requestGoodsImage() : void
+		{
 			this.destroyLoader();
-			if(this._imgUrl != "") {
+			if(this._imgUrl != "")
+			{
 				this._loader = new Loader();
 				this._loader.contentLoaderInfo.addEventListener(Event.COMPLETE,this.onLoaderCompleteEvent);
 				this._loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,this.onError);
@@ -262,11 +313,14 @@ package com.qiyi.player.wonder.plugins.controllbar.view.preview {
 			}
 		}
 		
-		private function onLoaderCompleteEvent(param1:Event) : void {
-			if(this._imgUrl == "") {
+		private function onLoaderCompleteEvent(param1:Event) : void
+		{
+			if(this._imgUrl == "")
+			{
 				return;
 			}
-			if(this._loader) {
+			if(this._loader)
+			{
 				this._imgContainer.x = this._bg.x + 3;
 				this._imgContainer.y = this._bg.y + 3 + (this._bitmap.parent?ControllBarDef.IMAGE_PRE_BIG_WH_SIZE.y:0);
 				this._imgContainer.graphics.clear();
@@ -292,17 +346,22 @@ package com.qiyi.player.wonder.plugins.controllbar.view.preview {
 			}
 		}
 		
-		private function onError(param1:Event) : void {
+		private function onError(param1:Event) : void
+		{
 			this.destroyLoader();
 		}
 		
-		private function destroyLoader() : void {
+		private function destroyLoader() : void
+		{
 			var obj:DisplayObject = null;
-			if((this._loader) && (this._loader.parent)) {
-				try {
+			if((this._loader) && (this._loader.parent))
+			{
+				try
+				{
 					this._loader.unload();
 				}
-				catch(e:Error) {
+				catch(e:Error)
+				{
 				}
 				this._loader.contentLoaderInfo.removeEventListener(Event.COMPLETE,this.onLoaderCompleteEvent);
 				this._loader.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR,this.onError);
@@ -310,8 +369,10 @@ package com.qiyi.player.wonder.plugins.controllbar.view.preview {
 				this._loader.parent.removeChild(this._loader);
 				this._loader = null;
 			}
-			if((this._imgContainer) && (this._imgContainer.parent)) {
-				while(this._imgContainer.numChildren > 0) {
+			if((this._imgContainer) && (this._imgContainer.parent))
+			{
+				while(this._imgContainer.numChildren > 0)
+				{
 					obj = this._imgContainer.getChildAt(0);
 					this._imgContainer.removeChild(obj);
 				}
@@ -319,75 +380,97 @@ package com.qiyi.player.wonder.plugins.controllbar.view.preview {
 			}
 		}
 		
-		private function onGoodsClick(param1:MouseEvent) : void {
-			if(this._imgUrl == "") {
+		private function onGoodsClick(param1:MouseEvent) : void
+		{
+			if(this._imgUrl == "")
+			{
 				return;
 			}
 			dispatchEvent(new ControllBarEvent(ControllBarEvent.Evt_ImagePreViewGoodsClick,this._curTime));
 		}
 		
-		private function onImageLoaderComplete(param1:Event) : void {
-			var _loc2_:BitmapData = PreviewImageLoader.instance.getImageByIndex(this._imageIndex);
-			if(_loc2_) {
-				this._bitmap.bitmapData = _loc2_;
-				if(this._picLoadingMC) {
+		private function onImageLoaderComplete(param1:Event) : void
+		{
+			var _loc2:BitmapData = PreviewImageLoader.instance.getImageByIndex(this._imageIndex);
+			if(_loc2)
+			{
+				this._bitmap.bitmapData = _loc2;
+				if(this._picLoadingMC)
+				{
 					this._picLoadingMC.stop();
-					if(this._picLoadingMC.parent) {
+					if(this._picLoadingMC.parent)
+					{
 						removeChild(this._picLoadingMC);
 					}
 					this._picLoadingMC = null;
 				}
 				this._bitmap.smoothing = true;
 			}
-			if(this._isBigItem) {
+			if(this._isBigItem)
+			{
 				this._bitmap.width = ControllBarDef.IMAGE_PRE_BIG_WH_SIZE.x;
 				this._bitmap.height = ControllBarDef.IMAGE_PRE_BIG_WH_SIZE.y;
-			} else {
+			}
+			else
+			{
 				this._bitmap.width = ControllBarDef.IMAGE_PRE_SMALL_SIZE.x;
 				this._bitmap.height = ControllBarDef.IMAGE_PRE_SMALL_SIZE.y;
 			}
 		}
 		
-		public function destroy() : void {
-			var _loc1_:DisplayObject = null;
+		public function destroy() : void
+		{
+			var _loc1:DisplayObject = null;
 			PreviewImageLoader.instance.removeEventListener(PreviewImageLoader.COMPLETE,this.onImageLoaderComplete);
-			if(this._bitmap) {
-				if(this._bitmap.parent) {
+			if(this._bitmap)
+			{
+				if(this._bitmap.parent)
+				{
 					removeChild(this._bitmap);
 				}
 				this._bitmap.bitmapData = null;
 				this._bitmap = null;
 			}
-			if(this._bg) {
-				if(this._bg.parent) {
+			if(this._bg)
+			{
+				if(this._bg.parent)
+				{
 					removeChild(this._bg);
 				}
 				this._bg = null;
 			}
-			while(this._imgContainer.numChildren > 0) {
+			while(this._imgContainer.numChildren > 0)
+			{
 				this._imgContainer.removeEventListener(MouseEvent.CLICK,this.onGoodsClick);
-				_loc1_ = this._imgContainer.getChildAt(0);
-				if((_loc1_) && (_loc1_.parent)) {
-					_loc1_.parent.removeChild(_loc1_);
-					_loc1_ = null;
+				_loc1 = this._imgContainer.getChildAt(0);
+				if((_loc1) && (_loc1.parent))
+				{
+					_loc1.parent.removeChild(_loc1);
+					_loc1 = null;
 				}
 			}
-			if(this._tfTimeAndTitle) {
-				if(this._tfTimeAndTitle.parent) {
+			if(this._tfTimeAndTitle)
+			{
+				if(this._tfTimeAndTitle.parent)
+				{
 					removeChild(this._tfTimeAndTitle);
 				}
 				this._tfTimeAndTitle = null;
 			}
-			if(this._sprTimeAndTitle) {
+			if(this._sprTimeAndTitle)
+			{
 				this._sprTimeAndTitle.removeEventListener(MouseEvent.CLICK,this.onGoodsClick);
-				if(this._sprTimeAndTitle.parent) {
+				if(this._sprTimeAndTitle.parent)
+				{
 					removeChild(this._sprTimeAndTitle);
 				}
 				this._sprTimeAndTitle = null;
 			}
-			if(this._picLoadingMC) {
+			if(this._picLoadingMC)
+			{
 				this._picLoadingMC.stop();
-				if(this._picLoadingMC.parent) {
+				if(this._picLoadingMC.parent)
+				{
 					removeChild(this._picLoadingMC);
 				}
 				this._picLoadingMC = null;

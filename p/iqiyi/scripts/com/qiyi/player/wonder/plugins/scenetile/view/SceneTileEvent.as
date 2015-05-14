@@ -1,11 +1,9 @@
-package com.qiyi.player.wonder.plugins.scenetile.view {
+package com.qiyi.player.wonder.plugins.scenetile.view
+{
 	import com.qiyi.player.wonder.common.event.CommonEvent;
 	
-	public class SceneTileEvent extends CommonEvent {
-		
-		public function SceneTileEvent(param1:String, param2:Object = null) {
-			super(param1,param2);
-		}
+	public class SceneTileEvent extends CommonEvent
+	{
 		
 		public static const Evt_ToolOpen:String = "evtSceneTileToolOpen";
 		
@@ -28,5 +26,10 @@ package com.qiyi.player.wonder.plugins.scenetile.view {
 		public static const Evt_BarrageDeleteInfo:String = "evtBarrageDeleteInfo";
 		
 		public static const Evt_BarrageItemClick:String = "evtBarrageItemClick";
+		
+		public function SceneTileEvent(param1:String, param2:Object = null)
+		{
+			super(param1,param2);
+		}
 	}
 }

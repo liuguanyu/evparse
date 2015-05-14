@@ -1,4 +1,5 @@
-package com.qiyi.player.core.video.engine {
+package com.qiyi.player.core.video.engine
+{
 	import flash.events.IEventDispatcher;
 	import com.qiyi.player.core.IDestroy;
 	import com.qiyi.player.core.model.IMovie;
@@ -6,7 +7,8 @@ package com.qiyi.player.core.video.engine {
 	import flash.net.NetStreamInfo;
 	import com.qiyi.player.core.video.render.IRender;
 	
-	public interface IEngine extends IEventDispatcher, IDestroy {
+	public interface IEngine extends IEventDispatcher, IDestroy
+	{
 		
 		function get movie() : IMovie;
 		

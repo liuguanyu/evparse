@@ -1,11 +1,9 @@
-package com.qiyi.player.core.model.def {
+package com.qiyi.player.core.model.def
+{
 	import com.qiyi.player.base.pub.EnumItem;
 	
-	public class StationEnum extends Object {
-		
-		public function StationEnum() {
-			super();
-		}
+	public class StationEnum extends Object
+	{
 		
 		public static const ITEMS:Array = [];
 		
@@ -14,5 +12,10 @@ package com.qiyi.player.core.model.def {
 		public static const TIAN_JIN:EnumItem = new EnumItem(1,"tj",ITEMS);
 		
 		public static const CHONG_QING:EnumItem = new EnumItem(2,"cq",ITEMS);
+		
+		public function StationEnum()
+		{
+			super();
+		}
 	}
 }

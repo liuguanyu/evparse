@@ -1,11 +1,9 @@
-package com.qiyi.player.base.rpc {
+package com.qiyi.player.base.rpc
+{
 	import com.qiyi.player.base.pub.EnumItem;
 	
-	public class RemoteObjectStatusEnum extends Object {
-		
-		public function RemoteObjectStatusEnum() {
-			super();
-		}
+	public class RemoteObjectStatusEnum extends Object
+	{
 		
 		public static var items:Array = [];
 		
@@ -26,5 +24,10 @@ package com.qiyi.player.base.rpc {
 		public static var AuthenticationError:EnumItem = new EnumItem(7,"authenticationError",items);
 		
 		public static var UnknownError:EnumItem = new EnumItem(8,"unknownError",items);
+		
+		public function RemoteObjectStatusEnum()
+		{
+			super();
+		}
 	}
 }

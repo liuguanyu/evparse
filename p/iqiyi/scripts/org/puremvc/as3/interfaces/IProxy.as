@@ -1,5 +1,7 @@
-package org.puremvc.as3.interfaces {
-	public interface IProxy {
+package org.puremvc.as3.interfaces
+{
+	public interface IProxy
+	{
 		
 		function getData() : Object;
 		

@@ -1,9 +1,7 @@
-package com.qiyi.player.user {
-	public class UserDef extends Object {
-		
-		public function UserDef() {
-			super();
-		}
+package com.qiyi.player.user
+{
+	public class UserDef extends Object
+	{
 		
 		private static var userTypeBegin:int = 1;
 		
@@ -68,5 +66,10 @@ package com.qiyi.player.user {
 		public static const USER_LOCAL_SEX_STATE_END:int = ++userLocalSexStateBegin;
 		
 		public static const USER_LOCAL_SEX_STATE_COUNT:int = USER_LOCAL_SEX_STATE_END - USER_LOCAL_SEX_STATE_BEGIN;
+		
+		public function UserDef()
+		{
+			super();
+		}
 	}
 }

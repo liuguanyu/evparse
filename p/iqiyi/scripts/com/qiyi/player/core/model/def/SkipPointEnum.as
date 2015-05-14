@@ -1,11 +1,9 @@
-package com.qiyi.player.core.model.def {
+package com.qiyi.player.core.model.def
+{
 	import com.qiyi.player.base.pub.EnumItem;
 	
-	public class SkipPointEnum extends Object {
-		
-		public function SkipPointEnum() {
-			super();
-		}
+	public class SkipPointEnum extends Object
+	{
 		
 		public static const ITEMS:Array = [];
 		
@@ -28,5 +26,10 @@ package com.qiyi.player.core.model.def {
 		public static const ENJOYABLE_SUB_MALE:EnumItem = new EnumItem(2,"enjoyableSubMale",ENJOYABLE_ITEMS);
 		
 		public static const ENJOYABLE_SUB_FEMALE:EnumItem = new EnumItem(3,"enjoyableSubFemale",ENJOYABLE_ITEMS);
+		
+		public function SkipPointEnum()
+		{
+			super();
+		}
 	}
 }

@@ -1,9 +1,7 @@
-package com.qiyi.player.core.model.impls {
-	public class Keyframe extends Object {
-		
-		public function Keyframe() {
-			super();
-		}
+package com.qiyi.player.core.model.impls
+{
+	public class Keyframe extends Object
+	{
 		
 		public var index:int;
 		
@@ -16,5 +14,10 @@ package com.qiyi.player.core.model.impls {
 		public var lenTime:Number;
 		
 		public var lenPos:int;
+		
+		public function Keyframe()
+		{
+			super();
+		}
 	}
 }

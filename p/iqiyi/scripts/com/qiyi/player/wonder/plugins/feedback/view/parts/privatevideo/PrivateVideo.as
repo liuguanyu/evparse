@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.feedback.view.parts.privatevideo {
+package com.qiyi.player.wonder.plugins.feedback.view.parts.privatevideo
+{
 	import flash.display.Sprite;
 	import com.qiyi.player.wonder.IDestroy;
 	import flash.text.TextField;
@@ -15,15 +16,8 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.privatevideo {
 	import flash.events.TimerEvent;
 	import com.qiyi.player.wonder.plugins.feedback.view.FeedbackEvent;
 	
-	public class PrivateVideo extends Sprite implements IDestroy {
-		
-		public function PrivateVideo(param1:uint, param2:Boolean, param3:Boolean) {
-			super();
-			this._errorCode = param1;
-			this._hasNestVideo = param2;
-			this._isOpenedPrivateVideo = param3;
-			this.init();
-		}
+	public class PrivateVideo extends Sprite implements IDestroy
+	{
 		
 		private static const STR_TITLE_PRIVATE:String = "对不起，当前视频仅支持上传者播放";
 		
@@ -67,15 +61,27 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.privatevideo {
 		
 		private var _countdownTime:uint = 15;
 		
-		private function init() : void {
+		public function PrivateVideo(param1:uint, param2:Boolean, param3:Boolean)
+		{
+			super();
+			this._errorCode = param1;
+			this._hasNestVideo = param2;
+			this._isOpenedPrivateVideo = param3;
+			this.init();
+		}
+		
+		private function init() : void
+		{
 			this._tfTitle = FastCreator.createLabel(this._errorCode == 708?STR_TITLE_PRIVATE:GlobalStage.isFullScreen()?STR_TITLE_PW_EXITFULL:STR_TITLE_PASSWORD,16777215,16);
 			addChild(this._tfTitle);
 			this.createPassWordPart();
 			this.creatNestVideoPart();
 		}
 		
-		private function createPassWordPart() : void {
-			if(this._errorCode == 709) {
+		private function createPassWordPart() : void
+		{
+			if(this._errorCode == 709)
+			{
 				this._sprPWContainer = new Sprite();
 				this._sprPWContainer.graphics.beginFill(16711680,0);
 				this._sprPWContainer.graphics.drawRect(0,0,300,80);
@@ -98,7 +104,8 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.privatevideo {
 				this._inputPassWord.text = "";
 				this._inputPassWord.displayAsPassword = true;
 				this._sprPWContainer.addChild(this._inputPassWord);
-				if(this._isOpenedPrivateVideo) {
+				if(this._isOpenedPrivateVideo)
+				{
 					this._tfPassWordError = FastCreator.createLabel(STR_TITLE_PASSWORD_ERROR,16716340,12);
 					this._tfPassWordError.y = this._tfPassWord.y + this._tfPassWord.height + 15;
 					this._tfPassWordError.x = this._shapePassWordBg.x;
@@ -118,8 +125,10 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.privatevideo {
 			}
 		}
 		
-		private function creatNestVideoPart() : void {
-			if(this._hasNestVideo) {
+		private function creatNestVideoPart() : void
+		{
+			if(this._hasNestVideo)
+			{
 				this._sprCDContainer = new Sprite();
 				this._sprCDContainer.graphics.beginFill(65280,0);
 				this._sprCDContainer.graphics.drawRect(0,0,300,80);
@@ -136,37 +145,45 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.privatevideo {
 			}
 		}
 		
-		private function onCountdownTime(param1:TimerEvent) : void {
+		private function onCountdownTime(param1:TimerEvent) : void
+		{
 			this._countdownTime--;
 			this._tfCountdown.htmlText = this._countdownTime + "秒后，" + STR_COUNTDOWN;
 		}
 		
-		private function onCountdownComplete(param1:TimerEvent) : void {
+		private function onCountdownComplete(param1:TimerEvent) : void
+		{
 			this._timeCountdown.stop();
 			dispatchEvent(new FeedbackEvent(FeedbackEvent.Evt_PrivateNestVideo));
 		}
 		
-		private function onNestVideoLink(param1:TextEvent) : void {
+		private function onNestVideoLink(param1:TextEvent) : void
+		{
 			this._tfCountdown.removeEventListener(TextEvent.LINK,this.onNestVideoLink);
 			dispatchEvent(new FeedbackEvent(FeedbackEvent.Evt_PrivateNestVideo));
 		}
 		
-		private function onConfirmBtnClick(param1:MouseEvent) : void {
+		private function onConfirmBtnClick(param1:MouseEvent) : void
+		{
 			dispatchEvent(new FeedbackEvent(FeedbackEvent.Evt_PrivateConfirmBtnClick,this._inputPassWord.text));
 		}
 		
-		private function onInputPassWord(param1:FocusEvent) : void {
-			if((this._sprCDContainer) && (this._tfCountdown)) {
+		private function onInputPassWord(param1:FocusEvent) : void
+		{
+			if((this._sprCDContainer) && (this._tfCountdown))
+			{
 				this._tfCountdown.htmlText = STR_COUNTDOWN;
 			}
-			if(this._timeCountdown) {
+			if(this._timeCountdown)
+			{
 				this._timeCountdown.stop();
 				this._timeCountdown.removeEventListener(TimerEvent.TIMER,this.onCountdownTime);
 				this._timeCountdown.removeEventListener(TimerEvent.TIMER_COMPLETE,this.onCountdownComplete);
 			}
 		}
 		
-		public function onResize(param1:int, param2:int) : void {
+		public function onResize(param1:int, param2:int) : void
+		{
 			graphics.clear();
 			graphics.beginFill(0);
 			graphics.drawRect(0,0,param1,param2);
@@ -174,50 +191,64 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.privatevideo {
 			this._tfTitle.text = this._errorCode == 708?STR_TITLE_PRIVATE:GlobalStage.isFullScreen()?STR_TITLE_PW_EXITFULL:STR_TITLE_PASSWORD;
 			this._tfTitle.x = (param1 - this._tfTitle.width) * 0.5;
 			this._tfTitle.y = (param2 - this._tfTitle.height - (this._sprPWContainer?this._sprPWContainer.height:0) - (this._sprCDContainer?this._sprCDContainer.height:0)) * 0.5;
-			if(this._sprPWContainer) {
+			if(this._sprPWContainer)
+			{
 				this._sprPWContainer.x = (param1 - this._sprPWContainer.width) * 0.5;
 				this._sprPWContainer.y = this._tfTitle.y + this._tfTitle.height + 15;
 			}
-			if(this._sprCDContainer) {
+			if(this._sprCDContainer)
+			{
 				this._sprCDContainer.x = (param1 - this._sprCDContainer.width) * 0.5;
 				this._sprCDContainer.y = this._tfTitle.y + this._tfTitle.height + 5 + (this._sprPWContainer?this._sprPWContainer.height + 15:0);
 			}
 		}
 		
-		public function destroy() : void {
-			if(this._tfCountdown) {
+		public function destroy() : void
+		{
+			if(this._tfCountdown)
+			{
 				this._tfCountdown.removeEventListener(TextEvent.LINK,this.onNestVideoLink);
 			}
-			if(this._confirmBtn) {
+			if(this._confirmBtn)
+			{
 				this._confirmBtn.removeEventListener(MouseEvent.CLICK,this.onConfirmBtnClick);
 			}
-			if(this._inputPassWord) {
+			if(this._inputPassWord)
+			{
 				this._inputPassWord.removeEventListener(FocusEvent.FOCUS_IN,this.onInputPassWord);
 			}
-			var _loc1_:Object = null;
-			if(this._sprPWContainer) {
-				while(this._sprPWContainer.numChildren > 0) {
-					_loc1_ = this._sprPWContainer.removeChildAt(0);
-					_loc1_ = null;
+			var _loc1:Object = null;
+			if(this._sprPWContainer)
+			{
+				while(this._sprPWContainer.numChildren > 0)
+				{
+					_loc1 = this._sprPWContainer.removeChildAt(0);
+					_loc1 = null;
 				}
-				if(this._sprPWContainer.parent) {
+				if(this._sprPWContainer.parent)
+				{
 					this._sprPWContainer.parent.removeChild(this._sprPWContainer);
 				}
 			}
-			if(this._sprCDContainer) {
-				while(this._sprCDContainer.numChildren > 0) {
-					_loc1_ = this._sprCDContainer.removeChildAt(0);
-					_loc1_ = null;
+			if(this._sprCDContainer)
+			{
+				while(this._sprCDContainer.numChildren > 0)
+				{
+					_loc1 = this._sprCDContainer.removeChildAt(0);
+					_loc1 = null;
 				}
-				if(this._sprCDContainer.parent) {
+				if(this._sprCDContainer.parent)
+				{
 					this._sprCDContainer.parent.removeChild(this._sprCDContainer);
 				}
 			}
-			if((this._tfTitle) && (this._tfTitle.parent)) {
+			if((this._tfTitle) && (this._tfTitle.parent))
+			{
 				this._tfTitle.parent.removeChild(this._tfTitle);
 				this._tfTitle = null;
 			}
-			if(this._timeCountdown) {
+			if(this._timeCountdown)
+			{
 				this._timeCountdown.stop();
 				this._timeCountdown.removeEventListener(TimerEvent.TIMER,this.onCountdownTime);
 				this._timeCountdown.removeEventListener(TimerEvent.TIMER_COMPLETE,this.onCountdownComplete);

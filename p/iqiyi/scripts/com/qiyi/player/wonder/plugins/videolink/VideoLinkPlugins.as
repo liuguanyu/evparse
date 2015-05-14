@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.videolink {
+package com.qiyi.player.wonder.plugins.videolink
+{
 	import com.qiyi.player.wonder.plugins.AbstractPlugins;
 	import com.qiyi.player.wonder.plugins.videolink.model.VideoLinkProxy;
 	import flash.display.DisplayObjectContainer;
@@ -8,93 +9,116 @@ package com.qiyi.player.wonder.plugins.videolink {
 	import com.qiyi.player.wonder.plugins.videolink.view.VideoLinkView;
 	import com.iqiyi.components.panelSystem.PanelManager;
 	
-	public class VideoLinkPlugins extends AbstractPlugins {
-		
-		public function VideoLinkPlugins(param1:SingletonClass) {
-			super();
-		}
+	public class VideoLinkPlugins extends AbstractPlugins
+	{
 		
 		private static var _instance:VideoLinkPlugins;
 		
-		public static function getInstance() : VideoLinkPlugins {
-			if(_instance == null) {
+		public function VideoLinkPlugins(param1:SingletonClass)
+		{
+			super();
+		}
+		
+		public static function getInstance() : VideoLinkPlugins
+		{
+			if(_instance == null)
+			{
 				_instance = new VideoLinkPlugins(new SingletonClass());
 			}
 			return _instance;
 		}
 		
-		override public function initModel(param1:Vector.<String> = null) : void {
-			var _loc2_:* = 0;
-			var _loc3_:* = 0;
+		override public function initModel(param1:Vector.<String> = null) : void
+		{
+			var _loc2:* = 0;
+			var _loc3:* = 0;
 			super.initModel(param1);
-			if(param1) {
-				_loc2_ = param1.length;
-				_loc3_ = 0;
-				while(_loc3_ < _loc2_) {
-					switch(param1[_loc3_]) {
+			if(param1)
+			{
+				_loc2 = param1.length;
+				_loc3 = 0;
+				while(_loc3 < _loc2)
+				{
+					switch(param1[_loc3])
+					{
 						case VideoLinkProxy.NAME:
-							if(!facade.hasProxy(VideoLinkProxy.NAME)) {
+							if(!facade.hasProxy(VideoLinkProxy.NAME))
+							{
 								facade.registerProxy(new VideoLinkProxy());
 							}
 							break;
 					}
-					_loc3_++;
+					_loc3++;
 				}
-			} else if(!facade.hasProxy(VideoLinkProxy.NAME)) {
+			}
+			else if(!facade.hasProxy(VideoLinkProxy.NAME))
+			{
 				facade.registerProxy(new VideoLinkProxy());
 			}
 			
 		}
 		
-		override public function initView(param1:DisplayObjectContainer, param2:Vector.<String> = null) : void {
-			var _loc3_:* = 0;
-			var _loc4_:* = 0;
+		override public function initView(param1:DisplayObjectContainer, param2:Vector.<String> = null) : void
+		{
+			var _loc3:* = 0;
+			var _loc4:* = 0;
 			super.initView(param1,param2);
-			if(param2) {
-				_loc3_ = param2.length;
-				_loc4_ = 0;
-				while(_loc4_ < _loc3_) {
-					switch(param2[_loc4_]) {
+			if(param2)
+			{
+				_loc3 = param2.length;
+				_loc4 = 0;
+				while(_loc4 < _loc3)
+				{
+					switch(param2[_loc4])
+					{
 						case VideoLinkViewMediator.NAME:
 							this.createVideoLinkViewMediator(param1);
 							break;
 					}
-					_loc4_++;
+					_loc4++;
 				}
-			} else {
+			}
+			else
+			{
 				this.createVideoLinkViewMediator(param1);
 			}
 		}
 		
-		override public function initController() : void {
+		override public function initController() : void
+		{
 			super.initController();
 		}
 		
-		private function createVideoLinkViewMediator(param1:DisplayObjectContainer) : void {
-			var _loc2_:UserProxy = null;
-			var _loc3_:UserInfoVO = null;
-			var _loc4_:VideoLinkProxy = null;
-			var _loc5_:VideoLinkView = null;
-			if(!facade.hasMediator(VideoLinkViewMediator.NAME)) {
-				_loc2_ = facade.retrieveProxy(UserProxy.NAME) as UserProxy;
-				_loc3_ = new UserInfoVO();
-				_loc3_.isLogin = _loc2_.isLogin;
-				_loc3_.passportID = _loc2_.passportID;
-				_loc3_.userID = _loc2_.userID;
-				_loc3_.userName = _loc2_.userName;
-				_loc3_.userLevel = _loc2_.userLevel;
-				_loc3_.userType = _loc2_.userType;
-				_loc4_ = facade.retrieveProxy(VideoLinkProxy.NAME) as VideoLinkProxy;
-				_loc5_ = new VideoLinkView(param1,_loc4_.status.clone(),_loc3_);
-				PanelManager.getInstance().register(_loc5_);
-				facade.registerMediator(new VideoLinkViewMediator(_loc5_));
+		private function createVideoLinkViewMediator(param1:DisplayObjectContainer) : void
+		{
+			var _loc2:UserProxy = null;
+			var _loc3:UserInfoVO = null;
+			var _loc4:VideoLinkProxy = null;
+			var _loc5:VideoLinkView = null;
+			if(!facade.hasMediator(VideoLinkViewMediator.NAME))
+			{
+				_loc2 = facade.retrieveProxy(UserProxy.NAME) as UserProxy;
+				_loc3 = new UserInfoVO();
+				_loc3.isLogin = _loc2.isLogin;
+				_loc3.passportID = _loc2.passportID;
+				_loc3.userID = _loc2.userID;
+				_loc3.userName = _loc2.userName;
+				_loc3.userLevel = _loc2.userLevel;
+				_loc3.userType = _loc2.userType;
+				_loc4 = facade.retrieveProxy(VideoLinkProxy.NAME) as VideoLinkProxy;
+				_loc5 = new VideoLinkView(param1,_loc4.status.clone(),_loc3);
+				PanelManager.getInstance().register(_loc5);
+				facade.registerMediator(new VideoLinkViewMediator(_loc5));
 			}
 		}
 	}
 }
-class SingletonClass extends Object {
+
+class SingletonClass extends Object
+{
 	
-	function SingletonClass() {
+	function SingletonClass()
+	{
 		super();
 	}
 }

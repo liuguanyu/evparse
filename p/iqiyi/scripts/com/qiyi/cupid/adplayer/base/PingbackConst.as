@@ -1,9 +1,7 @@
-package com.qiyi.cupid.adplayer.base {
-	public class PingbackConst extends Object {
-		
-		public function PingbackConst() {
-			super();
-		}
+package com.qiyi.cupid.adplayer.base
+{
+	public class PingbackConst extends Object
+	{
 		
 		public static const TYPE_VISIT:String = "v";
 		
@@ -30,5 +28,10 @@ package com.qiyi.cupid.adplayer.base {
 		public static const ENCODE_FIELDS:Array = ["x","lc","em"];
 		
 		public static const SERVICE_URL:String = "http://msg.71.am/cp2.gif?";
+		
+		public function PingbackConst()
+		{
+			super();
+		}
 	}
 }

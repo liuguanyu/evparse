@@ -1,9 +1,12 @@
-package videolink {
+package videolink
+{
 	import flash.display.SimpleButton;
 	
-	public dynamic class VideoLinkBtn extends SimpleButton {
+	public dynamic class VideoLinkBtn extends SimpleButton
+	{
 		
-		public function VideoLinkBtn() {
+		public function VideoLinkBtn()
+		{
 			super();
 		}
 	}

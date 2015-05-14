@@ -1,21 +1,27 @@
-package com.qiyi.player.base.utils {
+package com.qiyi.player.base.utils
+{
 	import flash.text.Font;
 	
-	public class FontUtils extends Object {
+	public class FontUtils extends Object
+	{
 		
-		public function FontUtils() {
+		public function FontUtils()
+		{
 			super();
 		}
 		
-		public static function hasFont(param1:String) : Boolean {
-			var _loc2_:Array = Font.enumerateFonts(true);
-			var _loc3_:int = _loc2_.length;
-			var _loc4_:* = 0;
-			while(_loc4_ < _loc3_) {
-				if(_loc2_[_loc4_].fontName == param1) {
+		public static function hasFont(param1:String) : Boolean
+		{
+			var _loc2:Array = Font.enumerateFonts(true);
+			var _loc3:int = _loc2.length;
+			var _loc4:* = 0;
+			while(_loc4 < _loc3)
+			{
+				if(_loc2[_loc4].fontName == param1)
+				{
 					return true;
 				}
-				_loc4_++;
+				_loc4++;
 			}
 			return false;
 		}

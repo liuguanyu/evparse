@@ -1,9 +1,7 @@
-package com.qiyi.player.wonder.plugins.recommend {
-	public class RecommendDef extends Object {
-		
-		public function RecommendDef() {
-			super();
-		}
+package com.qiyi.player.wonder.plugins.recommend
+{
+	public class RecommendDef extends Object
+	{
 		
 		private static var statusBegin:int = 0;
 		
@@ -34,5 +32,10 @@ package com.qiyi.player.wonder.plugins.recommend {
 		public static const PLAY_FINISH_BIG_ITEM_HEIGHT:uint = 183;
 		
 		public static const PLAY_FINISH_ITEM_GAP:uint = 3;
+		
+		public function RecommendDef()
+		{
+			super();
+		}
 	}
 }

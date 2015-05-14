@@ -1,9 +1,7 @@
-package com.adobe.serialization.json {
-	public class JSONTokenType extends Object {
-		
-		public function JSONTokenType() {
-			super();
-		}
+package com.adobe.serialization.json
+{
+	public class JSONTokenType extends Object
+	{
 		
 		public static const FALSE:int = 8;
 		
@@ -30,5 +28,10 @@ package com.adobe.serialization.json {
 		public static const NAN:int = 12;
 		
 		public static const COLON:int = 6;
+		
+		public function JSONTokenType()
+		{
+			super();
+		}
 	}
 }

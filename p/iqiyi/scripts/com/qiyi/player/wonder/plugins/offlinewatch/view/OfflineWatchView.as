@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.offlinewatch.view {
+package com.qiyi.player.wonder.plugins.offlinewatch.view
+{
 	import com.iqiyi.components.panelSystem.impls.BasePanel;
 	import com.qiyi.player.wonder.common.status.Status;
 	import com.qiyi.player.wonder.common.vo.UserInfoVO;
@@ -16,15 +17,8 @@ package com.qiyi.player.wonder.plugins.offlinewatch.view {
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	
-	public class OfflineWatchView extends BasePanel {
-		
-		public function OfflineWatchView(param1:DisplayObjectContainer, param2:Status, param3:UserInfoVO) {
-			super(NAME,param1);
-			type = BodyDef.VIEW_TYPE_POPUP;
-			this._status = param2;
-			this._userInfoVO = param3;
-			this.initUI();
-		}
+	public class OfflineWatchView extends BasePanel
+	{
 		
 		public static const NAME:String = "com.qiyi.player.wonder.plugins.offlinewatch.view.OfflineWatchView";
 		
@@ -50,13 +44,25 @@ package com.qiyi.player.wonder.plugins.offlinewatch.view {
 		
 		private var _time:uint = 0;
 		
-		public function onUserInfoChanged(param1:UserInfoVO) : void {
+		public function OfflineWatchView(param1:DisplayObjectContainer, param2:Status, param3:UserInfoVO)
+		{
+			super(NAME,param1);
+			type = BodyDef.VIEW_TYPE_POPUP;
+			this._status = param2;
+			this._userInfoVO = param3;
+			this.initUI();
+		}
+		
+		public function onUserInfoChanged(param1:UserInfoVO) : void
+		{
 			this._userInfoVO = param1;
 		}
 		
-		public function onAddStatus(param1:int) : void {
+		public function onAddStatus(param1:int) : void
+		{
 			this._status.addStatus(param1);
-			switch(param1) {
+			switch(param1)
+			{
 				case OfflineWatchDef.STATUS_OPEN:
 					this.open();
 					this._time = OfflineWatchDef.OFFLINEWATCH_PANEL_SHOW_TIME;
@@ -66,9 +72,11 @@ package com.qiyi.player.wonder.plugins.offlinewatch.view {
 			}
 		}
 		
-		public function onRemoveStatus(param1:int) : void {
+		public function onRemoveStatus(param1:int) : void
+		{
 			this._status.removeStatus(param1);
-			switch(param1) {
+			switch(param1)
+			{
 				case OfflineWatchDef.STATUS_OPEN:
 					this.close();
 					this._time = 0;
@@ -77,40 +85,49 @@ package com.qiyi.player.wonder.plugins.offlinewatch.view {
 			}
 		}
 		
-		public function onResize(param1:int, param2:int) : void {
-			if(isOnStage) {
+		public function onResize(param1:int, param2:int) : void
+		{
+			if(isOnStage)
+			{
 				x = (param1 - this._bg.width) / 2;
 				y = (param2 - this._bg.height) / 2;
 			}
 		}
 		
-		override public function open(param1:DisplayObjectContainer = null) : void {
-			if(!isOnStage) {
+		override public function open(param1:DisplayObjectContainer = null) : void
+		{
+			if(!isOnStage)
+			{
 				super.open(param1);
 				dispatchEvent(new OfflineWatchEvent(OfflineWatchEvent.Evt_Open));
 			}
 		}
 		
-		override public function close() : void {
-			if(isOnStage) {
+		override public function close() : void
+		{
+			if(isOnStage)
+			{
 				super.close();
 				dispatchEvent(new OfflineWatchEvent(OfflineWatchEvent.Evt_Close));
 			}
 		}
 		
-		override protected function onAddToStage() : void {
+		override protected function onAddToStage() : void
+		{
 			super.onAddToStage();
 			this.onResize(GlobalStage.stage.stageWidth,GlobalStage.stage.stageHeight);
 			alpha = 0;
 			TweenLite.to(this,BodyDef.POPUP_TWEEN_TIME / 1000,{"alpha":1});
 		}
 		
-		override protected function onRemoveFromStage() : void {
+		override protected function onRemoveFromStage() : void
+		{
 			super.onRemoveFromStage();
 			TweenLite.killTweensOf(this);
 		}
 		
-		private function initUI() : void {
+		private function initUI() : void
+		{
 			this._bg = new CommonBg();
 			this._bg.width = 380;
 			this._bg.height = 160;
@@ -133,7 +150,8 @@ package com.qiyi.player.wonder.plugins.offlinewatch.view {
 			this._closeBtn.addEventListener(MouseEvent.CLICK,this.onCloseBtnClick);
 		}
 		
-		private function creatCountDownTimer() : void {
+		private function creatCountDownTimer() : void
+		{
 			this.clearCountDownTimer();
 			this._countDownTimer = new Timer(1000,this._time);
 			this._countDownTimer.addEventListener(TimerEvent.TIMER,this.onCountDownTimer);
@@ -141,8 +159,10 @@ package com.qiyi.player.wonder.plugins.offlinewatch.view {
 			this._countDownTimer.start();
 		}
 		
-		private function clearCountDownTimer() : void {
-			if(this._countDownTimer) {
+		private function clearCountDownTimer() : void
+		{
+			if(this._countDownTimer)
+			{
 				this._countDownTimer.stop();
 				this._countDownTimer.removeEventListener(TimerEvent.TIMER,this.onCountDownTimer);
 				this._countDownTimer.removeEventListener(TimerEvent.TIMER_COMPLETE,this.onCountDownTimerComplete);
@@ -150,16 +170,19 @@ package com.qiyi.player.wonder.plugins.offlinewatch.view {
 			}
 		}
 		
-		private function onCountDownTimer(param1:TimerEvent) : void {
+		private function onCountDownTimer(param1:TimerEvent) : void
+		{
 			this._time = this._time - 1;
 			this._countDownTF.text = this._time + TEXT_CONFIRM;
 		}
 		
-		private function onCountDownTimerComplete(param1:TimerEvent) : void {
+		private function onCountDownTimerComplete(param1:TimerEvent) : void
+		{
 			this.close();
 		}
 		
-		private function onCloseBtnClick(param1:MouseEvent) : void {
+		private function onCloseBtnClick(param1:MouseEvent) : void
+		{
 			this.close();
 		}
 	}

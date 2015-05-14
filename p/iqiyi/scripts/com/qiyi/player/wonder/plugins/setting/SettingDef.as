@@ -1,9 +1,7 @@
-package com.qiyi.player.wonder.plugins.setting {
-	public class SettingDef extends Object {
-		
-		public function SettingDef() {
-			super();
-		}
+package com.qiyi.player.wonder.plugins.setting
+{
+	public class SettingDef extends Object
+	{
 		
 		private static var statusBegin:int = 0;
 		
@@ -70,5 +68,10 @@ package com.qiyi.player.wonder.plugins.setting {
 		public static const DEFINITION_PANEL_RADIUS:uint = 25;
 		
 		public static const DEFINITION_COLOR:uint = 5865493;
+		
+		public function SettingDef()
+		{
+			super();
+		}
 	}
 }

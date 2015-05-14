@@ -1,22 +1,10 @@
-package com.qiyi.player.base.cookie {
+package com.qiyi.player.base.cookie
+{
 	import flash.utils.setTimeout;
 	import flash.utils.clearTimeout;
 	
-	public class FixedLineCookie extends FixedBaseCookie {
-		
-		public function FixedLineCookie(param1:String, param2:String, param3:int, param4:int, param5:int = 1000, param6:Boolean = false) {
-			super(param1,param2,param3);
-			this._reverse = param6;
-			this._maxLine = param4;
-			this._updateDuration = param5;
-			if(_data == null || !(_data is Array)) {
-				_data = [];
-				if(!_forbidden) {
-					_so.data[param2] = _data;
-					this.flush();
-				}
-			}
-		}
+	public class FixedLineCookie extends FixedBaseCookie
+	{
 		
 		private var _maxLine:int = 0;
 		
@@ -26,63 +14,99 @@ package com.qiyi.player.base.cookie {
 		
 		private var _reverse:Boolean = false;
 		
-		override public function clear() : void {
+		public function FixedLineCookie(param1:String, param2:String, param3:int, param4:int, param5:int = 1000, param6:Boolean = false)
+		{
+			super(param1,param2,param3);
+			this._reverse = param6;
+			this._maxLine = param4;
+			this._updateDuration = param5;
+			if(_data == null || !(_data is Array))
+			{
+				_data = [];
+				if(!_forbidden)
+				{
+					_so.data[param2] = _data;
+					this.flush();
+				}
+			}
+		}
+		
+		override public function clear() : void
+		{
 			_data = [];
-			if(_forbidden) {
+			if(_forbidden)
+			{
 				return;
 			}
 			super.flush();
 		}
 		
-		public function get lines() : Array {
-			var _loc1_:Array = data as Array;
-			if(_loc1_ == null) {
-				_loc1_ = [];
+		public function get lines() : Array
+		{
+			var _loc1:Array = data as Array;
+			if(_loc1 == null)
+			{
+				_loc1 = [];
 			}
-			return _loc1_;
+			return _loc1;
 		}
 		
-		override public function set data(param1:Object) : void {
+		override public function set data(param1:Object) : void
+		{
 			_data = param1;
-			if(_data == null || !(_data is Array)) {
+			if(_data == null || !(_data is Array))
+			{
 				_data = [];
 			}
 			this.flush();
 		}
 		
-		public function push(param1:Object) : void {
+		public function push(param1:Object) : void
+		{
 			this.lines.push(param1);
-			if(_forbidden) {
+			if(_forbidden)
+			{
 				return;
 			}
-			if(this._timeout == 0 && this._updateDuration > 0) {
+			if(this._timeout == 0 && this._updateDuration > 0)
+			{
 				this._timeout = setTimeout(this.flush,this._updateDuration);
 			}
 		}
 		
-		override public function destroy() : void {
-			if(this._timeout) {
+		override public function destroy() : void
+		{
+			if(this._timeout)
+			{
 				clearTimeout(this._timeout);
 			}
 			this._timeout = 0;
 			super.destroy();
 		}
 		
-		override public function flush() : void {
-			if(_forbidden) {
+		override public function flush() : void
+		{
+			if(_forbidden)
+			{
 				return;
 			}
-			if(this._timeout) {
+			if(this._timeout)
+			{
 				clearTimeout(this._timeout);
 			}
 			this._timeout = 0;
-			if(this.lines == null) {
+			if(this.lines == null)
+			{
 				return;
 			}
-			while(this.lines.length > this._maxLine || (_so.size > _maxSize) && (this.lines.length)) {
-				if(this._reverse) {
+			while(this.lines.length > this._maxLine || (_so.size > _maxSize) && (this.lines.length))
+			{
+				if(this._reverse)
+				{
 					this.lines.pop();
-				} else {
+				}
+				else
+				{
 					this.lines.shift();
 				}
 			}

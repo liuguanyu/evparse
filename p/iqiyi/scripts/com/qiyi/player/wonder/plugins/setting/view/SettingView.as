@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.setting.view {
+package com.qiyi.player.wonder.plugins.setting.view
+{
 	import com.iqiyi.components.panelSystem.impls.BasePanel;
 	import com.qiyi.player.wonder.common.status.Status;
 	import com.qiyi.player.wonder.common.vo.UserInfoVO;
@@ -19,15 +20,8 @@ package com.qiyi.player.wonder.plugins.setting.view {
 	import gs.TweenLite;
 	import com.qiyi.player.wonder.body.BodyDef;
 	
-	public class SettingView extends BasePanel {
-		
-		public function SettingView(param1:DisplayObjectContainer, param2:Status, param3:UserInfoVO) {
-			super(NAME,param1);
-			type = BodyDef.VIEW_TYPE_POPUP;
-			this._status = param2;
-			this._userInfoVO = param3;
-			this.initUI();
-		}
+	public class SettingView extends BasePanel
+	{
 		
 		public static const NAME:String = "com.qiyi.player.wonder.plugins.setting.view.SettingView";
 		
@@ -57,15 +51,27 @@ package com.qiyi.player.wonder.plugins.setting.view {
 		
 		private var _confirmBtn:CommonGreenBtn;
 		
-		public function get soundTrackLanguage() : SoundTrackLanguage {
+		public function SettingView(param1:DisplayObjectContainer, param2:Status, param3:UserInfoVO)
+		{
+			super(NAME,param1);
+			type = BodyDef.VIEW_TYPE_POPUP;
+			this._status = param2;
+			this._userInfoVO = param3;
+			this.initUI();
+		}
+		
+		public function get soundTrackLanguage() : SoundTrackLanguage
+		{
 			return this._soundTrackLanguage;
 		}
 		
-		public function get subtitles() : Subtitles {
+		public function get subtitles() : Subtitles
+		{
 			return this._subtitles;
 		}
 		
-		private function initUI() : void {
+		private function initUI() : void
+		{
 			this._bg = new CommonBg();
 			this._bg.width = 400;
 			addChild(this._bg);
@@ -98,64 +104,84 @@ package com.qiyi.player.wonder.plugins.setting.view {
 			this._closeBtn.addEventListener(MouseEvent.CLICK,this.onCloseBtnClick);
 		}
 		
-		public function set subtitlesLangTypeVector(param1:Vector.<Language>) : void {
+		public function set subtitlesLangTypeVector(param1:Vector.<Language>) : void
+		{
 			this._subtitlesLangTypeVector = param1;
-			if((this._subtitles) && (this._subtitlesLangTypeVector)) {
+			if((this._subtitles) && (this._subtitlesLangTypeVector))
+			{
 				this._subtitles.visible = true;
 				this._subtitles.initSubtitles(param1);
-			} else {
+			}
+			else
+			{
 				this._subtitles.visible = false;
 			}
 			this.onResize(GlobalStage.stage.stageWidth,GlobalStage.stage.stageHeight);
 		}
 		
-		public function set soundTrackLangVector(param1:Vector.<IAudioTrackInfo>) : void {
+		public function set soundTrackLangVector(param1:Vector.<IAudioTrackInfo>) : void
+		{
 			this._soundTrackLangVector = param1;
-			if((this._soundTrackLangVector) && (this._soundTrackLanguage)) {
+			if((this._soundTrackLangVector) && (this._soundTrackLanguage))
+			{
 				this._soundTrackLanguage.visible = true;
 				this._soundTrackLanguage.soundTrackLangVector = this._soundTrackLangVector;
-			} else {
+			}
+			else
+			{
 				this._soundTrackLanguage.visible = false;
 			}
 			this.onResize(GlobalStage.stage.stageWidth,GlobalStage.stage.stageHeight);
 		}
 		
-		public function onUserInfoChanged(param1:UserInfoVO) : void {
+		public function onUserInfoChanged(param1:UserInfoVO) : void
+		{
 			this._userInfoVO = param1;
 		}
 		
-		public function onAddStatus(param1:int) : void {
+		public function onAddStatus(param1:int) : void
+		{
 			this._status.addStatus(param1);
-			switch(param1) {
+			switch(param1)
+			{
 				case SettingDef.STATUS_OPEN:
 					this.open();
 					break;
 			}
 		}
 		
-		public function onRemoveStatus(param1:int) : void {
+		public function onRemoveStatus(param1:int) : void
+		{
 			this._status.removeStatus(param1);
-			switch(param1) {
+			switch(param1)
+			{
 				case SettingDef.STATUS_OPEN:
 					this.close();
 					break;
 			}
 		}
 		
-		public function onResize(param1:int, param2:int) : void {
+		public function onResize(param1:int, param2:int) : void
+		{
 			this.x = (param1 - this._bg.width) / 2;
 			this.y = (param2 - height) / 2;
 			this._subtitles.y = 50;
 			this._soundTrackLanguage.y = this._subtitles.y + this._subtitles.height * int(this._subtitles.visible);
-			if(this._subtitles.visible) {
-				if(this._soundTrackLanguage.visible) {
+			if(this._subtitles.visible)
+			{
+				if(this._soundTrackLanguage.visible)
+				{
 					this._bg.height = 260;
 					this._setDefaultTF.y = this._confirmBtn.y = this._soundTrackLanguage.y + 36;
-				} else {
+				}
+				else
+				{
 					this._bg.height = 215;
 					this._setDefaultTF.y = this._confirmBtn.y = this._subtitles.y + this._subtitles.height + 10;
 				}
-			} else if(this._soundTrackLanguage.visible) {
+			}
+			else if(this._soundTrackLanguage.visible)
+			{
 				this._bg.height = 135;
 				this._setDefaultTF.y = this._confirmBtn.y = this._soundTrackLanguage.y + 36;
 			}
@@ -163,50 +189,63 @@ package com.qiyi.player.wonder.plugins.setting.view {
 			this._confirmTF.y = this._confirmBtn.y + 2;
 		}
 		
-		override public function open(param1:DisplayObjectContainer = null) : void {
-			if(!isOnStage) {
+		override public function open(param1:DisplayObjectContainer = null) : void
+		{
+			if(!isOnStage)
+			{
 				super.open(param1);
 				dispatchEvent(new SettingEvent(SettingEvent.Evt_Open));
 			}
 		}
 		
-		override public function close() : void {
-			if(isOnStage) {
+		override public function close() : void
+		{
+			if(isOnStage)
+			{
 				super.close();
 				dispatchEvent(new SettingEvent(SettingEvent.Evt_Close));
 			}
 		}
 		
-		override protected function onAddToStage() : void {
+		override protected function onAddToStage() : void
+		{
 			super.onAddToStage();
 			this.onResize(GlobalStage.stage.stageWidth,GlobalStage.stage.stageHeight);
 			alpha = 0;
 			TweenLite.to(this,BodyDef.POPUP_TWEEN_TIME / 1000,{"alpha":1});
 		}
 		
-		override protected function onRemoveFromStage() : void {
+		override protected function onRemoveFromStage() : void
+		{
 			super.onRemoveFromStage();
 			TweenLite.killTweensOf(this);
 		}
 		
-		private function onSetDefaultTFClick(param1:MouseEvent) : void {
-			if(this._soundTrackLanguage.visible) {
+		private function onSetDefaultTFClick(param1:MouseEvent) : void
+		{
+			if(this._soundTrackLanguage.visible)
+			{
 				this._soundTrackLanguage.resetClick();
 			}
-			if(this._subtitles.visible) {
+			if(this._subtitles.visible)
+			{
 				this._subtitles.resetClick();
 			}
 		}
 		
-		private function onConfirmBtnClick(param1:MouseEvent) : void {
+		private function onConfirmBtnClick(param1:MouseEvent) : void
+		{
 			this.close();
 		}
 		
-		private function onCloseBtnClick(param1:MouseEvent) : void {
-			if(this._soundTrackLanguage.visible) {
+		private function onCloseBtnClick(param1:MouseEvent) : void
+		{
+			if(this._soundTrackLanguage.visible)
+			{
 				this._soundTrackLanguage.close();
 			}
-			if(this._subtitles.visible) {
+			if(this._subtitles.visible)
+			{
 				this._subtitles.close();
 			}
 			this.close();

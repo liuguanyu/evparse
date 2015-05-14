@@ -1,4 +1,5 @@
-package com.qiyi.player.base.rpc.impl {
+package com.qiyi.player.base.rpc.impl
+{
 	import flash.events.EventDispatcher;
 	import com.qiyi.player.base.rpc.IRemoteObject;
 	import flash.net.URLLoader;
@@ -15,15 +16,8 @@ package com.qiyi.player.base.rpc.impl {
 	import com.qiyi.player.base.rpc.RemoteObjectEvent;
 	import com.qiyi.player.base.logging.Log;
 	
-	public class BaseRemoteObject extends EventDispatcher implements IRemoteObject {
-		
-		public function BaseRemoteObject(param1:Number = 0, param2:String = "") {
-			this.__log = Log.getLogger("com.qiyi.player.base.rpc.impl.BaseRemoteObject");
-			super();
-			this._id = param1;
-			this._name = param2;
-			this.__log.debug(this._name + " has been created!");
-		}
+	public class BaseRemoteObject extends EventDispatcher implements IRemoteObject
+	{
 		
 		protected var _loader:URLLoader;
 		
@@ -55,61 +49,86 @@ package com.qiyi.player.base.rpc.impl {
 		
 		private var __log:ILogger;
 		
-		public function destroy() : void {
-			if(this._waitingResponse) {
+		public function BaseRemoteObject(param1:Number = 0, param2:String = "")
+		{
+			this.__log = Log.getLogger("com.qiyi.player.base.rpc.impl.BaseRemoteObject");
+			super();
+			this._id = param1;
+			this._name = param2;
+			this.__log.debug(this._name + " has been created!");
+		}
+		
+		public function destroy() : void
+		{
+			if(this._waitingResponse)
+			{
 				clearTimeout(this._waitingResponse);
 			}
 			this._waitingResponse = 0;
-			if(this._timeForCallUpdate) {
+			if(this._timeForCallUpdate)
+			{
 				clearTimeout(this._timeForCallUpdate);
 			}
 			this._timeForCallUpdate = 0;
-			if(this._loader) {
+			if(this._loader)
+			{
 				this.removeListeners();
-				try {
+				try
+				{
 					this._loader.close();
 				}
-				catch(e:Error) {
+				catch(e:Error)
+				{
 				}
 				this._loader = null;
 			}
 			this.__log.debug(this._name + " has been destroyed!");
 		}
 		
-		protected function getRequest() : URLRequest {
+		protected function getRequest() : URLRequest
+		{
 			return null;
 		}
 		
-		public function get url() : String {
+		public function get url() : String
+		{
 			return this._url;
 		}
 		
-		public function get retryMaxCount() : int {
+		public function get retryMaxCount() : int
+		{
 			return this._retryMaxCount;
 		}
 		
-		public function get retryCount() : int {
+		public function get retryCount() : int
+		{
 			return this._retryCount;
 		}
 		
-		public function get id() : Number {
+		public function get id() : Number
+		{
 			return this._id;
 		}
 		
-		public function get name() : String {
+		public function get name() : String
+		{
 			return this._name;
 		}
 		
-		public function get status() : EnumItem {
+		public function get status() : EnumItem
+		{
 			return this._status;
 		}
 		
-		public function initialize() : void {
+		public function initialize() : void
+		{
 			this.update();
 		}
 		
-		private function addListeners() : void {
-			if(this._loader == null) {
+		private function addListeners() : void
+		{
+			if(this._loader == null)
+			{
 				return;
 			}
 			this._loader.addEventListener(Event.COMPLETE,this.onComplete);
@@ -119,8 +138,10 @@ package com.qiyi.player.base.rpc.impl {
 			this._loader.addEventListener(ProgressEvent.PROGRESS,this.onProgress);
 		}
 		
-		private function removeListeners() : void {
-			if(this._loader == null) {
+		private function removeListeners() : void
+		{
+			if(this._loader == null)
+			{
 				return;
 			}
 			this._loader.removeEventListener(Event.COMPLETE,this.onComplete);
@@ -130,139 +151,173 @@ package com.qiyi.player.base.rpc.impl {
 			this._loader.removeEventListener(ProgressEvent.PROGRESS,this.onProgress);
 		}
 		
-		public function update() : void {
+		public function update() : void
+		{
 			var req:URLRequest = null;
-			if(this._timeForCallUpdate) {
+			if(this._timeForCallUpdate)
+			{
 				clearTimeout(this._timeForCallUpdate);
 			}
 			this._timeForCallUpdate = 0;
-			if(this._waitingResponse) {
+			if(this._waitingResponse)
+			{
 				clearTimeout(this._waitingResponse);
 			}
 			this._waitingResponse = 0;
-			try {
+			try
+			{
 				this.__log.debug(this._name + ": prepare to update");
-				if(this._loader) {
+				if(this._loader)
+				{
 					this.removeListeners();
-					try {
+					try
+					{
 						this._loader.close();
 						this._loader = null;
 					}
-					catch(e:Error) {
+					catch(e:Error)
+					{
 					}
 				}
 				this._loader = new URLLoader();
 				req = this.getRequest();
-				if(req) {
+				if(req)
+				{
 					this.__log.info(this._name + ": " + req.url);
 					this._url = req.url;
 					this.addListeners();
 					this._loader.load(req);
 					this._lastRequestTime = getTimer();
-					if(this._timeout > 0) {
+					if(this._timeout > 0)
+					{
 						this._waitingResponse = setTimeout(this.onTimeout,this._timeout);
 					}
-				} else {
+				}
+				else
+				{
 					this.__log.warn(this._name + ": the request param is null, failed to load!");
 				}
 				this._status = RemoteObjectStatusEnum.Processing;
 			}
-			catch(e:SecurityError) {
+			catch(e:SecurityError)
+			{
 				_tempStatus = RemoteObjectStatusEnum.SecurityError;
 				__log.warn(this._name + ": catch security error:" + e.message);
 				this.dispatchEvent(new RemoteObjectEvent(RemoteObjectEvent.Evt_Exception,e));
-				if(!exceptionHandler()) {
+				if(!exceptionHandler())
+				{
 					setStatus(RemoteObjectStatusEnum.SecurityError);
 				}
 			}
-			catch(e:Error) {
+			catch(e:Error)
+			{
 				_tempStatus = RemoteObjectStatusEnum.UnknownError;
 				__log.warn(this._name + ": catch unknown error:" + e.message);
 				this.dispatchEvent(new RemoteObjectEvent(RemoteObjectEvent.Evt_Exception,e));
-				if(!exceptionHandler()) {
+				if(!exceptionHandler())
+				{
 					setStatus(RemoteObjectStatusEnum.UnknownError);
 				}
 			}
 		}
 		
-		public function getData() : Object {
+		public function getData() : Object
+		{
 			return this._data;
 		}
 		
-		private function onTimeout() : void {
+		private function onTimeout() : void
+		{
 			this.__log.info(this._name + ": timeout");
 			this.dispatchEvent(new RemoteObjectEvent(RemoteObjectEvent.Evt_Exception,null));
 			this._loader.close();
 			this._tempStatus = RemoteObjectStatusEnum.Timeout;
-			if(!this.exceptionHandler()) {
+			if(!this.exceptionHandler())
+			{
 				this.setStatus(RemoteObjectStatusEnum.Timeout);
 			}
 		}
 		
-		protected function setStatus(param1:EnumItem) : void {
+		protected function setStatus(param1:EnumItem) : void
+		{
 			this.__log.debug(this._name + " status changed: " + param1.name);
 			this._status = param1;
 			this.dispatchEvent(new RemoteObjectEvent(RemoteObjectEvent.Evt_StatusChanged));
 		}
 		
-		protected function onComplete(param1:Event) : void {
+		protected function onComplete(param1:Event) : void
+		{
 			this.__log.info(this._name + ": success to load data");
 			clearTimeout(this._waitingResponse);
 			this._waitingResponse = 0;
-			if(!this._inited) {
+			if(!this._inited)
+			{
 				this._inited = true;
 			}
 			this.setStatus(RemoteObjectStatusEnum.Success);
 		}
 		
-		protected function onHttpStatus(param1:HTTPStatusEvent) : void {
+		protected function onHttpStatus(param1:HTTPStatusEvent) : void
+		{
 			clearTimeout(this._waitingResponse);
 			this._waitingResponse = 0;
 		}
 		
-		protected function retry() : void {
+		protected function retry() : void
+		{
 			this.__log.info(this._name + ": retry NO. " + (this._retryCount + 1));
 			this._retryCount++;
 			this.dispatchEvent(new RemoteObjectEvent(RemoteObjectEvent.Evt_Retry,this._retryCount));
-			if(getTimer() - this._lastRequestTime > 3000) {
+			if(getTimer() - this._lastRequestTime > 3000)
+			{
 				this.update();
-			} else {
-				if(this._timeForCallUpdate) {
+			}
+			else
+			{
+				if(this._timeForCallUpdate)
+				{
 					clearTimeout(this._timeForCallUpdate);
 				}
 				this._timeForCallUpdate = setTimeout(this.update,3000 - (getTimer() - this._lastRequestTime));
 			}
 		}
 		
-		protected function exceptionHandler() : Boolean {
+		protected function exceptionHandler() : Boolean
+		{
 			clearTimeout(this._waitingResponse);
 			this._waitingResponse = 0;
-			if(this._retryCount < this._retryMaxCount) {
+			if(this._retryCount < this._retryMaxCount)
+			{
 				this.retry();
 				return true;
 			}
 			return false;
 		}
 		
-		protected function onIOError(param1:IOErrorEvent) : void {
+		protected function onIOError(param1:IOErrorEvent) : void
+		{
 			this._tempStatus = RemoteObjectStatusEnum.ConnectError;
 			this.__log.warn(this._name + ": io error");
 			this.dispatchEvent(new RemoteObjectEvent(RemoteObjectEvent.Evt_Exception,param1));
-			if(!this.exceptionHandler()) {
+			if(!this.exceptionHandler())
+			{
 				this.setStatus(RemoteObjectStatusEnum.ConnectError);
 			}
 		}
 		
-		protected function onSecurityError(param1:SecurityErrorEvent) : void {
+		protected function onSecurityError(param1:SecurityErrorEvent) : void
+		{
 			this._tempStatus = RemoteObjectStatusEnum.SecurityError;
 			this.__log.warn(this._name + ": security error");
 			this.dispatchEvent(new RemoteObjectEvent(RemoteObjectEvent.Evt_Exception,param1));
-			if(!this.exceptionHandler()) {
+			if(!this.exceptionHandler())
+			{
 				this.setStatus(RemoteObjectStatusEnum.SecurityError);
 			}
 		}
 		
-		protected function onProgress(param1:ProgressEvent) : void {
+		protected function onProgress(param1:ProgressEvent) : void
+		{
 		}
 	}
 }

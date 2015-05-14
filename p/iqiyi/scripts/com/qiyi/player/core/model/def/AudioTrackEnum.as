@@ -1,11 +1,9 @@
-package com.qiyi.player.core.model.def {
+package com.qiyi.player.core.model.def
+{
 	import com.qiyi.player.base.pub.EnumItem;
 	
-	public class AudioTrackEnum extends Object {
-		
-		public function AudioTrackEnum() {
-			super();
-		}
+	public class AudioTrackEnum extends Object
+	{
 		
 		public static const ITEMS:Array = [];
 		
@@ -148,5 +146,10 @@ package com.qiyi.player.core.model.def {
 		public static const SHANGHAI:EnumItem = new EnumItem(169,"上海话",ITEMS);
 		
 		public static const OTHERS:EnumItem = new EnumItem(170,"其他",ITEMS);
+		
+		public function AudioTrackEnum()
+		{
+			super();
+		}
 	}
 }

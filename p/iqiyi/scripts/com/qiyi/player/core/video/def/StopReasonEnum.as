@@ -1,11 +1,9 @@
-package com.qiyi.player.core.video.def {
+package com.qiyi.player.core.video.def
+{
 	import com.qiyi.player.base.pub.EnumItem;
 	
-	public class StopReasonEnum extends Object {
-		
-		public function StopReasonEnum() {
-			super();
-		}
+	public class StopReasonEnum extends Object
+	{
 		
 		public static const ITEMS:Array = [];
 		
@@ -18,5 +16,10 @@ package com.qiyi.player.core.video.def {
 		public static const STOP:EnumItem = new EnumItem(4,"stop",ITEMS);
 		
 		public static const REFRESH:EnumItem = new EnumItem(5,"refresh",ITEMS);
+		
+		public function StopReasonEnum()
+		{
+			super();
+		}
 	}
 }

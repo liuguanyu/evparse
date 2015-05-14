@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.scenetile.view {
+package com.qiyi.player.wonder.plugins.scenetile.view
+{
 	import com.iqiyi.components.panelSystem.impls.BasePanel;
 	import com.qiyi.player.wonder.common.status.Status;
 	import com.qiyi.player.wonder.common.vo.UserInfoVO;
@@ -26,15 +27,8 @@ package com.qiyi.player.wonder.plugins.scenetile.view {
 	import com.qiyi.player.wonder.common.config.SystemConfig;
 	import com.qiyi.player.wonder.body.BodyDef;
 	
-	public class SceneTileStreamLimitView extends BasePanel {
-		
-		public function SceneTileStreamLimitView(param1:DisplayObjectContainer, param2:Status, param3:UserInfoVO) {
-			super(NAME,param1);
-			type = BodyDef.VIEW_TYPE_POPUP;
-			this._status = param2;
-			this._userInfoVO = param3;
-			this.initUI();
-		}
+	public class SceneTileStreamLimitView extends BasePanel
+	{
 		
 		public static const NAME:String = "com.qiyi.player.wonder.plugins.scenetile.view.SceneTileStreamLimitView";
 		
@@ -62,57 +56,79 @@ package com.qiyi.player.wonder.plugins.scenetile.view {
 		
 		private var _tfDownLoadClientBtn:TextField;
 		
-		public function onUserInfoChanged(param1:UserInfoVO) : void {
+		public function SceneTileStreamLimitView(param1:DisplayObjectContainer, param2:Status, param3:UserInfoVO)
+		{
+			super(NAME,param1);
+			type = BodyDef.VIEW_TYPE_POPUP;
+			this._status = param2;
+			this._userInfoVO = param3;
+			this.initUI();
+		}
+		
+		public function onUserInfoChanged(param1:UserInfoVO) : void
+		{
 			this._userInfoVO = param1;
 		}
 		
-		public function onAddStatus(param1:int) : void {
+		public function onAddStatus(param1:int) : void
+		{
 			this._status.addStatus(param1);
-			switch(param1) {
+			switch(param1)
+			{
 				case SceneTileDef.STATUS_STREAM_LIMIT_OPEN:
 					this.open();
 					break;
 			}
 		}
 		
-		public function onRemoveStatus(param1:int) : void {
+		public function onRemoveStatus(param1:int) : void
+		{
 			this._status.removeStatus(param1);
-			switch(param1) {
+			switch(param1)
+			{
 				case SceneTileDef.STATUS_STREAM_LIMIT_OPEN:
 					this.close();
 					break;
 			}
 		}
 		
-		public function onResize(param1:int, param2:int) : void {
+		public function onResize(param1:int, param2:int) : void
+		{
 			x = (param1 - this.width) * 0.5;
 			y = (param2 - this.height) * 0.5;
 		}
 		
-		override public function open(param1:DisplayObjectContainer = null) : void {
-			if(!isOnStage) {
+		override public function open(param1:DisplayObjectContainer = null) : void
+		{
+			if(!isOnStage)
+			{
 				super.open(param1);
 				dispatchEvent(new SceneTileEvent(SceneTileEvent.Evt_DefinitLimitOpen));
 			}
 		}
 		
-		override public function close() : void {
-			if(isOnStage) {
+		override public function close() : void
+		{
+			if(isOnStage)
+			{
 				super.close();
 				TweenLite.killTweensOf(this.close);
 				dispatchEvent(new SceneTileEvent(SceneTileEvent.Evt_DefinitLimitClose));
 			}
 		}
 		
-		override protected function onAddToStage() : void {
+		override protected function onAddToStage() : void
+		{
 			super.onAddToStage();
 		}
 		
-		override protected function onRemoveFromStage() : void {
+		override protected function onRemoveFromStage() : void
+		{
 			super.onRemoveFromStage();
 		}
 		
-		private function initUI() : void {
+		private function initUI() : void
+		{
 			this._bg = new CommonBg();
 			this._bg.width = 400;
 			this._bg.height = 230;
@@ -149,60 +165,73 @@ package com.qiyi.player.wonder.plugins.scenetile.view {
 			this.onResize(GlobalStage.stage.stageWidth,GlobalStage.stage.stageHeight);
 		}
 		
-		public function setPanelAttribute(param1:EnumItem, param2:EnumItem = null, param3:Object = null) : void {
-			var _loc5_:String = null;
-			var _loc4_:* = "";
-			switch(param2) {
+		public function setPanelAttribute(param1:EnumItem, param2:EnumItem = null, param3:Object = null) : void
+		{
+			var _loc5:String = null;
+			var _loc4:* = "";
+			switch(param2)
+			{
 				case DefinitionControlTypeEnum.BYTIME:
-					if(param3) {
-						_loc5_ = this.getHoursBySeconds(param3.st) + " ~ " + this.getHoursBySeconds(param3.et);
-						_loc4_ = StringUtils.substitute(STR_TITLE_TIME_LIMIT,_loc5_,ChineseNameOfLangAudioDef.getDefinitionName(param1));
-					} else {
-						_loc4_ = StringUtils.substitute(STR_TITLE_AREA_LIMIT,ChineseNameOfLangAudioDef.getDefinitionName(param1));
+					if(param3)
+					{
+						_loc5 = this.getHoursBySeconds(param3.st) + " ~ " + this.getHoursBySeconds(param3.et);
+						_loc4 = StringUtils.substitute(STR_TITLE_TIME_LIMIT,_loc5,ChineseNameOfLangAudioDef.getDefinitionName(param1));
+					}
+					else
+					{
+						_loc4 = StringUtils.substitute(STR_TITLE_AREA_LIMIT,ChineseNameOfLangAudioDef.getDefinitionName(param1));
 					}
 					break;
 				case DefinitionControlTypeEnum.BYAREA:
 				case DefinitionControlTypeEnum.BYIDC:
-					_loc4_ = StringUtils.substitute(STR_TITLE_AREA_LIMIT,ChineseNameOfLangAudioDef.getDefinitionName(param1));
+					_loc4 = StringUtils.substitute(STR_TITLE_AREA_LIMIT,ChineseNameOfLangAudioDef.getDefinitionName(param1));
 					break;
 				default:
-					_loc4_ = StringUtils.substitute(STR_TITLE_AREA_LIMIT,ChineseNameOfLangAudioDef.getDefinitionName(param1));
+					_loc4 = StringUtils.substitute(STR_TITLE_AREA_LIMIT,ChineseNameOfLangAudioDef.getDefinitionName(param1));
 			}
 			this._tfRegisteredMemberBtn.text = StringUtils.substitute(STR_BTN_OPENMEMBER,ChineseNameOfLangAudioDef.getDefinitionName(param1));
 			this._tfDownLoadClientBtn.htmlText = StringUtils.substitute(STR_BTN_DOWNLOADCLIENT,ChineseNameOfLangAudioDef.getDefinitionName(param1));
-			this._tfLimitDescribe.htmlText = _loc4_;
+			this._tfLimitDescribe.htmlText = _loc4;
 			this._tfLimitDescribe.x = (this._bg.width - this._tfLimitDescribe.width) * 0.5;
 			this.onResize(GlobalStage.stage.stageWidth,GlobalStage.stage.stageHeight);
 		}
 		
-		private function onRegisteredMemberBtnClick(param1:MouseEvent) : void {
+		private function onRegisteredMemberBtnClick(param1:MouseEvent) : void
+		{
 			GlobalStage.setNormalScreen();
 			PingBack.getInstance().userActionPing_4_0(PingBackDef.DEFIN_LIMIT_SHOWCLICK);
 			navigateToURL(new URLRequest("http://serv.vip.iqiyi.com/order/preview.action" + "?pid=a0226bd958843452" + "&platform=b6c13e26323c537d" + "&fc=a50752baab740e33"),"_self");
 		}
 		
-		private function onDownLoadClientBtnClick(param1:TextEvent) : void {
+		private function onDownLoadClientBtnClick(param1:TextEvent) : void
+		{
 			GlobalStage.setNormalScreen();
 			PingBack.getInstance().userActionPing_4_0(PingBackDef.DEFIN_LIMIT_DOWNLOADCLICK);
-			if(Capabilities.version.indexOf("WIN") == 0) {
+			if(Capabilities.version.indexOf("WIN") == 0)
+			{
 				navigateToURL(new URLRequest("http://static.qiyi.com/ext/common/QIYImedia_0_21.exe"),"_blank");
-			} else {
+			}
+			else
+			{
 				navigateToURL(new URLRequest(SystemConfig.CLIENT_DOWNLOAD_URL_MAC),"_blank");
 			}
 		}
 		
-		private function getHoursBySeconds(param1:Number) : String {
-			var _loc2_:uint = Math.floor(param1 / 60 / 60);
-			var _loc3_:uint = param1 / 60 % 60;
-			return (_loc2_ > 9?_loc2_:"0" + _loc2_) + ":" + (_loc3_ > 9?_loc3_:"0" + _loc3_);
+		private function getHoursBySeconds(param1:Number) : String
+		{
+			var _loc2:uint = Math.floor(param1 / 60 / 60);
+			var _loc3:uint = param1 / 60 % 60;
+			return (_loc2 > 9?_loc2:"0" + _loc2) + ":" + (_loc3 > 9?_loc3:"0" + _loc3);
 		}
 		
-		private function onLimitDescribeLinkClick(param1:TextEvent) : void {
+		private function onLimitDescribeLinkClick(param1:TextEvent) : void
+		{
 			GlobalStage.setNormalScreen();
 			navigateToURL(new URLRequest(SystemConfig.VIP_HELP_DESK_URL),"_black");
 		}
 		
-		private function onCloseBtnClick(param1:MouseEvent) : void {
+		private function onCloseBtnClick(param1:MouseEvent) : void
+		{
 			this.close();
 		}
 	}

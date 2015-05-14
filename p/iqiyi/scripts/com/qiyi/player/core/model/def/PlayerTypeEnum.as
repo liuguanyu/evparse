@@ -1,11 +1,9 @@
-package com.qiyi.player.core.model.def {
+package com.qiyi.player.core.model.def
+{
 	import com.qiyi.player.base.pub.EnumItem;
 	
-	public class PlayerTypeEnum extends Object {
-		
-		public function PlayerTypeEnum() {
-			super();
-		}
+	public class PlayerTypeEnum extends Object
+	{
 		
 		public static const ITEMS:Array = [];
 		
@@ -18,5 +16,10 @@ package com.qiyi.player.core.model.def {
 		public static const MUSIC:EnumItem = new EnumItem(7,"music",ITEMS);
 		
 		public static const GUIDE:EnumItem = new EnumItem(9,"guide",ITEMS);
+		
+		public function PlayerTypeEnum()
+		{
+			super();
+		}
 	}
 }

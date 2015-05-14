@@ -1,9 +1,12 @@
-package controllbar {
+package controllbar
+{
 	import flash.display.Sprite;
 	
-	public dynamic class ControlBarBtnSelectedNormal extends Sprite {
+	public dynamic class ControlBarBtnSelectedNormal extends Sprite
+	{
 		
-		public function ControlBarBtnSelectedNormal() {
+		public function ControlBarBtnSelectedNormal()
+		{
 			super();
 		}
 	}

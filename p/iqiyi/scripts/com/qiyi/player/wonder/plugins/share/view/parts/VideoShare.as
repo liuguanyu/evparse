@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.share.view.parts {
+package com.qiyi.player.wonder.plugins.share.view.parts
+{
 	import flash.display.Sprite;
 	import flash.text.TextField;
 	import com.iqiyi.components.videoshare.ShareBtnsBarUI;
@@ -15,22 +16,8 @@ package com.qiyi.player.wonder.plugins.share.view.parts {
 	import com.qiyi.player.wonder.plugins.share.view.ShareEvent;
 	import flash.system.System;
 	
-	public class VideoShare extends Sprite {
-		
-		public function VideoShare(param1:String, param2:String, param3:Number, param4:EnumItem, param5:String, param6:String, param7:Boolean) {
-			super();
-			this._htmlUrl = param1;
-			this._swfUrl = param2;
-			this._duration = param3;
-			this._channel = param4;
-			this._videoUrl = param5;
-			this._flvTitle = param6;
-			this._isShowLinkUrl = param7;
-			this.initShareBtnsBarPart();
-			if(param7) {
-				this.initCopyUrlPart();
-			}
-		}
+	public class VideoShare extends Sprite
+	{
 		
 		private static const TEXT_SHOT_TITLE:String = "一键分享：";
 		
@@ -78,7 +65,25 @@ package com.qiyi.player.wonder.plugins.share.view.parts {
 		
 		private var _isShowLinkUrl:Boolean = false;
 		
-		private function initCopyUrlPart() : void {
+		public function VideoShare(param1:String, param2:String, param3:Number, param4:EnumItem, param5:String, param6:String, param7:Boolean)
+		{
+			super();
+			this._htmlUrl = param1;
+			this._swfUrl = param2;
+			this._duration = param3;
+			this._channel = param4;
+			this._videoUrl = param5;
+			this._flvTitle = param6;
+			this._isShowLinkUrl = param7;
+			this.initShareBtnsBarPart();
+			if(param7)
+			{
+				this.initCopyUrlPart();
+			}
+		}
+		
+		private function initCopyUrlPart() : void
+		{
 			this._embedCodes = new EmbedCodesUI();
 			this._embedCodes.copyOK.visible = false;
 			addChild(this._embedCodes);
@@ -101,7 +106,8 @@ package com.qiyi.player.wonder.plugins.share.view.parts {
 			this._copyHtmlBtn.addEventListener(MouseEvent.CLICK,this.copyHtmlURL);
 		}
 		
-		private function initShareBtnsBarPart() : void {
+		private function initShareBtnsBarPart() : void
+		{
 			this._shareBtnsBar = new ShareBtnsBarUI();
 			this._shareBtnsBar.x = 83;
 			this._shareBtnsBar.y = 32;
@@ -120,75 +126,90 @@ package com.qiyi.player.wonder.plugins.share.view.parts {
 			this._shareBtnsBar.tencentBtn.addEventListener(MouseEvent.MOUSE_UP,this.tencentShareHandler);
 		}
 		
-		private function renrenShareHandler(param1:MouseEvent) : void {
-			var _loc2_:String = ShareDef.SHARE_PLATFORM_RENREN_URI + "?link=" + this.getVideoURL() + "&title=" + encodeURIComponent("【视频：" + this._flvTitle + "】（分享@爱奇艺）");
-			this.shareBtnClick(_loc2_,ShareDef.SHARE_TYPE_RENREN);
+		private function renrenShareHandler(param1:MouseEvent) : void
+		{
+			var _loc2:String = ShareDef.SHARE_PLATFORM_RENREN_URI + "?link=" + this.getVideoURL() + "&title=" + encodeURIComponent("【视频：" + this._flvTitle + "】（分享@爱奇艺）");
+			this.shareBtnClick(_loc2,ShareDef.SHARE_TYPE_RENREN);
 		}
 		
-		private function sinaShareHandler(param1:MouseEvent) : void {
-			var _loc2_:* = "";
-			_loc2_ = ShareDef.SHARE_PLATFORM_SINA_URI + "?appkey=1925825497&url=" + this.getVideoURL() + "&title=" + encodeURIComponent("【视频：" + this._flvTitle + "】") + "&content=utf-8&pic=&ralateUid=1731986465";
-			this.shareBtnClick(_loc2_,ShareDef.SHARE_TYPE_SINA);
+		private function sinaShareHandler(param1:MouseEvent) : void
+		{
+			var _loc2:* = "";
+			_loc2 = ShareDef.SHARE_PLATFORM_SINA_URI + "?appkey=1925825497&url=" + this.getVideoURL() + "&title=" + encodeURIComponent("【视频：" + this._flvTitle + "】") + "&content=utf-8&pic=&ralateUid=1731986465";
+			this.shareBtnClick(_loc2,ShareDef.SHARE_TYPE_SINA);
 		}
 		
-		private function qzoneShareHandler(param1:MouseEvent) : void {
-			var _loc2_:String = ShareDef.SHARE_PLATFORM_QQ_URI + "?url=" + this.getVideoURL().split("=").join("%3D");
-			this.shareBtnClick(_loc2_,ShareDef.SHARE_TYPE_QQ);
+		private function qzoneShareHandler(param1:MouseEvent) : void
+		{
+			var _loc2:String = ShareDef.SHARE_PLATFORM_QQ_URI + "?url=" + this.getVideoURL().split("=").join("%3D");
+			this.shareBtnClick(_loc2,ShareDef.SHARE_TYPE_QQ);
 		}
 		
-		private function tencentShareHandler(param1:MouseEvent) : void {
-			var _loc2_:String = ShareDef.SHARE_PLATFORM_TENCENT_URI + "?title=" + encodeURIComponent("【视频：" + this._flvTitle + "】（分享@爱奇艺）") + "&url=" + this.getVideoURL().split("=").join("%3D");
-			this.shareBtnClick(_loc2_,ShareDef.SHARE_TYPE_TENCENT);
+		private function tencentShareHandler(param1:MouseEvent) : void
+		{
+			var _loc2:String = ShareDef.SHARE_PLATFORM_TENCENT_URI + "?title=" + encodeURIComponent("【视频：" + this._flvTitle + "】（分享@爱奇艺）") + "&url=" + this.getVideoURL().split("=").join("%3D");
+			this.shareBtnClick(_loc2,ShareDef.SHARE_TYPE_TENCENT);
 		}
 		
-		private function getVideoURL() : String {
-			var _loc2_:RegExp = null;
-			var _loc1_:* = "";
-			if(this._videoUrl != null) {
-				_loc1_ = this._videoUrl.indexOf("?") == -1?this._videoUrl + "?" + "share_sTime=" + 0 + "-share_eTime=" + Math.floor(this._duration / 1000) + "-src=sharemodclk131212":this._videoUrl + "&" + "share_sTime=" + 0 + "-share_eTime=" + Math.floor(this._duration / 1000) + "-src=sharemodclk131212";
-				_loc2_ = new RegExp("&","g");
-				_loc1_ = _loc1_.replace(_loc2_,"%26");
+		private function getVideoURL() : String
+		{
+			var _loc2:RegExp = null;
+			var _loc1:* = "";
+			if(this._videoUrl != null)
+			{
+				_loc1 = this._videoUrl.indexOf("?") == -1?this._videoUrl + "?" + "share_sTime=" + 0 + "-share_eTime=" + Math.floor(this._duration / 1000) + "-src=sharemodclk131212":this._videoUrl + "&" + "share_sTime=" + 0 + "-share_eTime=" + Math.floor(this._duration / 1000) + "-src=sharemodclk131212";
+				_loc2 = new RegExp("&","g");
+				_loc1 = _loc1.replace(_loc2,"%26");
 			}
-			return _loc1_;
+			return _loc1;
 		}
 		
-		private function shareBtnClick(param1:String, param2:String) : void {
+		private function shareBtnClick(param1:String, param2:String) : void
+		{
 			GlobalStage.setNormalScreen();
 			navigateToURL(new URLRequest(param1),"_blank");
-			var _loc3_:ShareEvent = new ShareEvent(ShareEvent.Evt_ShareBtnClick);
-			_loc3_.data = param2;
-			dispatchEvent(_loc3_);
+			var _loc3:ShareEvent = new ShareEvent(ShareEvent.Evt_ShareBtnClick);
+			_loc3.data = param2;
+			dispatchEvent(_loc3);
 		}
 		
-		private function copyFlashURL(param1:MouseEvent) : void {
+		private function copyFlashURL(param1:MouseEvent) : void
+		{
 			System.setClipboard(this._swfUrl);
 			this.playCopySuccess(this._copyFlashBtn.x + 32,this._copyFlashBtn.y + 20);
 		}
 		
-		private function copyVideoURL(param1:MouseEvent) : void {
-			var _loc2_:RegExp = new RegExp("%26","g");
-			var _loc3_:String = this.getVideoURL().replace(_loc2_,"&");
-			if(_loc3_ == this._videoUrl) {
+		private function copyVideoURL(param1:MouseEvent) : void
+		{
+			var _loc2:RegExp = new RegExp("%26","g");
+			var _loc3:String = this.getVideoURL().replace(_loc2,"&");
+			if(_loc3 == this._videoUrl)
+			{
 				System.setClipboard(this._videoUrl);
-			} else {
-				System.setClipboard(_loc3_);
+			}
+			else
+			{
+				System.setClipboard(_loc3);
 			}
 			this.playCopySuccess(this._copyVideoBtn.x + 32,this._copyVideoBtn.y + 20);
 		}
 		
-		private function copyHtmlURL(param1:MouseEvent) : void {
+		private function copyHtmlURL(param1:MouseEvent) : void
+		{
 			System.setClipboard(this._htmlUrl);
 			this.playCopySuccess(this._copyHtmlBtn.x + 32,this._copyHtmlBtn.y + 20);
 		}
 		
-		private function playCopySuccess(param1:Number, param2:Number) : void {
+		private function playCopySuccess(param1:Number, param2:Number) : void
+		{
 			this._embedCodes.copyOK.x = param1;
 			this._embedCodes.copyOK.y = param2;
 			this._embedCodes.copyOK.visible = true;
 			this._embedCodes.copyOK.gotoAndPlay(2);
 		}
 		
-		public function destory() : void {
+		public function destory() : void
+		{
 			ToolTip.getInstance().unregisterComponent(this._shareBtnsBar.sinaBtn);
 			ToolTip.getInstance().unregisterComponent(this._shareBtnsBar.qzoneBtn);
 			ToolTip.getInstance().unregisterComponent(this._shareBtnsBar.tencentBtn);
@@ -197,33 +218,40 @@ package com.qiyi.player.wonder.plugins.share.view.parts {
 			this._shareBtnsBar.sinaBtn.removeEventListener(MouseEvent.MOUSE_UP,this.sinaShareHandler);
 			this._shareBtnsBar.qzoneBtn.removeEventListener(MouseEvent.MOUSE_UP,this.qzoneShareHandler);
 			this._shareBtnsBar.tencentBtn.removeEventListener(MouseEvent.MOUSE_UP,this.tencentShareHandler);
-			if((this._screenShotTitle) && (this._screenShotTitle.parent)) {
+			if((this._screenShotTitle) && (this._screenShotTitle.parent))
+			{
 				removeChild(this._screenShotTitle);
 				this._screenShotTitle = null;
 			}
-			if((this._embedCodesTitle) && (this._embedCodesTitle.parent)) {
+			if((this._embedCodesTitle) && (this._embedCodesTitle.parent))
+			{
 				removeChild(this._embedCodesTitle);
 				this._embedCodesTitle = null;
 			}
-			if((this._shareBtnsBar) && (this._shareBtnsBar.parent)) {
+			if((this._shareBtnsBar) && (this._shareBtnsBar.parent))
+			{
 				removeChild(this._shareBtnsBar);
 				this._shareBtnsBar = null;
 			}
-			if((this._embedCodes) && (this._embedCodes.parent)) {
+			if((this._embedCodes) && (this._embedCodes.parent))
+			{
 				removeChild(this._embedCodes);
 				this._embedCodes = null;
 			}
-			if((this._copyFlashBtn) && (this._copyFlashBtn.parent)) {
+			if((this._copyFlashBtn) && (this._copyFlashBtn.parent))
+			{
 				this._copyFlashBtn.removeEventListener(MouseEvent.CLICK,this.copyFlashURL);
 				removeChild(this._copyFlashBtn);
 				this._copyFlashBtn = null;
 			}
-			if((this._copyVideoBtn) && (this._copyVideoBtn.parent)) {
+			if((this._copyVideoBtn) && (this._copyVideoBtn.parent))
+			{
 				this._copyVideoBtn.removeEventListener(MouseEvent.CLICK,this.copyVideoURL);
 				removeChild(this._copyVideoBtn);
 				this._copyVideoBtn = null;
 			}
-			if((this._copyHtmlBtn) && (this._copyHtmlBtn.parent)) {
+			if((this._copyHtmlBtn) && (this._copyHtmlBtn.parent))
+			{
 				this._copyHtmlBtn.removeEventListener(MouseEvent.CLICK,this.copyHtmlURL);
 				removeChild(this._copyHtmlBtn);
 				this._copyHtmlBtn = null;

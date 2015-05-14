@@ -1,9 +1,7 @@
-package com.qiyi.player.wonder.plugins.offlinewatch {
-	public class OfflineWatchDef extends Object {
-		
-		public function OfflineWatchDef() {
-			super();
-		}
+package com.qiyi.player.wonder.plugins.offlinewatch
+{
+	public class OfflineWatchDef extends Object
+	{
 		
 		private static var statusBegin:int = 0;
 		
@@ -24,5 +22,10 @@ package com.qiyi.player.wonder.plugins.offlinewatch {
 		public static const NOTIFIC_OPEN_CLOSE:String = "offlineWatchOpenClose";
 		
 		public static const OFFLINEWATCH_PANEL_SHOW_TIME:uint = 5;
+		
+		public function OfflineWatchDef()
+		{
+			super();
+		}
 	}
 }

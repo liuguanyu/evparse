@@ -1,18 +1,23 @@
-package scenetile {
+package scenetile
+{
 	import flash.display.MovieClip;
 	
-	public dynamic class PlayBtn extends MovieClip {
+	public dynamic class PlayBtn extends MovieClip
+	{
 		
-		public function PlayBtn() {
+		public function PlayBtn()
+		{
 			super();
 			addFrameScript(0,this.frame1,1,this.frame2);
 		}
 		
-		function frame1() : * {
+		function frame1() : *
+		{
 			stop();
 		}
 		
-		function frame2() : * {
+		function frame2() : *
+		{
 			stop();
 		}
 	}

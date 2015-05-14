@@ -1,9 +1,12 @@
-package setting {
+package setting
+{
 	import flash.display.MovieClip;
 	
-	public dynamic class StreamLimitIcon extends MovieClip {
+	public dynamic class StreamLimitIcon extends MovieClip
+	{
 		
-		public function StreamLimitIcon() {
+		public function StreamLimitIcon()
+		{
 			super();
 		}
 	}

@@ -1,9 +1,7 @@
-package com.qiyi.player.core {
-	public class Config extends Object {
-		
-		public function Config() {
-			super();
-		}
+package com.qiyi.player.core
+{
+	public class Config extends Object
+	{
 		
 		public static const CHECK_LIMIT_URL:String = "http://cache.vip.qiyi.com/ip/";
 		
@@ -84,5 +82,10 @@ package com.qiyi.player.core {
 		public static const STATISTICS_COOKIE:String = "qiyi_statistics";
 		
 		public static const CLIENT_P2P_COOKIE:String = "QiyiService";
+		
+		public function Config()
+		{
+			super();
+		}
 	}
 }

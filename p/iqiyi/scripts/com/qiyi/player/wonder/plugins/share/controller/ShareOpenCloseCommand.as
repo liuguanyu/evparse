@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.share.controller {
+package com.qiyi.player.wonder.plugins.share.controller
+{
 	import org.puremvc.as3.patterns.command.SimpleCommand;
 	import org.puremvc.as3.interfaces.INotification;
 	import com.qiyi.player.wonder.plugins.share.model.ShareProxy;
@@ -6,20 +7,26 @@ package com.qiyi.player.wonder.plugins.share.controller {
 	import com.qiyi.player.wonder.body.BodyDef;
 	import com.qiyi.player.wonder.plugins.share.ShareDef;
 	
-	public class ShareOpenCloseCommand extends SimpleCommand {
+	public class ShareOpenCloseCommand extends SimpleCommand
+	{
 		
-		public function ShareOpenCloseCommand() {
+		public function ShareOpenCloseCommand()
+		{
 			super();
 		}
 		
-		override public function execute(param1:INotification) : void {
+		override public function execute(param1:INotification) : void
+		{
 			super.execute(param1);
-			var _loc2_:ShareProxy = facade.retrieveProxy(ShareProxy.NAME) as ShareProxy;
-			if(Boolean(param1.getBody())) {
+			var _loc2:ShareProxy = facade.retrieveProxy(ShareProxy.NAME) as ShareProxy;
+			if(Boolean(param1.getBody()))
+			{
 				PanelManager.getInstance().closeByType(BodyDef.VIEW_TYPE_POPUP);
-				_loc2_.addStatus(ShareDef.STATUS_OPEN);
-			} else {
-				_loc2_.removeStatus(ShareDef.STATUS_OPEN);
+				_loc2.addStatus(ShareDef.STATUS_OPEN);
+			}
+			else
+			{
+				_loc2.removeStatus(ShareDef.STATUS_OPEN);
 			}
 		}
 	}

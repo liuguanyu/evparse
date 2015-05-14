@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.continueplay.view {
+package com.qiyi.player.wonder.plugins.continueplay.view
+{
 	import org.puremvc.as3.patterns.mediator.Mediator;
 	import com.qiyi.player.wonder.plugins.continueplay.model.ContinuePlayProxy;
 	import com.qiyi.player.base.logging.ILogger;
@@ -29,13 +30,8 @@ package com.qiyi.player.wonder.plugins.continueplay.view {
 	import com.qiyi.player.core.model.impls.pub.Settings;
 	import com.qiyi.player.base.logging.Log;
 	
-	public class ContinuePlayViewMediator extends Mediator {
-		
-		public function ContinuePlayViewMediator(param1:ContinuePlayView) {
-			this._log = Log.getLogger(NAME);
-			super(NAME,param1);
-			this._continuePlayView = param1;
-		}
+	public class ContinuePlayViewMediator extends Mediator
+	{
 		
 		public static const NAME:String = "com.qiyi.player.wonder.plugins.continueplay.view.ContinuePlayViewMediator";
 		
@@ -45,7 +41,15 @@ package com.qiyi.player.wonder.plugins.continueplay.view {
 		
 		private var _log:ILogger;
 		
-		override public function onRegister() : void {
+		public function ContinuePlayViewMediator(param1:ContinuePlayView)
+		{
+			this._log = Log.getLogger(NAME);
+			super(NAME,param1);
+			this._continuePlayView = param1;
+		}
+		
+		override public function onRegister() : void
+		{
 			super.onRegister();
 			this._continuePlayProxy = facade.retrieveProxy(ContinuePlayProxy.NAME) as ContinuePlayProxy;
 			this._continuePlayView.addEventListener(ContinuePlayEvent.Evt_Open,this.onContinuePlayViewOpen);
@@ -57,41 +61,47 @@ package com.qiyi.player.wonder.plugins.continueplay.view {
 			this._continuePlayView.addEventListener(ContinuePlayEvent.Evt_SwitchOverPageDone,this.onSwitchOverPageDone);
 		}
 		
-		override public function listNotificationInterests() : Array {
+		override public function listNotificationInterests() : Array
+		{
 			return [ContinuePlayDef.NOTIFIC_ADD_STATUS,ContinuePlayDef.NOTIFIC_REMOVE_STATUS,BodyDef.NOTIFIC_RESIZE,BodyDef.NOTIFIC_FULL_SCREEN,BodyDef.NOTIFIC_CHECK_USER_COMPLETE,BodyDef.NOTIFIC_JS_CALL_SET_CONTINUE_PLAY_STATE,BodyDef.NOTIFIC_JS_CALL_SET_NEXT_VIDEO_INFO,BodyDef.NOTIFIC_JS_CALL_SWITCH_VIDEO,BodyDef.NOTIFIC_JS_CALL_SWITCH_NEXT_VIDEO,BodyDef.NOTIFIC_JS_CALL_SWITCH_PRE_VIDEO,BodyDef.NOTIFIC_PLAYER_RUNNING,BodyDef.NOTIFIC_JS_CALL_SET_CYCLE_PLAY,BodyDef.NOTIFIC_JS_CALL_LOAD_QIYI_VIDEO,BodyDef.NOTIFIC_PLAYER_ADD_STATUS,BodyDef.NOTIFIC_PLAYER_SWITCH_PRE_ACTOR,ADDef.NOTIFIC_ADD_STATUS,ContinuePlayDef.NOTIFIC_REQUEST_NEXT_VIDEO,ContinuePlayDef.NOTIFIC_REQUEST_PRE_VIDEO,ContinuePlayDef.NOTIFIC_REQUEST_SWITCH_VIDEO,ContinuePlayDef.NOTIFIC_INFO_LIST_CHANGED,ContinuePlayDef.NOTIFIC_REQUEST_CHANGE_SWITCH_VIDEO_TYPE,SceneTileDef.NOTIFIC_REMOVE_STATUS,SettingDef.NOTIFIC_ADD_STATUS,VideoLinkDef.NOTIFIC_ADD_STATUS,ControllBarDef.NOTIFIC_ADD_STATUS];
 		}
 		
-		override public function handleNotification(param1:INotification) : void {
+		override public function handleNotification(param1:INotification) : void
+		{
 			super.handleNotification(param1);
-			var _loc2_:Object = param1.getBody();
-			var _loc3_:String = param1.getName();
-			var _loc4_:String = param1.getType();
-			var _loc5_:PlayerProxy = null;
-			var _loc6_:LoadMovieParams = null;
-			var _loc7_:ContinueInfo = null;
-			switch(_loc3_) {
+			var _loc2:Object = param1.getBody();
+			var _loc3:String = param1.getName();
+			var _loc4:String = param1.getType();
+			var _loc5:PlayerProxy = null;
+			var _loc6:LoadMovieParams = null;
+			var _loc7:ContinueInfo = null;
+			switch(_loc3)
+			{
 				case ContinuePlayDef.NOTIFIC_ADD_STATUS:
-					if(int(_loc2_) == ContinuePlayDef.STATUS_OPEN) {
-						_loc5_ = facade.retrieveProxy(PlayerProxy.NAME) as PlayerProxy;
-						this.requestVideoList(_loc5_.curActor.loadMovieParams.tvid,_loc5_.curActor.loadMovieParams.vid);
+					if(int(_loc2) == ContinuePlayDef.STATUS_OPEN)
+					{
+						_loc5 = facade.retrieveProxy(PlayerProxy.NAME) as PlayerProxy;
+						this.requestVideoList(_loc5.curActor.loadMovieParams.tvid,_loc5.curActor.loadMovieParams.vid);
 						this._continuePlayView.updateOpenParam(this._continuePlayProxy.cloneContinueInfoList(),true,this._continuePlayProxy.hasPreNeedLoad,this._continuePlayProxy.hasNextNeedLoad);
 						this._continuePlayView.updateOpenView();
 						this._continuePlayView.addEventListener(MouseEvent.MOUSE_MOVE,this.onMouseMove);
 						this.onOpenDelayedCloseDock();
 					}
-					this._continuePlayView.onAddStatus(int(_loc2_));
+					this._continuePlayView.onAddStatus(int(_loc2));
 					break;
 				case ContinuePlayDef.NOTIFIC_REMOVE_STATUS:
-					if(int(_loc2_) == ContinuePlayDef.STATUS_OPEN) {
+					if(int(_loc2) == ContinuePlayDef.STATUS_OPEN)
+					{
 						this._continuePlayView.removeEventListener(MouseEvent.MOUSE_MOVE,this.onMouseMove);
 					}
-					this._continuePlayView.onRemoveStatus(int(_loc2_));
+					this._continuePlayView.onRemoveStatus(int(_loc2));
 					break;
 				case BodyDef.NOTIFIC_RESIZE:
-					this._continuePlayView.onResize(_loc2_.w,_loc2_.h);
+					this._continuePlayView.onResize(_loc2.w,_loc2.h);
 					break;
 				case BodyDef.NOTIFIC_FULL_SCREEN:
-					if(!Boolean(_loc2_) && FlashVarConfig.owner == FlashVarConfig.OWNER_PAGE) {
+					if(!Boolean(_loc2) && FlashVarConfig.owner == FlashVarConfig.OWNER_PAGE)
+					{
 						this._continuePlayProxy.removeStatus(ContinuePlayDef.STATUS_OPEN);
 					}
 					break;
@@ -99,41 +109,42 @@ package com.qiyi.player.wonder.plugins.continueplay.view {
 					this.onCheckUserComplete();
 					break;
 				case BodyDef.NOTIFIC_JS_CALL_SET_CONTINUE_PLAY_STATE:
-					this._continuePlayProxy.isContinue = Boolean(_loc2_);
+					this._continuePlayProxy.isContinue = Boolean(_loc2);
 					break;
 				case BodyDef.NOTIFIC_JS_CALL_SET_NEXT_VIDEO_INFO:
-					this._continuePlayProxy.isJSContinue = Boolean(_loc2_.continuePlay);
-					this._continuePlayProxy.JSContinueTitle = _loc2_.nextVideoTitle;
+					this._continuePlayProxy.isJSContinue = Boolean(_loc2.continuePlay);
+					this._continuePlayProxy.JSContinueTitle = _loc2.nextVideoTitle;
 					break;
 				case BodyDef.NOTIFIC_JS_CALL_SWITCH_VIDEO:
-					_loc5_ = facade.retrieveProxy(PlayerProxy.NAME) as PlayerProxy;
-					_loc6_ = _loc5_.curActor.loadMovieParams;
-					if(_loc6_ == null || (_loc6_) && (!(_loc6_.vid == _loc2_.vid))) {
-						_loc7_ = this._continuePlayProxy.findContinueInfo(_loc2_.tvid,_loc2_.vid);
-						sendNotification(ADDef.NOTIFIC_REQUEST_CHANGED_CUP_ID,_loc7_.cupId);
+					_loc5 = facade.retrieveProxy(PlayerProxy.NAME) as PlayerProxy;
+					_loc6 = _loc5.curActor.loadMovieParams;
+					if(_loc6 == null || (_loc6) && (!(_loc6.vid == _loc2.vid)))
+					{
+						_loc7 = this._continuePlayProxy.findContinueInfo(_loc2.tvid,_loc2.vid);
+						sendNotification(ADDef.NOTIFIC_REQUEST_CHANGED_CUP_ID,_loc7.cupId);
 						this._continuePlayProxy.switchVideoType = ContinuePlayDef.SWITCH_VIDEO_TYPE_JS_LIST;
-						_loc5_.curActor.pbVVFromtp = this._continuePlayProxy.switchVideoType == ContinuePlayDef.SWITCH_VIDEO_TYPE_AUTO?PingBackDef.VVPING_AUTO_PLAY:PingBackDef.VVPING_USER_CLICK;
-						_loc5_.curActor.vfrm = _loc7_.vfrm;
-						this.onSwitchVideo(_loc7_);
+						_loc5.curActor.pbVVFromtp = this._continuePlayProxy.switchVideoType == ContinuePlayDef.SWITCH_VIDEO_TYPE_AUTO?PingBackDef.VVPING_AUTO_PLAY:PingBackDef.VVPING_USER_CLICK;
+						_loc5.curActor.vfrm = _loc7.vfrm;
+						this.onSwitchVideo(_loc7);
 					}
 					break;
 				case BodyDef.NOTIFIC_PLAYER_RUNNING:
-					this.onPlayerRunning(_loc2_.currentTime,_loc2_.bufferTime,_loc2_.duration);
+					this.onPlayerRunning(_loc2.currentTime,_loc2.bufferTime,_loc2.duration);
 					break;
 				case BodyDef.NOTIFIC_JS_CALL_SET_CYCLE_PLAY:
-					this._continuePlayProxy.isCyclePlay = Boolean(_loc2_);
+					this._continuePlayProxy.isCyclePlay = Boolean(_loc2);
 					break;
 				case BodyDef.NOTIFIC_JS_CALL_LOAD_QIYI_VIDEO:
-					this.onJSCallLoadQiyiVideo(_loc2_);
+					this.onJSCallLoadQiyiVideo(_loc2);
 					break;
 				case BodyDef.NOTIFIC_PLAYER_ADD_STATUS:
-					this.onPlayerStatusChanged(int(_loc2_),true,_loc4_);
+					this.onPlayerStatusChanged(int(_loc2),true,_loc4);
 					break;
 				case BodyDef.NOTIFIC_PLAYER_SWITCH_PRE_ACTOR:
 					this.onPlayerSwitchPreActor();
 					break;
 				case ADDef.NOTIFIC_ADD_STATUS:
-					this.onADStatusChanged(int(_loc2_),true);
+					this.onADStatusChanged(int(_loc2),true);
 					break;
 				case ContinuePlayDef.NOTIFIC_REQUEST_NEXT_VIDEO:
 					this.onRequestNextVideo(false);
@@ -148,75 +159,94 @@ package com.qiyi.player.wonder.plugins.continueplay.view {
 					this.onRequestPreVideo(true);
 					break;
 				case ContinuePlayDef.NOTIFIC_REQUEST_SWITCH_VIDEO:
-					_loc5_ = facade.retrieveProxy(PlayerProxy.NAME) as PlayerProxy;
-					_loc6_ = _loc5_.curActor.loadMovieParams;
-					if(_loc6_ == null || (_loc6_) && (!(_loc6_.vid == _loc2_.vid))) {
-						_loc7_ = this._continuePlayProxy.findContinueInfo(_loc2_.tvid,_loc2_.vid);
-						sendNotification(ADDef.NOTIFIC_REQUEST_CHANGED_CUP_ID,_loc7_.cupId);
-						if(_loc2_.switchVideoType != undefined) {
-							this._continuePlayProxy.switchVideoType = int(_loc2_.switchVideoType);
-						} else {
+					_loc5 = facade.retrieveProxy(PlayerProxy.NAME) as PlayerProxy;
+					_loc6 = _loc5.curActor.loadMovieParams;
+					if(_loc6 == null || (_loc6) && (!(_loc6.vid == _loc2.vid)))
+					{
+						_loc7 = this._continuePlayProxy.findContinueInfo(_loc2.tvid,_loc2.vid);
+						sendNotification(ADDef.NOTIFIC_REQUEST_CHANGED_CUP_ID,_loc7.cupId);
+						if(_loc2.switchVideoType != undefined)
+						{
+							this._continuePlayProxy.switchVideoType = int(_loc2.switchVideoType);
+						}
+						else
+						{
 							this._continuePlayProxy.switchVideoType = ContinuePlayDef.SWITCH_VIDEO_TYPE_PROGRAM_FREE_SWITCHING;
 						}
-						_loc5_.curActor.pbVVFromtp = this._continuePlayProxy.switchVideoType == ContinuePlayDef.SWITCH_VIDEO_TYPE_AUTO?PingBackDef.VVPING_AUTO_PLAY:PingBackDef.VVPING_USER_CLICK;
-						_loc5_.curActor.vfrm = _loc7_.vfrm;
-						this.onSwitchVideo(_loc7_);
+						_loc5.curActor.pbVVFromtp = this._continuePlayProxy.switchVideoType == ContinuePlayDef.SWITCH_VIDEO_TYPE_AUTO?PingBackDef.VVPING_AUTO_PLAY:PingBackDef.VVPING_USER_CLICK;
+						_loc5.curActor.vfrm = _loc7.vfrm;
+						this.onSwitchVideo(_loc7);
 					}
 					break;
 				case ContinuePlayDef.NOTIFIC_INFO_LIST_CHANGED:
-					this.onInfoListChanged(_loc2_);
+					this.onInfoListChanged(_loc2);
 					break;
 				case ContinuePlayDef.NOTIFIC_REQUEST_CHANGE_SWITCH_VIDEO_TYPE:
-					this._continuePlayProxy.switchVideoType = int(_loc2_);
+					this._continuePlayProxy.switchVideoType = int(_loc2);
 					break;
 				case SceneTileDef.NOTIFIC_REMOVE_STATUS:
 					break;
 				case SettingDef.NOTIFIC_ADD_STATUS:
-					if(int(_loc2_) == SettingDef.STATUS_DEFINITION_OPEN) {
+					if(int(_loc2) == SettingDef.STATUS_DEFINITION_OPEN)
+					{
 						this._continuePlayProxy.removeStatus(ContinuePlayDef.STATUS_OPEN);
 					}
 					break;
 				case VideoLinkDef.NOTIFIC_ADD_STATUS:
-					if(int(_loc2_) == VideoLinkDef.STATUS_OPEN) {
+					if(int(_loc2) == VideoLinkDef.STATUS_OPEN)
+					{
 						this._continuePlayProxy.removeStatus(ContinuePlayDef.STATUS_OPEN);
 					}
 					break;
 				case ControllBarDef.NOTIFIC_ADD_STATUS:
-					if(int(_loc2_) == ControllBarDef.STATUS_IMAGE_PREVIEW_SHOW) {
+					if(int(_loc2) == ControllBarDef.STATUS_IMAGE_PREVIEW_SHOW)
+					{
 						this._continuePlayProxy.removeStatus(ContinuePlayDef.STATUS_OPEN);
 					}
 					break;
 			}
 		}
 		
-		private function onContinuePlayViewOpen(param1:ContinuePlayEvent) : void {
-			if(!this._continuePlayProxy.hasStatus(ContinuePlayDef.STATUS_OPEN)) {
+		private function onContinuePlayViewOpen(param1:ContinuePlayEvent) : void
+		{
+			if(!this._continuePlayProxy.hasStatus(ContinuePlayDef.STATUS_OPEN))
+			{
 				this._continuePlayProxy.addStatus(ContinuePlayDef.STATUS_OPEN);
 			}
 		}
 		
-		private function onContinuePlayViewClose(param1:ContinuePlayEvent) : void {
-			if(this._continuePlayProxy.hasStatus(ContinuePlayDef.STATUS_OPEN)) {
+		private function onContinuePlayViewClose(param1:ContinuePlayEvent) : void
+		{
+			if(this._continuePlayProxy.hasStatus(ContinuePlayDef.STATUS_OPEN))
+			{
 				this._continuePlayProxy.removeStatus(ContinuePlayDef.STATUS_OPEN);
 			}
 		}
 		
-		private function onPlayerStatusChanged(param1:int, param2:Boolean, param3:String) : void {
-			if(param3 != BodyDef.PLAYER_ACTOR_NOTIFIC_TYPE_CUR) {
+		private function onPlayerStatusChanged(param1:int, param2:Boolean, param3:String) : void
+		{
+			if(param3 != BodyDef.PLAYER_ACTOR_NOTIFIC_TYPE_CUR)
+			{
 				return;
 			}
-			var _loc4_:PlayerProxy = facade.retrieveProxy(PlayerProxy.NAME) as PlayerProxy;
-			switch(param1) {
+			var _loc4:PlayerProxy = facade.retrieveProxy(PlayerProxy.NAME) as PlayerProxy;
+			switch(param1)
+			{
 				case BodyDef.PLAYER_STATUS_ALREADY_LOAD_MOVIE:
-					if(param2) {
-						this._continuePlayView.setCurPlaying(_loc4_.curActor.loadMovieParams.tvid,_loc4_.curActor.loadMovieParams.vid);
+					if(param2)
+					{
+						this._continuePlayView.setCurPlaying(_loc4.curActor.loadMovieParams.tvid,_loc4.curActor.loadMovieParams.vid);
 					}
 					break;
 				case BodyDef.PLAYER_STATUS_ALREADY_READY:
-					if(param2) {
-						if(this._continuePlayProxy.continueInfoCount) {
-							this.requestVideoList(_loc4_.curActor.loadMovieParams.tvid,_loc4_.curActor.loadMovieParams.vid);
-						} else if(this._continuePlayProxy.isContinue) {
+					if(param2)
+					{
+						if(this._continuePlayProxy.continueInfoCount)
+						{
+							this.requestVideoList(_loc4.curActor.loadMovieParams.tvid,_loc4.curActor.loadMovieParams.vid);
+						}
+						else if(this._continuePlayProxy.isContinue)
+						{
 							this._continuePlayProxy.addStatus(ContinuePlayDef.STATUS_PRE_ASK_VIDEO_LIST_SUCCESS);
 							this._continuePlayProxy.addStatus(ContinuePlayDef.STATUS_NEXT_ASK_VIDEO_LIST_SUCCESS);
 						}
@@ -226,68 +256,86 @@ package com.qiyi.player.wonder.plugins.continueplay.view {
 			}
 		}
 		
-		private function onADStatusChanged(param1:int, param2:Boolean) : void {
-			switch(param1) {
+		private function onADStatusChanged(param1:int, param2:Boolean) : void
+		{
+			switch(param1)
+			{
 				case ADDef.STATUS_PLAY_END:
-					if(param2) {
+					if(param2)
+					{
 						this.onADPlayEnd();
 					}
 					break;
 			}
 		}
 		
-		private function onPlayerSwitchPreActor() : void {
-			var _loc1_:PlayerProxy = facade.retrieveProxy(PlayerProxy.NAME) as PlayerProxy;
-			if(_loc1_.curActor.hasStatus(BodyDef.PLAYER_STATUS_ALREADY_LOAD_MOVIE)) {
-				this._continuePlayView.setCurPlaying(_loc1_.curActor.loadMovieParams.tvid,_loc1_.curActor.loadMovieParams.vid);
+		private function onPlayerSwitchPreActor() : void
+		{
+			var _loc1:PlayerProxy = facade.retrieveProxy(PlayerProxy.NAME) as PlayerProxy;
+			if(_loc1.curActor.hasStatus(BodyDef.PLAYER_STATUS_ALREADY_LOAD_MOVIE))
+			{
+				this._continuePlayView.setCurPlaying(_loc1.curActor.loadMovieParams.tvid,_loc1.curActor.loadMovieParams.vid);
 			}
-			if(_loc1_.curActor.hasStatus(BodyDef.PLAYER_STATUS_ALREADY_READY)) {
-				if(this._continuePlayProxy.continueInfoCount) {
-					this.requestVideoList(_loc1_.curActor.loadMovieParams.tvid,_loc1_.curActor.loadMovieParams.vid);
+			if(_loc1.curActor.hasStatus(BodyDef.PLAYER_STATUS_ALREADY_READY))
+			{
+				if(this._continuePlayProxy.continueInfoCount)
+				{
+					this.requestVideoList(_loc1.curActor.loadMovieParams.tvid,_loc1.curActor.loadMovieParams.vid);
 				}
 			}
 		}
 		
-		private function onCheckUserComplete() : void {
-			var _loc1_:UserProxy = facade.retrieveProxy(UserProxy.NAME) as UserProxy;
-			var _loc2_:UserInfoVO = new UserInfoVO();
-			_loc2_.isLogin = _loc1_.isLogin;
-			_loc2_.passportID = _loc1_.passportID;
-			_loc2_.userID = _loc1_.userID;
-			_loc2_.userName = _loc1_.userName;
-			_loc2_.userLevel = _loc1_.userLevel;
-			_loc2_.userType = _loc1_.userType;
-			this._continuePlayView.onUserInfoChanged(_loc2_);
+		private function onCheckUserComplete() : void
+		{
+			var _loc1:UserProxy = facade.retrieveProxy(UserProxy.NAME) as UserProxy;
+			var _loc2:UserInfoVO = new UserInfoVO();
+			_loc2.isLogin = _loc1.isLogin;
+			_loc2.passportID = _loc1.passportID;
+			_loc2.userID = _loc1.userID;
+			_loc2.userName = _loc1.userName;
+			_loc2.userLevel = _loc1.userLevel;
+			_loc2.userType = _loc1.userType;
+			this._continuePlayView.onUserInfoChanged(_loc2);
 		}
 		
-		private function onADPlayEnd() : void {
-			var _loc3_:LoadMovieParams = null;
-			var _loc4_:ContinueInfo = null;
-			var _loc1_:PlayerProxy = facade.retrieveProxy(PlayerProxy.NAME) as PlayerProxy;
-			var _loc2_:JavascriptAPIProxy = facade.retrieveProxy(JavascriptAPIProxy.NAME) as JavascriptAPIProxy;
-			if(this._continuePlayProxy.isCyclePlay) {
-				if(_loc1_.curActor.hasStatus(BodyDef.PLAYER_STATUS_STOPED)) {
+		private function onADPlayEnd() : void
+		{
+			var _loc3:LoadMovieParams = null;
+			var _loc4:ContinueInfo = null;
+			var _loc1:PlayerProxy = facade.retrieveProxy(PlayerProxy.NAME) as PlayerProxy;
+			var _loc2:JavascriptAPIProxy = facade.retrieveProxy(JavascriptAPIProxy.NAME) as JavascriptAPIProxy;
+			if(this._continuePlayProxy.isCyclePlay)
+			{
+				if(_loc1.curActor.hasStatus(BodyDef.PLAYER_STATUS_STOPED))
+				{
 					this._log.info("ContinuePlayViewMediator >> onADPlayEnd:send request replay notifi!");
 					sendNotification(ADDef.NOTIFIC_REQUEST_REPLAY_VIDEO);
 					PingBack.getInstance().cyclePlayPing(PingBackDef.PLAYER_ACTION,PingBackDef.PLAYER_ACTION);
 				}
-			} else if((this._continuePlayProxy.isContinue) && this._continuePlayProxy.continueInfoCount > 0) {
-				if(_loc1_.curActor.hasStatus(BodyDef.PLAYER_STATUS_STOPED)) {
-					_loc3_ = _loc1_.curActor.loadMovieParams;
-					_loc4_ = this._continuePlayProxy.findNextContinueInfo(_loc3_.tvid,_loc3_.vid);
-					if(_loc4_) {
-						this._log.info("ContinuePlayViewMediator >> onADPlayEnd:send load movie tvid:" + _loc4_.loadMovieParams.tvid + ", vid:" + _loc4_.loadMovieParams.vid);
-						sendNotification(ADDef.NOTIFIC_REQUEST_CHANGED_CUP_ID,_loc4_.cupId);
+			}
+			else if((this._continuePlayProxy.isContinue) && this._continuePlayProxy.continueInfoCount > 0)
+			{
+				if(_loc1.curActor.hasStatus(BodyDef.PLAYER_STATUS_STOPED))
+				{
+					_loc3 = _loc1.curActor.loadMovieParams;
+					_loc4 = this._continuePlayProxy.findNextContinueInfo(_loc3.tvid,_loc3.vid);
+					if(_loc4)
+					{
+						this._log.info("ContinuePlayViewMediator >> onADPlayEnd:send load movie tvid:" + _loc4.loadMovieParams.tvid + ", vid:" + _loc4.loadMovieParams.vid);
+						sendNotification(ADDef.NOTIFIC_REQUEST_CHANGED_CUP_ID,_loc4.cupId);
 						this._continuePlayProxy.switchVideoType = ContinuePlayDef.SWITCH_VIDEO_TYPE_AUTO;
-						_loc1_.curActor.pbVVFromtp = this._continuePlayProxy.switchVideoType == ContinuePlayDef.SWITCH_VIDEO_TYPE_AUTO?PingBackDef.VVPING_AUTO_PLAY:PingBackDef.VVPING_USER_CLICK;
-						_loc1_.curActor.vfrm = _loc4_.vfrm;
-						_loc1_.preActor.pbVVFromtp = this._continuePlayProxy.switchVideoType == ContinuePlayDef.SWITCH_VIDEO_TYPE_AUTO?PingBackDef.VVPING_AUTO_PLAY:PingBackDef.VVPING_USER_CLICK;
-						_loc1_.preActor.vfrm = _loc4_.vfrm;
-						_loc2_.callJsRequestJSSendPB(BodyDef.REQUEST_JS_PB_TYPE_DEMANDS);
-						this.onSwitchVideo(_loc4_);
+						_loc1.curActor.pbVVFromtp = this._continuePlayProxy.switchVideoType == ContinuePlayDef.SWITCH_VIDEO_TYPE_AUTO?PingBackDef.VVPING_AUTO_PLAY:PingBackDef.VVPING_USER_CLICK;
+						_loc1.curActor.vfrm = _loc4.vfrm;
+						_loc1.preActor.pbVVFromtp = this._continuePlayProxy.switchVideoType == ContinuePlayDef.SWITCH_VIDEO_TYPE_AUTO?PingBackDef.VVPING_AUTO_PLAY:PingBackDef.VVPING_USER_CLICK;
+						_loc1.preActor.vfrm = _loc4.vfrm;
+						_loc2.callJsRequestJSSendPB(BodyDef.REQUEST_JS_PB_TYPE_DEMANDS);
+						this.onSwitchVideo(_loc4);
 						PingBack.getInstance().continuityPlayPing();
-					} else {
-						if(SwitchManager.getInstance().getStatus(SwitchDef.ID_SHOW_RECOMMEND)) {
+					}
+					else
+					{
+						if(SwitchManager.getInstance().getStatus(SwitchDef.ID_SHOW_RECOMMEND))
+						{
 							this._log.info("ContinuePlayViewMediator >> onADPlayEnd:open recommend!");
 							sendNotification(RecommendDef.NOTIFIC_FINISH_RECOMMEND_OPEN_CLOSE,true);
 						}
@@ -296,9 +344,13 @@ package com.qiyi.player.wonder.plugins.continueplay.view {
 						sendNotification(ADDef.NOTIFIC_REQUEST_UNLOAD_AD_PLAYER);
 					}
 				}
-			} else if(_loc1_.curActor.hasStatus(BodyDef.PLAYER_STATUS_STOPED)) {
-				if(!this._continuePlayProxy.isJSContinue) {
-					if(SwitchManager.getInstance().getStatus(SwitchDef.ID_SHOW_RECOMMEND)) {
+			}
+			else if(_loc1.curActor.hasStatus(BodyDef.PLAYER_STATUS_STOPED))
+			{
+				if(!this._continuePlayProxy.isJSContinue)
+				{
+					if(SwitchManager.getInstance().getStatus(SwitchDef.ID_SHOW_RECOMMEND))
+					{
 						this._log.info("ContinuePlayViewMediator >> onADPlayEnd:open recommend!");
 						sendNotification(RecommendDef.NOTIFIC_FINISH_RECOMMEND_OPEN_CLOSE,true);
 					}
@@ -311,251 +363,319 @@ package com.qiyi.player.wonder.plugins.continueplay.view {
 			
 		}
 		
-		private function onRequestNextVideo(param1:Boolean) : void {
-			var _loc2_:PlayerProxy = null;
-			var _loc3_:LoadMovieParams = null;
-			var _loc4_:ContinueInfo = null;
-			var _loc5_:JavascriptAPIProxy = null;
-			if((this._continuePlayProxy.isContinue) && this._continuePlayProxy.continueInfoCount > 0) {
-				_loc2_ = facade.retrieveProxy(PlayerProxy.NAME) as PlayerProxy;
-				_loc3_ = _loc2_.curActor.loadMovieParams;
-				_loc4_ = this._continuePlayProxy.findNextContinueInfo(_loc3_.tvid,_loc3_.vid);
-				if(_loc4_) {
-					this._log.info("ContinuePlayViewMediator >> onRequestNextVideo,tvid:" + _loc4_.loadMovieParams.tvid + ", vid:" + _loc4_.loadMovieParams.vid);
-					sendNotification(ADDef.NOTIFIC_REQUEST_CHANGED_CUP_ID,_loc4_.cupId);
+		private function onRequestNextVideo(param1:Boolean) : void
+		{
+			var _loc2:PlayerProxy = null;
+			var _loc3:LoadMovieParams = null;
+			var _loc4:ContinueInfo = null;
+			var _loc5:JavascriptAPIProxy = null;
+			if((this._continuePlayProxy.isContinue) && this._continuePlayProxy.continueInfoCount > 0)
+			{
+				_loc2 = facade.retrieveProxy(PlayerProxy.NAME) as PlayerProxy;
+				_loc3 = _loc2.curActor.loadMovieParams;
+				_loc4 = this._continuePlayProxy.findNextContinueInfo(_loc3.tvid,_loc3.vid);
+				if(_loc4)
+				{
+					this._log.info("ContinuePlayViewMediator >> onRequestNextVideo,tvid:" + _loc4.loadMovieParams.tvid + ", vid:" + _loc4.loadMovieParams.vid);
+					sendNotification(ADDef.NOTIFIC_REQUEST_CHANGED_CUP_ID,_loc4.cupId);
 					this._continuePlayProxy.switchVideoType = ContinuePlayDef.SWITCH_VIDEO_TYPE_PRE_NEXT_BTN;
-					_loc2_.curActor.pbVVFromtp = this._continuePlayProxy.switchVideoType == ContinuePlayDef.SWITCH_VIDEO_TYPE_AUTO?PingBackDef.VVPING_AUTO_PLAY:PingBackDef.VVPING_USER_CLICK;
-					_loc2_.curActor.vfrm = _loc4_.vfrm;
-					this.onSwitchVideo(_loc4_);
+					_loc2.curActor.pbVVFromtp = this._continuePlayProxy.switchVideoType == ContinuePlayDef.SWITCH_VIDEO_TYPE_AUTO?PingBackDef.VVPING_AUTO_PLAY:PingBackDef.VVPING_USER_CLICK;
+					_loc2.curActor.vfrm = _loc4.vfrm;
+					this.onSwitchVideo(_loc4);
 				}
-			} else if((this._continuePlayProxy.isJSContinue) && !param1) {
-				_loc5_ = facade.retrieveProxy(JavascriptAPIProxy.NAME) as JavascriptAPIProxy;
-				_loc5_.callJsPlayNextVideo();
+			}
+			else if((this._continuePlayProxy.isJSContinue) && !param1)
+			{
+				_loc5 = facade.retrieveProxy(JavascriptAPIProxy.NAME) as JavascriptAPIProxy;
+				_loc5.callJsPlayNextVideo();
 			}
 			
 		}
 		
-		private function onRequestPreVideo(param1:Boolean) : void {
-			var _loc2_:PlayerProxy = null;
-			var _loc3_:LoadMovieParams = null;
-			var _loc4_:ContinueInfo = null;
-			var _loc5_:JavascriptAPIProxy = null;
-			if((this._continuePlayProxy.isContinue) && this._continuePlayProxy.continueInfoCount > 0) {
-				_loc2_ = facade.retrieveProxy(PlayerProxy.NAME) as PlayerProxy;
-				_loc3_ = _loc2_.curActor.loadMovieParams;
-				_loc4_ = this._continuePlayProxy.findPreContinueInfo(_loc3_.tvid,_loc3_.vid);
-				if(_loc4_) {
-					this._log.info("ContinuePlayViewMediator >> onRequestPreVideo,tvid:" + _loc4_.loadMovieParams.tvid + ", vid:" + _loc4_.loadMovieParams.vid);
-					sendNotification(ADDef.NOTIFIC_REQUEST_CHANGED_CUP_ID,_loc4_.cupId);
+		private function onRequestPreVideo(param1:Boolean) : void
+		{
+			var _loc2:PlayerProxy = null;
+			var _loc3:LoadMovieParams = null;
+			var _loc4:ContinueInfo = null;
+			var _loc5:JavascriptAPIProxy = null;
+			if((this._continuePlayProxy.isContinue) && this._continuePlayProxy.continueInfoCount > 0)
+			{
+				_loc2 = facade.retrieveProxy(PlayerProxy.NAME) as PlayerProxy;
+				_loc3 = _loc2.curActor.loadMovieParams;
+				_loc4 = this._continuePlayProxy.findPreContinueInfo(_loc3.tvid,_loc3.vid);
+				if(_loc4)
+				{
+					this._log.info("ContinuePlayViewMediator >> onRequestPreVideo,tvid:" + _loc4.loadMovieParams.tvid + ", vid:" + _loc4.loadMovieParams.vid);
+					sendNotification(ADDef.NOTIFIC_REQUEST_CHANGED_CUP_ID,_loc4.cupId);
 					this._continuePlayProxy.switchVideoType = ContinuePlayDef.SWITCH_VIDEO_TYPE_PRE_NEXT_BTN;
-					_loc2_.curActor.pbVVFromtp = this._continuePlayProxy.switchVideoType == ContinuePlayDef.SWITCH_VIDEO_TYPE_AUTO?PingBackDef.VVPING_AUTO_PLAY:PingBackDef.VVPING_USER_CLICK;
-					_loc2_.curActor.vfrm = _loc4_.vfrm;
-					this.onSwitchVideo(_loc4_);
+					_loc2.curActor.pbVVFromtp = this._continuePlayProxy.switchVideoType == ContinuePlayDef.SWITCH_VIDEO_TYPE_AUTO?PingBackDef.VVPING_AUTO_PLAY:PingBackDef.VVPING_USER_CLICK;
+					_loc2.curActor.vfrm = _loc4.vfrm;
+					this.onSwitchVideo(_loc4);
 				}
-			} else if((this._continuePlayProxy.isJSContinue) && !param1) {
-				_loc5_ = facade.retrieveProxy(JavascriptAPIProxy.NAME) as JavascriptAPIProxy;
-				_loc5_.callJsPlayPreVideo();
+			}
+			else if((this._continuePlayProxy.isJSContinue) && !param1)
+			{
+				_loc5 = facade.retrieveProxy(JavascriptAPIProxy.NAME) as JavascriptAPIProxy;
+				_loc5.callJsPlayPreVideo();
 			}
 			
 		}
 		
-		private function onListItemClick(param1:ContinuePlayEvent) : void {
-			var _loc4_:JavascriptAPIProxy = null;
-			var _loc2_:ContinueInfo = param1.data as ContinueInfo;
-			var _loc3_:PlayerProxy = facade.retrieveProxy(PlayerProxy.NAME) as PlayerProxy;
-			if(!(_loc2_.loadMovieParams.tvid == _loc3_.curActor.loadMovieParams.tvid) && !(_loc2_.loadMovieParams.vid == _loc3_.curActor.loadMovieParams.vid)) {
-				this._log.info("ContinuePlayViewMediator >> onListItemClick,tvid:" + _loc2_.loadMovieParams.tvid + ", vid:" + _loc2_.loadMovieParams.vid);
-				sendNotification(ADDef.NOTIFIC_REQUEST_CHANGED_CUP_ID,_loc2_.cupId);
+		private function onListItemClick(param1:ContinuePlayEvent) : void
+		{
+			var _loc4:JavascriptAPIProxy = null;
+			var _loc2:ContinueInfo = param1.data as ContinueInfo;
+			var _loc3:PlayerProxy = facade.retrieveProxy(PlayerProxy.NAME) as PlayerProxy;
+			if(!(_loc2.loadMovieParams.tvid == _loc3.curActor.loadMovieParams.tvid) && !(_loc2.loadMovieParams.vid == _loc3.curActor.loadMovieParams.vid))
+			{
+				this._log.info("ContinuePlayViewMediator >> onListItemClick,tvid:" + _loc2.loadMovieParams.tvid + ", vid:" + _loc2.loadMovieParams.vid);
+				sendNotification(ADDef.NOTIFIC_REQUEST_CHANGED_CUP_ID,_loc2.cupId);
 				this._continuePlayProxy.switchVideoType = ContinuePlayDef.SWITCH_VIDEO_TYPE_FLASH_LIST;
-				_loc3_.curActor.pbVVFromtp = this._continuePlayProxy.switchVideoType == ContinuePlayDef.SWITCH_VIDEO_TYPE_AUTO?PingBackDef.VVPING_AUTO_PLAY:PingBackDef.VVPING_USER_CLICK;
-				_loc3_.curActor.vfrm = _loc2_.vfrm;
-				_loc4_ = facade.retrieveProxy(JavascriptAPIProxy.NAME) as JavascriptAPIProxy;
-				_loc4_.callJsRequestJSSendPB(BodyDef.REQUEST_JS_PB_TYPE_DEMANDS);
-				this.onSwitchVideo(_loc2_);
+				_loc3.curActor.pbVVFromtp = this._continuePlayProxy.switchVideoType == ContinuePlayDef.SWITCH_VIDEO_TYPE_AUTO?PingBackDef.VVPING_AUTO_PLAY:PingBackDef.VVPING_USER_CLICK;
+				_loc3.curActor.vfrm = _loc2.vfrm;
+				_loc4 = facade.retrieveProxy(JavascriptAPIProxy.NAME) as JavascriptAPIProxy;
+				_loc4.callJsRequestJSSendPB(BodyDef.REQUEST_JS_PB_TYPE_DEMANDS);
+				this.onSwitchVideo(_loc2);
 			}
 		}
 		
-		private function onArrowClick(param1:ContinuePlayEvent) : void {
+		private function onArrowClick(param1:ContinuePlayEvent) : void
+		{
 			this._log.info("=====================================>onArrowClick isBefore = " + Boolean(param1.data));
 			this.addVideoList(Boolean(param1.data),true);
 		}
 		
-		private function onPageTriggerRequest(param1:ContinuePlayEvent) : void {
-			var _loc2_:Boolean = Boolean(param1.data);
-			if(_loc2_) {
-				if(!this._continuePlayProxy.hasStatus(ContinuePlayDef.STATUS_PRE_ASK_VIDEO_LIST_LOADING)) {
+		private function onPageTriggerRequest(param1:ContinuePlayEvent) : void
+		{
+			var _loc2:Boolean = Boolean(param1.data);
+			if(_loc2)
+			{
+				if(!this._continuePlayProxy.hasStatus(ContinuePlayDef.STATUS_PRE_ASK_VIDEO_LIST_LOADING))
+				{
 					this.addVideoList(true);
 					this._log.info("=====================================>onPageTriggerRequest isBefore true");
 				}
-			} else if(!this._continuePlayProxy.hasStatus(ContinuePlayDef.STATUS_NEXT_ASK_VIDEO_LIST_LOADING)) {
+			}
+			else if(!this._continuePlayProxy.hasStatus(ContinuePlayDef.STATUS_NEXT_ASK_VIDEO_LIST_LOADING))
+			{
 				this.addVideoList(false);
 				this._log.info("=====================================>onPageTriggerRequest isBefore false");
 			}
 			
 		}
 		
-		private function addVideoList(param1:Boolean, param2:Boolean = false) : void {
-			var _loc3_:JavascriptAPIProxy = facade.retrieveProxy(JavascriptAPIProxy.NAME) as JavascriptAPIProxy;
-			_loc3_.callJsRequestVideoList(param1);
-			if(param1) {
-				if(param2) {
+		private function addVideoList(param1:Boolean, param2:Boolean = false) : void
+		{
+			var _loc3:JavascriptAPIProxy = facade.retrieveProxy(JavascriptAPIProxy.NAME) as JavascriptAPIProxy;
+			_loc3.callJsRequestVideoList(param1);
+			if(param1)
+			{
+				if(param2)
+				{
 					this._continuePlayView.isShowLeftTip = true;
 				}
 				this._continuePlayProxy.addStatus(ContinuePlayDef.STATUS_PRE_ASK_VIDEO_LIST_LOADING);
-			} else {
-				if(param2) {
+			}
+			else
+			{
+				if(param2)
+				{
 					this._continuePlayView.isShowRightTip = true;
 				}
 				this._continuePlayProxy.addStatus(ContinuePlayDef.STATUS_NEXT_ASK_VIDEO_LIST_LOADING);
 			}
 		}
 		
-		private function onSwitchOverPage(param1:ContinuePlayEvent) : void {
+		private function onSwitchOverPage(param1:ContinuePlayEvent) : void
+		{
 			TweenLite.killTweensOf(this.delayedCloseDock);
-			var _loc2_:Boolean = param1.data as Boolean;
-			if(_loc2_) {
+			var _loc2:Boolean = param1.data as Boolean;
+			if(_loc2)
+			{
 				this._continuePlayProxy.removeStatus(ContinuePlayDef.STATUS_ASK_NEXT_PAGE_SHOW);
 				this._continuePlayProxy.addStatus(ContinuePlayDef.STATUS_ASK_PRE_PAGE_SHOW);
-			} else {
+			}
+			else
+			{
 				this._continuePlayProxy.removeStatus(ContinuePlayDef.STATUS_ASK_PRE_PAGE_SHOW);
 				this._continuePlayProxy.addStatus(ContinuePlayDef.STATUS_ASK_NEXT_PAGE_SHOW);
 			}
 		}
 		
-		private function onSwitchOverPageDone(param1:ContinuePlayEvent) : void {
+		private function onSwitchOverPageDone(param1:ContinuePlayEvent) : void
+		{
 			this._continuePlayProxy.removeStatus(ContinuePlayDef.STATUS_ASK_PRE_PAGE_SHOW);
 			this._continuePlayProxy.removeStatus(ContinuePlayDef.STATUS_ASK_NEXT_PAGE_SHOW);
 		}
 		
-		private function onSwitchVideo(param1:ContinueInfo) : void {
-			var _loc2_:PlayerProxy = null;
-			if((param1) && this._continuePlayProxy.continueInfoCount > 0) {
+		private function onSwitchVideo(param1:ContinueInfo) : void
+		{
+			var _loc2:PlayerProxy = null;
+			if((param1) && this._continuePlayProxy.continueInfoCount > 0)
+			{
 				ProcessesTimeRecord.needRecord = false;
-				_loc2_ = facade.retrieveProxy(PlayerProxy.NAME) as PlayerProxy;
-				if(_loc2_.preActor.hasStatus(BodyDef.PLAYER_STATUS_ALREADY_LOAD_MOVIE)) {
-					if(_loc2_.preActor.loadMovieParams.tvid == param1.loadMovieParams.tvid && _loc2_.preActor.loadMovieParams.vid == param1.loadMovieParams.vid) {
+				_loc2 = facade.retrieveProxy(PlayerProxy.NAME) as PlayerProxy;
+				if(_loc2.preActor.hasStatus(BodyDef.PLAYER_STATUS_ALREADY_LOAD_MOVIE))
+				{
+					if(_loc2.preActor.loadMovieParams.tvid == param1.loadMovieParams.tvid && _loc2.preActor.loadMovieParams.vid == param1.loadMovieParams.vid)
+					{
 						this._log.info("ContinuePlayViewMediator >> onSwitchVideo:switchPreActor!");
-						_loc2_.switchPreActor();
-					} else {
+						_loc2.switchPreActor();
+					}
+					else
+					{
 						sendNotification(BodyDef.NOTIFIC_PLAYER_PRE_STOP);
 						this._log.info("ContinuePlayViewMediator >> onSwitchVideo:send load movie tvid:" + param1.loadMovieParams.tvid + ", vid:" + param1.loadMovieParams.vid);
 						sendNotification(BodyDef.NOTIFIC_PLAYER_LOAD_MOVIE,param1.loadMovieParams,BodyDef.LOAD_MOVIE_TYPE_ORIGINAL);
 					}
-				} else {
+				}
+				else
+				{
 					this._log.info("ContinuePlayViewMediator >> onSwitchVideo:send load movie tvid:" + param1.loadMovieParams.tvid + ", vid:" + param1.loadMovieParams.vid);
 					sendNotification(BodyDef.NOTIFIC_PLAYER_LOAD_MOVIE,param1.loadMovieParams,BodyDef.LOAD_MOVIE_TYPE_ORIGINAL);
 				}
 			}
 		}
 		
-		private function onJSCallLoadQiyiVideo(param1:Object) : void {
-			var _loc2_:LoadMovieParams = null;
-			if(this._continuePlayProxy.continueInfoCount == 0) {
-				_loc2_ = new LoadMovieParams();
-				_loc2_.albumId = param1.albumId;
-				_loc2_.tvid = param1.tvId;
-				_loc2_.vid = param1.vid;
-				_loc2_.movieIsMember = param1.isMember == "true";
-				this._log.info("ContinuePlayViewMediator >> onJSCallLoadQiyiVideo:send load movie tvid:" + _loc2_.tvid + ", vid:" + _loc2_.vid);
+		private function onJSCallLoadQiyiVideo(param1:Object) : void
+		{
+			var _loc2:LoadMovieParams = null;
+			if(this._continuePlayProxy.continueInfoCount == 0)
+			{
+				_loc2 = new LoadMovieParams();
+				_loc2.albumId = param1.albumId;
+				_loc2.tvid = param1.tvId;
+				_loc2.vid = param1.vid;
+				_loc2.movieIsMember = param1.isMember == "true";
+				this._log.info("ContinuePlayViewMediator >> onJSCallLoadQiyiVideo:send load movie tvid:" + _loc2.tvid + ", vid:" + _loc2.vid);
 				PingBack.getInstance().continuityPlayPing();
 				sendNotification(ADDef.NOTIFIC_REQUEST_CHANGED_CUP_ID,param1.cid);
 				this._continuePlayProxy.switchVideoType = ContinuePlayDef.SWITCH_VIDEO_TYPE_NONE;
-				sendNotification(BodyDef.NOTIFIC_PLAYER_LOAD_MOVIE,_loc2_,BodyDef.LOAD_MOVIE_TYPE_ORIGINAL);
+				sendNotification(BodyDef.NOTIFIC_PLAYER_LOAD_MOVIE,_loc2,BodyDef.LOAD_MOVIE_TYPE_ORIGINAL);
 			}
 		}
 		
-		private function onPlayerRunning(param1:int, param2:int, param3:int) : void {
-			var _loc4_:PlayerProxy = null;
-			var _loc5_:IMovieModel = null;
-			var _loc6_:* = 0;
-			var _loc7_:LoadMovieParams = null;
-			var _loc8_:ContinueInfo = null;
-			if(FlashVarConfig.owner == FlashVarConfig.OWNER_PAGE && (this._continuePlayProxy.isContinue) && this._continuePlayProxy.continueInfoCount > 0) {
-				_loc4_ = facade.retrieveProxy(PlayerProxy.NAME) as PlayerProxy;
-				if((_loc4_.curActor.hasStatus(BodyDef.PLAYER_STATUS_LOAD_COMPLETE)) && !_loc4_.preActor.hasStatus(BodyDef.PLAYER_STATUS_ALREADY_LOAD_MOVIE)) {
-					_loc5_ = _loc4_.curActor.movieModel;
-					_loc6_ = 0;
-					if((Settings.instance.skipTrailer) && _loc5_.trailerTime > 0) {
-						_loc6_ = _loc5_.trailerTime;
-					} else {
-						_loc6_ = _loc5_.duration;
+		private function onPlayerRunning(param1:int, param2:int, param3:int) : void
+		{
+			var _loc4:PlayerProxy = null;
+			var _loc5:IMovieModel = null;
+			var _loc6:* = 0;
+			var _loc7:LoadMovieParams = null;
+			var _loc8:ContinueInfo = null;
+			if(FlashVarConfig.owner == FlashVarConfig.OWNER_PAGE && (this._continuePlayProxy.isContinue) && this._continuePlayProxy.continueInfoCount > 0)
+			{
+				_loc4 = facade.retrieveProxy(PlayerProxy.NAME) as PlayerProxy;
+				if((_loc4.curActor.hasStatus(BodyDef.PLAYER_STATUS_LOAD_COMPLETE)) && !_loc4.preActor.hasStatus(BodyDef.PLAYER_STATUS_ALREADY_LOAD_MOVIE))
+				{
+					_loc5 = _loc4.curActor.movieModel;
+					_loc6 = 0;
+					if((Settings.instance.skipTrailer) && _loc5.trailerTime > 0)
+					{
+						_loc6 = _loc5.trailerTime;
 					}
-					if(_loc6_ - param1 < ContinuePlayDef.PRE_LOAD_TIME) {
-						_loc7_ = _loc4_.curActor.loadMovieParams;
-						_loc8_ = this._continuePlayProxy.findNextContinueInfo(_loc7_.tvid,_loc7_.vid);
-						if(_loc8_) {
-							this._log.info("start pre load,tvid:" + _loc8_.loadMovieParams.tvid + ", vid:" + _loc8_.loadMovieParams.vid);
-							sendNotification(BodyDef.NOTIFIC_PLAYER_PRE_LOAD_MOVIE,_loc8_.loadMovieParams,BodyDef.LOAD_MOVIE_TYPE_ORIGINAL);
+					else
+					{
+						_loc6 = _loc5.duration;
+					}
+					if(_loc6 - param1 < ContinuePlayDef.PRE_LOAD_TIME)
+					{
+						_loc7 = _loc4.curActor.loadMovieParams;
+						_loc8 = this._continuePlayProxy.findNextContinueInfo(_loc7.tvid,_loc7.vid);
+						if(_loc8)
+						{
+							this._log.info("start pre load,tvid:" + _loc8.loadMovieParams.tvid + ", vid:" + _loc8.loadMovieParams.vid);
+							sendNotification(BodyDef.NOTIFIC_PLAYER_PRE_LOAD_MOVIE,_loc8.loadMovieParams,BodyDef.LOAD_MOVIE_TYPE_ORIGINAL);
 						}
 					}
 				}
 			}
 		}
 		
-		private function onMouseMove(param1:MouseEvent) : void {
+		private function onMouseMove(param1:MouseEvent) : void
+		{
 			this.onOpenDelayedCloseDock();
 		}
 		
-		private function onOpenDelayedCloseDock() : void {
+		private function onOpenDelayedCloseDock() : void
+		{
 			TweenLite.killTweensOf(this.delayedCloseDock);
 			TweenLite.delayedCall(ContinuePlayDef.AUTO_HIND_DELAY / 1000,this.delayedCloseDock);
 		}
 		
-		private function delayedCloseDock() : void {
+		private function delayedCloseDock() : void
+		{
 			this._continuePlayProxy.removeStatus(ContinuePlayDef.STATUS_OPEN);
 		}
 		
-		private function onInfoListChanged(param1:Object) : void {
-			var _loc2_:* = false;
-			var _loc3_:* = 0;
-			if(this._continuePlayProxy.hasStatus(ContinuePlayDef.STATUS_OPEN)) {
-				_loc2_ = Boolean(param1.add);
-				if(this._continuePlayProxy.continueInfoCount > 0) {
-					if(_loc2_) {
-						_loc3_ = int(param1.addCount);
-						if(_loc3_ > 0) {
-							if((this._continuePlayProxy.hasStatus(ContinuePlayDef.STATUS_ASK_PRE_PAGE_SHOW)) && (this._continuePlayProxy.hasStatus(ContinuePlayDef.STATUS_PRE_ASK_VIDEO_LIST_SUCCESS)) || (this._continuePlayProxy.hasStatus(ContinuePlayDef.STATUS_ASK_NEXT_PAGE_SHOW)) && (this._continuePlayProxy.hasStatus(ContinuePlayDef.STATUS_NEXT_ASK_VIDEO_LIST_SUCCESS))) {
+		private function onInfoListChanged(param1:Object) : void
+		{
+			var _loc2:* = false;
+			var _loc3:* = 0;
+			if(this._continuePlayProxy.hasStatus(ContinuePlayDef.STATUS_OPEN))
+			{
+				_loc2 = Boolean(param1.add);
+				if(this._continuePlayProxy.continueInfoCount > 0)
+				{
+					if(_loc2)
+					{
+						_loc3 = int(param1.addCount);
+						if(_loc3 > 0)
+						{
+							if((this._continuePlayProxy.hasStatus(ContinuePlayDef.STATUS_ASK_PRE_PAGE_SHOW)) && (this._continuePlayProxy.hasStatus(ContinuePlayDef.STATUS_PRE_ASK_VIDEO_LIST_SUCCESS)) || (this._continuePlayProxy.hasStatus(ContinuePlayDef.STATUS_ASK_NEXT_PAGE_SHOW)) && (this._continuePlayProxy.hasStatus(ContinuePlayDef.STATUS_NEXT_ASK_VIDEO_LIST_SUCCESS)))
+							{
 								this._continuePlayView.updateOpenParam(this._continuePlayProxy.cloneContinueInfoList(),false,this._continuePlayProxy.hasPreNeedLoad,this._continuePlayProxy.hasNextNeedLoad);
 								this._continuePlayView.switchPageInfo();
 								this._continuePlayView.updateOpenView();
-							} else {
+							}
+							else
+							{
 								this._continuePlayView.updateOpenParam(this._continuePlayProxy.cloneContinueInfoList(),false,this._continuePlayProxy.hasPreNeedLoad,this._continuePlayProxy.hasNextNeedLoad);
 								this._continuePlayView.updateCurrentPageIndex();
 								this._continuePlayView.updateArrowBtn();
 							}
-						} else {
+						}
+						else
+						{
 							this._continuePlayView.updateArrowBtn();
 						}
-					} else {
+					}
+					else
+					{
 						this._continuePlayView.updateOpenParam(this._continuePlayProxy.cloneContinueInfoList(),true,this._continuePlayProxy.hasPreNeedLoad,this._continuePlayProxy.hasNextNeedLoad);
 						this._continuePlayView.updateOpenView();
 					}
-				} else {
+				}
+				else
+				{
 					this._continuePlayProxy.removeStatus(ContinuePlayDef.STATUS_OPEN);
 				}
 			}
 		}
 		
-		private function requestVideoList(param1:String, param2:String) : void {
-			var _loc4_:* = 0;
-			var _loc5_:* = 0;
-			var _loc6_:* = 0;
-			var _loc7_:JavascriptAPIProxy = null;
-			var _loc3_:ContinueInfo = this._continuePlayProxy.findContinueInfo(param1,param2);
-			if(_loc3_) {
-				_loc4_ = _loc3_.index;
-				_loc5_ = _loc4_;
-				_loc6_ = this._continuePlayProxy.continueInfoCount - _loc4_ - 1;
-				_loc7_ = null;
-				if((this._continuePlayProxy.hasPreNeedLoad) && _loc5_ < ContinuePlayDef.REMAIN_NUM_TO_REQUEST && !this._continuePlayProxy.hasStatus(ContinuePlayDef.STATUS_PRE_ASK_VIDEO_LIST_LOADING)) {
-					_loc7_ = facade.retrieveProxy(JavascriptAPIProxy.NAME) as JavascriptAPIProxy;
-					_loc7_.callJsRequestVideoList(true);
+		private function requestVideoList(param1:String, param2:String) : void
+		{
+			var _loc4:* = 0;
+			var _loc5:* = 0;
+			var _loc6:* = 0;
+			var _loc7:JavascriptAPIProxy = null;
+			var _loc3:ContinueInfo = this._continuePlayProxy.findContinueInfo(param1,param2);
+			if(_loc3)
+			{
+				_loc4 = _loc3.index;
+				_loc5 = _loc4;
+				_loc6 = this._continuePlayProxy.continueInfoCount - _loc4 - 1;
+				_loc7 = null;
+				if((this._continuePlayProxy.hasPreNeedLoad) && _loc5 < ContinuePlayDef.REMAIN_NUM_TO_REQUEST && !this._continuePlayProxy.hasStatus(ContinuePlayDef.STATUS_PRE_ASK_VIDEO_LIST_LOADING))
+				{
+					_loc7 = facade.retrieveProxy(JavascriptAPIProxy.NAME) as JavascriptAPIProxy;
+					_loc7.callJsRequestVideoList(true);
 					this._continuePlayView.isShowLeftTip = false;
 					this._continuePlayProxy.addStatus(ContinuePlayDef.STATUS_PRE_ASK_VIDEO_LIST_LOADING);
 				}
-				if((this._continuePlayProxy.hasNextNeedLoad) && _loc6_ < ContinuePlayDef.REMAIN_NUM_TO_REQUEST && !this._continuePlayProxy.hasStatus(ContinuePlayDef.STATUS_NEXT_ASK_VIDEO_LIST_LOADING)) {
-					_loc7_ = facade.retrieveProxy(JavascriptAPIProxy.NAME) as JavascriptAPIProxy;
-					_loc7_.callJsRequestVideoList(false);
+				if((this._continuePlayProxy.hasNextNeedLoad) && _loc6 < ContinuePlayDef.REMAIN_NUM_TO_REQUEST && !this._continuePlayProxy.hasStatus(ContinuePlayDef.STATUS_NEXT_ASK_VIDEO_LIST_LOADING))
+				{
+					_loc7 = facade.retrieveProxy(JavascriptAPIProxy.NAME) as JavascriptAPIProxy;
+					_loc7.callJsRequestVideoList(false);
 					this._continuePlayView.isShowRightTip = false;
 					this._continuePlayProxy.addStatus(ContinuePlayDef.STATUS_NEXT_ASK_VIDEO_LIST_LOADING);
 				}

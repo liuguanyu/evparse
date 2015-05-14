@@ -1,9 +1,7 @@
-package com.qiyi.player.base.logging {
-	public final class LogEventLevel extends Object {
-		
-		public function LogEventLevel() {
-			super();
-		}
+package com.qiyi.player.base.logging
+{
+	public final class LogEventLevel extends Object
+	{
 		
 		public static const FATAL:int = 1000;
 		
@@ -16,5 +14,10 @@ package com.qiyi.player.base.logging {
 		public static const DEBUG:int = 2;
 		
 		public static const ALL:int = 0;
+		
+		public function LogEventLevel()
+		{
+			super();
+		}
 	}
 }

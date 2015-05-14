@@ -1,11 +1,9 @@
-package com.qiyi.player.core.video.def {
+package com.qiyi.player.core.video.def
+{
 	import com.qiyi.player.base.pub.EnumItem;
 	
-	public class DecoderStatusEnum extends Object {
-		
-		public function DecoderStatusEnum() {
-			super();
-		}
+	public class DecoderStatusEnum extends Object
+	{
 		
 		public static const ITEMS:Array = [];
 		
@@ -20,5 +18,10 @@ package com.qiyi.player.core.video.def {
 		public static const WAITING:EnumItem = new EnumItem(4,"waiting",ITEMS);
 		
 		public static const FAILED:EnumItem = new EnumItem(5,"failed",ITEMS);
+		
+		public function DecoderStatusEnum()
+		{
+			super();
+		}
 	}
 }

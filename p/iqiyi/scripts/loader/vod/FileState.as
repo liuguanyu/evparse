@@ -1,10 +1,7 @@
-package loader.vod {
-	public class FileState extends Object {
-		
-		public function FileState(param1:String) {
-			super();
-			this._key = param1;
-		}
+package loader.vod
+{
+	public class FileState extends Object
+	{
 		
 		public static const FirstDispatch:uint = 10;
 		
@@ -32,35 +29,49 @@ package loader.vod {
 		
 		private var _key:String;
 		
-		public function get stateCode() : int {
+		public function FileState(param1:String)
+		{
+			super();
+			this._key = param1;
+		}
+		
+		public function get stateCode() : int
+		{
 			return this._data["stateCode"];
 		}
 		
-		public function get cdnUrl() : String {
+		public function get cdnUrl() : String
+		{
 			return this._data["cdnUrl"];
 		}
 		
-		public function get index() : uint {
+		public function get index() : uint
+		{
 			return this._data["segmentIndex"];
 		}
 		
-		public function get sourceID() : String {
+		public function get sourceID() : String
+		{
 			return this._data["sourceID"];
 		}
 		
-		public function get retryCount() : uint {
+		public function get retryCount() : uint
+		{
 			return this._data["retryCount"];
 		}
 		
-		public function get averageSpeed() : int {
+		public function get averageSpeed() : int
+		{
 			return this._data["averageSpeed"];
 		}
 		
-		public function get data() : String {
+		public function get data() : String
+		{
 			return this._data["data"];
 		}
 		
-		private function get _data() : Object {
+		private function get _data() : Object
+		{
 			return P2PFileLoader.instance.method_1(this._key)["fileState"];
 		}
 	}

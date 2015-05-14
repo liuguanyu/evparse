@@ -1,11 +1,9 @@
-package com.qiyi.player.core.model.def {
+package com.qiyi.player.core.model.def
+{
 	import com.qiyi.player.base.pub.EnumItem;
 	
-	public class LanguageEnum extends Object {
-		
-		public function LanguageEnum() {
-			super();
-		}
+	public class LanguageEnum extends Object
+	{
 		
 		public static const ITEMS:Array = [];
 		
@@ -36,5 +34,10 @@ package com.qiyi.player.core.model.def {
 		public static const CHINESE_AND_RUSSIAN:EnumItem = new EnumItem(12,"cn-ru",ITEMS);
 		
 		public static const NOTHING:EnumItem = new EnumItem(13,"nothing",ITEMS);
+		
+		public function LanguageEnum()
+		{
+			super();
+		}
 	}
 }

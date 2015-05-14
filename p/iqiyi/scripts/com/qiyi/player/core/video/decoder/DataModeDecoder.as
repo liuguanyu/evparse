@@ -1,4 +1,5 @@
-package com.qiyi.player.core.video.decoder {
+package com.qiyi.player.core.video.decoder
+{
 	import com.qiyi.player.core.player.coreplayer.ICorePlayer;
 	import flash.events.Event;
 	import flash.media.SoundTransform;
@@ -11,17 +12,8 @@ package com.qiyi.player.core.video.decoder {
 	import flash.events.NetStatusEvent;
 	import flash.net.NetConnection;
 	
-	public class DataModeDecoder extends Decoder {
-		
-		public function DataModeDecoder(param1:ICorePlayer = null) {
-			this._holder = param1;
-			var _loc2_:NetConnection = new NetConnection();
-			_loc2_.connect(null);
-			super(_loc2_);
-			Settings.instance.addEventListener(Settings.Evt_MuteChanged,this.onVolumeChanged);
-			Settings.instance.addEventListener(Settings.Evt_VolumeChanged,this.onVolumeChanged);
-			this.onVolumeChanged(null);
-		}
+	public class DataModeDecoder extends Decoder
+	{
 		
 		private static const RESET_BEGIN:String = "resetBegin";
 		
@@ -37,36 +29,57 @@ package com.qiyi.player.core.video.decoder {
 		
 		private var _holder:ICorePlayer;
 		
-		override public function get time() : Number {
-			if(this._allowGetTime) {
+		public function DataModeDecoder(param1:ICorePlayer = null)
+		{
+			this._holder = param1;
+			var _loc2:NetConnection = new NetConnection();
+			_loc2.connect(null);
+			super(_loc2);
+			Settings.instance.addEventListener(Settings.Evt_MuteChanged,this.onVolumeChanged);
+			Settings.instance.addEventListener(Settings.Evt_VolumeChanged,this.onVolumeChanged);
+			this.onVolumeChanged(null);
+		}
+		
+		override public function get time() : Number
+		{
+			if(this._allowGetTime)
+			{
 				return this._startTime + super.time * 1000;
 			}
 			return this._startTime;
 		}
 		
-		private function onVolumeChanged(param1:Event) : void {
-			var _loc2_:SoundTransform = new SoundTransform();
-			if((Settings.instance.mute) || this._holder.runtimeData.playerUseType == PlayerUseTypeEnum.PREVIEW) {
-				_loc2_.volume = 0;
-			} else {
-				_loc2_.volume = Settings.instance.volumn / 100;
+		private function onVolumeChanged(param1:Event) : void
+		{
+			var _loc2:SoundTransform = new SoundTransform();
+			if((Settings.instance.mute) || this._holder.runtimeData.playerUseType == PlayerUseTypeEnum.PREVIEW)
+			{
+				_loc2.volume = 0;
 			}
-			soundTransform = _loc2_;
+			else
+			{
+				_loc2.volume = Settings.instance.volumn / 100;
+			}
+			soundTransform = _loc2;
 		}
 		
-		override public function play(... rest) : void {
+		override public function play(... rest) : void
+		{
 			super.play(null);
 			this._allowGetTime = true;
 		}
 		
-		override public function destroy() : void {
+		override public function destroy() : void
+		{
 			Settings.instance.removeEventListener(Settings.Evt_MuteChanged,this.onVolumeChanged);
 			Settings.instance.removeEventListener(Settings.Evt_VolumeChanged,this.onVolumeChanged);
 			super.destroy();
 		}
 		
-		override public function seek(param1:Number) : void {
-			if(param1 < 100 || !(Math.ceil(param1) == param1)) {
+		override public function seek(param1:Number) : void
+		{
+			if(param1 < 100 || !(Math.ceil(param1) == param1))
+			{
 				return;
 			}
 			this._startTime = param1;
@@ -76,8 +89,10 @@ package com.qiyi.player.core.video.decoder {
 			super.seek(param1);
 		}
 		
-		public function endSequence() : void {
-			if(this._endOfFile) {
+		public function endSequence() : void
+		{
+			if(this._endOfFile)
+			{
 				return;
 			}
 			this._endOfFile = true;
@@ -85,12 +100,15 @@ package com.qiyi.player.core.video.decoder {
 			_log.debug("appendByteAction:" + END_SEQUENCE);
 		}
 		
-		public function appendData(param1:MediaData) : void {
-			if(param1 == null) {
+		public function appendData(param1:MediaData) : void
+		{
+			if(param1 == null)
+			{
 				return;
 			}
 			this._endOfFile = false;
-			if(param1.headers) {
+			if(param1.headers)
+			{
 				this.tryAppendBytesAction(RESET_BEGIN);
 				_log.debug("appendByteAction:" + RESET_BEGIN);
 				this.tryAppendBytes(param1.headers);
@@ -98,45 +116,57 @@ package com.qiyi.player.core.video.decoder {
 				this.tryAppendBytesAction(RESET_SEEK);
 				_log.debug("appendByteAction:" + RESET_SEEK);
 			}
-			if((param1.bytes) && (param1.bytes.length)) {
+			if((param1.bytes) && (param1.bytes.length))
+			{
 				this.tryAppendBytes(param1.bytes);
 				_log.debug("append bytes: " + param1.bytes.length);
 			}
 		}
 		
-		private function tryAppendBytesAction(param1:String) : void {
+		private function tryAppendBytesAction(param1:String) : void
+		{
 			var action:String = param1;
-			if(this.hasOwnProperty("appendBytesAction")) {
-				try {
+			if(this.hasOwnProperty("appendBytesAction"))
+			{
+				try
+				{
 					this["appendBytesAction"](action);
 				}
-				catch(e:Error) {
+				catch(e:Error)
+				{
 					_log.warn("appendBytesAction Error: " + action);
 				}
 			}
 		}
 		
-		private function tryAppendBytes(param1:ByteArray) : void {
-			if(this.hasOwnProperty("appendBytes")) {
+		private function tryAppendBytes(param1:ByteArray) : void
+		{
+			if(this.hasOwnProperty("appendBytes"))
+			{
 				this["appendBytes"](param1);
 			}
 		}
 		
-		override protected function setStatus(param1:EnumItem) : void {
-			if(param1 == DecoderStatusEnum.PLAYING) {
+		override protected function setStatus(param1:EnumItem) : void
+		{
+			if(param1 == DecoderStatusEnum.PLAYING)
+			{
 				this._allowGetTime = true;
 			}
 			super.setStatus(param1);
 		}
 		
-		override public function stop() : void {
+		override public function stop() : void
+		{
 			this._allowGetTime = true;
 			super.stop();
 		}
 		
-		override protected function onNetStatus(param1:NetStatusEvent) : void {
+		override protected function onNetStatus(param1:NetStatusEvent) : void
+		{
 			_log.debug(param1.info.code);
-			switch(param1.info.code) {
+			switch(param1.info.code)
+			{
 				case "NetStream.Buffer.Empty":
 					break;
 				case "NetStream.Seek.Notify":

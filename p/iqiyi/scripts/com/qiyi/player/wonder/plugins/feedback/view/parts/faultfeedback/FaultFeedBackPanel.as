@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.feedback.view.parts.faultfeedback {
+package com.qiyi.player.wonder.plugins.feedback.view.parts.faultfeedback
+{
 	import flash.display.Sprite;
 	import com.qiyi.player.wonder.IDestroy;
 	import flash.display.Shape;
@@ -28,22 +29,8 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.faultfeedback {
 	import gs.TweenLite;
 	import com.iqiyi.components.tooltip.ToolTip;
 	
-	public class FaultFeedBackPanel extends Sprite implements IDestroy {
-		
-		public function FaultFeedBackPanel() {
-			super();
-			this._normalScreenBtn = new CommonNormalScreenBtn();
-			ToolTip.getInstance().registerComponent(this._normalScreenBtn,"退出全屏");
-			this._normalScreenBtn.addEventListener(MouseEvent.CLICK,this.onNormalScreenBtnClick);
-			addChild(this._normalScreenBtn);
-			if(FeedbackInfo.instance.entry == "") {
-				return;
-			}
-			this.initPanel();
-			if(FeedbackInfo.instance.userInfo == null) {
-				this.requestLocation();
-			}
-		}
+	public class FaultFeedBackPanel extends Sprite implements IDestroy
+	{
 		
 		private static const TEXT_TITLE:String = "遇到问题了？尽管告诉我们吧！";
 		
@@ -127,20 +114,41 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.faultfeedback {
 		
 		private var _loader:URLLoader;
 		
-		private function requestLocation() : void {
-			var _loc1_:URLLoader = new URLLoader();
-			_loc1_.addEventListener(Event.COMPLETE,this.onLoaderLocationComplete);
-			_loc1_.addEventListener(IOErrorEvent.IO_ERROR,this.onError);
-			_loc1_.addEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onError);
-			_loc1_.load(new URLRequest(FeedbackDef.FEEDBACK_GET_LOCATION_URL));
+		public function FaultFeedBackPanel()
+		{
+			super();
+			this._normalScreenBtn = new CommonNormalScreenBtn();
+			ToolTip.getInstance().registerComponent(this._normalScreenBtn,"退出全屏");
+			this._normalScreenBtn.addEventListener(MouseEvent.CLICK,this.onNormalScreenBtnClick);
+			addChild(this._normalScreenBtn);
+			if(FeedbackInfo.instance.entry == "")
+			{
+				return;
+			}
+			this.initPanel();
+			if(FeedbackInfo.instance.userInfo == null)
+			{
+				this.requestLocation();
+			}
 		}
 		
-		private function onLoaderLocationComplete(param1:Event) : void {
+		private function requestLocation() : void
+		{
+			var _loc1:URLLoader = new URLLoader();
+			_loc1.addEventListener(Event.COMPLETE,this.onLoaderLocationComplete);
+			_loc1.addEventListener(IOErrorEvent.IO_ERROR,this.onError);
+			_loc1.addEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onError);
+			_loc1.load(new URLRequest(FeedbackDef.FEEDBACK_GET_LOCATION_URL));
+		}
+		
+		private function onLoaderLocationComplete(param1:Event) : void
+		{
 			var data:String = null;
 			var dataJSON:Object = null;
 			var var_5:Event = param1;
 			var urlLoader:URLLoader = var_5.target as URLLoader;
-			try {
+			try
+			{
 				data = urlLoader.data.toString() as String;
 				data = data.split("=")[1];
 				dataJSON = com.adobe.serialization.json.JSON.decode(data,false);
@@ -149,7 +157,8 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.faultfeedback {
 				this._ipParamTF.text = FeedbackInfo.instance.ip;
 				this._operatorsParamTF.text = FeedbackInfo.instance.isp;
 			}
-			catch(e:Error) {
+			catch(e:Error)
+			{
 			}
 			urlLoader.removeEventListener(Event.COMPLETE,this.onLoaderLocationComplete);
 			urlLoader.removeEventListener(IOErrorEvent.IO_ERROR,this.onError);
@@ -157,29 +166,34 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.faultfeedback {
 			urlLoader = null;
 		}
 		
-		private function onError(param1:Event) : void {
-			var _loc2_:URLLoader = param1.target as URLLoader;
-			_loc2_.removeEventListener(Event.COMPLETE,this.onLoaderLocationComplete);
-			_loc2_.removeEventListener(IOErrorEvent.IO_ERROR,this.onError);
-			_loc2_.removeEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onError);
-			_loc2_ = null;
+		private function onError(param1:Event) : void
+		{
+			var _loc2:URLLoader = param1.target as URLLoader;
+			_loc2.removeEventListener(Event.COMPLETE,this.onLoaderLocationComplete);
+			_loc2.removeEventListener(IOErrorEvent.IO_ERROR,this.onError);
+			_loc2.removeEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onError);
+			_loc2 = null;
 		}
 		
-		private function initPanel() : void {
-			if(this._bgShape == null) {
+		private function initPanel() : void
+		{
+			if(this._bgShape == null)
+			{
 				this._bgShape = new Shape();
 				this._bgShape.graphics.beginFill(0);
 				this._bgShape.graphics.drawRect(0,0,GlobalStage.stage.stageWidth,GlobalStage.stage.stageHeight);
 				this._bgShape.graphics.endFill();
 				this.addChild(this._bgShape);
 			}
-			if(this._feedPanel == null) {
+			if(this._feedPanel == null)
+			{
 				this._feedPanel = new FeedPanelUI();
 				this._feedPanel.visible = true;
 				this.addChild(this._feedPanel);
 				this.initFeedPanel();
 			}
-			if(this._feedSuccPanel == null) {
+			if(this._feedSuccPanel == null)
+			{
 				this._feedSuccPanel = new FeedSuccessPanelUI();
 				this._feedSuccPanel.visible = false;
 				this.addChild(this._feedSuccPanel);
@@ -198,7 +212,8 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.faultfeedback {
 			this._phoneInputTF.addEventListener(FocusEvent.FOCUS_IN,this.onInputTextFocusIn);
 		}
 		
-		private function initFeedPanel() : void {
+		private function initFeedPanel() : void
+		{
 			this._titleTF = FastCreator.createLabel(TEXT_TITLE,16777215,18);
 			this._titleTF.x = (this._feedPanel.width - this._titleTF.width) / 2;
 			this._feedPanel.addChild(this._titleTF);
@@ -329,7 +344,8 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.faultfeedback {
 			this._feedPanel.addChild(this._returnBtn);
 		}
 		
-		private function initFeedSuccPanel() : void {
+		private function initFeedSuccPanel() : void
+		{
 			this._succTitleTF = FastCreator.createLabel(TEXT_SUCC_TITLE,16777215,18);
 			this._succTitleTF.x = (this._feedPanel.width - this._succTitleTF.width) / 2;
 			this._succTitleTF.y = 103;
@@ -344,98 +360,119 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.faultfeedback {
 			this._feedSuccPanel.addChild(this._succReturnBtn);
 		}
 		
-		private function onSubmitClick(param1:MouseEvent) : void {
+		private function onSubmitClick(param1:MouseEvent) : void
+		{
 			this._submitBtn.removeEventListener(MouseEvent.CLICK,this.onSubmitClick);
-			var _loc2_:* = 0;
-			var _loc3_:* = 0;
-			while(_loc3_ < this._questionInputTF.text.length) {
-				if(this._questionInputTF.text.charAt(_loc3_) == " ") {
-					_loc2_++;
+			var _loc2:* = 0;
+			var _loc3:* = 0;
+			while(_loc3 < this._questionInputTF.text.length)
+			{
+				if(this._questionInputTF.text.charAt(_loc3) == " ")
+				{
+					_loc2++;
 				}
-				_loc3_++;
+				_loc3++;
 			}
-			if(this._isCanFeedBack) {
+			if(this._isCanFeedBack)
+			{
 				this._isCanFeedBack = false;
 				this.requestTicket();
 			}
 		}
 		
-		private function getVariables() : URLVariables {
-			var _loc1_:URLVariables = new URLVariables();
-			_loc1_.ticket = FeedbackInfo.instance.ticket;
-			_loc1_.email = this._mailInputTF.text;
-			if(this._questionInputTF.text == TEXT_QUESTION_INPUT) {
-				_loc1_.content = "";
-			} else {
-				_loc1_.content = this._questionInputTF.text;
+		private function getVariables() : URLVariables
+		{
+			var _loc1:URLVariables = new URLVariables();
+			_loc1.ticket = FeedbackInfo.instance.ticket;
+			_loc1.email = this._mailInputTF.text;
+			if(this._questionInputTF.text == TEXT_QUESTION_INPUT)
+			{
+				_loc1.content = "";
 			}
-			_loc1_.entry_class = FeedbackDef.FEEDBACK_RESUBMIT_ENTRY_CLASS;
-			_loc1_.phone = this._phoneInputTF.text;
-			_loc1_.fb_class = FeedbackDef.FEEDBACK_RESUBMIT_FB_CLASS;
-			_loc1_.uplevel_url = "";
-			_loc1_.v_id = FeedbackInfo.instance.vid;
-			_loc1_.v_title = FeedbackInfo.instance.title;
-			_loc1_.flash_sound = FeedbackInfo.instance.volume;
-			_loc1_.flash_version = Capabilities.version;
-			_loc1_.record = "";
-			_loc1_.speed_test = "0@0@0@0@0@ @ @ @" + FeedbackInfo.instance.logCookie;
-			_loc1_.login_email = "";
-			_loc1_.city = FeedbackInfo.instance.city;
-			_loc1_.country = FeedbackInfo.instance.country;
-			_loc1_.isp = FeedbackInfo.instance.isp;
-			_loc1_.province = "";
-			_loc1_.player_version = FeedbackInfo.instance.playerVersion;
-			_loc1_.category_id = FeedbackInfo.instance.channelId;
-			if(this._countyInputTF.text != "填写县市") {
-				_loc1_.input_city = this._countyInputTF.text;
+			else
+			{
+				_loc1.content = this._questionInputTF.text;
 			}
-			if(this._operatorsInputTF.text != "填写运营商") {
-				_loc1_.input_isp = this._operatorsInputTF.text;
+			_loc1.entry_class = FeedbackDef.FEEDBACK_RESUBMIT_ENTRY_CLASS;
+			_loc1.phone = this._phoneInputTF.text;
+			_loc1.fb_class = FeedbackDef.FEEDBACK_RESUBMIT_FB_CLASS;
+			_loc1.uplevel_url = "";
+			_loc1.v_id = FeedbackInfo.instance.vid;
+			_loc1.v_title = FeedbackInfo.instance.title;
+			_loc1.flash_sound = FeedbackInfo.instance.volume;
+			_loc1.flash_version = Capabilities.version;
+			_loc1.record = "";
+			_loc1.speed_test = "0@0@0@0@0@ @ @ @" + FeedbackInfo.instance.logCookie;
+			_loc1.login_email = "";
+			_loc1.city = FeedbackInfo.instance.city;
+			_loc1.country = FeedbackInfo.instance.country;
+			_loc1.isp = FeedbackInfo.instance.isp;
+			_loc1.province = "";
+			_loc1.player_version = FeedbackInfo.instance.playerVersion;
+			_loc1.category_id = FeedbackInfo.instance.channelId;
+			if(this._countyInputTF.text != "填写县市")
+			{
+				_loc1.input_city = this._countyInputTF.text;
 			}
-			if(this._provinceInputTF.text != "填写省份") {
-				_loc1_.input_province = this._provinceInputTF.text;
+			if(this._operatorsInputTF.text != "填写运营商")
+			{
+				_loc1.input_isp = this._operatorsInputTF.text;
 			}
-			return _loc1_;
+			if(this._provinceInputTF.text != "填写省份")
+			{
+				_loc1.input_province = this._provinceInputTF.text;
+			}
+			return _loc1;
 		}
 		
-		private function onNormalScreenBtnClick(param1:MouseEvent) : void {
+		private function onNormalScreenBtnClick(param1:MouseEvent) : void
+		{
 			this._normalScreenBtn.visible = false;
 			GlobalStage.setNormalScreen();
 		}
 		
-		private function onBackBtnClick(param1:MouseEvent) : void {
+		private function onBackBtnClick(param1:MouseEvent) : void
+		{
 			dispatchEvent(new FeedbackEvent(FeedbackEvent.Evt_FaultFeedbackReturn));
 		}
 		
-		private function onHelpLinkClick(param1:TextEvent) : void {
+		private function onHelpLinkClick(param1:TextEvent) : void
+		{
 			GlobalStage.setNormalScreen();
 			navigateToURL(new URLRequest(FeedbackDef.FEEDBACK_HELP_URL),"_blank");
 		}
 		
-		private function onInputTextFocusIn(param1:FocusEvent) : void {
-			switch(param1.target) {
+		private function onInputTextFocusIn(param1:FocusEvent) : void
+		{
+			switch(param1.target)
+			{
 				case this._countryInputTF:
-					if(this._countryInputTF.text == "中国大陆") {
+					if(this._countryInputTF.text == "中国大陆")
+					{
 						param1.target.text = "";
 					}
 					break;
 				case this._provinceInputTF:
-					if(this._provinceInputTF.text == "填写省份") {
+					if(this._provinceInputTF.text == "填写省份")
+					{
 						param1.target.text = "";
 					}
 					break;
 				case this._countyInputTF:
-					if(this._countyInputTF.text == "填写县市") {
+					if(this._countyInputTF.text == "填写县市")
+					{
 						param1.target.text = "";
 					}
 					break;
 				case this._operatorsInputTF:
-					if(this._operatorsInputTF.text == "填写运营商") {
+					if(this._operatorsInputTF.text == "填写运营商")
+					{
 						param1.target.text = "";
 					}
 					break;
 				case this._questionInputTF:
-					if(this._questionInputTF.text == TEXT_QUESTION_INPUT) {
+					if(this._questionInputTF.text == TEXT_QUESTION_INPUT)
+					{
 						param1.target.text = "";
 					}
 					break;
@@ -443,12 +480,15 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.faultfeedback {
 			param1.target.addEventListener(FocusEvent.FOCUS_OUT,this.onInputTextFocusOut);
 		}
 		
-		private function onInputTextFocusOut(param1:FocusEvent) : void {
+		private function onInputTextFocusOut(param1:FocusEvent) : void
+		{
 			param1.target.removeEventListener(FocusEvent.FOCUS_OUT,this.onInputTextFocusOut);
-			if(param1.target.text != "") {
+			if(param1.target.text != "")
+			{
 				return;
 			}
-			switch(param1.target) {
+			switch(param1.target)
+			{
 				case this._countryInputTF:
 					this._countryInputTF.text = "中国大陆";
 					break;
@@ -467,46 +507,57 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.faultfeedback {
 			}
 		}
 		
-		public function onResize(param1:uint, param2:uint) : void {
-			if(this._bgShape) {
+		public function onResize(param1:uint, param2:uint) : void
+		{
+			if(this._bgShape)
+			{
 				this._bgShape.width = param1;
 				this._bgShape.height = param2;
 			}
-			if(this._feedPanel) {
+			if(this._feedPanel)
+			{
 				this._feedPanel.x = (param1 - this._feedPanel.width) / 2;
 				this._feedPanel.y = (param2 - this._feedPanel.height) / 2;
 			}
-			if(this._feedSuccPanel) {
+			if(this._feedSuccPanel)
+			{
 				this._feedSuccPanel.x = (param1 - this._feedSuccPanel.width) / 2;
 				this._feedSuccPanel.y = (param2 - this._feedSuccPanel.height) / 2;
 			}
-			if(GlobalStage.isFullScreen()) {
+			if(GlobalStage.isFullScreen())
+			{
 				this._normalScreenBtn.visible = true;
 				this._normalScreenBtn.x = param1 - this._normalScreenBtn.width - 2;
 				this._normalScreenBtn.y = 8;
-			} else {
+			}
+			else
+			{
 				this._normalScreenBtn.visible = false;
 			}
 		}
 		
-		private function requestTicket() : void {
-			var _loc1_:URLLoader = new URLLoader();
-			_loc1_.addEventListener(Event.COMPLETE,this.onLoaderTicketComplete);
-			_loc1_.addEventListener(IOErrorEvent.IO_ERROR,this.onUploadError);
-			_loc1_.addEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onUploadError);
-			_loc1_.load(new URLRequest(FeedbackDef.FEEDBACK_GET_TICKET_URL + "?n=" + Math.random()));
+		private function requestTicket() : void
+		{
+			var _loc1:URLLoader = new URLLoader();
+			_loc1.addEventListener(Event.COMPLETE,this.onLoaderTicketComplete);
+			_loc1.addEventListener(IOErrorEvent.IO_ERROR,this.onUploadError);
+			_loc1.addEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onUploadError);
+			_loc1.load(new URLRequest(FeedbackDef.FEEDBACK_GET_TICKET_URL + "?n=" + Math.random()));
 		}
 		
-		private function onLoaderTicketComplete(param1:Event) : void {
+		private function onLoaderTicketComplete(param1:Event) : void
+		{
 			var data:String = null;
 			var var_5:Event = param1;
 			var urlLoader:URLLoader = var_5.target as URLLoader;
-			try {
+			try
+			{
 				data = urlLoader.data.toString() as String;
 				FeedbackInfo.instance.ticket = data;
 				this.requestUploadError();
 			}
-			catch(e:Error) {
+			catch(e:Error)
+			{
 			}
 			urlLoader.removeEventListener(Event.COMPLETE,this.onLoaderTicketComplete);
 			urlLoader.removeEventListener(IOErrorEvent.IO_ERROR,this.onUploadError);
@@ -514,13 +565,16 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.faultfeedback {
 			urlLoader = null;
 		}
 		
-		private function requestUploadError() : void {
+		private function requestUploadError() : void
+		{
 			var request:URLRequest = new URLRequest(FeedbackDef.FEEDBACK_FEED_BACK_URL);
-			try {
+			try
+			{
 				request.method = URLRequestMethod.POST;
 				request.data = this.getVariables();
 			}
-			catch(e:Error) {
+			catch(e:Error)
+			{
 			}
 			var urlLoader:URLLoader = new URLLoader();
 			urlLoader.addEventListener(Event.COMPLETE,this.onUploadErrorComplete);
@@ -529,45 +583,53 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.faultfeedback {
 			urlLoader.load(request);
 		}
 		
-		private function onUploadErrorComplete(param1:Event) : void {
+		private function onUploadErrorComplete(param1:Event) : void
+		{
 			this._isCanFeedBack = false;
 			this._feedPanel.visible = false;
 			this._feedSuccPanel.visible = true;
 			dispatchEvent(new FeedbackEvent(FeedbackEvent.Evt_FaultFeedBackSuccess));
-			var _loc2_:URLLoader = param1.target as URLLoader;
-			_loc2_.removeEventListener(Event.COMPLETE,this.onUploadErrorComplete);
-			_loc2_.removeEventListener(IOErrorEvent.IO_ERROR,this.onUploadError);
-			_loc2_.removeEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onUploadError);
-			_loc2_ = null;
+			var _loc2:URLLoader = param1.target as URLLoader;
+			_loc2.removeEventListener(Event.COMPLETE,this.onUploadErrorComplete);
+			_loc2.removeEventListener(IOErrorEvent.IO_ERROR,this.onUploadError);
+			_loc2.removeEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onUploadError);
+			_loc2 = null;
 		}
 		
-		private function onUploadError(param1:Event) : void {
+		private function onUploadError(param1:Event) : void
+		{
 			this._isCanFeedBack = true;
-			if(this._faultTF) {
+			if(this._faultTF)
+			{
 				this._faultTF.visible = true;
 				TweenLite.killTweensOf(this.removeFailText);
 				TweenLite.delayedCall(5,this.removeFailText);
 			}
-			var _loc2_:URLLoader = param1.target as URLLoader;
-			_loc2_.removeEventListener(Event.COMPLETE,this.onLoaderTicketComplete);
-			_loc2_.removeEventListener(Event.COMPLETE,this.onUploadErrorComplete);
-			_loc2_.removeEventListener(IOErrorEvent.IO_ERROR,this.onUploadError);
-			_loc2_.removeEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onUploadError);
+			var _loc2:URLLoader = param1.target as URLLoader;
+			_loc2.removeEventListener(Event.COMPLETE,this.onLoaderTicketComplete);
+			_loc2.removeEventListener(Event.COMPLETE,this.onUploadErrorComplete);
+			_loc2.removeEventListener(IOErrorEvent.IO_ERROR,this.onUploadError);
+			_loc2.removeEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onUploadError);
 		}
 		
-		private function removeFailText() : void {
-			if(this._feedPanel == null) {
+		private function removeFailText() : void
+		{
+			if(this._feedPanel == null)
+			{
 				return;
 			}
-			if(this._faultTF) {
+			if(this._faultTF)
+			{
 				this._faultTF.visible = false;
 			}
-			if(this._submitBtn) {
+			if(this._submitBtn)
+			{
 				this._submitBtn.addEventListener(MouseEvent.CLICK,this.onSubmitClick);
 			}
 		}
 		
-		public function destroy() : void {
+		public function destroy() : void
+		{
 			this._submitBtn.removeEventListener(MouseEvent.CLICK,this.onSubmitClick);
 			this._returnBtn.removeEventListener(MouseEvent.CLICK,this.onBackBtnClick);
 			this._succReturnBtn.removeEventListener(MouseEvent.CLICK,this.onBackBtnClick);
@@ -582,17 +644,20 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.faultfeedback {
 			this._phoneInputTF.removeEventListener(FocusEvent.FOCUS_IN,this.onInputTextFocusIn);
 			removeChild(this._normalScreenBtn);
 			this._normalScreenBtn = null;
-			if((this._bgShape) && (this._bgShape.parent)) {
+			if((this._bgShape) && (this._bgShape.parent))
+			{
 				this._bgShape.graphics.clear();
 				removeChild(this._bgShape);
 				this._bgShape = null;
 			}
-			if((this._feedPanel) && (this._feedPanel.parent)) {
+			if((this._feedPanel) && (this._feedPanel.parent))
+			{
 				removeChild(this._feedPanel);
 				FastCreator.removeAllChild(this._feedPanel);
 				this._feedPanel = null;
 			}
-			if((this._feedSuccPanel) && (this._feedSuccPanel.parent)) {
+			if((this._feedSuccPanel) && (this._feedSuccPanel.parent))
+			{
 				removeChild(this._feedSuccPanel);
 				FastCreator.removeAllChild(this._feedSuccPanel);
 				this._feedSuccPanel = null;

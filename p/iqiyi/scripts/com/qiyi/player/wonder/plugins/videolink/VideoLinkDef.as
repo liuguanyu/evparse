@@ -1,9 +1,7 @@
-package com.qiyi.player.wonder.plugins.videolink {
-	public class VideoLinkDef extends Object {
-		
-		public function VideoLinkDef() {
-			super();
-		}
+package com.qiyi.player.wonder.plugins.videolink
+{
+	public class VideoLinkDef extends Object
+	{
 		
 		private static var statusBegin:int = 0;
 		
@@ -40,5 +38,10 @@ package com.qiyi.player.wonder.plugins.videolink {
 		public static const BTN_TYPE_DOWNLOAD:String = "DOWNLOAD";
 		
 		public static const BTN_TYPE_INSERT:String = "INTO";
+		
+		public function VideoLinkDef()
+		{
+			super();
+		}
 	}
 }

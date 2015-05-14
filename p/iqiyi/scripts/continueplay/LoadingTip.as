@@ -1,9 +1,12 @@
-package continueplay {
+package continueplay
+{
 	import flash.display.MovieClip;
 	
-	public dynamic class LoadingTip extends MovieClip {
+	public dynamic class LoadingTip extends MovieClip
+	{
 		
-		public function LoadingTip() {
+		public function LoadingTip()
+		{
 			super();
 		}
 	}

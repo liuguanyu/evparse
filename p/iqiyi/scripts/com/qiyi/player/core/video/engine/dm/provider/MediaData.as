@@ -1,11 +1,9 @@
-package com.qiyi.player.core.video.engine.dm.provider {
+package com.qiyi.player.core.video.engine.dm.provider
+{
 	import flash.utils.ByteArray;
 	
-	public class MediaData extends Object {
-		
-		public function MediaData() {
-			super();
-		}
+	public class MediaData extends Object
+	{
 		
 		public var headers:ByteArray = null;
 		
@@ -16,5 +14,10 @@ package com.qiyi.player.core.video.engine.dm.provider {
 		public var time:int;
 		
 		public var jumpFragment:Boolean = false;
+		
+		public function MediaData()
+		{
+			super();
+		}
 	}
 }

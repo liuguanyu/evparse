@@ -1,17 +1,22 @@
-package com.qiyi.player.base.logging.targets {
+package com.qiyi.player.base.logging.targets
+{
 	import com.qiyi.player.base.logging.LogEventLevel;
 	
-	public class DebugTarget extends LineFormattedTarget {
+	public class DebugTarget extends LineFormattedTarget
+	{
 		
-		public function DebugTarget(param1:String = "") {
+		private var _flag:String;
+		
+		public function DebugTarget(param1:String = "")
+		{
 			super();
 			this._flag = param1;
 		}
 		
-		private var _flag:String;
-		
-		override protected function internalLog(param1:int, param2:String) : void {
-			switch(param1) {
+		override protected function internalLog(param1:int, param2:String) : void
+		{
+			switch(param1)
+			{
 				case LogEventLevel.WARN:
 					DebugTarget.warning(param2);
 					break;
@@ -25,6 +30,7 @@ package com.qiyi.player.base.logging.targets {
 		}
 	}
 }
+
 import flash.net.LocalConnection;
 import flash.display.BitmapData;
 import flash.geom.Matrix;
@@ -33,11 +39,8 @@ import flash.display.Stage;
 import flash.system.System;
 import flash.events.StatusEvent;
 
-class Debug extends Object {
-	
-	function Debug() {
-		super();
-	}
+class Debug extends Object
+{
 	
 	public static const NAME:String = "com.qiyi.livePlayer.utils.Debug";
 	
@@ -93,81 +96,108 @@ class Debug extends Object {
 	
 	private static var hasEventListeners:Boolean = false;
 	
-	public static function log(param1:*, param2:uint = 16711422) : Boolean {
+	function Debug()
+	{
+		super();
+	}
+	
+	public static function log(param1:*, param2:uint = 16711422) : Boolean
+	{
 		return send(LOG_OPERATION,String(param1),param2);
 	}
 	
-	public static function logWP(param1:*, param2:uint = 16711422) : Boolean {
+	public static function logWP(param1:*, param2:uint = 16711422) : Boolean
+	{
 		return send(LOG_OPERATION,String(param1),param2);
 	}
 	
-	public static function error(param1:*) : Boolean {
+	public static function error(param1:*) : Boolean
+	{
 		return send(ERROR_OPERATION,String(param1),13369344);
 	}
 	
-	public static function warning(param1:*) : Boolean {
+	public static function warning(param1:*) : Boolean
+	{
 		return send(WARNING_OPERATION,String(param1),13421568);
 	}
 	
-	public static function clear() : Boolean {
+	public static function clear() : Boolean
+	{
 		return send(CLEAR_OPERATION,0,0);
 	}
 	
-	public static function array(param1:Array) : Boolean {
+	public static function array(param1:Array) : Boolean
+	{
 		return send(ARRAY_OPERATION,param1,null);
 	}
 	
-	public static function bitmap(param1:*, param2:String = null) : Boolean {
-		var _loc3_:BitmapData = new BitmapData(100,100,true,16777215);
-		var _loc4_:Matrix = new Matrix();
-		var _loc5_:Number = 100 / (param1.width >= param1.height?param1.width:param1.height);
-		_loc4_.scale(_loc5_,_loc5_);
-		_loc3_.draw(param1,_loc4_,null,null,null,true);
-		var _loc6_:Rectangle = new Rectangle(0,0,Math.floor(param1.width * _loc5_),Math.floor(param1.height * _loc5_));
-		return send(BITMAP_OPERATION,_loc3_.getPixels(_loc6_),{
-			"bounds":_loc6_,
+	public static function bitmap(param1:*, param2:String = null) : Boolean
+	{
+		var _loc3:BitmapData = new BitmapData(100,100,true,16777215);
+		var _loc4:Matrix = new Matrix();
+		var _loc5:Number = 100 / (param1.width >= param1.height?param1.width:param1.height);
+		_loc4.scale(_loc5,_loc5);
+		_loc3.draw(param1,_loc4,null,null,null,true);
+		var _loc6:Rectangle = new Rectangle(0,0,Math.floor(param1.width * _loc5),Math.floor(param1.height * _loc5));
+		return send(BITMAP_OPERATION,_loc3.getPixels(_loc6),{
+			"bounds":_loc6,
 			"lbl":param2
 		});
 	}
 	
-	public static function snapshot(param1:Stage, param2:String = null) : Boolean {
-		if(param1) {
+	public static function snapshot(param1:Stage, param2:String = null) : Boolean
+	{
+		if(param1)
+		{
 			return bitmap(param1,param2);
 		}
 		return false;
 	}
 	
-	public static function object(param1:*) : Boolean {
+	public static function object(param1:*) : Boolean
+	{
 		return send(OBJECT_OPERATION,param1,null);
 	}
 	
-	public static function memory() : Boolean {
+	public static function memory() : Boolean
+	{
 		return send(MEMORY_OPERATION,System.totalMemory,null);
 	}
 	
-	private static function send(param1:String, param2:*, param3:*) : Boolean {
+	private static function send(param1:String, param2:*, param3:*) : Boolean
+	{
 		var operation:String = param1;
 		var value:* = param2;
 		var prop:* = param3;
-		if(!secure) {
+		if(!secure)
+		{
 			lc.allowInsecureDomain("*");
-		} else {
+		}
+		else
+		{
 			lc.allowDomain(secureDomain);
 		}
-		if(!hasEventListeners) {
-			if(ignoreStatus) {
+		if(!hasEventListeners)
+		{
+			if(ignoreStatus)
+			{
 				lc.addEventListener(StatusEvent.STATUS,ignore);
-			} else {
+			}
+			else
+			{
 				lc.addEventListener(StatusEvent.STATUS,status);
 			}
 			hasEventListeners = true;
 		}
-		if(allowLog) {
-			try {
+		if(allowLog)
+		{
+			try
+			{
 				lc.send(TYPE + "#" + DOMAIN + CHECK + ":" + CONNECTION,operation,password,value,prop);
 				return true;
 			}
-			catch(e:*) {
+			catch(e:*)
+			{
 				return false;
 			}
 			return false;
@@ -175,10 +205,12 @@ class Debug extends Object {
 		return false;
 	}
 	
-	private static function status(param1:StatusEvent) : void {
+	private static function status(param1:StatusEvent) : void
+	{
 		trace("Arthropod status:\n" + param1.toString());
 	}
 	
-	private static function ignore(param1:StatusEvent) : void {
+	private static function ignore(param1:StatusEvent) : void
+	{
 	}
 }

@@ -1,9 +1,12 @@
-package common {
+package common
+{
 	import flash.display.MovieClip;
 	
-	public dynamic class CommonLoadingMC extends MovieClip {
+	public dynamic class CommonLoadingMC extends MovieClip
+	{
 		
-		public function CommonLoadingMC() {
+		public function CommonLoadingMC()
+		{
 			super();
 		}
 	}

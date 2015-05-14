@@ -1,4 +1,5 @@
-package com.qiyi.player.core.video.render {
+package com.qiyi.player.core.video.render
+{
 	import flash.events.IEventDispatcher;
 	import com.qiyi.player.core.IDestroy;
 	import com.qiyi.player.base.pub.EnumItem;
@@ -7,7 +8,8 @@ package com.qiyi.player.core.video.render {
 	import com.qiyi.player.core.model.IMovie;
 	import flash.geom.Rectangle;
 	
-	public interface IRender extends IEventDispatcher, IDestroy {
+	public interface IRender extends IEventDispatcher, IDestroy
+	{
 		
 		function get accStatus() : EnumItem;
 		

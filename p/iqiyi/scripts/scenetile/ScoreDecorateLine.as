@@ -1,9 +1,12 @@
-package scenetile {
+package scenetile
+{
 	import flash.display.MovieClip;
 	
-	public dynamic class ScoreDecorateLine extends MovieClip {
+	public dynamic class ScoreDecorateLine extends MovieClip
+	{
 		
-		public function ScoreDecorateLine() {
+		public function ScoreDecorateLine()
+		{
 			super();
 		}
 	}

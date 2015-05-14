@@ -1,5 +1,7 @@
-package com.qiyi.player.user {
-	public interface IUser {
+package com.qiyi.player.user
+{
+	public interface IUser
+	{
 		
 		function get passportID() : String;
 		

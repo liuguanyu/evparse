@@ -1,5 +1,7 @@
-package com.iqiyi.components.global {
-	public interface ICustomStage {
+package com.iqiyi.components.global
+{
+	public interface ICustomStage
+	{
 		
 		function isFullScreen() : Boolean;
 		

@@ -1,4 +1,5 @@
-package com.qiyi.player.core.view {
+package com.qiyi.player.core.view
+{
 	import flash.events.EventDispatcher;
 	import flash.display.DisplayObject;
 	import com.qiyi.player.components.DefaultLogo;
@@ -9,11 +10,8 @@ package com.qiyi.player.core.view {
 	import flash.net.URLRequest;
 	import flash.filters.GlowFilter;
 	
-	public class LogoLoader extends EventDispatcher {
-		
-		public function LogoLoader() {
-			super();
-		}
+	public class LogoLoader extends EventDispatcher
+	{
 		
 		public static const Evt_Complete:String = "complete";
 		
@@ -23,28 +21,37 @@ package com.qiyi.player.core.view {
 		
 		private var _logo:DisplayObject;
 		
-		public function getLogo() : DisplayObject {
+		public function LogoLoader()
+		{
+			super();
+		}
+		
+		public function getLogo() : DisplayObject
+		{
 			return this._logo;
 		}
 		
-		public function load(param1:String) : void {
+		public function load(param1:String) : void
+		{
 			this._logo = new DefaultLogo();
 			this._logo.alpha = this.ALPHA;
 			this._logo.filters = this.FILTERS;
 			dispatchEvent(new Event(Evt_Complete));
 		}
 		
-		private function onUrlComplete(param1:Event) : void {
+		private function onUrlComplete(param1:Event) : void
+		{
 			param1.target.removeEventListener(Event.COMPLETE,this.onUrlComplete);
 			param1.target.removeEventListener(IOErrorEvent.IO_ERROR,this.onUrlError);
 			param1.target.removeEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onUrlError);
-			var _loc2_:Loader = new Loader();
-			_loc2_.contentLoaderInfo.addEventListener(Event.COMPLETE,this.onLogoComplete);
-			_loc2_.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,this.onLogoError);
-			_loc2_.load(new URLRequest(param1.target.data));
+			var _loc2:Loader = new Loader();
+			_loc2.contentLoaderInfo.addEventListener(Event.COMPLETE,this.onLogoComplete);
+			_loc2.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,this.onLogoError);
+			_loc2.load(new URLRequest(param1.target.data));
 		}
 		
-		private function onUrlError(param1:Event) : void {
+		private function onUrlError(param1:Event) : void
+		{
 			param1.target.removeEventListener(Event.COMPLETE,this.onUrlComplete);
 			param1.target.removeEventListener(IOErrorEvent.IO_ERROR,this.onUrlError);
 			param1.target.removeEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onUrlError);
@@ -53,25 +60,30 @@ package com.qiyi.player.core.view {
 			dispatchEvent(new Event(Evt_Complete));
 		}
 		
-		private function onLogoComplete(param1:Event) : void {
+		private function onLogoComplete(param1:Event) : void
+		{
 			var cls:Class = null;
 			var event:Event = param1;
 			var loader:Loader = event.target.loader as Loader;
 			event.target.removeEventListener(Event.COMPLETE,this.onLogoComplete);
 			event.target.removeEventListener(IOErrorEvent.IO_ERROR,this.onLogoError);
-			try {
+			try
+			{
 				cls = Class(loader.contentLoaderInfo.applicationDomain.getDefinition("com.qiyi.player.components.ExternalLogo_UI"));
 				this._logo = new cls() as DisplayObject;
 				this._logo.alpha = this.ALPHA;
 				dispatchEvent(new Event(Evt_Complete));
 			}
-			catch(e:Error) {
+			catch(e:Error)
+			{
 				onLogoError(null);
 			}
 		}
 		
-		private function onLogoError(param1:Event) : void {
-			if(param1) {
+		private function onLogoError(param1:Event) : void
+		{
+			if(param1)
+			{
 				param1.target.removeEventListener(Event.COMPLETE,this.onLogoComplete);
 				param1.target.removeEventListener(IOErrorEvent.IO_ERROR,this.onLogoError);
 			}

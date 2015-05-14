@@ -1,5 +1,7 @@
-package org.puremvc.as3.interfaces {
-	public interface IObserver {
+package org.puremvc.as3.interfaces
+{
+	public interface IObserver
+	{
 		
 		function compareNotifyContext(param1:Object) : Boolean;
 		

@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.feedback.view.parts.copyrightlimited {
+package com.qiyi.player.wonder.plugins.feedback.view.parts.copyrightlimited
+{
 	import flash.display.Sprite;
 	import flash.text.TextField;
 	import com.qiyi.player.wonder.common.ui.FastCreator;
@@ -7,23 +8,8 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.copyrightlimited {
 	import flash.net.navigateToURL;
 	import flash.net.URLRequest;
 	
-	public class OpenVideoItem extends Sprite {
-		
-		public function OpenVideoItem(param1:String, param2:String, param3:String, param4:Boolean = false) {
-			super();
-			buttonMode = true;
-			this._videoUrl = param1;
-			this._picUrl = param2;
-			this._label = param3;
-			if(param3.length > 26) {
-				this._label = param3.slice(0,26) + "..";
-			}
-			this._horizontal = param4;
-			this.initUI();
-			addEventListener(MouseEvent.CLICK,this.onItemClick);
-			addEventListener(MouseEvent.ROLL_OVER,this.onItemRollOver);
-			addEventListener(MouseEvent.ROLL_OUT,this.onItemRollOut);
-		}
+	public class OpenVideoItem extends Sprite
+	{
 		
 		private var _videoUrl:String;
 		
@@ -35,43 +21,69 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.copyrightlimited {
 		
 		private var _labelText:TextField;
 		
-		private function initUI() : void {
-			var _loc1_:OpenVideoPicFrame = null;
+		public function OpenVideoItem(param1:String, param2:String, param3:String, param4:Boolean = false)
+		{
+			super();
+			buttonMode = true;
+			this._videoUrl = param1;
+			this._picUrl = param2;
+			this._label = param3;
+			if(param3.length > 26)
+			{
+				this._label = param3.slice(0,26) + "..";
+			}
+			this._horizontal = param4;
+			this.initUI();
+			addEventListener(MouseEvent.CLICK,this.onItemClick);
+			addEventListener(MouseEvent.ROLL_OVER,this.onItemRollOver);
+			addEventListener(MouseEvent.ROLL_OUT,this.onItemRollOut);
+		}
+		
+		private function initUI() : void
+		{
+			var _loc1:OpenVideoPicFrame = null;
 			this._labelText = FastCreator.createLabel(this._label,10066329);
 			this._labelText.wordWrap = true;
 			this._labelText.height = 54;
-			if(this._horizontal) {
-				_loc1_ = new OpenVideoPicFrame(117,79,this._picUrl,16777215,10066329,2);
-				_loc1_.x = 9.5;
-				_loc1_.y = 20;
-				this._labelText.x = _loc1_.x;
+			if(this._horizontal)
+			{
+				_loc1 = new OpenVideoPicFrame(117,79,this._picUrl,16777215,10066329,2);
+				_loc1.x = 9.5;
+				_loc1.y = 20;
+				this._labelText.x = _loc1.x;
 				this._labelText.y = 110;
 				this._labelText.width = 117;
-			} else {
-				_loc1_ = new OpenVideoPicFrame(95,122,this._picUrl,16777215,10066329,2);
-				_loc1_.x = 20.5;
-				_loc1_.y = 8;
-				this._labelText.x = _loc1_.x;
+			}
+			else
+			{
+				_loc1 = new OpenVideoPicFrame(95,122,this._picUrl,16777215,10066329,2);
+				_loc1.x = 20.5;
+				_loc1.y = 8;
+				this._labelText.x = _loc1.x;
 				this._labelText.y = 138;
 				this._labelText.width = 95;
 			}
-			addChild(_loc1_);
+			addChild(_loc1);
 			addChild(this._labelText);
 		}
 		
-		private function onItemClick(param1:MouseEvent) : void {
-			if(GlobalStage.isFullScreen()) {
+		private function onItemClick(param1:MouseEvent) : void
+		{
+			if(GlobalStage.isFullScreen())
+			{
 				GlobalStage.setNormalScreen();
 			}
 			navigateToURL(new URLRequest(this._videoUrl),"_self");
 		}
 		
-		private function onItemRollOver(param1:MouseEvent) : void {
+		private function onItemRollOver(param1:MouseEvent) : void
+		{
 			this._labelText.defaultTextFormat.underline = true;
 			this._labelText.textColor = 8562957;
 		}
 		
-		private function onItemRollOut(param1:MouseEvent) : void {
+		private function onItemRollOut(param1:MouseEvent) : void
+		{
 			this._labelText.defaultTextFormat.underline = false;
 			this._labelText.textColor = 10066329;
 		}

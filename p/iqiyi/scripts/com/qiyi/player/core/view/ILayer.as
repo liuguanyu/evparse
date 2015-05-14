@@ -1,8 +1,10 @@
-package com.qiyi.player.core.view {
+package com.qiyi.player.core.view
+{
 	import com.qiyi.player.core.IDestroy;
 	import flash.display.DisplayObject;
 	
-	public interface ILayer extends IDestroy {
+	public interface ILayer extends IDestroy
+	{
 		
 		function set showSubtitle(param1:Boolean) : void;
 		

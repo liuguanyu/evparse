@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.scenetile.view.scorepart {
+package com.qiyi.player.wonder.plugins.scenetile.view.scorepart
+{
 	import flash.display.Sprite;
 	import common.CommonBg;
 	import scenetile.ScoreCloseBtn;
@@ -17,13 +18,8 @@ package com.qiyi.player.wonder.plugins.scenetile.view.scorepart {
 	import com.qiyi.player.wonder.plugins.scenetile.view.SceneTileEvent;
 	import flash.display.DisplayObject;
 	
-	public class ScoreSuccessPanel extends Sprite {
-		
-		public function ScoreSuccessPanel(param1:Boolean) {
-			super();
-			this._isLogin = param1;
-			this.initPanel();
-		}
+	public class ScoreSuccessPanel extends Sprite
+	{
 		
 		private static const STR_PANEL_DES_LOGIN:String = "评价成功！";
 		
@@ -53,12 +49,21 @@ package com.qiyi.player.wonder.plugins.scenetile.view.scorepart {
 		
 		private var _isLogin:Boolean = false;
 		
-		private function initPanel() : void {
+		public function ScoreSuccessPanel(param1:Boolean)
+		{
+			super();
+			this._isLogin = param1;
+			this.initPanel();
+		}
+		
+		private function initPanel() : void
+		{
 			this._bg = new CommonBg();
 			this._bg.width = 380;
 			this._bg.height = 160;
 			addChild(this._bg);
-			if(this._isLogin) {
+			if(this._isLogin)
+			{
 				this._scoreSuccessIcon = new ScoreSuccessIcon();
 				this._scoreSuccessIcon.x = 126;
 				this._scoreSuccessIcon.y = 20;
@@ -67,7 +72,9 @@ package com.qiyi.player.wonder.plugins.scenetile.view.scorepart {
 				this._tfPanelDescribe.x = 159;
 				this._tfPanelDescribe.y = 18;
 				addChild(this._tfPanelDescribe);
-			} else {
+			}
+			else
+			{
 				this._tfPanelDescribe = FastCreator.createLabel(STR_PANEL_DES_UNLOGIN,16777215,16,TextFieldAutoSize.LEFT);
 				this._tfPanelDescribe.x = (this._bg.width - this._tfPanelDescribe.width) * 0.5;
 				this._tfPanelDescribe.y = 18;
@@ -107,26 +114,31 @@ package com.qiyi.player.wonder.plugins.scenetile.view.scorepart {
 			this._closeBtn.addEventListener(MouseEvent.CLICK,this.onCloseBtnClick);
 		}
 		
-		private function onToPersonMovieBtnClick(param1:MouseEvent) : void {
+		private function onToPersonMovieBtnClick(param1:MouseEvent) : void
+		{
 			GlobalStage.setNormalScreen();
 			navigateToURL(new URLRequest(SystemConfig.MOVIE_INDIVIDUALIZATION_URL),"_black");
 			PingBack.getInstance().userActionPing(PingBackDef.SCORE_PERSON_PAGE_CLICK);
 		}
 		
-		private function onCloseBtnClick(param1:MouseEvent) : void {
+		private function onCloseBtnClick(param1:MouseEvent) : void
+		{
 			dispatchEvent(new SceneTileEvent(SceneTileEvent.Evt_ScoreClose));
 		}
 		
-		public function destory() : void {
-			var _loc1_:DisplayObject = null;
+		public function destory() : void
+		{
+			var _loc1:DisplayObject = null;
 			this._btnToPersonMovie.removeEventListener(MouseEvent.CLICK,this.onToPersonMovieBtnClick);
 			this._closeBtn.removeEventListener(MouseEvent.CLICK,this.onCloseBtnClick);
-			while(numChildren > 0) {
-				_loc1_ = getChildAt(0);
-				if(_loc1_.parent) {
-					_loc1_.parent.removeChild(_loc1_);
+			while(numChildren > 0)
+			{
+				_loc1 = getChildAt(0);
+				if(_loc1.parent)
+				{
+					_loc1.parent.removeChild(_loc1);
 				}
-				_loc1_ = null;
+				_loc1 = null;
 			}
 		}
 	}

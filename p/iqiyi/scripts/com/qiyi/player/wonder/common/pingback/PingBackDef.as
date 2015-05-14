@@ -1,9 +1,7 @@
-package com.qiyi.player.wonder.common.pingback {
-	public class PingBackDef extends Object {
-		
-		public function PingBackDef() {
-			super();
-		}
+package com.qiyi.player.wonder.common.pingback
+{
+	public class PingBackDef extends Object
+	{
 		
 		public static const PLAYER_ACTION:String = "plyract";
 		
@@ -110,5 +108,10 @@ package com.qiyi.player.wonder.common.pingback {
 		public static const ACTIVITY_NOTICE_PANEL_SHOW:String = "1502161_5shw";
 		
 		public static const ACTIVITY_NOTICE_PANEL_CLICK:String = "1502161_5";
+		
+		public function PingBackDef()
+		{
+			super();
+		}
 	}
 }

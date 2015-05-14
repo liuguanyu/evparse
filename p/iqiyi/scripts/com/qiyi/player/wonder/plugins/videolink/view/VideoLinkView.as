@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.videolink.view {
+package com.qiyi.player.wonder.plugins.videolink.view
+{
 	import com.iqiyi.components.panelSystem.impls.BasePanel;
 	import com.qiyi.player.wonder.common.status.Status;
 	import com.qiyi.player.wonder.common.vo.UserInfoVO;
@@ -11,13 +12,8 @@ package com.qiyi.player.wonder.plugins.videolink.view {
 	import com.qiyi.player.wonder.plugins.videolink.model.VideoLinkInfo;
 	import gs.TweenLite;
 	
-	public class VideoLinkView extends BasePanel {
-		
-		public function VideoLinkView(param1:DisplayObjectContainer, param2:Status, param3:UserInfoVO) {
-			super(NAME,param1);
-			this._status = param2;
-			this._userInfoVO = param3;
-		}
+	public class VideoLinkView extends BasePanel
+	{
 		
 		public static const NAME:String = "com.qiyi.player.wonder.plugins.videolink.view.VideoLinkView";
 		
@@ -37,69 +33,92 @@ package com.qiyi.player.wonder.plugins.videolink.view {
 		
 		private var _activityNoticeLink:String = "";
 		
-		public function get activityNoticeLink() : String {
+		public function VideoLinkView(param1:DisplayObjectContainer, param2:Status, param3:UserInfoVO)
+		{
+			super(NAME,param1);
+			this._status = param2;
+			this._userInfoVO = param3;
+		}
+		
+		public function get activityNoticeLink() : String
+		{
 			return this._activityNoticeLink;
 		}
 		
-		public function get panelType() : uint {
+		public function get panelType() : uint
+		{
 			return this._panelType;
 		}
 		
-		public function onUserInfoChanged(param1:UserInfoVO) : void {
+		public function onUserInfoChanged(param1:UserInfoVO) : void
+		{
 			this._userInfoVO = param1;
 		}
 		
-		public function onAddStatus(param1:int) : void {
+		public function onAddStatus(param1:int) : void
+		{
 			this._status.addStatus(param1);
-			switch(param1) {
+			switch(param1)
+			{
 				case VideoLinkDef.STATUS_OPEN:
 					this.open();
 					break;
 			}
 		}
 		
-		public function onRemoveStatus(param1:int) : void {
+		public function onRemoveStatus(param1:int) : void
+		{
 			this._status.removeStatus(param1);
-			switch(param1) {
+			switch(param1)
+			{
 				case VideoLinkDef.STATUS_OPEN:
 					this.close();
 					break;
 			}
 		}
 		
-		override public function open(param1:DisplayObjectContainer = null) : void {
-			if(!isOnStage) {
+		override public function open(param1:DisplayObjectContainer = null) : void
+		{
+			if(!isOnStage)
+			{
 				super.open(param1);
 				dispatchEvent(new VideoLinkEvent(VideoLinkEvent.Evt_Open));
 			}
 		}
 		
-		override public function close() : void {
-			if(isOnStage) {
+		override public function close() : void
+		{
+			if(isOnStage)
+			{
 				super.close();
 				dispatchEvent(new VideoLinkEvent(VideoLinkEvent.Evt_Close));
 			}
 		}
 		
-		public function onResize(param1:int, param2:int) : void {
-			if((this._videoLinkPanel) && (this._videoLinkPanel.parent)) {
+		public function onResize(param1:int, param2:int) : void
+		{
+			if((this._videoLinkPanel) && (this._videoLinkPanel.parent))
+			{
 				this._videoLinkPanel.onResize(param1,param2);
 				this._videoLinkPanel.x = 2;
 				this._videoLinkPanel.y = GlobalStage.stage.stageHeight - this._videoLinkPanel.height - CONST_DISTANCE;
 			}
-			if((this._clientDownloadPanel) && (this._clientDownloadPanel.parent)) {
+			if((this._clientDownloadPanel) && (this._clientDownloadPanel.parent))
+			{
 				this._clientDownloadPanel.onResize(param1,param2);
 				this._clientDownloadPanel.x = 2;
 				this._clientDownloadPanel.y = GlobalStage.stage.stageHeight - this._clientDownloadPanel.height - CONST_DISTANCE;
 			}
-			if((this._activityNoticePanel) && (this._activityNoticePanel.parent)) {
+			if((this._activityNoticePanel) && (this._activityNoticePanel.parent))
+			{
 				this._activityNoticePanel.onResize(param1,param2);
 				this._activityNoticePanel.x = 2;
 				this._activityNoticePanel.y = GlobalStage.stage.stageHeight - this._activityNoticePanel.height - CONST_DISTANCE;
 			}
 		}
 		
-		public function initVideoLinkPanel(param1:int, param2:VideoLinkInfo = null) : void {
+		public function initVideoLinkPanel(param1:int, param2:VideoLinkInfo = null) : void
+		{
 			this.destroyAllPanel();
 			this._panelType = param1;
 			this._videoLinkPanel = new VideoLinkPanel();
@@ -110,7 +129,8 @@ package com.qiyi.player.wonder.plugins.videolink.view {
 			this.onResize(GlobalStage.stage.stageWidth,GlobalStage.stage.stageHeight);
 		}
 		
-		public function initClientDownloadPanel(param1:int) : void {
+		public function initClientDownloadPanel(param1:int) : void
+		{
 			this.destroyAllPanel();
 			this._panelType = param1;
 			TweenLite.delayedCall(VideoLinkDef.PANEL_SHOW_TIME,this.close);
@@ -121,7 +141,8 @@ package com.qiyi.player.wonder.plugins.videolink.view {
 			this.onResize(GlobalStage.stage.stageWidth,GlobalStage.stage.stageHeight);
 		}
 		
-		public function initActivityNoticePanel(param1:int, param2:String, param3:String) : void {
+		public function initActivityNoticePanel(param1:int, param2:String, param3:String) : void
+		{
 			this.destroyAllPanel();
 			this._panelType = param1;
 			this._activityNoticeLink = param3;
@@ -134,41 +155,50 @@ package com.qiyi.player.wonder.plugins.videolink.view {
 			this.onResize(GlobalStage.stage.stageWidth,GlobalStage.stage.stageHeight);
 		}
 		
-		private function destroyAllPanel() : void {
-			if(this._videoLinkPanel) {
+		private function destroyAllPanel() : void
+		{
+			if(this._videoLinkPanel)
+			{
 				this._videoLinkPanel.removeEventListener(VideoLinkEvent.Evt_BtnAndIconClick,this.onWatchVideoClick);
 				this._videoLinkPanel.removeEventListener(VideoLinkEvent.Evt_Close,this.onCloseBtnClick);
 				this._videoLinkPanel.destroy();
-				if(this._videoLinkPanel.parent) {
+				if(this._videoLinkPanel.parent)
+				{
 					removeChild(this._videoLinkPanel);
 				}
 				this._videoLinkPanel = null;
 			}
-			if(this._clientDownloadPanel) {
+			if(this._clientDownloadPanel)
+			{
 				this._clientDownloadPanel.removeEventListener(VideoLinkEvent.Evt_BtnAndIconClick,this.onWatchVideoClick);
 				this._clientDownloadPanel.removeEventListener(VideoLinkEvent.Evt_Close,this.onCloseBtnClick);
 				this._clientDownloadPanel.destroy();
-				if(this._clientDownloadPanel.parent) {
+				if(this._clientDownloadPanel.parent)
+				{
 					removeChild(this._clientDownloadPanel);
 				}
 				this._clientDownloadPanel = null;
 			}
-			if(this._activityNoticePanel) {
+			if(this._activityNoticePanel)
+			{
 				this._activityNoticePanel.removeEventListener(VideoLinkEvent.Evt_BtnAndIconClick,this.onWatchVideoClick);
 				this._activityNoticePanel.removeEventListener(VideoLinkEvent.Evt_Close,this.onCloseBtnClick);
 				this._activityNoticePanel.destroy();
-				if(this._activityNoticePanel.parent) {
+				if(this._activityNoticePanel.parent)
+				{
 					removeChild(this._activityNoticePanel);
 				}
 				this._activityNoticePanel = null;
 			}
 		}
 		
-		private function onWatchVideoClick(param1:VideoLinkEvent) : void {
+		private function onWatchVideoClick(param1:VideoLinkEvent) : void
+		{
 			dispatchEvent(new VideoLinkEvent(VideoLinkEvent.Evt_BtnAndIconClick));
 		}
 		
-		private function onCloseBtnClick(param1:VideoLinkEvent) : void {
+		private function onCloseBtnClick(param1:VideoLinkEvent) : void
+		{
 			TweenLite.killTweensOf(this.close);
 			this.close();
 		}

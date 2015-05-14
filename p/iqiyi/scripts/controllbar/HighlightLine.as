@@ -1,9 +1,12 @@
-package controllbar {
+package controllbar
+{
 	import flash.display.Sprite;
 	
-	public dynamic class HighlightLine extends Sprite {
+	public dynamic class HighlightLine extends Sprite
+	{
 		
-		public function HighlightLine() {
+		public function HighlightLine()
+		{
 			super();
 		}
 	}

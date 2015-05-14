@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.controllbar.view.preview.image {
+package com.qiyi.player.wonder.plugins.controllbar.view.preview.image
+{
 	import flash.events.EventDispatcher;
 	import flash.utils.Dictionary;
 	import flash.display.Loader;
@@ -16,20 +17,12 @@ package com.qiyi.player.wonder.plugins.controllbar.view.preview.image {
 	import flash.geom.Point;
 	import com.qiyi.player.base.logging.Log;
 	
-	public class PreviewImageLoader extends EventDispatcher {
-		
-		public function PreviewImageLoader() {
-			this._log = Log.getLogger("com.qiyi.player.wonder.plugins.controllbar.view.preview.image.PreviewImageLoader");
-			super();
-		}
+	public class PreviewImageLoader extends EventDispatcher
+	{
 		
 		private static var _instance:PreviewImageLoader;
 		
 		public static const COMPLETE:String = "COMPLETE";
-		
-		public static function get instance() : PreviewImageLoader {
-			return _instance = _instance || new PreviewImageLoader();
-		}
 		
 		private var _imgDic:Dictionary;
 		
@@ -45,48 +38,71 @@ package com.qiyi.player.wonder.plugins.controllbar.view.preview.image {
 		
 		private var _log:ILogger;
 		
-		public function init() : void {
+		public function PreviewImageLoader()
+		{
+			this._log = Log.getLogger("com.qiyi.player.wonder.plugins.controllbar.view.preview.image.PreviewImageLoader");
+			super();
+		}
+		
+		public static function get instance() : PreviewImageLoader
+		{
+			return _instance = _instance || new PreviewImageLoader();
+		}
+		
+		public function init() : void
+		{
 			this._isInit = true;
 			this._imgDic = new Dictionary();
 			this._waitLoadVec = new Vector.<String>();
 			this.imgLoader(SystemConfig.DEFAULT_IMAGE_URL);
 		}
 		
-		public function getImageByIndex(param1:int) : BitmapData {
-			if(!this._isInit) {
+		public function getImageByIndex(param1:int) : BitmapData
+		{
+			if(!this._isInit)
+			{
 				this.init();
 			}
-			var _loc2_:BitmapData = this._imgDic[param1];
-			if(_loc2_) {
-				return _loc2_;
+			var _loc2:BitmapData = this._imgDic[param1];
+			if(_loc2)
+			{
+				return _loc2;
 			}
 			return null;
 		}
 		
-		public function getDefaultImage() : BitmapData {
-			if(!this._isInit) {
+		public function getDefaultImage() : BitmapData
+		{
+			if(!this._isInit)
+			{
 				this.init();
 			}
-			if(this._defaultImage) {
+			if(this._defaultImage)
+			{
 				return this._defaultImage.bitmapData;
 			}
 			return null;
 		}
 		
-		public function imgLoader(param1:String) : void {
+		public function imgLoader(param1:String) : void
+		{
 			var i:uint = 0;
 			var var_36:String = param1;
-			if(!this._loading) {
+			if(!this._loading)
+			{
 				this._log.debug("PreviewImageLoader request image imgUrl = " + var_36);
-				try {
-					if(this._loader) {
+				try
+				{
+					if(this._loader)
+					{
 						this._loader.contentLoaderInfo.removeEventListener(Event.COMPLETE,this.onLoadComplete);
 						this._loader.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR,this.onErrorHandler);
 						this._loader.close();
 						this._loader = null;
 					}
 				}
-				catch(error:Error) {
+				catch(error:Error)
+				{
 					_log.debug("PreviewImageLoader request image Error = " + error);
 				}
 				this._loader = new Loader();
@@ -95,22 +111,28 @@ package com.qiyi.player.wonder.plugins.controllbar.view.preview.image {
 				this._loader.contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onErrorHandler);
 				this._loading = true;
 				this._loader.load(new URLRequest(var_36),new LoaderContext(true));
-			} else {
+			}
+			else
+			{
 				i = 0;
-				while(i < this._waitLoadVec.length) {
-					if(this._waitLoadVec[i] == var_36) {
+				while(i < this._waitLoadVec.length)
+				{
+					if(this._waitLoadVec[i] == var_36)
+					{
 						return;
 					}
 					i++;
 				}
 				this._waitLoadVec.push(var_36);
 			}
-			if(!this._loading) {
+			if(!this._loading)
+			{
 				return;
 			}
 		}
 		
-		private function onLoadComplete(param1:Event) : void {
+		private function onLoadComplete(param1:Event) : void
+		{
 			var bitmap:Bitmap = null;
 			var imageIndex:int = 0;
 			var strArr:Array = null;
@@ -121,27 +143,37 @@ package com.qiyi.player.wonder.plugins.controllbar.view.preview.image {
 			var j:int = 0;
 			var var_5:Event = param1;
 			this._loading = false;
-			try {
+			try
+			{
 				bitmap = new Bitmap((this._loader.content as Bitmap).bitmapData);
 				imageIndex = 0;
-				if(var_5.target.url == SystemConfig.DEFAULT_IMAGE_URL) {
-					if(!this._defaultImage) {
+				if(var_5.target.url == SystemConfig.DEFAULT_IMAGE_URL)
+				{
+					if(!this._defaultImage)
+					{
 						this._defaultImage = new Bitmap();
 						this._defaultImage.bitmapData = bitmap.bitmapData;
 					}
-				} else {
+				}
+				else
+				{
 					strArr = var_5.target.url.split(".jpg");
-					if(strArr.length > 0) {
+					if(strArr.length > 0)
+					{
 						strArr1 = strArr[0].split("_");
-						if(strArr1.length > 0) {
+						if(strArr1.length > 0)
+						{
 							imageIndex = int(strArr1[strArr1.length - 1]);
 						}
 					}
-					if(imageIndex > 0) {
+					if(imageIndex > 0)
+					{
 						i = 0;
-						while(i < ControllBarDef.IMAGE_PRE_BIG_ROW) {
+						while(i < ControllBarDef.IMAGE_PRE_BIG_ROW)
+						{
 							j = 0;
-							while(j < ControllBarDef.IMAGE_PRE_BIG_COL) {
+							while(j < ControllBarDef.IMAGE_PRE_BIG_COL)
+							{
 								rec = new Rectangle();
 								rec.x = j * ControllBarDef.IMAGE_PRE_SMALL_SIZE.x;
 								rec.y = i * ControllBarDef.IMAGE_PRE_SMALL_SIZE.y;
@@ -159,29 +191,35 @@ package com.qiyi.player.wonder.plugins.controllbar.view.preview.image {
 				}
 				this._log.debug("PreviewImageLoader request image Complete");
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 				_log.debug("PreviewImageLoader json Error:" + error);
 			}
-			if(this._waitLoadVec.length > 0) {
+			if(this._waitLoadVec.length > 0)
+			{
 				this.imgLoader(this._waitLoadVec.pop());
 			}
 		}
 		
-		public function clearImageData() : void {
-			var _loc1_:Object = null;
-			var _loc2_:BitmapData = null;
-			for(_loc1_ in this._imgDic) {
-				_loc2_ = this._imgDic[_loc1_];
-				delete this._imgDic[_loc1_];
+		public function clearImageData() : void
+		{
+			var _loc1:Object = null;
+			var _loc2:BitmapData = null;
+			for(_loc1 in this._imgDic)
+			{
+				_loc2 = this._imgDic[_loc1];
+				delete this._imgDic[_loc1];
 				true;
-				_loc2_ = null;
-				_loc1_ = null;
+				_loc2 = null;
+				_loc1 = null;
 			}
 		}
 		
-		private function onErrorHandler(param1:Event) : void {
+		private function onErrorHandler(param1:Event) : void
+		{
 			this._loading = false;
-			if(this._waitLoadVec.length > 0) {
+			if(this._waitLoadVec.length > 0)
+			{
 				this.imgLoader(this._waitLoadVec.shift());
 			}
 			this._log.debug("PreviewImageLoader request image Error");

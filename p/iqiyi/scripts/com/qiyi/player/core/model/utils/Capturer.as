@@ -1,4 +1,5 @@
-package com.qiyi.player.core.model.utils {
+package com.qiyi.player.core.model.utils
+{
 	import com.qiyi.player.core.IDestroy;
 	import com.qiyi.player.core.player.coreplayer.CorePlayer;
 	import com.qiyi.player.core.model.IMovie;
@@ -6,64 +7,75 @@ package com.qiyi.player.core.model.utils {
 	import com.qiyi.player.core.model.impls.Keyframe;
 	import com.qiyi.player.core.Config;
 	
-	public class Capturer extends Object implements IDestroy {
-		
-		public function Capturer(param1:CorePlayer) {
-			super();
-			this._holder = param1;
-		}
+	public class Capturer extends Object implements IDestroy
+	{
 		
 		private static const Date_Flag:int = 20101026;
 		
 		private var _holder:CorePlayer;
 		
-		public function getCaptureURL(param1:Number, param2:int) : String {
+		public function Capturer(param1:CorePlayer)
+		{
+			super();
+			this._holder = param1;
+		}
+		
+		public function getCaptureURL(param1:Number, param2:int) : String
+		{
 			return this.getUrl(this._holder.movie,param1,param2);
 		}
 		
-		private function getUrl(param1:IMovie, param2:Number, param3:int) : String {
-			var _loc5_:Segment = null;
-			var _loc6_:Vector.<Keyframe> = null;
-			var _loc7_:* = 0;
-			var _loc8_:* = NaN;
-			var _loc9_:* = NaN;
-			var _loc10_:* = NaN;
-			var _loc11_:Array = null;
-			var _loc4_:* = "";
-			if((param1) && (param1.ready)) {
-				_loc5_ = param1.getSegmentByTime(param2);
-				if(_loc5_) {
-					_loc6_ = _loc5_.getCaptureKeyFrames(param2);
-					_loc7_ = _loc6_.length;
-					if(_loc7_ > 0) {
-						_loc8_ = 0;
-						_loc9_ = 0;
-						_loc10_ = 0;
-						if(_loc7_ == 1) {
-							_loc8_ = _loc6_[0].position;
-							_loc9_ = _loc5_.totalBytes;
-							_loc10_ = param2 - _loc6_[0].time;
-						} else if(_loc7_ == 2) {
-							_loc8_ = _loc6_[0].position;
-							_loc9_ = _loc6_[1].position;
-							_loc10_ = param2 - _loc6_[0].time;
+		private function getUrl(param1:IMovie, param2:Number, param3:int) : String
+		{
+			var _loc5:Segment = null;
+			var _loc6:Vector.<Keyframe> = null;
+			var _loc7:* = 0;
+			var _loc8:* = NaN;
+			var _loc9:* = NaN;
+			var _loc10:* = NaN;
+			var _loc11:Array = null;
+			var _loc4:* = "";
+			if((param1) && (param1.ready))
+			{
+				_loc5 = param1.getSegmentByTime(param2);
+				if(_loc5)
+				{
+					_loc6 = _loc5.getCaptureKeyFrames(param2);
+					_loc7 = _loc6.length;
+					if(_loc7 > 0)
+					{
+						_loc8 = 0;
+						_loc9 = 0;
+						_loc10 = 0;
+						if(_loc7 == 1)
+						{
+							_loc8 = _loc6[0].position;
+							_loc9 = _loc5.totalBytes;
+							_loc10 = param2 - _loc6[0].time;
+						}
+						else if(_loc7 == 2)
+						{
+							_loc8 = _loc6[0].position;
+							_loc9 = _loc6[1].position;
+							_loc10 = param2 - _loc6[0].time;
 						}
 						
-						_loc4_ = _loc5_.url.replace(".f4v",".jpg");
-						_loc11_ = _loc4_.split("/");
-						_loc11_[2] = Config.CAPTURE_URL;
-						_loc4_ = _loc11_.join("/") + "?";
-						_loc4_ = _loc4_ + ("start=" + _loc8_);
-						_loc4_ = _loc4_ + ("&end=" + _loc9_);
-						_loc4_ = _loc4_ + ("&time=" + _loc10_);
-						_loc4_ = _loc4_ + ("&mode=" + param3);
+						_loc4 = _loc5.url.replace(".f4v",".jpg");
+						_loc11 = _loc4.split("/");
+						_loc11[2] = Config.CAPTURE_URL;
+						_loc4 = _loc11.join("/") + "?";
+						_loc4 = _loc4 + ("start=" + _loc8);
+						_loc4 = _loc4 + ("&end=" + _loc9);
+						_loc4 = _loc4 + ("&time=" + _loc10);
+						_loc4 = _loc4 + ("&mode=" + param3);
 					}
 				}
 			}
-			return _loc4_;
+			return _loc4;
 		}
 		
-		public function destroy() : void {
+		public function destroy() : void
+		{
 		}
 	}
 }

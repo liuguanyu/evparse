@@ -1,9 +1,7 @@
-package com.qiyi.player.wonder.plugins.dock {
-	public class DockDef extends Object {
-		
-		public function DockDef() {
-			super();
-		}
+package com.qiyi.player.wonder.plugins.dock
+{
+	public class DockDef extends Object
+	{
 		
 		private static var statusBegin:int = 0;
 		
@@ -34,5 +32,10 @@ package com.qiyi.player.wonder.plugins.dock {
 		public static const NOTIFIC_REMOVE_STATUS:String = "dockRemoveStatus";
 		
 		public static const DOCK_HIND_DELAY:int = 3000;
+		
+		public function DockDef()
+		{
+			super();
+		}
 	}
 }

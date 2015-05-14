@@ -1,5 +1,7 @@
-package org.puremvc.as3.interfaces {
-	public interface IView {
+package org.puremvc.as3.interfaces
+{
+	public interface IView
+	{
 		
 		function notifyObservers(param1:INotification) : void;
 		

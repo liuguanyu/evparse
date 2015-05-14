@@ -1,12 +1,10 @@
-package com.iqiyi.components.videoshare {
+package com.iqiyi.components.videoshare
+{
 	import flash.display.MovieClip;
 	import flash.display.SimpleButton;
 	
-	public dynamic class ShareBtnsBarUI extends MovieClip {
-		
-		public function ShareBtnsBarUI() {
-			super();
-		}
+	public dynamic class ShareBtnsBarUI extends MovieClip
+	{
 		
 		public var tencentBtn:SimpleButton;
 		
@@ -15,5 +13,10 @@ package com.iqiyi.components.videoshare {
 		public var renrenBtn:SimpleButton;
 		
 		public var qzoneBtn:SimpleButton;
+		
+		public function ShareBtnsBarUI()
+		{
+			super();
+		}
 	}
 }

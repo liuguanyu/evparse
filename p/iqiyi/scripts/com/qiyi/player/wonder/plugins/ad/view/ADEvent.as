@@ -1,11 +1,9 @@
-package com.qiyi.player.wonder.plugins.ad.view {
+package com.qiyi.player.wonder.plugins.ad.view
+{
 	import com.qiyi.player.wonder.common.event.CommonEvent;
 	
-	public class ADEvent extends CommonEvent {
-		
-		public function ADEvent(param1:String, param2:Object = null) {
-			super(param1,param2);
-		}
+	public class ADEvent extends CommonEvent
+	{
 		
 		public static const Evt_Open:String = "evtADOpen";
 		
@@ -30,5 +28,10 @@ package com.qiyi.player.wonder.plugins.ad.view {
 		public static const Evt_AdBlock:String = "evtADBlock";
 		
 		public static const Evt_AdUnloaded:String = "evtAdUnloaded";
+		
+		public function ADEvent(param1:String, param2:Object = null)
+		{
+			super(param1,param2);
+		}
 	}
 }

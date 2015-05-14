@@ -1,9 +1,12 @@
-package feedback {
+package feedback
+{
 	import flash.display.MovieClip;
 	
-	public dynamic class CopyRightExpiredUI extends MovieClip {
+	public dynamic class CopyRightExpiredUI extends MovieClip
+	{
 		
-		public function CopyRightExpiredUI() {
+		public function CopyRightExpiredUI()
+		{
 			super();
 		}
 	}

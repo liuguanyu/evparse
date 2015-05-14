@@ -1,11 +1,9 @@
-package com.qiyi.player.core.model.def {
+package com.qiyi.player.core.model.def
+{
 	import com.qiyi.player.base.pub.EnumItem;
 	
-	public class DefinitionEnum extends Object {
-		
-		public function DefinitionEnum() {
-			super();
-		}
+	public class DefinitionEnum extends Object
+	{
 		
 		public static const ITEMS:Array = [];
 		
@@ -24,5 +22,10 @@ package com.qiyi.player.core.model.def {
 		public static const FOUR_K:EnumItem = new EnumItem(10,"4k",ITEMS);
 		
 		public static const LIMIT:EnumItem = new EnumItem(96,"topspeed",ITEMS);
+		
+		public function DefinitionEnum()
+		{
+			super();
+		}
 	}
 }

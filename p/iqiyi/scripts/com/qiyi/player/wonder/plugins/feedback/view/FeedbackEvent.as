@@ -1,11 +1,9 @@
-package com.qiyi.player.wonder.plugins.feedback.view {
+package com.qiyi.player.wonder.plugins.feedback.view
+{
 	import com.qiyi.player.wonder.common.event.CommonEvent;
 	
-	public class FeedbackEvent extends CommonEvent {
-		
-		public function FeedbackEvent(param1:String, param2:Object = null) {
-			super(param1,param2);
-		}
+	public class FeedbackEvent extends CommonEvent
+	{
 		
 		public static const Evt_Open:String = "evtFeedbackOpen";
 		
@@ -28,5 +26,10 @@ package com.qiyi.player.wonder.plugins.feedback.view {
 		public static const Evt_PrivateConfirmBtnClick:String = "evtPrivateConfirmBtnClick";
 		
 		public static const Evt_SkipMemberAuthBtnClick:String = "evtSkipMemberAuthBtnClick";
+		
+		public function FeedbackEvent(param1:String, param2:Object = null)
+		{
+			super(param1,param2);
+		}
 	}
 }

@@ -1,59 +1,71 @@
-package com.qiyi.player.base.utils {
-	public class KeyUtils extends Object {
+package com.qiyi.player.base.utils
+{
+	public class KeyUtils extends Object
+	{
 		
-		public function KeyUtils() {
+		public function KeyUtils()
+		{
 			super();
 		}
 		
-		public static function getDispatchKey(param1:uint, param2:String) : String {
-			var _loc3_:* = ")(*&^flash@#$%a";
-			var _loc4_:uint = Math.floor(param1 / (10 * 60));
-			return MD5.calculate(_loc4_ + _loc3_ + param2);
+		public static function getDispatchKey(param1:uint, param2:String) : String
+		{
+			var _loc3:* = ")(*&^flash@#$%a";
+			var _loc4:uint = Math.floor(param1 / (10 * 60));
+			return MD5.calculate(_loc4 + _loc3 + param2);
 		}
 		
-		public static function getPassportKey(param1:uint) : String {
-			var _loc2_:uint = param1;
-			var _loc3_:uint = 2.391461978E9;
-			var _loc4_:uint = _loc3_ % 17;
-			_loc2_ = rotateRight(_loc2_,_loc4_);
-			var _loc5_:uint = _loc2_ ^ _loc3_;
-			return _loc5_.toString();
+		public static function getPassportKey(param1:uint) : String
+		{
+			var _loc2:uint = param1;
+			var _loc3:uint = 2.391461978E9;
+			var _loc4:uint = _loc3 % 17;
+			_loc2 = rotateRight(_loc2,_loc4);
+			var _loc5:uint = _loc2 ^ _loc3;
+			return _loc5.toString();
 		}
 		
-		private static function rotateRight(param1:uint, param2:uint) : uint {
-			var _loc3_:uint = 0;
-			var _loc4_:uint = param1;
-			var _loc5_:* = 0;
-			while(_loc5_ < param2) {
-				_loc3_ = _loc4_ & 1;
-				_loc4_ = _loc4_ >>> 1;
-				_loc3_ = _loc3_ << 31;
-				_loc4_ = _loc4_ + _loc3_;
-				_loc5_++;
+		private static function rotateRight(param1:uint, param2:uint) : uint
+		{
+			var _loc3:uint = 0;
+			var _loc4:uint = param1;
+			var _loc5:* = 0;
+			while(_loc5 < param2)
+			{
+				_loc3 = _loc4 & 1;
+				_loc4 = _loc4 >>> 1;
+				_loc3 = _loc3 << 31;
+				_loc4 = _loc4 + _loc3;
+				_loc5++;
 			}
-			return _loc4_;
+			return _loc4;
 		}
 		
-		public static function getVrsEncodeCode(param1:String) : String {
-			var _loc6_:uint = 0;
-			var _loc2_:* = "";
-			var _loc3_:Array = param1.split("-");
-			var _loc4_:int = _loc3_.length;
-			var _loc5_:int = _loc4_ - 1;
-			while(_loc5_ >= 0) {
-				_loc6_ = getVRSXORCode(parseInt(_loc3_[_loc4_ - _loc5_ - 1],16),_loc5_);
-				_loc2_ = String.fromCharCode(_loc6_) + _loc2_;
-				_loc5_--;
+		public static function getVrsEncodeCode(param1:String) : String
+		{
+			var _loc6:uint = 0;
+			var _loc2:* = "";
+			var _loc3:Array = param1.split("-");
+			var _loc4:int = _loc3.length;
+			var _loc5:int = _loc4 - 1;
+			while(_loc5 >= 0)
+			{
+				_loc6 = getVRSXORCode(parseInt(_loc3[_loc4 - _loc5 - 1],16),_loc5);
+				_loc2 = String.fromCharCode(_loc6) + _loc2;
+				_loc5--;
 			}
-			return _loc2_;
+			return _loc2;
 		}
 		
-		private static function getVRSXORCode(param1:uint, param2:uint) : uint {
-			var _loc3_:int = param2 % 3;
-			if(_loc3_ == 1) {
+		private static function getVRSXORCode(param1:uint, param2:uint) : uint
+		{
+			var _loc3:int = param2 % 3;
+			if(_loc3 == 1)
+			{
 				return param1 ^ 121;
 			}
-			if(_loc3_ == 2) {
+			if(_loc3 == 2)
+			{
 				return param1 ^ 72;
 			}
 			return param1 ^ 103;

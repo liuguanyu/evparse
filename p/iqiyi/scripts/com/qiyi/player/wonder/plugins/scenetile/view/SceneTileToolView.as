@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.scenetile.view {
+package com.qiyi.player.wonder.plugins.scenetile.view
+{
 	import com.iqiyi.components.panelSystem.impls.BasePanel;
 	import com.qiyi.player.wonder.common.status.Status;
 	import com.qiyi.player.wonder.common.vo.UserInfoVO;
@@ -25,15 +26,8 @@ package com.qiyi.player.wonder.plugins.scenetile.view {
 	import flash.events.SecurityErrorEvent;
 	import flash.net.URLRequest;
 	
-	public class SceneTileToolView extends BasePanel {
-		
-		public function SceneTileToolView(param1:DisplayObjectContainer, param2:Status, param3:UserInfoVO) {
-			super(NAME,param1);
-			this._status = param2;
-			this._userInfoVO = param3;
-			this.initUI();
-			this.onResize(GlobalStage.stage.stageWidth,GlobalStage.stage.stageHeight);
-		}
+	public class SceneTileToolView extends BasePanel
+	{
 		
 		public static const NAME:String = "com.qiyi.player.wonder.plugins.scenetile.view.SceneTileToolView";
 		
@@ -65,45 +59,63 @@ package com.qiyi.player.wonder.plugins.scenetile.view {
 		
 		private var _border:Shape;
 		
-		public function get playBtn() : PlayBtn {
+		public function SceneTileToolView(param1:DisplayObjectContainer, param2:Status, param3:UserInfoVO)
+		{
+			super(NAME,param1);
+			this._status = param2;
+			this._userInfoVO = param3;
+			this.initUI();
+			this.onResize(GlobalStage.stage.stageWidth,GlobalStage.stage.stageHeight);
+		}
+		
+		public function get playBtn() : PlayBtn
+		{
 			return this._playBtn;
 		}
 		
-		public function set sceneTileTipBtnX(param1:int) : void {
+		public function set sceneTileTipBtnX(param1:int) : void
+		{
 			this._sceneTileTipBtnX = param1 - 2;
 			this._sceneTileTip.x = this._sceneTileTipBtnX + 25 - this._sceneTileTip.width / 2;
 		}
 		
-		public function set sceneTileTipBtnY(param1:int) : void {
+		public function set sceneTileTipBtnY(param1:int) : void
+		{
 			this._gap = param1;
 			this._sceneTileTip.y = GlobalStage.stage.stageHeight - this._sceneTileTip.height - this._gap;
 		}
 		
-		public function setGap(param1:int) : void {
+		public function setGap(param1:int) : void
+		{
 			this._gap = param1;
-			var _loc2_:int = GlobalStage.stage.stageHeight - this._sceneTileTip.height - this._gap;
+			var _loc2:int = GlobalStage.stage.stageHeight - this._sceneTileTip.height - this._gap;
 			TweenLite.to(this._sceneTileTip,0.5,{
-				"y":_loc2_,
+				"y":_loc2,
 				"onComplete":this.onTweenComplete
 			});
 		}
 		
-		public function get sceneTileTipX() : int {
+		public function get sceneTileTipX() : int
+		{
 			return localToGlobal(new Point(this._sceneTileTip.x,0)).x;
 		}
 		
-		public function onUserInfoChanged(param1:UserInfoVO) : void {
+		public function onUserInfoChanged(param1:UserInfoVO) : void
+		{
 			this._userInfoVO = param1;
 		}
 		
-		public function updateSceneTileTip() : void {
+		public function updateSceneTileTip() : void
+		{
 			this._sceneTileTip.x = this._sceneTileTipBtnX + 25 - this._sceneTileTip.width / 2;
 			this._sceneTileTip.y = GlobalStage.stage.stageHeight - this._sceneTileTip.height - this._gap;
 		}
 		
-		public function onAddStatus(param1:int) : void {
+		public function onAddStatus(param1:int) : void
+		{
 			this._status.addStatus(param1);
-			switch(param1) {
+			switch(param1)
+			{
 				case SceneTileDef.STATUS_TOOL_OPEN:
 					this.open();
 					break;
@@ -126,20 +138,24 @@ package com.qiyi.player.wonder.plugins.scenetile.view {
 			}
 		}
 		
-		public function onRemoveStatus(param1:int) : void {
+		public function onRemoveStatus(param1:int) : void
+		{
 			this._status.removeStatus(param1);
-			switch(param1) {
+			switch(param1)
+			{
 				case SceneTileDef.STATUS_TOOL_OPEN:
 					this.close();
 					break;
 				case SceneTileDef.STATUS_PLAY_BTN_SHOW:
-					if(this._playBtn.parent) {
+					if(this._playBtn.parent)
+					{
 						this._playBtn.gotoAndStop(1);
 						removeChild(this._playBtn);
 					}
 					break;
 				case SceneTileDef.STATUS_SCENE_TILE_TIP_SHOW:
-					if(this._sceneTileTip.parent) {
+					if(this._sceneTileTip.parent)
+					{
 						removeChild(this._sceneTileTip);
 					}
 					break;
@@ -152,51 +168,63 @@ package com.qiyi.player.wonder.plugins.scenetile.view {
 			}
 		}
 		
-		public function onResize(param1:int, param2:int) : void {
+		public function onResize(param1:int, param2:int) : void
+		{
 			this._playBtn.x = 22;
 			this._playBtn.y = param2 - 140;
-			if(this._imageContainer != null) {
+			if(this._imageContainer != null)
+			{
 				this._imageContainer.width = GlobalStage.stage.stageWidth;
 				this._imageContainer.height = GlobalStage.stage.stageHeight;
 			}
-			if(this._starHeadContainer) {
+			if(this._starHeadContainer)
+			{
 				this._starHeadContainer.x = param1 - this._starHeadContainer.numChildren * 55 - 120;
 				this._starHeadContainer.y = param2 - 120;
 			}
 			this.updateSceneTileTip();
 		}
 		
-		public function updateStarHeadImage(param1:Object) : void {
-			var _loc2_:ToolStarHeadImageItem = null;
-			var _loc3_:Array = null;
-			var _loc4_:ToolStarHeadImageItem = null;
-			var _loc5_:* = 0;
-			while(this._starHeadContainer.numChildren > 0) {
-				_loc2_ = this._starHeadContainer.removeChildAt(0) as ToolStarHeadImageItem;
-				_loc2_.destroy();
-				_loc2_ = null;
+		public function updateStarHeadImage(param1:Object) : void
+		{
+			var _loc2:ToolStarHeadImageItem = null;
+			var _loc3:Array = null;
+			var _loc4:ToolStarHeadImageItem = null;
+			var _loc5:* = 0;
+			while(this._starHeadContainer.numChildren > 0)
+			{
+				_loc2 = this._starHeadContainer.removeChildAt(0) as ToolStarHeadImageItem;
+				_loc2.destroy();
+				_loc2 = null;
 			}
-			if((param1) && (param1.stars)) {
-				_loc3_ = param1.stars as Array;
-				_loc5_ = 0;
-				while(_loc5_ < _loc3_.length) {
-					if(_loc3_[_loc5_].icon) {
-						_loc4_ = new ToolStarHeadImageItem(_loc3_[_loc5_].icon,_loc5_);
-						_loc4_.x = _loc5_ * 55;
-						this._starHeadContainer.addChild(_loc4_);
+			if((param1) && (param1.stars))
+			{
+				_loc3 = param1.stars as Array;
+				_loc5 = 0;
+				while(_loc5 < _loc3.length)
+				{
+					if(_loc3[_loc5].icon)
+					{
+						_loc4 = new ToolStarHeadImageItem(_loc3[_loc5].icon,_loc5);
+						_loc4.x = _loc5 * 55;
+						this._starHeadContainer.addChild(_loc4);
 					}
-					_loc5_++;
+					_loc5++;
 				}
 			}
 			this.onResize(GlobalStage.stage.stageWidth,GlobalStage.stage.stageHeight);
 		}
 		
-		public function updateVideoNamePosition(param1:String, param2:Boolean) : void {
-			if(param2) {
+		public function updateVideoNamePosition(param1:String, param2:Boolean) : void
+		{
+			if(param2)
+			{
 				this._tfVideoName.text = "即将播放：" + param1;
 				this._spVideoName.x = 80;
 				this._spVideoName.y = 25;
-			} else {
+			}
+			else
+			{
 				this._tfVideoName.text = param1;
 				this._spVideoName.x = 40;
 				this._spVideoName.y = 25;
@@ -204,12 +232,14 @@ package com.qiyi.player.wonder.plugins.scenetile.view {
 			}
 		}
 		
-		private function onDelayedCallComplete() : void {
+		private function onDelayedCallComplete() : void
+		{
 			TweenLite.killTweensOf(this.onDelayedCallComplete);
 			TweenLite.to(this._spVideoName,1,{"alpha":0});
 		}
 		
-		public function drawBorder() : void {
+		public function drawBorder() : void
+		{
 			this._border.graphics.clear();
 			this._border.graphics.lineStyle(1,1579032);
 			this._border.graphics.moveTo(0,0);
@@ -219,35 +249,44 @@ package com.qiyi.player.wonder.plugins.scenetile.view {
 			this._border.graphics.lineTo(0,0);
 		}
 		
-		public function clearBorder() : void {
+		public function clearBorder() : void
+		{
 			this._border.graphics.clear();
 		}
 		
-		override public function open(param1:DisplayObjectContainer = null) : void {
-			if(!isOnStage) {
+		override public function open(param1:DisplayObjectContainer = null) : void
+		{
+			if(!isOnStage)
+			{
 				super.open(param1);
 				dispatchEvent(new SceneTileEvent(SceneTileEvent.Evt_ToolOpen));
 			}
 		}
 		
-		override public function close() : void {
-			if(isOnStage) {
+		override public function close() : void
+		{
+			if(isOnStage)
+			{
 				super.close();
 				dispatchEvent(new SceneTileEvent(SceneTileEvent.Evt_ToolClose));
 			}
 		}
 		
-		override protected function onAddToStage() : void {
+		override protected function onAddToStage() : void
+		{
 			super.onAddToStage();
 		}
 		
-		override protected function onRemoveFromStage() : void {
+		override protected function onRemoveFromStage() : void
+		{
 			super.onRemoveFromStage();
 		}
 		
-		private function initUI() : void {
+		private function initUI() : void
+		{
 			this._imageContainer = new Sprite();
-			if(!FlashVarConfig.autoPlay) {
+			if(!FlashVarConfig.autoPlay)
+			{
 				addChild(this._imageContainer);
 				this._imageContainer.graphics.beginFill(0);
 				this._imageContainer.graphics.drawRect(0,0,GlobalStage.stage.stageWidth,GlobalStage.stage.stageHeight);
@@ -256,13 +295,16 @@ package com.qiyi.player.wonder.plugins.scenetile.view {
 			}
 			this._playBtn = new PlayBtn();
 			this._playBtn.buttonMode = this._playBtn.useHandCursor = true;
-			this._playBtn.addEventListener(MouseEvent.MOUSE_OVER,function(param1:MouseEvent):void {
+			this._playBtn.addEventListener(MouseEvent.MOUSE_OVER,function(param1:MouseEvent):void
+			{
 				_playBtn.gotoAndStop(2);
 			});
-			this._playBtn.addEventListener(MouseEvent.MOUSE_OUT,function(param1:MouseEvent):void {
+			this._playBtn.addEventListener(MouseEvent.MOUSE_OUT,function(param1:MouseEvent):void
+			{
 				_playBtn.gotoAndStop(1);
 			});
-			if(this._status.hasStatus(SceneTileDef.STATUS_PLAY_BTN_SHOW)) {
+			if(this._status.hasStatus(SceneTileDef.STATUS_PLAY_BTN_SHOW))
+			{
 				addChild(this._playBtn);
 			}
 			this._spVideoName = new Sprite();
@@ -288,13 +330,16 @@ package com.qiyi.player.wonder.plugins.scenetile.view {
 			GlobalStage.stage.addChild(this._border);
 		}
 		
-		private function onTweenComplete() : void {
+		private function onTweenComplete() : void
+		{
 			this._sceneTileTip.x = this._sceneTileTipBtnX + 25 - this._sceneTileTip.width / 2;
 			this._sceneTileTip.y = GlobalStage.stage.stageHeight - this._sceneTileTip.height - this._gap;
 		}
 		
-		public function requestUnAutoPlayImage() : void {
-			if((FlashVarConfig.autoPlay) || FlashVarConfig.imageUrl == "") {
+		public function requestUnAutoPlayImage() : void
+		{
+			if((FlashVarConfig.autoPlay) || FlashVarConfig.imageUrl == "")
+			{
 				return;
 			}
 			this._loader = new Loader();
@@ -304,26 +349,33 @@ package com.qiyi.player.wonder.plugins.scenetile.view {
 			this._loader.load(new URLRequest(FlashVarConfig.imageUrl));
 		}
 		
-		private function onComplete(param1:Event) : void {
-			if(isOnStage) {
+		private function onComplete(param1:Event) : void
+		{
+			if(isOnStage)
+			{
 				this._imageContainer.addChild(this._loader);
 				this._loader.width = GlobalStage.stage.stageWidth;
 				this._loader.height = GlobalStage.stage.stageHeight;
 			}
 		}
 		
-		private function onIOError(param1:Event) : void {
+		private function onIOError(param1:Event) : void
+		{
 		}
 		
-		public function destroyImageLoader() : void {
-			if(!(this._imageContainer == null) && (this._imageContainer.parent)) {
+		public function destroyImageLoader() : void
+		{
+			if(!(this._imageContainer == null) && (this._imageContainer.parent))
+			{
 				this._imageContainer.graphics.clear();
 				removeChild(this._imageContainer);
 			}
-			if(this._loader == null) {
+			if(this._loader == null)
+			{
 				return;
 			}
-			if(this._loader.parent) {
+			if(this._loader.parent)
+			{
 				this._imageContainer.removeChild(this._loader);
 			}
 			this._loader.contentLoaderInfo.removeEventListener(Event.COMPLETE,this.onComplete);
@@ -332,7 +384,8 @@ package com.qiyi.player.wonder.plugins.scenetile.view {
 			this._loader = null;
 		}
 		
-		private function onTipCloseBtnClick(param1:MouseEvent) : void {
+		private function onTipCloseBtnClick(param1:MouseEvent) : void
+		{
 			dispatchEvent(new SceneTileEvent(SceneTileEvent.Evt_TipCloseBtnClick));
 		}
 	}

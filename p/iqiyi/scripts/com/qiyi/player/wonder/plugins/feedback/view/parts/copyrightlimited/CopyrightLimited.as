@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.feedback.view.parts.copyrightlimited {
+package com.qiyi.player.wonder.plugins.feedback.view.parts.copyrightlimited
+{
 	import flash.display.Sprite;
 	import com.qiyi.player.wonder.IDestroy;
 	import feedback.OverseaUI;
@@ -15,12 +16,63 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.copyrightlimited {
 	import gs.easing.Back;
 	import flash.display.DisplayObject;
 	
-	public class CopyrightLimited extends Sprite implements IDestroy {
+	public class CopyrightLimited extends Sprite implements IDestroy
+	{
 		
-		public function CopyrightLimited(param1:uint) {
+		private static const TEXT_TITLE_PLATFORM_LIMIT:String = "很抱歉，当前平台暂无法播放。";
+		
+		private static const TEXT_TITLE_AREA_LIMIT:String = "很抱歉，由于版权原因暂无法播放。";
+		
+		private static const TEXT_CLIENT_EXTEND:String = "<font color=\'#699f00\'>爱奇艺视频桌面版</font>说不定还能看，去试试？";
+		
+		private static const TEXT_DOWNLOAD_BTN:String = "立刻下载安装";
+		
+		private static const TEXT_LINK:String = "如果您有其他问题，<font color=\'#ffffff\'>" + "<a href=\'event:onTextEventClick\'><u>请告知我们</u></a></font> 我们将尽快查找原因。";
+		
+		private static const TEXT_ENGLISH_AREA_LIMIT:String = "Sorry, this video is not available in " + "your region due to copyright limitations.";
+		
+		private static const TEXT_ENGLISH_PLATFORM_LIMIT:String = "The current platform temporarily unable to play";
+		
+		public var _thisW:int = 596;
+		
+		public var _thisH:int = 198;
+		
+		private var _overseaUI:OverseaUI;
+		
+		private var _titleTF:TextField;
+		
+		private var _clientExtendTF:TextField;
+		
+		private var _downLoadBtn:DownLoadBtn;
+		
+		private var _downLoadTF:TextField;
+		
+		private var _linkTF:TextField;
+		
+		private var _englistTF:TextField;
+		
+		private var _preBtn:TriangleBtn;
+		
+		private var _nextBtn:TriangleBtn;
+		
+		private var _leftText:TextField;
+		
+		private var _rightText:TextField;
+		
+		private var _rightTextLink:Sprite;
+		
+		private var _videoItemArray:Array = null;
+		
+		private var _maskMC:Sprite = null;
+		
+		private var _loadInContainer:Sprite = null;
+		
+		public function CopyrightLimited(param1:uint)
+		{
 			super();
 			this._overseaUI = new OverseaUI();
-			switch(param1) {
+			switch(param1)
+			{
 				case FeedbackDef.FEEDBACK_LIMITED_PLATFORM:
 					this._titleTF = FastCreator.createLabel(TEXT_TITLE_PLATFORM_LIMIT,16777215,18);
 					this._englistTF = FastCreator.createLabel(TEXT_ENGLISH_PLATFORM_LIMIT,10066329,12);
@@ -75,81 +127,39 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.copyrightlimited {
 			this.initUI();
 		}
 		
-		private static const TEXT_TITLE_PLATFORM_LIMIT:String = "很抱歉，当前平台暂无法播放。";
-		
-		private static const TEXT_TITLE_AREA_LIMIT:String = "很抱歉，由于版权原因暂无法播放。";
-		
-		private static const TEXT_CLIENT_EXTEND:String = "<font color=\'#699f00\'>爱奇艺视频桌面版</font>说不定还能看，去试试？";
-		
-		private static const TEXT_DOWNLOAD_BTN:String = "立刻下载安装";
-		
-		private static const TEXT_LINK:String = "如果您有其他问题，<font color=\'#ffffff\'>" + "<a href=\'event:onTextEventClick\'><u>请告知我们</u></a></font> 我们将尽快查找原因。";
-		
-		private static const TEXT_ENGLISH_AREA_LIMIT:String = "Sorry, this video is not available in " + "your region due to copyright limitations.";
-		
-		private static const TEXT_ENGLISH_PLATFORM_LIMIT:String = "The current platform temporarily unable to play";
-		
-		public var _thisW:int = 596;
-		
-		public var _thisH:int = 198;
-		
-		private var _overseaUI:OverseaUI;
-		
-		private var _titleTF:TextField;
-		
-		private var _clientExtendTF:TextField;
-		
-		private var _downLoadBtn:DownLoadBtn;
-		
-		private var _downLoadTF:TextField;
-		
-		private var _linkTF:TextField;
-		
-		private var _englistTF:TextField;
-		
-		private var _preBtn:TriangleBtn;
-		
-		private var _nextBtn:TriangleBtn;
-		
-		private var _leftText:TextField;
-		
-		private var _rightText:TextField;
-		
-		private var _rightTextLink:Sprite;
-		
-		private var _videoItemArray:Array = null;
-		
-		private var _maskMC:Sprite = null;
-		
-		private var _loadInContainer:Sprite = null;
-		
-		public function get downLoadBtn() : SimpleButton {
+		public function get downLoadBtn() : SimpleButton
+		{
 			return this._downLoadBtn;
 		}
 		
-		public function get linkTextField() : TextField {
+		public function get linkTextField() : TextField
+		{
 			return this._linkTF;
 		}
 		
-		public function onResize(param1:int, param2:int) : void {
+		public function onResize(param1:int, param2:int) : void
+		{
 			x = (param1 - this._overseaUI.width) * 0.5;
 			y = (param2 - height) / 2 + 15;
 		}
 		
-		private function getVideoData() : void {
-			var _loc1_:int = FeedbackDef.OPEN_VIDEOS.item.length();
+		private function getVideoData() : void
+		{
+			var _loc1:int = FeedbackDef.OPEN_VIDEOS.item.length();
 			this._videoItemArray = new Array();
-			var _loc2_:* = 0;
-			while(_loc2_ < _loc1_) {
-				this._videoItemArray[_loc2_] = new OpenVideoItem(FeedbackDef.OPEN_VIDEOS.item[_loc2_].@video_url,FeedbackDef.OPEN_VIDEOS.item[_loc2_].@pic_url,FeedbackDef.OPEN_VIDEOS.item[_loc2_].@title);
-				this._videoItemArray[_loc2_].x = _loc2_ * (this._thisW - 86) / 4;
-				this._videoItemArray[_loc2_].y = 0;
-				this._loadInContainer.addChild(this._videoItemArray[_loc2_]);
-				_loc2_++;
+			var _loc2:* = 0;
+			while(_loc2 < _loc1)
+			{
+				this._videoItemArray[_loc2] = new OpenVideoItem(FeedbackDef.OPEN_VIDEOS.item[_loc2].@video_url,FeedbackDef.OPEN_VIDEOS.item[_loc2].@pic_url,FeedbackDef.OPEN_VIDEOS.item[_loc2].@title);
+				this._videoItemArray[_loc2].x = _loc2 * (this._thisW - 86) / 4;
+				this._videoItemArray[_loc2].y = 0;
+				this._loadInContainer.addChild(this._videoItemArray[_loc2]);
+				_loc2++;
 			}
 		}
 		
-		private function initUI() : void {
+		private function initUI() : void
+		{
 			this._leftText.y = this._overseaUI.y + this._overseaUI.height + 20;
 			this._rightTextLink.y = this._leftText.y;
 			this._loadInContainer.x = this._overseaUI.x;
@@ -175,31 +185,38 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.copyrightlimited {
 			addChild(this._nextBtn);
 		}
 		
-		private function onMoreClick(param1:MouseEvent) : void {
+		private function onMoreClick(param1:MouseEvent) : void
+		{
 			navigateToURL(new URLRequest(FeedbackDef.OPEN_VIDEOS_LIST_URL),"_blank");
 		}
 		
-		private function onRollOver(param1:MouseEvent) : void {
+		private function onRollOver(param1:MouseEvent) : void
+		{
 			this._rightText.setTextFormat(new TextFormat(FastCreator.FONT_MSYH,16,10066329,true,null,true));
 		}
 		
-		private function onRollOut(param1:MouseEvent) : void {
+		private function onRollOut(param1:MouseEvent) : void
+		{
 			this._rightText.setTextFormat(new TextFormat(FastCreator.FONT_MSYH,16,8562957,true,null,true));
 		}
 		
-		private function onPreBtnClick(param1:MouseEvent) : void {
-			var _loc2_:* = 0;
-			var _loc3_:Object = null;
-			if(!this._videoItemArray) {
+		private function onPreBtnClick(param1:MouseEvent) : void
+		{
+			var _loc2:* = 0;
+			var _loc3:Object = null;
+			if(!this._videoItemArray)
+			{
 				return;
 			}
-			if(this._videoItemArray.length > 4) {
-				_loc2_ = 0;
-				while(_loc2_ < 4) {
-					_loc3_ = this._videoItemArray.pop();
-					_loc3_.x = this._videoItemArray[0].x - (this._thisW - 86) / 4;
-					this._videoItemArray.unshift(_loc3_);
-					_loc2_++;
+			if(this._videoItemArray.length > 4)
+			{
+				_loc2 = 0;
+				while(_loc2 < 4)
+				{
+					_loc3 = this._videoItemArray.pop();
+					_loc3.x = this._videoItemArray[0].x - (this._thisW - 86) / 4;
+					this._videoItemArray.unshift(_loc3);
+					_loc2++;
 				}
 				TweenLite.to(this._loadInContainer,1,{
 					"x":this._loadInContainer.x + (this._thisW - 86) / 1,
@@ -210,19 +227,23 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.copyrightlimited {
 			}
 		}
 		
-		private function onNextBtnClick(param1:MouseEvent) : void {
-			var _loc2_:* = 0;
-			var _loc3_:Object = null;
-			if(!this._videoItemArray) {
+		private function onNextBtnClick(param1:MouseEvent) : void
+		{
+			var _loc2:* = 0;
+			var _loc3:Object = null;
+			if(!this._videoItemArray)
+			{
 				return;
 			}
-			if(this._videoItemArray.length > 4) {
-				_loc2_ = 0;
-				while(_loc2_ < 4) {
-					_loc3_ = this._videoItemArray.shift();
-					_loc3_.x = this._videoItemArray[this._videoItemArray.length - 1].x + (this._thisW - 86) / 4;
-					this._videoItemArray.push(_loc3_);
-					_loc2_++;
+			if(this._videoItemArray.length > 4)
+			{
+				_loc2 = 0;
+				while(_loc2 < 4)
+				{
+					_loc3 = this._videoItemArray.shift();
+					_loc3.x = this._videoItemArray[this._videoItemArray.length - 1].x + (this._thisW - 86) / 4;
+					this._videoItemArray.push(_loc3);
+					_loc2++;
 				}
 				TweenLite.to(this._loadInContainer,1,{
 					"x":this._loadInContainer.x - (this._thisW - 86) / 1,
@@ -233,39 +254,46 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.copyrightlimited {
 			}
 		}
 		
-		private function enableBtns() : void {
+		private function enableBtns() : void
+		{
 			this._preBtn.addEventListener(MouseEvent.CLICK,this.onPreBtnClick);
 			this._nextBtn.addEventListener(MouseEvent.CLICK,this.onNextBtnClick);
 			this._preBtn.enable = true;
 			this._nextBtn.enable = true;
 		}
 		
-		private function disableBtns() : void {
+		private function disableBtns() : void
+		{
 			this._preBtn.removeEventListener(MouseEvent.CLICK,this.onPreBtnClick);
 			this._nextBtn.removeEventListener(MouseEvent.CLICK,this.onNextBtnClick);
 			this._preBtn.enable = false;
 			this._nextBtn.enable = false;
 		}
 		
-		public function destroy() : void {
-			var _loc1_:DisplayObject = null;
+		public function destroy() : void
+		{
+			var _loc1:DisplayObject = null;
 			this._preBtn.removeEventListener(MouseEvent.CLICK,this.onPreBtnClick);
 			this._nextBtn.removeEventListener(MouseEvent.CLICK,this.onNextBtnClick);
-			if((this._overseaUI) && (this._overseaUI.parent)) {
-				while(this._overseaUI.numChildren > 0) {
-					_loc1_ = this._overseaUI.getChildAt(0);
-					this._overseaUI.removeChild(_loc1_);
-					_loc1_ = null;
+			if((this._overseaUI) && (this._overseaUI.parent))
+			{
+				while(this._overseaUI.numChildren > 0)
+				{
+					_loc1 = this._overseaUI.getChildAt(0);
+					this._overseaUI.removeChild(_loc1);
+					_loc1 = null;
 				}
 				removeChild(this._overseaUI);
 				this._overseaUI = null;
 			}
-			while(numChildren > 0) {
-				_loc1_ = getChildAt(0);
-				if(_loc1_.parent) {
-					removeChild(_loc1_);
+			while(numChildren > 0)
+			{
+				_loc1 = getChildAt(0);
+				if(_loc1.parent)
+				{
+					removeChild(_loc1);
 				}
-				_loc1_ = null;
+				_loc1 = null;
 			}
 		}
 	}

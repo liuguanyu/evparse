@@ -1,5 +1,7 @@
-package org.puremvc.as3.interfaces {
-	public interface IModel {
+package org.puremvc.as3.interfaces
+{
+	public interface IModel
+	{
 		
 		function removeProxy(param1:String) : IProxy;
 		

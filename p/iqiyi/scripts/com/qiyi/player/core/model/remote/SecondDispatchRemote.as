@@ -1,4 +1,5 @@
-package com.qiyi.player.core.model.remote {
+package com.qiyi.player.core.model.remote
+{
 	import com.qiyi.player.base.rpc.impl.BaseRemoteObject;
 	import com.qiyi.player.core.model.impls.Segment;
 	import com.qiyi.player.core.player.coreplayer.ICorePlayer;
@@ -16,17 +17,8 @@ package com.qiyi.player.core.model.remote {
 	import com.qiyi.player.base.logging.Log;
 	import com.qiyi.player.core.Config;
 	
-	public class SecondDispatchRemote extends BaseRemoteObject {
-		
-		public function SecondDispatchRemote(param1:Segment, param2:int, param3:ICorePlayer) {
-			this._log = Log.getLogger("com.qiyi.player.core.model.remote.SecondDispatchRemote");
-			super(0,"SecondDispatchRemote" + Math.random());
-			this._segment = param1;
-			this._startPos = param2;
-			this._holder = param3;
-			_retryMaxCount = Config.DISPATCH_MAX_RETRY;
-			_timeout = Config.DISPATCH_TIMEOUT;
-		}
+	public class SecondDispatchRemote extends BaseRemoteObject
+	{
 		
 		private var _segment:Segment;
 		
@@ -36,68 +28,96 @@ package com.qiyi.player.core.model.remote {
 		
 		private var _log:ILogger;
 		
-		override protected function getRequest() : URLRequest {
-			var _loc1_:String = Utility.getUrl(this._segment.url,this._holder.runtimeData.key);
-			if(this._startPos == -1) {
-				if((this._segment.currentKeyframe) && !(this._segment.currentKeyframe.index == 0)) {
-					_loc1_ = _loc1_ + ("?start=" + this._segment.currentKeyframe.position.toString());
-				}
-			} else if(this._startPos != 0) {
-				_loc1_ = _loc1_ + ("?start=" + this._startPos.toString());
-			}
-			
-			_loc1_ = _loc1_ + (_loc1_.indexOf("?") == -1?"?":"&");
-			_loc1_ = _loc1_ + ("su=" + UUIDManager.instance.uuid);
-			if(this._holder.runtimeData.retryCount > 0) {
-				_loc1_ = _loc1_ + ("&retry=" + this._holder.runtimeData.retryCount.toString());
-			}
-			_loc1_ = _loc1_ + ("&client=" + this._holder.runtimeData.currentUserIP);
-			_loc1_ = _loc1_ + ("&z=" + this._holder.runtimeData.preDispatchArea);
-			_loc1_ = _loc1_ + ("&mi=" + this._holder.runtimeData.movieInfo);
-			_loc1_ = _loc1_ + ("&bt=" + this._holder.runtimeData.preDefinition);
-			_loc1_ = _loc1_ + ("&ct=" + this._holder.runtimeData.currentDefinition);
-			if(this._holder.runtimeData.preAverageSpeed > 0) {
-				_loc1_ = _loc1_ + ("&s=" + this._holder.runtimeData.preAverageSpeed.toString());
-			}
-			_loc1_ = _loc1_ + ("&e=" + this._holder.runtimeData.preErrorCode);
-			_loc1_ = _loc1_ + ("&qyid=" + UUIDManager.instance.uuid);
-			_loc1_ = _loc1_ + ("&tn=" + getTimer());
-			return new URLRequest(_loc1_);
+		public function SecondDispatchRemote(param1:Segment, param2:int, param3:ICorePlayer)
+		{
+			this._log = Log.getLogger("com.qiyi.player.core.model.remote.SecondDispatchRemote");
+			super(0,"SecondDispatchRemote" + Math.random());
+			this._segment = param1;
+			this._startPos = param2;
+			this._holder = param3;
+			_retryMaxCount = Config.DISPATCH_MAX_RETRY;
+			_timeout = Config.DISPATCH_TIMEOUT;
 		}
 		
-		override protected function onComplete(param1:Event) : void {
+		override protected function getRequest() : URLRequest
+		{
+			var _loc1:String = Utility.getUrl(this._segment.url,this._holder.runtimeData.key);
+			if(this._startPos == -1)
+			{
+				if((this._segment.currentKeyframe) && !(this._segment.currentKeyframe.index == 0))
+				{
+					_loc1 = _loc1 + ("?start=" + this._segment.currentKeyframe.position.toString());
+				}
+			}
+			else if(this._startPos != 0)
+			{
+				_loc1 = _loc1 + ("?start=" + this._startPos.toString());
+			}
+			
+			_loc1 = _loc1 + (_loc1.indexOf("?") == -1?"?":"&");
+			_loc1 = _loc1 + ("su=" + UUIDManager.instance.uuid);
+			if(this._holder.runtimeData.retryCount > 0)
+			{
+				_loc1 = _loc1 + ("&retry=" + this._holder.runtimeData.retryCount.toString());
+			}
+			_loc1 = _loc1 + ("&client=" + this._holder.runtimeData.currentUserIP);
+			_loc1 = _loc1 + ("&z=" + this._holder.runtimeData.preDispatchArea);
+			_loc1 = _loc1 + ("&mi=" + this._holder.runtimeData.movieInfo);
+			_loc1 = _loc1 + ("&bt=" + this._holder.runtimeData.preDefinition);
+			_loc1 = _loc1 + ("&ct=" + this._holder.runtimeData.currentDefinition);
+			if(this._holder.runtimeData.preAverageSpeed > 0)
+			{
+				_loc1 = _loc1 + ("&s=" + this._holder.runtimeData.preAverageSpeed.toString());
+			}
+			_loc1 = _loc1 + ("&e=" + this._holder.runtimeData.preErrorCode);
+			_loc1 = _loc1 + ("&qyid=" + UUIDManager.instance.uuid);
+			_loc1 = _loc1 + ("&tn=" + getTimer());
+			return new URLRequest(_loc1);
+		}
+		
+		override protected function onComplete(param1:Event) : void
+		{
 			var a:Array = null;
 			var s:String = null;
 			var event:Event = param1;
 			clearTimeout(_waitingResponse);
 			_waitingResponse = 0;
-			try {
+			try
+			{
 				_data = com.adobe.serialization.json.JSON.decode(_loader.data);
 				this._holder.runtimeData.userDisInfo[this._segment.index] = {
 					"t":_data.t,
 					"z":_data.z
 				};
 				this._holder.runtimeData.preDispatchArea = _data.z;
-				if(_data.hasOwnProperty("s")) {
+				if(_data.hasOwnProperty("s"))
+				{
 					this._holder.runtimeData.CDNStatus = int(_data.s);
-				} else {
+				}
+				else
+				{
 					this._holder.runtimeData.CDNStatus = 0;
 				}
-				if(this._holder.runtimeData.currentUserIP == "") {
-					try {
+				if(this._holder.runtimeData.currentUserIP == "")
+				{
+					try
+					{
 						a = String(_data.t).split("-");
 						this._holder.runtimeData.currentUserArea = a[0];
 						this._holder.runtimeData.currentUserIP = a[1];
 					}
-					catch(e:Error) {
+					catch(e:Error)
+					{
 					}
 				}
 				super.onComplete(event);
 			}
-			catch(e:Error) {
+			catch(e:Error)
+			{
 				_log.error("SecondDispatch: parse JSON error");
 				s = _loader.data;
-				if(s) {
+				if(s)
+				{
 					_log.info(s.substr(0,100));
 				}
 				this.dispatchEvent(new RemoteObjectEvent(RemoteObjectEvent.Evt_Exception,RemoteObjectStatusEnum.DataError));
@@ -105,12 +125,14 @@ package com.qiyi.player.core.model.remote {
 			}
 		}
 		
-		override protected function setStatus(param1:EnumItem) : void {
-			var _loc2_:* = 0;
-			if(param1 == RemoteObjectStatusEnum.Timeout || param1 == RemoteObjectStatusEnum.ConnectError || param1 == RemoteObjectStatusEnum.DataError || param1 == RemoteObjectStatusEnum.AuthenticationError || param1 == RemoteObjectStatusEnum.SecurityError || param1 == RemoteObjectStatusEnum.UnknownError) {
-				_loc2_ = ErrorCodeUtils.getErrorCodeByRemoteObject(this,param1);
-				this._holder.pingBack.sendError(_loc2_);
-				this._holder.runtimeData.errorCode = _loc2_;
+		override protected function setStatus(param1:EnumItem) : void
+		{
+			var _loc2:* = 0;
+			if(param1 == RemoteObjectStatusEnum.Timeout || param1 == RemoteObjectStatusEnum.ConnectError || param1 == RemoteObjectStatusEnum.DataError || param1 == RemoteObjectStatusEnum.AuthenticationError || param1 == RemoteObjectStatusEnum.SecurityError || param1 == RemoteObjectStatusEnum.UnknownError)
+			{
+				_loc2 = ErrorCodeUtils.getErrorCodeByRemoteObject(this,param1);
+				this._holder.pingBack.sendError(_loc2);
+				this._holder.runtimeData.errorCode = _loc2;
 			}
 			super.setStatus(param1);
 		}

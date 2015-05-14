@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.feedback.view.parts.copyrightexpired {
+package com.qiyi.player.wonder.plugins.feedback.view.parts.copyrightexpired
+{
 	import flash.display.Sprite;
 	import flash.text.TextField;
 	import flash.display.Shape;
@@ -10,21 +11,8 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.copyrightexpired {
 	import com.iqiyi.components.global.GlobalStage;
 	import com.qiyi.player.wonder.common.ui.FastCreator;
 	
-	public class CopyrightExpiredSearchPart extends Sprite {
-		
-		public function CopyrightExpiredSearchPart() {
-			super();
-			this._titleTF = FastCreator.createLabel(TF_TITLE_SHORT,16777215,14);
-			addChild(this._titleTF);
-			this._titleBg = new Shape();
-			addChild(this._titleBg);
-			this._searchTF = FastCreator.createInput("搜索",6710886,14);
-			addChild(this._searchTF);
-			this._searchBtn = new SearchBtn();
-			addChild(this._searchBtn);
-			this._searchBtn.addEventListener(MouseEvent.CLICK,this.onSearchBtnClick);
-			GlobalStage.stage.addEventListener(KeyboardEvent.KEY_UP,this.onKeyUp);
-		}
+	public class CopyrightExpiredSearchPart extends Sprite
+	{
 		
 		private static const TF_TITLE_SHORT:String = "请继续搜索当前视频。";
 		
@@ -40,16 +28,34 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.copyrightexpired {
 		
 		private var _videoName:String = "";
 		
-		public function get videoName() : String {
+		public function CopyrightExpiredSearchPart()
+		{
+			super();
+			this._titleTF = FastCreator.createLabel(TF_TITLE_SHORT,16777215,14);
+			addChild(this._titleTF);
+			this._titleBg = new Shape();
+			addChild(this._titleBg);
+			this._searchTF = FastCreator.createInput("搜索",6710886,14);
+			addChild(this._searchTF);
+			this._searchBtn = new SearchBtn();
+			addChild(this._searchBtn);
+			this._searchBtn.addEventListener(MouseEvent.CLICK,this.onSearchBtnClick);
+			GlobalStage.stage.addEventListener(KeyboardEvent.KEY_UP,this.onKeyUp);
+		}
+		
+		public function get videoName() : String
+		{
 			return this._videoName;
 		}
 		
-		public function set videoName(param1:String) : void {
+		public function set videoName(param1:String) : void
+		{
 			this._videoName = param1;
 			this._searchTF.text = this._videoName;
 		}
 		
-		public function resize(param1:Number, param2:Number) : void {
+		public function resize(param1:Number, param2:Number) : void
+		{
 			this._titleTF.text = param1 >= FeedbackDef.NUM_WIDTH_SHOW_SEARCH_PART && param2 >= FeedbackDef.NUM_HEIGHT_SHOW_SEARCH_PART?TF_TITLE_LONG:TF_TITLE_SHORT;
 			this._titleTF.x = (param1 - this._titleTF.width) / 2;
 			this._titleBg.graphics.clear();
@@ -65,22 +71,27 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.copyrightexpired {
 			this._searchBtn.y = this._titleBg.y;
 		}
 		
-		private function onSearchBtnClick(param1:MouseEvent = null) : void {
-			if(this._searchTF.text == "" || !visible) {
+		private function onSearchBtnClick(param1:MouseEvent = null) : void
+		{
+			if(this._searchTF.text == "" || !visible)
+			{
 				return;
 			}
 			dispatchEvent(new FeedbackEvent(FeedbackEvent.Evt_CopyrightSearchBtnClick,this._searchTF.text));
 		}
 		
-		private function onKeyUp(param1:KeyboardEvent) : void {
-			switch(param1.keyCode) {
+		private function onKeyUp(param1:KeyboardEvent) : void
+		{
+			switch(param1.keyCode)
+			{
 				case 13:
 					this.onSearchBtnClick();
 					break;
 			}
 		}
 		
-		public function destory() : void {
+		public function destory() : void
+		{
 			this._searchBtn.removeEventListener(MouseEvent.CLICK,this.onSearchBtnClick);
 			GlobalStage.stage.removeEventListener(KeyboardEvent.KEY_UP,this.onKeyUp);
 			removeChild(this._titleTF);

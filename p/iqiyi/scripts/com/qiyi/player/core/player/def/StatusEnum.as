@@ -1,9 +1,7 @@
-package com.qiyi.player.core.player.def {
-	public class StatusEnum extends Object {
-		
-		public function StatusEnum() {
-			super();
-		}
+package com.qiyi.player.core.player.def
+{
+	public class StatusEnum extends Object
+	{
 		
 		private static var begin:int = 0;
 		
@@ -46,5 +44,10 @@ package com.qiyi.player.core.player.def {
 		public static const END:int = ++begin;
 		
 		public static const COUNT:int = END - BEGIN;
+		
+		public function StatusEnum()
+		{
+			super();
+		}
 	}
 }

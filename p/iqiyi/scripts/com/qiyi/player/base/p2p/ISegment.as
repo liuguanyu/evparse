@@ -1,5 +1,7 @@
-package com.qiyi.player.base.p2p {
-	public interface ISegment {
+package com.qiyi.player.base.p2p
+{
+	public interface ISegment
+	{
 		
 		function get url() : String;
 		

@@ -1,4 +1,5 @@
-package com.qiyi.cupid.adplayer {
+package com.qiyi.cupid.adplayer
+{
 	import flash.display.Sprite;
 	import com.qiyi.cupid.adplayer.base.Log;
 	import flash.events.IEventDispatcher;
@@ -26,63 +27,8 @@ package com.qiyi.cupid.adplayer {
 	import flash.display.StageDisplayState;
 	import com.qiyi.cupid.adplayer.base.CupidParam;
 	
-	public class CupidAdPlayer extends Sprite {
-		
-		public function CupidAdPlayer(param1:CupidParam) {
-			super();
-			log.debug("init",VERSION);
-			log.debug("init param",param1.toObject());
-			this._videoClientVersion = param1.videoPlayerVersion;
-			this._videoId = param1.videoId;
-			this._tvId = param1.tvId;
-			this._channelId = param1.channelId;
-			this._collectionId = param1.collectionId;
-			this._rawPlayerId = param1.playerId;
-			this._playerId = this.getPlayerId(param1.playerId,this._channelId);
-			this._albumId = param1.albumId;
-			this._uaaUserId = param1.userId;
-			this._webEventId = param1.webEventId;
-			this._videoEventId = param1.videoEventId;
-			this._vipRight = param1.vipRight;
-			this._terminal = param1.terminal;
-			this._duration = param1.duration;
-			this._passportId = param1.passportId;
-			this._passportCookie = param1.passportCookie;
-			this._passportKey = param1.passportKey;
-			this._videoDefinitionId = param1.videoDefinitionId;
-			this._cacheMachineIp = param1.cacheMachineIp;
-			this._couponCode = param1.couponCode;
-			this._couponVer = param1.couponVer;
-			this._videoPlaySecondsOfDay = param1.videoPlaySecondsOfDay;
-			if(this.isQiyiWebEx()) {
-				this._adClientUrl = this.IQIYI_WEBEX_AM_URL;
-			} else if(param1.playerUrl) {
-				this._adClientUrl = param1.playerUrl;
-			} else {
-				this._adClientUrl = this.IQIYI_WEB_AM_URL;
-			}
-			
-			if(param1.dispatcher == null) {
-				this._dispatcher = this;
-			} else {
-				this._dispatcher = param1.dispatcher;
-			}
-			this._volume = param1.volume;
-			this._videoIndex = param1.videoIndex;
-			this._stageWidth = param1.stageWidth;
-			this._stageHeight = param1.stageHeight;
-			this._displayContainer = param1.adContainer;
-			this._screenStatus = this.isFullScreen()?"1":"0";
-			this._baiduMainVideo = param1.baiduMainVideo;
-			this._disablePreroll = param1.disablePreroll;
-			this._disableSkipAd = param1.disableSkipAd;
-			this._enableVideoCore = param1.enableVideoCore;
-			this._isUGC = param1.isUGC;
-			this._videoClientUrl = this._displayContainer.loaderInfo?this._displayContainer.loaderInfo.loaderURL:"";
-			this._videoEventId2 = this.generateVideoEventId();
-			this._env = this.generateEnv();
-			this.addAdPlayerEventListeners();
-		}
+	public class CupidAdPlayer extends Sprite
+	{
 		
 		private static var log:Log = new Log("main");
 		
@@ -190,12 +136,79 @@ package com.qiyi.cupid.adplayer {
 		
 		private const IQIYI_WEBEX_AM_URL:String = "http://www.iqiyi.com/player/cupid/common/iamo.swf";
 		
-		private function getPlayerId(param1:String, param2:int) : String {
-			if((param1) && (16 == param1.length) && 0 == param1.indexOf("qc_")) {
+		public function CupidAdPlayer(param1:CupidParam)
+		{
+			super();
+			log.debug("init",VERSION);
+			log.debug("init param",param1.toObject());
+			this._videoClientVersion = param1.videoPlayerVersion;
+			this._videoId = param1.videoId;
+			this._tvId = param1.tvId;
+			this._channelId = param1.channelId;
+			this._collectionId = param1.collectionId;
+			this._rawPlayerId = param1.playerId;
+			this._playerId = this.getPlayerId(param1.playerId,this._channelId);
+			this._albumId = param1.albumId;
+			this._uaaUserId = param1.userId;
+			this._webEventId = param1.webEventId;
+			this._videoEventId = param1.videoEventId;
+			this._vipRight = param1.vipRight;
+			this._terminal = param1.terminal;
+			this._duration = param1.duration;
+			this._passportId = param1.passportId;
+			this._passportCookie = param1.passportCookie;
+			this._passportKey = param1.passportKey;
+			this._videoDefinitionId = param1.videoDefinitionId;
+			this._cacheMachineIp = param1.cacheMachineIp;
+			this._couponCode = param1.couponCode;
+			this._couponVer = param1.couponVer;
+			this._videoPlaySecondsOfDay = param1.videoPlaySecondsOfDay;
+			if(this.isQiyiWebEx())
+			{
+				this._adClientUrl = this.IQIYI_WEBEX_AM_URL;
+			}
+			else if(param1.playerUrl)
+			{
+				this._adClientUrl = param1.playerUrl;
+			}
+			else
+			{
+				this._adClientUrl = this.IQIYI_WEB_AM_URL;
+			}
+			
+			if(param1.dispatcher == null)
+			{
+				this._dispatcher = this;
+			}
+			else
+			{
+				this._dispatcher = param1.dispatcher;
+			}
+			this._volume = param1.volume;
+			this._videoIndex = param1.videoIndex;
+			this._stageWidth = param1.stageWidth;
+			this._stageHeight = param1.stageHeight;
+			this._displayContainer = param1.adContainer;
+			this._screenStatus = this.isFullScreen()?"1":"0";
+			this._baiduMainVideo = param1.baiduMainVideo;
+			this._disablePreroll = param1.disablePreroll;
+			this._disableSkipAd = param1.disableSkipAd;
+			this._enableVideoCore = param1.enableVideoCore;
+			this._isUGC = param1.isUGC;
+			this._videoClientUrl = this._displayContainer.loaderInfo?this._displayContainer.loaderInfo.loaderURL:"";
+			this._videoEventId2 = this.generateVideoEventId();
+			this._env = this.generateEnv();
+			this.addAdPlayerEventListeners();
+		}
+		
+		private function getPlayerId(param1:String, param2:int) : String
+		{
+			if((param1) && (16 == param1.length) && 0 == param1.indexOf("qc_"))
+			{
 				return param1;
 			}
 			log.debug("invalid player id",param1,"channel id",param2);
-			var _loc3_:Object = {
+			var _loc3:Object = {
 				1:"qc_100001_100014",
 				2:"qc_100001_100015",
 				3:"qc_100001_100002",
@@ -223,42 +236,50 @@ package com.qiyi.cupid.adplayer {
 				29:"qc_100001_100436",
 				30:"qc_100001_100435"
 			};
-			return _loc3_[param2] || _loc3_[27];
+			return _loc3[param2] || _loc3[27];
 		}
 		
-		private function addAdPlayerEventListeners() : void {
+		private function addAdPlayerEventListeners() : void
+		{
 			this._dispatcher.addEventListener(AdPlayerEvent.VIDEO_CHANGE_SIZE,this.onChangeSize);
 			this._dispatcher.addEventListener(AdPlayerEvent.VIDEO_FULLSCREEN,this.onFullscreen);
 			this._dispatcher.addEventListener(AdPlayerEvent.VIDEO_NORMALSCREEN,this.onNormalscreen);
 		}
 		
-		private function removeAdPlayerEventListeners() : void {
+		private function removeAdPlayerEventListeners() : void
+		{
 			this._dispatcher.removeEventListener(AdPlayerEvent.VIDEO_CHANGE_SIZE,this.onChangeSize);
 			this._dispatcher.removeEventListener(AdPlayerEvent.VIDEO_FULLSCREEN,this.onFullscreen);
 			this._dispatcher.removeEventListener(AdPlayerEvent.VIDEO_NORMALSCREEN,this.onNormalscreen);
 		}
 		
-		private function onChangeSize(param1:AdPlayerEvent) : void {
-			if(param1.data) {
+		private function onChangeSize(param1:AdPlayerEvent) : void
+		{
+			if(param1.data)
+			{
 				this._stageWidth = param1.data.width;
 				this._stageHeight = param1.data.height;
 			}
 			this.resizeBlackScreen();
 		}
 		
-		private function onFullscreen(param1:AdPlayerEvent) : void {
+		private function onFullscreen(param1:AdPlayerEvent) : void
+		{
 			this._screenStatus = "1";
 		}
 		
-		private function onNormalscreen(param1:AdPlayerEvent) : void {
+		private function onNormalscreen(param1:AdPlayerEvent) : void
+		{
 			this._screenStatus = "0";
 		}
 		
-		public function load() : void {
+		public function load() : void
+		{
 			log.debug("load");
 			new Pingback().sendVisitPb(this._env);
 			this._startupTime = getTimer();
-			if((this.canShowBlackScreen()) && (AdBlockedBlackScreen.isInBlacklist(this._videoClientUrl))) {
+			if((this.canShowBlackScreen()) && (AdBlockedBlackScreen.isInBlacklist(this._videoClientUrl)))
+			{
 				log.error("illegal player",this._videoClientUrl);
 				this.onAdBlocked({"errCode":PingbackConst.CODE_VP_ILLEGAL});
 				return;
@@ -267,17 +288,20 @@ package com.qiyi.cupid.adplayer {
 			this.loadPlayer(this._adClientUrl);
 		}
 		
-		private function loadPlayer(param1:String) : void {
+		private function loadPlayer(param1:String) : void
+		{
 			this._playerRequest = new URLRequest(param1);
 			this.tryGetPlayer();
 		}
 		
-		private function tryGetPlayer() : void {
+		private function tryGetPlayer() : void
+		{
 			log.debug("load player",this._playerRequest.url,"time",this._playerTimeOutLengthsIndex + 1);
 			this.clearPlayerLoader();
 			this.clearPlayerUrlLoader();
 			this.clearPlayerTimeout();
-			try {
+			try
+			{
 				this._playerUrlLoader = new URLLoader();
 				this._playerUrlLoader.dataFormat = URLLoaderDataFormat.BINARY;
 				this.addPlayerUrlLoaderEventListeners(this._playerUrlLoader);
@@ -285,38 +309,44 @@ package com.qiyi.cupid.adplayer {
 				this._startTime = new Date().time;
 				this._playerUrlLoader.load(this._playerRequest);
 			}
-			catch(e:Error) {
+			catch(e:Error)
+			{
 				log.error("load error",e.message,e.getStackTrace());
 				playerErrorHandler(e.message);
 			}
 		}
 		
-		private function addPlayerUrlLoaderEventListeners(param1:URLLoader) : void {
+		private function addPlayerUrlLoaderEventListeners(param1:URLLoader) : void
+		{
 			param1.addEventListener(Event.OPEN,this.playerOpenHandler);
 			param1.addEventListener(Event.COMPLETE,this.playerCompleteHandler);
 			param1.addEventListener(IOErrorEvent.IO_ERROR,this.playerIOErrorHandler);
 			param1.addEventListener(SecurityErrorEvent.SECURITY_ERROR,this.playerSecurityErrorHandler);
 		}
 		
-		private function removePlayerUrlLoaderEventListeners(param1:URLLoader) : void {
+		private function removePlayerUrlLoaderEventListeners(param1:URLLoader) : void
+		{
 			param1.removeEventListener(Event.OPEN,this.playerOpenHandler);
 			param1.removeEventListener(Event.COMPLETE,this.playerCompleteHandler);
 			param1.removeEventListener(IOErrorEvent.IO_ERROR,this.playerIOErrorHandler);
 			param1.removeEventListener(SecurityErrorEvent.SECURITY_ERROR,this.playerSecurityErrorHandler);
 		}
 		
-		private function playerOpenHandler(param1:Event) : void {
+		private function playerOpenHandler(param1:Event) : void
+		{
 			log.debug("open");
 			this.clearPlayerTimeout();
 		}
 		
-		private function playerCompleteHandler(param1:Event) : void {
+		private function playerCompleteHandler(param1:Event) : void
+		{
 			var totalTime:Number = NaN;
 			var totalKb:Number = NaN;
 			var byteArray:ByteArray = null;
 			var e:Event = param1;
 			this.removePlayerUrlLoaderEventListeners(this._playerUrlLoader);
-			try {
+			try
+			{
 				totalTime = (new Date().time - this._startTime) / 1000;
 				totalKb = this._playerUrlLoader.bytesTotal / 1024;
 				this._speed = Math.round(totalKb / totalTime);
@@ -326,21 +356,25 @@ package com.qiyi.cupid.adplayer {
 				this._playerLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,this.playerLoadedHandler);
 				this._playerLoader.loadBytes(byteArray,new LoaderContext(false,ApplicationDomain.currentDomain));
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 				log.error("catch error while loading bytes",error.message,error.getStackTrace());
 				playerErrorHandler(error.message);
 			}
 		}
 		
-		private function playerLoadedHandler(param1:Event) : void {
+		private function playerLoadedHandler(param1:Event) : void
+		{
 			var param:Object = null;
 			var errMsg:String = null;
 			var e:Event = param1;
 			log.debug("loaded");
 			this._playerLoader.contentLoaderInfo.removeEventListener(Event.COMPLETE,this.playerLoadedHandler);
-			try {
+			try
+			{
 				this._adManager = e.target.content;
-				if((this._adManager) && (this._adManager.hasOwnProperty("start"))) {
+				if((this._adManager) && (this._adManager.hasOwnProperty("start")))
+				{
 					this.removeAdPlayerEventListeners();
 					param = {
 						"tvId":this._tvId,
@@ -390,55 +424,70 @@ package com.qiyi.cupid.adplayer {
 					log.debug("call ad player",param);
 					this._adManager.start(this._dispatcher,this._displayContainer,param);
 					new Pingback().sendPlayerSuccess(this._env,getTimer() - this._startupTime,this.calRequestCount());
-				} else {
+				}
+				else
+				{
 					log.error("ad player init error: no definition");
 					errMsg = "interface missing";
 					new Pingback().sendPlayerError(this._env,PingbackConst.CODE_PL_INIT_ERROR,errMsg,this.calRequestCount());
-					if(this.canShowBlackScreen()) {
+					if(this.canShowBlackScreen())
+					{
 						this.onAdBlocked({"errCode":PingbackConst.CODE_PL_INIT_ERROR});
-					} else {
+					}
+					else
+					{
 						this.onAdPlayerFailure();
 					}
 				}
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 				log.error("init error",error.message,error.getStackTrace());
 				new Pingback().sendPlayerError(_env,PingbackConst.CODE_PL_RUNTIME_ERROR,error.message,calRequestCount());
 				onAdPlayerFailure();
 			}
 		}
 		
-		private function playerIOErrorHandler(param1:IOErrorEvent) : void {
+		private function playerIOErrorHandler(param1:IOErrorEvent) : void
+		{
 			log.error("io error",this._playerTimeOutLengthsIndex + 1);
 			this.playerErrorHandler("io");
 		}
 		
-		private function playerSecurityErrorHandler(param1:SecurityErrorEvent) : void {
+		private function playerSecurityErrorHandler(param1:SecurityErrorEvent) : void
+		{
 			log.error("security error",this._playerTimeOutLengthsIndex + 1);
 			this.playerErrorHandler("security");
 		}
 		
-		private function playerErrorHandler(param1:String) : void {
+		private function playerErrorHandler(param1:String) : void
+		{
 			this.clearPlayerTimeout();
 			this.clearPlayerLoader();
 			this.clearPlayerUrlLoader();
-			if(this.retryGetPlayer()) {
+			if(this.retryGetPlayer())
+			{
 				return;
 			}
 			new Pingback().sendPlayerError(this._env,PingbackConst.CODE_PL_HTTP_ERROR,param1,this.calRequestCount());
-			if(this.canShowBlackScreen()) {
+			if(this.canShowBlackScreen())
+			{
 				this.onAdBlocked({"errCode":PingbackConst.CODE_PL_HTTP_ERROR});
-			} else {
+			}
+			else
+			{
 				this.onAdPlayerFailure();
 			}
 		}
 		
-		private function onAdBlocked(param1:Object) : void {
+		private function onAdBlocked(param1:Object) : void
+		{
 			new Pingback().sendStatisticsAdBlock(this._env,param1.errCode);
 			this.showBlackScreen();
 		}
 		
-		private function showBlackScreen() : void {
+		private function showBlackScreen() : void
+		{
 			log.debug("show black screen");
 			this._adBlockedBlackScreen = new AdBlockedBlackScreen(this._stageWidth,this._stageHeight);
 			this._adBlockedBlackScreen.addEventListener(AdBlockedBlackScreenEvent.BLACK_SCREEN_COMPLETE,this.onBlackScreenComplete);
@@ -446,85 +495,106 @@ package com.qiyi.cupid.adplayer {
 			this._adBlockedBlackScreen.show();
 		}
 		
-		private function onBlackScreenComplete(param1:AdBlockedBlackScreenEvent) : void {
-			var _loc2_:Object = null;
+		private function onBlackScreenComplete(param1:AdBlockedBlackScreenEvent) : void
+		{
+			var _loc2:Object = null;
 			this.clearBlackScreen();
 			this.onAdPlayerBlock();
-			if(this._dispatcher) {
-				_loc2_ = {
+			if(this._dispatcher)
+			{
+				_loc2 = {
 					"tvId":this._tvId,
 					"videoId":this._videoId
 				};
-				this._dispatcher.dispatchEvent(new AdPlayerEvent(AdPlayerEvent.CONTROL_VIDEO_START,_loc2_));
+				this._dispatcher.dispatchEvent(new AdPlayerEvent(AdPlayerEvent.CONTROL_VIDEO_START,_loc2));
 				log.debug("black screen complete and control video start");
 			}
 		}
 		
-		private function resizeBlackScreen() : void {
-			if(this._adBlockedBlackScreen) {
+		private function resizeBlackScreen() : void
+		{
+			if(this._adBlockedBlackScreen)
+			{
 				this._adBlockedBlackScreen.resize(this._stageWidth,this._stageHeight);
 			}
 		}
 		
-		private function clearBlackScreen() : void {
+		private function clearBlackScreen() : void
+		{
 			log.debug("clear black screen");
-			if(this._adBlockedBlackScreen) {
+			if(this._adBlockedBlackScreen)
+			{
 				this._adBlockedBlackScreen.removeEventListener(AdBlockedBlackScreenEvent.BLACK_SCREEN_COMPLETE,this.onBlackScreenComplete);
 				this._adBlockedBlackScreen.destroy();
-				if(this._displayContainer.stage.contains(this._adBlockedBlackScreen)) {
+				if(this._displayContainer.stage.contains(this._adBlockedBlackScreen))
+				{
 					this._displayContainer.stage.removeChild(this._adBlockedBlackScreen);
 				}
 				this._adBlockedBlackScreen = null;
 			}
 		}
 		
-		private function playerTimeoutHandler() : void {
+		private function playerTimeoutHandler() : void
+		{
 			log.debug("timeout",this._playerTimeOutLengthsIndex + 1);
 			this.clearPlayerTimeout();
 			this.clearPlayerLoader();
 			this.clearPlayerUrlLoader();
-			if(this.retryGetPlayer()) {
+			if(this.retryGetPlayer())
+			{
 				return;
 			}
 			new Pingback().sendPlayerError(this._env,PingbackConst.CODE_PL_TIMEOUT,"timeout",this.calRequestCount());
 			this.onAdPlayerFailure();
 		}
 		
-		private function clearPlayerUrlLoader() : void {
-			if(this._playerUrlLoader) {
+		private function clearPlayerUrlLoader() : void
+		{
+			if(this._playerUrlLoader)
+			{
 				this.removePlayerUrlLoaderEventListeners(this._playerUrlLoader);
-				try {
+				try
+				{
 					this._playerUrlLoader.close();
 				}
-				catch(e:Error) {
+				catch(e:Error)
+				{
 				}
 				this._playerUrlLoader = null;
 			}
 		}
 		
-		private function clearPlayerLoader() : void {
-			if(this._playerLoader) {
+		private function clearPlayerLoader() : void
+		{
+			if(this._playerLoader)
+			{
 				this._playerLoader.contentLoaderInfo.removeEventListener(Event.COMPLETE,this.playerLoadedHandler);
-				try {
+				try
+				{
 					this._playerLoader.unloadAndStop();
 					this._playerLoader.close();
 				}
-				catch(e:Error) {
+				catch(e:Error)
+				{
 				}
 				this._playerLoader = null;
 			}
 		}
 		
-		private function clearPlayerTimeout() : void {
-			if(this._loadPlayerTimeout) {
+		private function clearPlayerTimeout() : void
+		{
+			if(this._loadPlayerTimeout)
+			{
 				clearTimeout(this._loadPlayerTimeout);
 				this._loadPlayerTimeout = 0;
 			}
 		}
 		
-		private function retryGetPlayer() : Boolean {
+		private function retryGetPlayer() : Boolean
+		{
 			this._playerTimeOutLengthsIndex++;
-			if(this._playerTimeOutLengthsIndex < this.PLAYER_TIMEOUT_LENGTHS.length) {
+			if(this._playerTimeOutLengthsIndex < this.PLAYER_TIMEOUT_LENGTHS.length)
+			{
 				log.debug("retry");
 				this.tryGetPlayer();
 				return true;
@@ -532,103 +602,122 @@ package com.qiyi.cupid.adplayer {
 			return false;
 		}
 		
-		private function cleanBeforeLoad() : void {
+		private function cleanBeforeLoad() : void
+		{
 			log.debug("clean before load");
 			this.clearPlayerTimeout();
 			this.clearPlayerLoader();
 			this.clearPlayerUrlLoader();
-			if(this._displayContainer) {
+			if(this._displayContainer)
+			{
 				log.debug("displayContainer.numChildren",this._displayContainer.numChildren);
-				while(this._displayContainer.numChildren > 0) {
+				while(this._displayContainer.numChildren > 0)
+				{
 					this._displayContainer.removeChildAt(0);
 				}
 			}
 		}
 		
-		public function destroy() : void {
+		public function destroy() : void
+		{
 			log.debug("destroy");
 			this.removeAdPlayerEventListeners();
 			this.clearPlayerTimeout();
 			this.clearPlayerLoader();
 			this.clearPlayerUrlLoader();
 			this.clearBlackScreen();
-			if(this._adManager) {
+			if(this._adManager)
+			{
 				this._adManager = null;
 			}
-			if(this._dispatcher) {
+			if(this._dispatcher)
+			{
 				this._dispatcher = null;
 			}
-			if(this._displayContainer) {
-				while(this._displayContainer.numChildren > 0) {
+			if(this._displayContainer)
+			{
+				while(this._displayContainer.numChildren > 0)
+				{
 					this._displayContainer.removeChildAt(0);
 				}
 				this._displayContainer = null;
 			}
 		}
 		
-		private function onAdPlayerFailure() : void {
-			var _loc1_:Object = null;
+		private function onAdPlayerFailure() : void
+		{
+			var _loc1:Object = null;
 			log.debug("dispatch adplayer loading failure event");
-			if(this._dispatcher) {
-				_loc1_ = {
+			if(this._dispatcher)
+			{
+				_loc1 = {
 					"tvId":this._tvId,
 					"videoId":this._videoId
 				};
-				this._dispatcher.dispatchEvent(new AdPlayerEvent(AdPlayerEvent.ADPLAYER_LOADING_FAILURE,_loc1_));
+				this._dispatcher.dispatchEvent(new AdPlayerEvent(AdPlayerEvent.ADPLAYER_LOADING_FAILURE,_loc1));
 			}
 		}
 		
-		private function onAdPlayerBlock() : void {
-			var _loc1_:Object = null;
+		private function onAdPlayerBlock() : void
+		{
+			var _loc1:Object = null;
 			log.debug("emit ad player block");
-			if(this._dispatcher) {
-				_loc1_ = {
+			if(this._dispatcher)
+			{
+				_loc1 = {
 					"tvId":this._tvId,
 					"videoId":this._videoId
 				};
-				this._dispatcher.dispatchEvent(new AdPlayerEvent(AdPlayerEvent.ADPLAYER_AD_BLOCK,_loc1_));
+				this._dispatcher.dispatchEvent(new AdPlayerEvent(AdPlayerEvent.ADPLAYER_AD_BLOCK,_loc1));
 			}
 		}
 		
-		private function generateEnv() : Dictionary {
-			var _loc1_:Dictionary = new Dictionary();
-			_loc1_.userId = this._uaaUserId;
-			_loc1_.passportId = this._passportId;
-			_loc1_.webEventId = this._webEventId;
-			_loc1_.videoEventId = this._videoEventId;
-			_loc1_.playerId = this._playerId;
-			_loc1_.videoId = this._videoId;
-			_loc1_.tvId = this._tvId;
-			_loc1_.albumId = this._albumId;
-			_loc1_.channelId = this._channelId;
-			_loc1_.isPreload = false;
-			_loc1_.adClientVersion = VERSION;
-			_loc1_.adClientUrl = this._adClientUrl;
-			_loc1_.videoClientVersion = this._videoClientVersion;
-			_loc1_.videoClientUrl = this._videoClientUrl;
-			_loc1_.uaaUserId = this._uaaUserId;
-			_loc1_.videoEventId2 = this._videoEventId2;
-			return _loc1_;
+		private function generateEnv() : Dictionary
+		{
+			var _loc1:Dictionary = new Dictionary();
+			_loc1.userId = this._uaaUserId;
+			_loc1.passportId = this._passportId;
+			_loc1.webEventId = this._webEventId;
+			_loc1.videoEventId = this._videoEventId;
+			_loc1.playerId = this._playerId;
+			_loc1.videoId = this._videoId;
+			_loc1.tvId = this._tvId;
+			_loc1.albumId = this._albumId;
+			_loc1.channelId = this._channelId;
+			_loc1.isPreload = false;
+			_loc1.adClientVersion = VERSION;
+			_loc1.adClientUrl = this._adClientUrl;
+			_loc1.videoClientVersion = this._videoClientVersion;
+			_loc1.videoClientUrl = this._videoClientUrl;
+			_loc1.uaaUserId = this._uaaUserId;
+			_loc1.videoEventId2 = this._videoEventId2;
+			return _loc1;
 		}
 		
-		private function generateVideoEventId() : String {
+		private function generateVideoEventId() : String
+		{
 			return MD5.hash(this._tvId + this._videoId + this._uaaUserId + new Date().time + getTimer() + Math.random());
 		}
 		
-		private function calRequestCount() : int {
+		private function calRequestCount() : int
+		{
 			return this._playerTimeOutLengthsIndex >= this.PLAYER_TIMEOUT_LENGTHS.length - 1?-1:this._playerTimeOutLengthsIndex + 1;
 		}
 		
-		private function canShowBlackScreen() : Boolean {
+		private function canShowBlackScreen() : Boolean
+		{
 			return (AdBlockedBlackScreen.CAN_SHOW) && this._vipRight == "0";
 		}
 		
-		private function isQiyiWebEx() : Boolean {
+		private function isQiyiWebEx() : Boolean
+		{
 			return this._terminal == "iqiyiwex";
 		}
 		
-		private function isFullScreen() : Boolean {
-			if(!this._displayContainer || !this._displayContainer.stage) {
+		private function isFullScreen() : Boolean
+		{
+			if(!this._displayContainer || !this._displayContainer.stage)
+			{
 				return false;
 			}
 			return this._displayContainer.stage.displayState == StageDisplayState.FULL_SCREEN;

@@ -1,4 +1,5 @@
-package com.qiyi.player.components {
+package com.qiyi.player.components
+{
 	import flash.utils.*;
 	import flash.events.*;
 	import adobe.utils.*;
@@ -26,12 +27,8 @@ package com.qiyi.player.components {
 	import gs.easing.*;
 	import gs.TweenLite;
 	
-	public dynamic class DefaultLogo extends MovieClip {
-		
-		public function DefaultLogo() {
-			super();
-			addFrameScript(0,this.frame1);
-		}
+	public dynamic class DefaultLogo extends MovieClip
+	{
 		
 		public var logo0:MovieClip;
 		
@@ -53,12 +50,22 @@ package com.qiyi.player.components {
 		
 		public var logoName:String;
 		
-		public function switchToNext() : void {
+		public function DefaultLogo()
+		{
+			super();
+			addFrameScript(0,this.frame1);
+		}
+		
+		public function switchToNext() : void
+		{
 			clearTimeout(this.timeOut);
-			if(this.initLogo == 2) {
+			if(this.initLogo == 2)
+			{
 				this.initLogo = 0;
 				this.fromLogo = 2;
-			} else {
+			}
+			else
+			{
 				this.fromLogo = this.initLogo;
 				this.initLogo++;
 			}
@@ -66,11 +73,14 @@ package com.qiyi.player.components {
 			this.switchLogo(this["logo" + this.fromLogo],this["logo" + this.initLogo]);
 		}
 		
-		public function switchLogo(param1:Sprite, param2:Sprite) : void {
+		public function switchLogo(param1:Sprite, param2:Sprite) : void
+		{
 			var logo1:Sprite = param1;
 			var logo2:Sprite = param2;
-			if(!(logo1 == null) || !(logo2 == null)) {
-				try {
+			if(!(logo1 == null) || !(logo2 == null))
+			{
+				try
+				{
 					TweenLite.to(logo1,1,{
 						"delay":0,
 						"alpha":0,
@@ -83,24 +93,28 @@ package com.qiyi.player.components {
 						"onComplete":this.onComplete
 					});
 				}
-				catch(e:Error) {
+				catch(e:Error)
+				{
 					trace("error");
 				}
 			}
 		}
 		
-		public function onComplete() : void {
+		public function onComplete() : void
+		{
 			this.timeOut = setTimeout(this.switchToNext,this.timeLength[this.initLogo]);
 		}
 		
-		function frame1() : * {
+		function frame1() : *
+		{
 			this.initLogo = 0;
 			this.fromLogo = 2;
 			this.timeOut = 0;
 			this.logoArray = new Array("logo0","logo1","logo2");
 			this.timeLength = new Array(180000,120000,60000);
 			this.i = 0;
-			while(this.i < this.logoArray.length) {
+			while(this.i < this.logoArray.length)
+			{
 				this.logoName = this.logoArray[this.i];
 				this[this.logoName].alpha = 0;
 				this.i++;

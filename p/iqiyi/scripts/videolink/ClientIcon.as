@@ -1,9 +1,12 @@
-package videolink {
+package videolink
+{
 	import flash.display.MovieClip;
 	
-	public dynamic class ClientIcon extends MovieClip {
+	public dynamic class ClientIcon extends MovieClip
+	{
 		
-		public function ClientIcon() {
+		public function ClientIcon()
+		{
 			super();
 		}
 	}

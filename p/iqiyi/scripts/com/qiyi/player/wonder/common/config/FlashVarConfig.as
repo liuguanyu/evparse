@@ -1,9 +1,7 @@
-package com.qiyi.player.wonder.common.config {
-	public class FlashVarConfig extends Object {
-		
-		public function FlashVarConfig() {
-			super();
-		}
+package com.qiyi.player.wonder.common.config
+{
+	public class FlashVarConfig extends Object
+	{
 		
 		public static const OWNER_PAGE:String = "page";
 		
@@ -111,330 +109,430 @@ package com.qiyi.player.wonder.common.config {
 		
 		private static var _couponVer:String = "";
 		
-		public static function get couponCode() : String {
+		public function FlashVarConfig()
+		{
+			super();
+		}
+		
+		public static function get couponCode() : String
+		{
 			return _couponCode;
 		}
 		
-		public static function get couponVer() : String {
+		public static function get couponVer() : String
+		{
 			return _couponVer;
 		}
 		
-		public static function get pageCTime() : Number {
+		public static function get pageCTime() : Number
+		{
 			return _pageCTime;
 		}
 		
-		public static function get putBarrage() : Boolean {
+		public static function get putBarrage() : Boolean
+		{
 			return _putBarrage;
 		}
 		
-		public static function get openBarrage() : Boolean {
+		public static function get openBarrage() : Boolean
+		{
 			return _openBarrage;
 		}
 		
-		public static function get webEventID() : String {
+		public static function get webEventID() : String
+		{
 			return _webEventID;
 		}
 		
-		public static function get vfrm() : String {
+		public static function get vfrm() : String
+		{
 			return _vfrm;
 		}
 		
-		public static function get qiyiProduced() : String {
+		public static function get qiyiProduced() : String
+		{
 			return _qiyiProduced;
 		}
 		
-		public static function get qiyiProducedPreloader() : String {
+		public static function get qiyiProducedPreloader() : String
+		{
 			return _qiyiProducedPreloader;
 		}
 		
-		public static function get exclusive() : String {
+		public static function get exclusive() : String
+		{
 			return _exclusive;
 		}
 		
-		public static function get exclusivePreloader() : String {
+		public static function get exclusivePreloader() : String
+		{
 			return _exclusivePreloader;
 		}
 		
-		public static function get imageUrl() : String {
+		public static function get imageUrl() : String
+		{
 			return _imageUrl;
 		}
 		
-		public static function get collectionID() : String {
+		public static function get collectionID() : String
+		{
 			return _collectionID;
 		}
 		
-		public static function get isheadmap() : String {
+		public static function get isheadmap() : String
+		{
 			return _isheadmap;
 		}
 		
-		public static function get pageOpenSrc() : String {
+		public static function get pageOpenSrc() : String
+		{
 			return _pageOpenSrc;
 		}
 		
-		public static function set isheadmap(param1:String) : void {
+		public static function set isheadmap(param1:String) : void
+		{
 			_isheadmap = param1;
 		}
 		
-		public static function get isFloatPlayer() : String {
+		public static function get isFloatPlayer() : String
+		{
 			return _isFloatPlayer;
 		}
 		
-		public static function get playListID() : String {
+		public static function get playListID() : String
+		{
 			return _playListID;
 		}
 		
-		public static function get videoFrom() : String {
+		public static function get videoFrom() : String
+		{
 			return _videoFrom;
 		}
 		
-		public static function get flashVarSource() : Object {
+		public static function get flashVarSource() : Object
+		{
 			return _flashVarSource;
 		}
 		
-		public static function get albumId() : String {
+		public static function get albumId() : String
+		{
 			return _albumId;
 		}
 		
-		public static function get tvid() : String {
+		public static function get tvid() : String
+		{
 			return _tvid;
 		}
 		
-		public static function get vid() : String {
+		public static function get vid() : String
+		{
 			return _vid;
 		}
 		
-		public static function get autoPlay() : Boolean {
+		public static function get autoPlay() : Boolean
+		{
 			return _autoPlay;
 		}
 		
-		public static function get isMemberMovie() : Boolean {
+		public static function get isMemberMovie() : Boolean
+		{
 			return _isMemberMovie;
 		}
 		
-		public static function get cyclePlay() : Boolean {
+		public static function get cyclePlay() : Boolean
+		{
 			return _cyclePlay;
 		}
 		
-		public static function get components() : String {
+		public static function get components() : String
+		{
 			return _components;
 		}
 		
-		public static function get cupId() : String {
+		public static function get cupId() : String
+		{
 			return _cupId;
 		}
 		
-		public static function get shareStartTime() : int {
+		public static function get shareStartTime() : int
+		{
 			return _shareStartTime;
 		}
 		
-		public static function get shareEndTime() : int {
+		public static function get shareEndTime() : int
+		{
 			return _shareEndTime;
 		}
 		
-		public static function get preloaderURL() : String {
+		public static function get preloaderURL() : String
+		{
 			return _preloaderURL;
 		}
 		
-		public static function get preloaderVipURL() : String {
+		public static function get preloaderVipURL() : String
+		{
 			return _preloaderVipURL;
 		}
 		
-		public static function get useGPU() : Boolean {
+		public static function get useGPU() : Boolean
+		{
 			return _useGPU;
 		}
 		
-		public static function get showBrand() : Boolean {
+		public static function get showBrand() : Boolean
+		{
 			return _showBrand;
 		}
 		
-		public static function get expandState() : Boolean {
+		public static function get expandState() : Boolean
+		{
 			return _expandState;
 		}
 		
-		public static function get tipDataURL() : String {
+		public static function get tipDataURL() : String
+		{
 			return _tipDataURL;
 		}
 		
-		public static function get coop() : String {
+		public static function get coop() : String
+		{
 			return _coop;
 		}
 		
-		public static function get owner() : String {
+		public static function get owner() : String
+		{
 			return _owner;
 		}
 		
-		public static function get os() : String {
+		public static function get os() : String
+		{
 			return _os;
 		}
 		
-		public static function get adPlayerURL() : String {
+		public static function get adPlayerURL() : String
+		{
 			return _adPlayerURL;
 		}
 		
-		public static function get origin() : String {
+		public static function get origin() : String
+		{
 			return _origin;
 		}
 		
-		public static function get passportID() : String {
+		public static function get passportID() : String
+		{
 			return _passportID;
 		}
 		
-		public static function get P00001() : String {
+		public static function get P00001() : String
+		{
 			return _P00001;
 		}
 		
-		public static function get profileID() : String {
+		public static function get profileID() : String
+		{
 			return _profileID;
 		}
 		
-		public static function get profileCookie() : String {
+		public static function get profileCookie() : String
+		{
 			return _profileCookie;
 		}
 		
-		public static function get outsite() : Boolean {
+		public static function get outsite() : Boolean
+		{
 			return _outsite;
 		}
 		
-		public static function init(param1:Object) : void {
-			if(param1) {
-				if(param1.hasOwnProperty("cpnc")) {
+		public static function init(param1:Object) : void
+		{
+			if(param1)
+			{
+				if(param1.hasOwnProperty("cpnc"))
+				{
 					_couponCode = param1.cpnc;
 				}
-				if(param1.hasOwnProperty("cpnv")) {
+				if(param1.hasOwnProperty("cpnv"))
+				{
 					_couponVer = param1.cpnv;
 				}
-				if(param1.hasOwnProperty("outsite")) {
+				if(param1.hasOwnProperty("outsite"))
+				{
 					_outsite = param1.outsite == "true";
 				}
-				if(param1.hasOwnProperty("albumId")) {
+				if(param1.hasOwnProperty("albumId"))
+				{
 					_albumId = param1.albumId;
 				}
-				if(param1.hasOwnProperty("tvId")) {
+				if(param1.hasOwnProperty("tvId"))
+				{
 					_tvid = param1.tvId;
 				}
-				if(param1.hasOwnProperty("definitionID")) {
+				if(param1.hasOwnProperty("definitionID"))
+				{
 					_vid = param1.definitionID;
 				}
-				if(param1.hasOwnProperty("autoplay")) {
+				if(param1.hasOwnProperty("autoplay"))
+				{
 					_autoPlay = param1.autoplay == "true";
 				}
-				if(param1.hasOwnProperty("isMember")) {
+				if(param1.hasOwnProperty("isMember"))
+				{
 					_isMemberMovie = param1.isMember == "true";
 				}
-				if(param1.hasOwnProperty("cyclePlay")) {
+				if(param1.hasOwnProperty("cyclePlay"))
+				{
 					_cyclePlay = param1.cyclePlay == "true";
 				}
-				if(param1.hasOwnProperty("components")) {
+				if(param1.hasOwnProperty("components"))
+				{
 					_components = param1.components;
 				}
-				if(param1.hasOwnProperty("cid")) {
+				if(param1.hasOwnProperty("cid"))
+				{
 					_cupId = param1.cid;
 				}
-				if(param1.hasOwnProperty("share_sTime")) {
-					if(int(param1.share_sTime) >= 0) {
+				if(param1.hasOwnProperty("share_sTime"))
+				{
+					if(int(param1.share_sTime) >= 0)
+					{
 						_shareStartTime = int(param1.share_sTime) * 1000;
 					}
 				}
-				if(param1.hasOwnProperty("share_eTime")) {
-					if(int(param1.share_eTime) > 0) {
+				if(param1.hasOwnProperty("share_eTime"))
+				{
+					if(int(param1.share_eTime) > 0)
+					{
 						_shareEndTime = int(param1.share_eTime) * 1000;
 					}
 				}
-				if(param1.hasOwnProperty("preloader")) {
+				if(param1.hasOwnProperty("preloader"))
+				{
 					_preloaderURL = param1.preloader;
 				}
-				if(param1.hasOwnProperty("vipPreloader")) {
+				if(param1.hasOwnProperty("vipPreloader"))
+				{
 					_preloaderVipURL = param1.vipPreloader;
 				}
-				if(param1.hasOwnProperty("gpu")) {
+				if(param1.hasOwnProperty("gpu"))
+				{
 					_useGPU = param1.gpu == "true";
 				}
-				if(param1.hasOwnProperty("showBrand")) {
+				if(param1.hasOwnProperty("showBrand"))
+				{
 					_showBrand = param1.showBrand == "true";
 				}
-				if(param1.hasOwnProperty("expandState")) {
+				if(param1.hasOwnProperty("expandState"))
+				{
 					_expandState = param1.expandState == "true";
 				}
-				if(param1.hasOwnProperty("tipdataurl")) {
+				if(param1.hasOwnProperty("tipdataurl"))
+				{
 					_tipDataURL = param1.tipdataurl;
 				}
-				if(param1.hasOwnProperty("coop")) {
+				if(param1.hasOwnProperty("coop"))
+				{
 					_coop = param1.coop;
 				}
-				if(param1.hasOwnProperty("owner")) {
+				if(param1.hasOwnProperty("owner"))
+				{
 					_owner = param1.owner;
 				}
-				if(param1.hasOwnProperty("os")) {
+				if(param1.hasOwnProperty("os"))
+				{
 					_os = param1.os;
 				}
-				if(param1.hasOwnProperty("adurl")) {
+				if(param1.hasOwnProperty("adurl"))
+				{
 					_adPlayerURL = param1.adurl;
 				}
-				if(param1.hasOwnProperty("origin")) {
+				if(param1.hasOwnProperty("origin"))
+				{
 					_origin = param1.origin;
 				}
-				if(param1.hasOwnProperty("passportID")) {
+				if(param1.hasOwnProperty("passportID"))
+				{
 					_passportID = param1.passportID;
 				}
-				if(param1.hasOwnProperty("videoIsFromQidan")) {
+				if(param1.hasOwnProperty("videoIsFromQidan"))
+				{
 					_videoFrom = param1.videoIsFromQidan;
 				}
-				if(param1.hasOwnProperty("playListID")) {
+				if(param1.hasOwnProperty("playListID"))
+				{
 					_playListID = param1.playListID;
 				}
-				if(param1.hasOwnProperty("P00001")) {
+				if(param1.hasOwnProperty("P00001"))
+				{
 					_P00001 = param1.P00001;
 				}
-				if(param1.hasOwnProperty("profileID")) {
+				if(param1.hasOwnProperty("profileID"))
+				{
 					_profileID = param1.profileID;
 				}
-				if(param1.hasOwnProperty("profileCookie")) {
+				if(param1.hasOwnProperty("profileCookie"))
+				{
 					_profileCookie = param1.profileCookie;
 				}
-				if(param1.hasOwnProperty("isFloatPlayer")) {
+				if(param1.hasOwnProperty("isFloatPlayer"))
+				{
 					_isFloatPlayer = param1.isFloatPlayer;
 				}
-				if(param1.hasOwnProperty("pageOpenSrc")) {
+				if(param1.hasOwnProperty("pageOpenSrc"))
+				{
 					_pageOpenSrc = param1.pageOpenSrc;
 				}
-				if(param1.hasOwnProperty("isheadmap")) {
+				if(param1.hasOwnProperty("isheadmap"))
+				{
 					_isheadmap = param1.isheadmap;
 				}
-				if(param1.hasOwnProperty("collectionID")) {
+				if(param1.hasOwnProperty("collectionID"))
+				{
 					_collectionID = param1.collectionID;
 				}
-				if(param1.hasOwnProperty("imageUrl")) {
+				if(param1.hasOwnProperty("imageUrl"))
+				{
 					_imageUrl = param1.imageUrl;
 				}
-				if(param1.hasOwnProperty("qiyiProduced")) {
+				if(param1.hasOwnProperty("qiyiProduced"))
+				{
 					_qiyiProduced = param1.qiyiProduced;
 				}
-				if(param1.hasOwnProperty("qiyiProducedPreloader")) {
+				if(param1.hasOwnProperty("qiyiProducedPreloader"))
+				{
 					_qiyiProducedPreloader = param1.qiyiProducedPreloader;
 				}
-				if(param1.hasOwnProperty("exclusive")) {
+				if(param1.hasOwnProperty("exclusive"))
+				{
 					_exclusive = param1.exclusive;
 				}
-				if(param1.hasOwnProperty("exclusivePreloader")) {
+				if(param1.hasOwnProperty("exclusivePreloader"))
+				{
 					_exclusivePreloader = param1.exclusivePreloader;
 				}
-				if(param1.hasOwnProperty("vfrm")) {
+				if(param1.hasOwnProperty("vfrm"))
+				{
 					_vfrm = param1.vfrm;
 				}
-				if(param1.hasOwnProperty("webEventID")) {
+				if(param1.hasOwnProperty("webEventID"))
+				{
 					_webEventID = param1.webEventID;
 				}
-				if(param1.hasOwnProperty("putbarrage")) {
+				if(param1.hasOwnProperty("putbarrage"))
+				{
 					_putBarrage = int(param1.putbarrage) == 1?true:false;
 				}
-				if(param1.hasOwnProperty("openbarrage")) {
+				if(param1.hasOwnProperty("openbarrage"))
+				{
 					_openBarrage = int(param1.openbarrage) == 1?true:false;
 				}
-				if(param1.hasOwnProperty("pageCTime")) {
+				if(param1.hasOwnProperty("pageCTime"))
+				{
 					_pageCTime = Number(param1.pageCTime);
 				}
 				_flashVarSource = param1;
-				if(_profileID == "" && !(_passportID == "")) {
+				if(_profileID == "" && !(_passportID == ""))
+				{
 					_profileID = _passportID;
 				}
 			}

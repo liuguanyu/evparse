@@ -1,9 +1,7 @@
-package com.qiyi.player.wonder.common.sw {
-	public class SwitchDef extends Object {
-		
-		public function SwitchDef() {
-			super();
-		}
+package com.qiyi.player.wonder.common.sw
+{
+	public class SwitchDef extends Object
+	{
 		
 		private static var idBegin:int = 1;
 		
@@ -86,5 +84,10 @@ package com.qiyi.player.wonder.common.sw {
 		public static const ID_END:int = ++idBegin;
 		
 		public static const ID_COUNT:int = ID_END - ID_BEGIN;
+		
+		public function SwitchDef()
+		{
+			super();
+		}
 	}
 }

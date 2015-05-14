@@ -1,17 +1,22 @@
-package com.qiyi.player.wonder.common.utils {
+package com.qiyi.player.wonder.common.utils
+{
 	import com.qiyi.player.base.pub.EnumItem;
 	import com.qiyi.player.core.model.def.LanguageEnum;
 	import com.qiyi.player.core.model.def.AudioTrackEnum;
 	import com.qiyi.player.core.model.def.DefinitionEnum;
 	
-	public class ChineseNameOfLangAudioDef extends Object {
+	public class ChineseNameOfLangAudioDef extends Object
+	{
 		
-		public function ChineseNameOfLangAudioDef() {
+		public function ChineseNameOfLangAudioDef()
+		{
 			super();
 		}
 		
-		public static function getLanguageName(param1:EnumItem) : String {
-			switch(param1) {
+		public static function getLanguageName(param1:EnumItem) : String
+		{
+			switch(param1)
+			{
 				case LanguageEnum.CHINESE:
 					return "中文";
 				case LanguageEnum.TRADITIONAL:
@@ -41,8 +46,10 @@ package com.qiyi.player.wonder.common.utils {
 			}
 		}
 		
-		public static function getAudioName(param1:EnumItem) : String {
-			switch(param1) {
+		public static function getAudioName(param1:EnumItem) : String
+		{
+			switch(param1)
+			{
 				case AudioTrackEnum.CHINESE:
 					return "国语";
 				case AudioTrackEnum.CANTONESE:
@@ -64,8 +71,10 @@ package com.qiyi.player.wonder.common.utils {
 			}
 		}
 		
-		public static function getDefinitionName(param1:EnumItem) : String {
-			switch(param1) {
+		public static function getDefinitionName(param1:EnumItem) : String
+		{
+			switch(param1)
+			{
 				case DefinitionEnum.NONE:
 					break;
 				case DefinitionEnum.LIMIT:

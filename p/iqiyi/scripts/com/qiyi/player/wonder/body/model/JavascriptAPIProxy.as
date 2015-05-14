@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.body.model {
+package com.qiyi.player.wonder.body.model
+{
 	import org.puremvc.as3.patterns.proxy.Proxy;
 	import com.qiyi.player.base.logging.ILogger;
 	import flash.external.ExternalInterface;
@@ -13,12 +14,23 @@ package com.qiyi.player.wonder.body.model {
 	import com.qiyi.player.base.logging.Log;
 	import gs.TweenLite;
 	
-	public class JavascriptAPIProxy extends Proxy {
+	public class JavascriptAPIProxy extends Proxy
+	{
 		
-		public function JavascriptAPIProxy() {
+		public static const NAME:String = "com.qiyi.player.wonder.body.model.JavascriptAPIProxy";
+		
+		private var _userProxy:UserProxy;
+		
+		private var _playerProxy:PlayerProxy;
+		
+		private var _log:ILogger;
+		
+		public function JavascriptAPIProxy()
+		{
 			this._log = Log.getLogger("com.qiyi.player.wonder.body.model.JavascriptAPIProxy");
 			super(NAME);
-			try {
+			try
+			{
 				ExternalInterface.addCallback("loadQiyiVideo",this.loadQiyiVideo);
 				ExternalInterface.addCallback("pauseQiyiVideo",this.pauseQiyiVideo);
 				ExternalInterface.addCallback("resumeQiyiVideo",this.resumeQiyiVideo);
@@ -51,57 +63,61 @@ package com.qiyi.player.wonder.body.model {
 				ExternalInterface.addCallback("setActivityNoticeInfo",this.setActivityNoticeInfo);
 				TweenLite.delayedCall(2,this.callJsPlayerLoadSuccess);
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 				_log.warn("JavascriptAPIProxy add call back error!");
 			}
 		}
 		
-		public static const NAME:String = "com.qiyi.player.wonder.body.model.JavascriptAPIProxy";
-		
-		private var _userProxy:UserProxy;
-		
-		private var _playerProxy:PlayerProxy;
-		
-		private var _log:ILogger;
-		
-		public function injectUserProxy(param1:UserProxy) : void {
+		public function injectUserProxy(param1:UserProxy) : void
+		{
 			this._userProxy = param1;
 		}
 		
-		public function injectPlayerProxy(param1:PlayerProxy) : void {
+		public function injectPlayerProxy(param1:PlayerProxy) : void
+		{
 			this._playerProxy = param1;
 		}
 		
-		private function unitTest() : void {
+		private function unitTest() : void
+		{
 		}
 		
-		public function checkClientInstall() : Boolean {
-			try {
+		public function checkClientInstall() : Boolean
+		{
+			try
+			{
 				return ExternalInterface.call("lib.swf.checkClientInstall");
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 			return false;
 		}
 		
-		public function callJsPlayNextVideo() : void {
+		public function callJsPlayNextVideo() : void
+		{
 			this._log.debug("call js callJsPlayNextVideo");
 			var dataProvider:Object = new Object();
 			dataProvider.type = "playNextVideo";
 			var dataValue:Object = new Object();
 			dataValue.origin = FlashVarConfig.origin;
 			dataProvider.data = dataValue;
-			try {
+			try
+			{
 				ExternalInterface.call("lib.swf.notice",com.adobe.serialization.json.JSON.encode(dataProvider));
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		public function callJsPlayPreVideo() : void {
+		public function callJsPlayPreVideo() : void
+		{
 		}
 		
-		public function callJsSetLight(param1:Boolean) : void {
+		public function callJsSetLight(param1:Boolean) : void
+		{
 			var var_6:Boolean = param1;
 			this._log.debug("call js callJsSetLight");
 			var dataProvider:Object = new Object();
@@ -110,35 +126,44 @@ package com.qiyi.player.wonder.body.model {
 			dataValue.open = var_6.toString();
 			dataValue.origin = FlashVarConfig.origin;
 			dataProvider.data = dataValue;
-			try {
+			try
+			{
 				ExternalInterface.call("lib.swf.notice",com.adobe.serialization.json.JSON.encode(dataProvider));
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 			sendNotification(BodyDef.NOTIFIC_JS_LIGHT_CHANGED,var_6);
 		}
 		
-		public function callJsLoadComplete() : void {
+		public function callJsLoadComplete() : void
+		{
 			this._log.debug("call js callJsLoadComplete");
 			var dataProvider:Object = new Object();
 			dataProvider.type = "loadComplete";
 			var dataValue:Object = new Object();
 			dataValue.complete = "true";
-			if(this._playerProxy.curActor.movieModel) {
+			if(this._playerProxy.curActor.movieModel)
+			{
 				dataValue.tvid = this._playerProxy.curActor.movieModel.tvid;
-			} else {
+			}
+			else
+			{
 				dataValue.tvid = "";
 			}
 			dataValue.origin = FlashVarConfig.origin;
 			dataProvider.data = dataValue;
-			try {
+			try
+			{
 				ExternalInterface.call("lib.swf.notice",com.adobe.serialization.json.JSON.encode(dataProvider));
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		public function callJsDownload() : void {
+		public function callJsDownload() : void
+		{
 			this._log.debug("call js callJsDownload");
 			var movieModel:IMovieModel = this._playerProxy.curActor.movieModel;
 			var movieInfo:IMovieInfo = this._playerProxy.curActor.movieInfo;
@@ -151,14 +176,17 @@ package com.qiyi.player.wonder.body.model {
 			dataValue.tvid = movieModel?movieModel.tvid:"";
 			dataValue.origin = FlashVarConfig.origin;
 			dataProvider.data = dataValue;
-			try {
+			try
+			{
 				ExternalInterface.call("lib.swf.notice",com.adobe.serialization.json.JSON.encode(dataProvider));
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		public function callJsPlayerStateChange(param1:String, param2:String = "", param3:String = "") : void {
+		public function callJsPlayerStateChange(param1:String, param2:String = "", param3:String = "") : void
+		{
 			var var_7:String = param1;
 			var var_8:String = param2;
 			var var_9:String = param3;
@@ -169,22 +197,28 @@ package com.qiyi.player.wonder.body.model {
 			dataValue.tvid = var_8;
 			dataValue.vid = var_9;
 			dataValue.state = var_7;
-			if((this._playerProxy.curActor.hasStatus(BodyDef.PLAYER_STATUS_FAILED)) && (this._playerProxy.curActor.errorCode == 708 || this._playerProxy.curActor.errorCode == 709)) {
+			if((this._playerProxy.curActor.hasStatus(BodyDef.PLAYER_STATUS_FAILED)) && (this._playerProxy.curActor.errorCode == 708 || this._playerProxy.curActor.errorCode == 709))
+			{
 				dataValue.privateVideo = "1";
-			} else {
+			}
+			else
+			{
 				dataValue.privateVideo = "0";
 			}
 			dataValue.origin = FlashVarConfig.origin;
 			dataProvider.data = dataValue;
-			try {
+			try
+			{
 				ExternalInterface.call("lib.swf.notice",com.adobe.serialization.json.JSON.encode(dataProvider));
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 				_log.info("call js callJsPlayerStateChange error!");
 			}
 		}
 		
-		public function callJsExpand(param1:Boolean) : void {
+		public function callJsExpand(param1:Boolean) : void
+		{
 			var var_10:Boolean = param1;
 			this._log.debug("call js callJsExpand");
 			var dataProvider:Object = new Object();
@@ -193,15 +227,18 @@ package com.qiyi.player.wonder.body.model {
 			dataValue.value = var_10.toString();
 			dataValue.origin = FlashVarConfig.origin;
 			dataProvider.data = dataValue;
-			try {
+			try
+			{
 				ExternalInterface.call("lib.swf.notice",com.adobe.serialization.json.JSON.encode(dataProvider));
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 			sendNotification(BodyDef.NOTIFIC_JS_EXPAND_CHANGED,var_10);
 		}
 		
-		public function callJsRecharge(param1:String, param2:int = 0) : void {
+		public function callJsRecharge(param1:String, param2:int = 0) : void
+		{
 			var var_11:String = param1;
 			var var_12:int = param2;
 			this._log.debug("call js callJsRecharge,code:" + var_11 + ",from:" + var_12);
@@ -212,14 +249,17 @@ package com.qiyi.player.wonder.body.model {
 			dataValue.from = var_12;
 			dataValue.origin = FlashVarConfig.origin;
 			dataProvider.data = dataValue;
-			try {
+			try
+			{
 				ExternalInterface.call("lib.swf.notice",com.adobe.serialization.json.JSON.encode(dataProvider));
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		public function callJsAuthenticationResult(param1:Boolean) : void {
+		public function callJsAuthenticationResult(param1:Boolean) : void
+		{
 			var var_13:Boolean = param1;
 			this._log.debug("call js callJsAuthenticationResult,isTryWatch:" + var_13);
 			var dataProvider:Object = new Object();
@@ -228,14 +268,17 @@ package com.qiyi.player.wonder.body.model {
 			dataValue.isTryWatch = var_13.toString();
 			dataValue.origin = FlashVarConfig.origin;
 			dataProvider.data = dataValue;
-			try {
+			try
+			{
 				ExternalInterface.call("lib.swf.notice",com.adobe.serialization.json.JSON.encode(dataProvider));
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		public function callJsRequestVideoList(param1:Boolean) : void {
+		public function callJsRequestVideoList(param1:Boolean) : void
+		{
 			var var_14:Boolean = param1;
 			this._log.debug("call js callJsRequestVideoList,isBefore:" + var_14);
 			var dataProvider:Object = new Object();
@@ -244,15 +287,18 @@ package com.qiyi.player.wonder.body.model {
 			dataValue.around = var_14?"0":"1";
 			dataValue.origin = FlashVarConfig.origin;
 			dataProvider.data = dataValue;
-			try {
+			try
+			{
 				ExternalInterface.call("lib.swf.notice",com.adobe.serialization.json.JSON.encode(dataProvider));
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 				_log.debug("call js callJsRequestVideoList error");
 			}
 		}
 		
-		public function callJsSwitchFullScreen(param1:Boolean) : void {
+		public function callJsSwitchFullScreen(param1:Boolean) : void
+		{
 			var var_15:Boolean = param1;
 			this._log.debug("call js callJsSwitchFullScreen " + var_15);
 			var dataProvider:Object = new Object();
@@ -261,14 +307,17 @@ package com.qiyi.player.wonder.body.model {
 			dataValue.origin = FlashVarConfig.origin;
 			dataValue.value = var_15.toString();
 			dataProvider.data = dataValue;
-			try {
+			try
+			{
 				ExternalInterface.call("lib.swf.notice",com.adobe.serialization.json.JSON.encode(dataProvider));
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		public function callJsRequestJSSendPB(param1:int) : void {
+		public function callJsRequestJSSendPB(param1:int) : void
+		{
 			var var_16:int = param1;
 			this._log.debug("call js callJsRequestJSSendPB " + var_16);
 			var dataProvider:Object = new Object();
@@ -277,14 +326,17 @@ package com.qiyi.player.wonder.body.model {
 			dataValue.origin = FlashVarConfig.origin;
 			dataValue.PBType = var_16.toString();
 			dataProvider.data = dataValue;
-			try {
+			try
+			{
 				ExternalInterface.call("lib.swf.notice",com.adobe.serialization.json.JSON.encode(dataProvider));
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		public function callJsShowLoginPanel(param1:String) : void {
+		public function callJsShowLoginPanel(param1:String) : void
+		{
 			var var_17:String = param1;
 			this._log.debug("call js callJsShowLoginPanel, source:" + var_17);
 			var dataProvider:Object = new Object();
@@ -293,14 +345,17 @@ package com.qiyi.player.wonder.body.model {
 			dataValue.origin = FlashVarConfig.origin;
 			dataValue.source = var_17;
 			dataProvider.data = dataValue;
-			try {
+			try
+			{
 				ExternalInterface.call("lib.swf.notice",com.adobe.serialization.json.JSON.encode(dataProvider));
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		public function callJsFocusTips(param1:int) : void {
+		public function callJsFocusTips(param1:int) : void
+		{
 			var var_2:int = param1;
 			this._log.debug("call js callJsFocusTips,time:" + var_2);
 			var dataProvider:Object = new Object();
@@ -309,28 +364,34 @@ package com.qiyi.player.wonder.body.model {
 			dataValue.origin = FlashVarConfig.origin;
 			dataValue.time = var_2;
 			dataProvider.data = dataValue;
-			try {
+			try
+			{
 				ExternalInterface.call("Q.__callbacks__.iqiyi_player_notice",com.adobe.serialization.json.JSON.encode(dataProvider));
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		public function callJsRefreshPage() : void {
+		public function callJsRefreshPage() : void
+		{
 			this._log.debug("call js callJsRefreshPage");
 			var dataProvider:Object = new Object();
 			dataProvider.type = "refreshPage";
 			var dataValue:Object = new Object();
 			dataValue.origin = FlashVarConfig.origin;
 			dataProvider.data = dataValue;
-			try {
+			try
+			{
 				ExternalInterface.call("lib.swf.notice",com.adobe.serialization.json.JSON.encode(dataProvider));
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		public function callJsFindGoods(param1:int) : void {
+		public function callJsFindGoods(param1:int) : void
+		{
 			var var_2:int = param1;
 			this._log.debug("call js callJsFindGoods,time:" + var_2);
 			var dataProvider:Object = new Object();
@@ -339,14 +400,17 @@ package com.qiyi.player.wonder.body.model {
 			dataValue.origin = FlashVarConfig.origin;
 			dataValue.time = var_2;
 			dataProvider.data = dataValue;
-			try {
+			try
+			{
 				ExternalInterface.call("lib.swf.notice",com.adobe.serialization.json.JSON.encode(dataProvider));
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		public function callJsBarrageReply(param1:String, param2:String) : void {
+		public function callJsBarrageReply(param1:String, param2:String) : void
+		{
 			var var_18:String = param1;
 			var var_19:String = param2;
 			this._log.debug("call js callJsBarrageReply,$uid:" + var_18 + ", $name" + var_19);
@@ -357,14 +421,17 @@ package com.qiyi.player.wonder.body.model {
 			dataValue.uid = var_18;
 			dataValue.name = var_19;
 			dataProvider.data = dataValue;
-			try {
+			try
+			{
 				ExternalInterface.call("lib.swf.notice",com.adobe.serialization.json.JSON.encode(dataProvider));
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		public function callJsSetBarrageInteractInfo(param1:Object, param2:Boolean) : void {
+		public function callJsSetBarrageInteractInfo(param1:Object, param2:Boolean) : void
+		{
 			var var_20:Object = param1;
 			var var_21:Boolean = param2;
 			this._log.debug("call js callJsSetBarrageInteractInfo isConnected=" + var_21);
@@ -375,14 +442,17 @@ package com.qiyi.player.wonder.body.model {
 			dataValue.interactInfo = var_20;
 			dataValue.isConnected = var_21?"1":"0";
 			dataProvider.data = dataValue;
-			try {
+			try
+			{
 				ExternalInterface.call("lib.swf.notice",com.adobe.serialization.json.JSON.encode(dataProvider));
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		public function callJsBarrageReceiveData(param1:Array) : void {
+		public function callJsBarrageReceiveData(param1:Array) : void
+		{
 			var var_22:Array = param1;
 			this._log.debug("call js callJsBarrageReceiveData");
 			var dataProvider:Object = new Object();
@@ -391,14 +461,17 @@ package com.qiyi.player.wonder.body.model {
 			dataValue.origin = FlashVarConfig.origin;
 			dataValue.barrageData = var_22;
 			dataProvider.data = dataValue;
-			try {
+			try
+			{
 				ExternalInterface.call("lib.swf.notice",com.adobe.serialization.json.JSON.encode(dataProvider));
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		public function callJsDoSomething(param1:String) : void {
+		public function callJsDoSomething(param1:String) : void
+		{
 			var var_23:String = param1;
 			this._log.debug("call js setJsDoSomething : " + var_23);
 			var dataProvider:Object = new Object();
@@ -407,96 +480,119 @@ package com.qiyi.player.wonder.body.model {
 			dataValue.origin = FlashVarConfig.origin;
 			dataValue.handleType = var_23;
 			dataProvider.data = dataValue;
-			try {
+			try
+			{
 				ExternalInterface.call("lib.swf.notice",com.adobe.serialization.json.JSON.encode(dataProvider));
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		private function callJsPlayerLoadSuccess() : void {
+		private function callJsPlayerLoadSuccess() : void
+		{
 			this._log.debug("call js callJsPlayerLoadSuccess");
 			var dataProvider:Object = new Object();
 			dataProvider.type = "playerLoadSuccess";
 			var dataValue:Object = new Object();
 			dataValue.origin = FlashVarConfig.origin;
 			dataProvider.data = dataValue;
-			try {
+			try
+			{
 				ExternalInterface.call("lib.swf.notice",com.adobe.serialization.json.JSON.encode(dataProvider));
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
-			try {
+			try
+			{
 				ExternalInterface.call("Q.__callbacks__.iqiyi_player_notice",com.adobe.serialization.json.JSON.encode(dataProvider));
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 			this.unitTest();
 		}
 		
-		private function loadQiyiVideo(param1:String) : void {
+		private function loadQiyiVideo(param1:String) : void
+		{
 			var obj:Object = null;
 			var var_24:String = param1;
-			if(this._playerProxy.invalid) {
+			if(this._playerProxy.invalid)
+			{
 				return;
 			}
-			try {
+			try
+			{
 				this._log.info("js call loadQiyiVideo");
 				ProcessesTimeRecord.needRecord = false;
 				obj = com.adobe.serialization.json.JSON.decode(var_24);
 				sendNotification(BodyDef.NOTIFIC_JS_CALL_LOAD_QIYI_VIDEO,obj);
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 				_log.info("js call loadQiyiVideo error");
 			}
 		}
 		
-		private function pauseQiyiVideo() : void {
+		private function pauseQiyiVideo() : void
+		{
 			this._log.debug("js call pauseQiyiVideo!");
 			sendNotification(BodyDef.NOTIFIC_PLAYER_PAUSE);
 			sendNotification(BodyDef.NOTIFIC_JS_CALL_PAUSE);
 		}
 		
-		private function initQiyiVideo() : void {
+		private function initQiyiVideo() : void
+		{
 			this._log.debug("js call initQiyiVideo!");
-			if(!this._playerProxy.curActor.hasStatus(BodyDef.PLAYER_STATUS_ALREADY_LOAD_MOVIE)) {
+			if(!this._playerProxy.curActor.hasStatus(BodyDef.PLAYER_STATUS_ALREADY_LOAD_MOVIE))
+			{
 				sendNotification(BodyDef.NOTIFIC_INIT_PLAY);
 			}
 		}
 		
-		private function resumeQiyiVideo() : void {
+		private function resumeQiyiVideo() : void
+		{
 			this._log.debug("js call resumeQiyiVideo!");
-			if(!FlashVarConfig.autoPlay && !this._playerProxy.curActor.hasStatus(BodyDef.PLAYER_STATUS_ALREADY_LOAD_MOVIE)) {
+			if(!FlashVarConfig.autoPlay && !this._playerProxy.curActor.hasStatus(BodyDef.PLAYER_STATUS_ALREADY_LOAD_MOVIE))
+			{
 				sendNotification(BodyDef.NOTIFIC_INIT_PLAY);
-			} else {
+			}
+			else
+			{
 				sendNotification(BodyDef.NOTIFIC_PLAYER_RESUME);
 				sendNotification(BodyDef.NOTIFIC_JS_CALL_RESUME);
 			}
 		}
 		
-		private function seekQiyiVideo(param1:String) : void {
+		private function seekQiyiVideo(param1:String) : void
+		{
 			this._log.debug("js call seek:" + param1);
-			var _loc2_:int = int(param1);
-			sendNotification(BodyDef.NOTIFIC_JS_CALL_SEEK,_loc2_ * 1000);
+			var _loc2:int = int(param1);
+			sendNotification(BodyDef.NOTIFIC_JS_CALL_SEEK,_loc2 * 1000);
 		}
 		
-		private function replayQiyiVideo() : void {
+		private function replayQiyiVideo() : void
+		{
 			this._log.debug("js call replay");
 			sendNotification(BodyDef.NOTIFIC_JS_CALL_REPLAY);
 		}
 		
-		private function setCyclePlay(param1:String) : void {
+		private function setCyclePlay(param1:String) : void
+		{
 			this._log.info("js call setCyclePlay:" + param1);
-			var _loc2_:* = param1 == "true";
-			sendNotification(BodyDef.NOTIFIC_JS_CALL_SET_CYCLE_PLAY,_loc2_);
+			var _loc2:* = param1 == "true";
+			sendNotification(BodyDef.NOTIFIC_JS_CALL_SET_CYCLE_PLAY,_loc2);
 		}
 		
-		private function setNextQiyiVideoInfo(param1:String) : void {
+		private function setNextQiyiVideoInfo(param1:String) : void
+		{
 			var obj:Object = null;
 			var continuePlay:Boolean = false;
 			var nextVideoTitle:String = null;
 			var var_24:String = param1;
-			try {
+			try
+			{
 				obj = com.adobe.serialization.json.JSON.decode(var_24);
 				continuePlay = obj.continuePlay == "true";
 				nextVideoTitle = obj.nextVideoTitle;
@@ -506,82 +602,102 @@ package com.qiyi.player.wonder.body.model {
 					"nextVideoTitle":nextVideoTitle
 				});
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		private function setContinuePlayState(param1:String) : void {
+		private function setContinuePlayState(param1:String) : void
+		{
 			var continuePlay:Boolean = false;
 			var var_24:String = param1;
-			try {
+			try
+			{
 				continuePlay = var_24 == "true";
 				this._log.debug("js  setContinuePlayState:" + continuePlay);
 				sendNotification(BodyDef.NOTIFIC_JS_CALL_SET_CONTINUE_PLAY_STATE,continuePlay);
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		private function switchVideo(param1:String) : void {
+		private function switchVideo(param1:String) : void
+		{
 			var obj:Object = null;
 			var var_24:String = param1;
-			if(this._playerProxy.invalid) {
+			if(this._playerProxy.invalid)
+			{
 				return;
 			}
-			try {
+			try
+			{
 				obj = com.adobe.serialization.json.JSON.decode(var_24);
 				this._log.debug("js  switchVideo tvid:" + obj.tvid + " vid:" + obj.vid);
 				sendNotification(BodyDef.NOTIFIC_JS_CALL_SWITCH_VIDEO,obj);
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		private function switchNextVideo() : void {
-			if(this._playerProxy.invalid) {
+		private function switchNextVideo() : void
+		{
+			if(this._playerProxy.invalid)
+			{
 				return;
 			}
 			this._log.debug("js switchNextVideo");
 			sendNotification(BodyDef.NOTIFIC_JS_CALL_SWITCH_NEXT_VIDEO);
 		}
 		
-		private function switchPreVideo() : void {
-			if(this._playerProxy.invalid) {
+		private function switchPreVideo() : void
+		{
+			if(this._playerProxy.invalid)
+			{
 				return;
 			}
 			this._log.debug("js switchPreVideo");
 			sendNotification(BodyDef.NOTIFIC_JS_CALL_SWITCH_PRE_VIDEO);
 		}
 		
-		private function addVideoList(param1:String) : void {
+		private function addVideoList(param1:String) : void
+		{
 			var obj:Object = null;
 			var var_24:String = param1;
-			try {
+			try
+			{
 				obj = com.adobe.serialization.json.JSON.decode(var_24);
 				this._log.info("js addVideoList taid = " + obj.taid + " tcid = " + obj.tcid);
 				sendNotification(BodyDef.NOTIFIC_JS_CALL_ADD_VIDEO_LIST,obj);
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		private function removeVideoList(param1:String) : void {
+		private function removeVideoList(param1:String) : void
+		{
 			var obj:Object = null;
 			var var_24:String = param1;
-			try {
+			try
+			{
 				obj = com.adobe.serialization.json.JSON.decode(var_24);
 				this._log.info("js removeVideoList tvid:" + obj.tvid + " vid:" + obj.vid);
 				sendNotification(BodyDef.NOTIFIC_JS_CALL_REMOVE_FROM_LIST,obj);
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		private function getQiyiPlayerInfo() : String {
+		private function getQiyiPlayerInfo() : String
+		{
 			var movieModel:IMovieModel = null;
 			var movieInfo:IMovieInfo = null;
 			var info:Object = new Object();
-			try {
+			try
+			{
 				movieModel = this._playerProxy.curActor.movieModel;
 				movieInfo = this._playerProxy.curActor.movieInfo;
 				info.vid = movieModel.vid;
@@ -599,71 +715,86 @@ package com.qiyi.player.wonder.body.model {
 				info.hasBarrage = movieInfo?movieInfo.putBarrage?"1":"0":"1";
 				this._log.debug("js get getQiyiPlayerInfo time :" + info.currentTime + "/" + info.totalDuration + ",loadComplete:" + info.loadComplete);
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 			return com.adobe.serialization.json.JSON.encode(info);
 		}
 		
-		private function getQiyiVideoInfo() : String {
+		private function getQiyiVideoInfo() : String
+		{
 			this._log.info("js call getQiyiVideoInfo");
-			var _loc1_:* = "";
-			if(this._playerProxy.curActor.movieInfo) {
+			var _loc1:* = "";
+			if(this._playerProxy.curActor.movieInfo)
+			{
 				return this._playerProxy.curActor.movieInfo.info;
 			}
 			return "";
 		}
 		
-		private function getIsInMainVideo() : String {
+		private function getIsInMainVideo() : String
+		{
 			this._log.info("js call getIsInMainVideo");
-			if((this._playerProxy.curActor.hasStatus(BodyDef.PLAYER_STATUS_ALREADY_PLAY)) && !this._playerProxy.curActor.hasStatus(BodyDef.PLAYER_STATUS_STOPPING) && !this._playerProxy.curActor.hasStatus(BodyDef.PLAYER_STATUS_STOPED)) {
+			if((this._playerProxy.curActor.hasStatus(BodyDef.PLAYER_STATUS_ALREADY_PLAY)) && !this._playerProxy.curActor.hasStatus(BodyDef.PLAYER_STATUS_STOPPING) && !this._playerProxy.curActor.hasStatus(BodyDef.PLAYER_STATUS_STOPED))
+			{
 				return "1";
 			}
 			return "0";
 		}
 		
-		private function getQiyuInfo() : String {
+		private function getQiyuInfo() : String
+		{
 			this._log.info("js call getQiyuInfo");
-			var _loc1_:* = "";
-			return com.adobe.serialization.json.JSON.encode(_loc1_);
+			var _loc1:* = "";
+			return com.adobe.serialization.json.JSON.encode(_loc1);
 		}
 		
-		private function setQiyiUserLogin(param1:String) : void {
+		private function setQiyiUserLogin(param1:String) : void
+		{
 			var obj:Object = null;
 			var totalBonus:uint = 0;
 			var var_24:String = param1;
 			this._log.debug("js call setQiyiUserLogin: " + var_24);
-			try {
+			try
+			{
 				obj = com.adobe.serialization.json.JSON.decode(var_24);
-				if(this._userProxy) {
+				if(this._userProxy)
+				{
 					this._userProxy.isLogin = obj.login == "true";
 					this._userProxy.passportID = obj.passportId?obj.passportId:"";
 					this._userProxy.P00001 = obj.P00001?obj.P00001:"";
 					this._userProxy.profileID = obj.profileID?obj.profileID:this._userProxy.passportID;
 					this._userProxy.profileCookie = obj.profileCookie?obj.profileCookie:"";
-					if((this._userProxy.isLogin) && FlashVarConfig.owner == FlashVarConfig.OWNER_PAGE) {
+					if((this._userProxy.isLogin) && FlashVarConfig.owner == FlashVarConfig.OWNER_PAGE)
+					{
 						totalBonus = LSO.getInstance().takeOutTotalBonus();
-						if(totalBonus != 0) {
+						if(totalBonus != 0)
+						{
 							this._userProxy.saveTotalBonus(totalBonus,this._playerProxy.curActor.uuid);
 						}
 					}
-					if(obj.source) {
+					if(obj.source)
+					{
 						sendNotification(BodyDef.NOTIFIC_JS_CALL_SET_LOGIN_SOURCE,obj.source);
 					}
 					this._log.debug("js call setQiyiUserLogin send notific!");
 					sendNotification(BodyDef.NOTIFIC_CHECK_USER);
 				}
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		private function setQiyiSubscribe(param1:String) : void {
+		private function setQiyiSubscribe(param1:String) : void
+		{
 			var obj:Object = null;
 			var canSubscribe:Boolean = false;
 			var tvName:String = null;
 			var var_24:String = param1;
 			this._log.debug("js call setQiyiSubscribe");
-			try {
+			try
+			{
 				obj = com.adobe.serialization.json.JSON.decode(var_24);
 				canSubscribe = obj.canSubscribe == "true";
 				tvName = obj.tvName;
@@ -672,32 +803,38 @@ package com.qiyi.player.wonder.body.model {
 					"tvName":tvName
 				});
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		private function setQiyiVisits(param1:String) : void {
+		private function setQiyiVisits(param1:String) : void
+		{
 			this._log.debug("js call setQiyiVisits:" + param1);
 			this._playerProxy.curActor.visits = param1;
 			this._playerProxy.preActor.visits = param1;
 			PingBack.getInstance().visits = param1;
 		}
 		
-		private function setLight(param1:String) : void {
+		private function setLight(param1:String) : void
+		{
 			this._log.debug("js call setLight:" + param1);
-			var _loc2_:* = param1 == "true";
-			sendNotification(BodyDef.NOTIFIC_JS_LIGHT_CHANGED,_loc2_);
+			var _loc2:* = param1 == "true";
+			sendNotification(BodyDef.NOTIFIC_JS_LIGHT_CHANGED,_loc2);
 		}
 		
-		private function forceToSaveCurVideoInfo(param1:String = "") : void {
+		private function forceToSaveCurVideoInfo(param1:String = "") : void
+		{
 			var ifs:Array = null;
 			var i:int = 0;
 			var var_24:String = param1;
 			this._log.debug("js call forceToSaveCurVideoInfo");
 			var infos:Array = [];
 			var movieModel:IMovieModel = this._playerProxy.curActor.movieModel;
-			if(var_24 == "") {
-				if(movieModel) {
+			if(var_24 == "")
+			{
+				if(movieModel)
+				{
 					infos = [{
 						"tvid":movieModel.tvid,
 						"vid":movieModel.vid,
@@ -707,12 +844,17 @@ package com.qiyi.player.wonder.body.model {
 						"member":movieModel.member.toString()
 					}];
 				}
-			} else {
-				try {
+			}
+			else
+			{
+				try
+				{
 					ifs = com.adobe.serialization.json.JSON.decode(var_24);
-					if((ifs) && (ifs.length)) {
+					if((ifs) && (ifs.length))
+					{
 						i = 0;
-						while(i < ifs.length) {
+						while(i < ifs.length)
+						{
 							infos.push({
 								"tvid":ifs[i].tvid,
 								"vid":ifs[i].vid,
@@ -725,102 +867,125 @@ package com.qiyi.player.wonder.body.model {
 						}
 					}
 				}
-				catch(e:Error) {
+				catch(e:Error)
+				{
 				}
 			}
-			if(var_24 == "") {
+			if(var_24 == "")
+			{
 				LSO.getInstance().setClientFlashInfo(infos);
 				return;
 			}
 			LSO.getInstance().setClientFlashInfo(infos);
 		}
 		
-		private function expand(param1:String) : void {
+		private function expand(param1:String) : void
+		{
 			this._log.debug("js call expand:" + param1);
-			var _loc2_:* = param1 == "true";
-			sendNotification(BodyDef.NOTIFIC_JS_EXPAND_CHANGED,_loc2_);
+			var _loc2:* = param1 == "true";
+			sendNotification(BodyDef.NOTIFIC_JS_EXPAND_CHANGED,_loc2);
 		}
 		
-		private function setBarrageStatus(param1:String) : void {
+		private function setBarrageStatus(param1:String) : void
+		{
 			var obj:Object = null;
 			var var_24:String = param1;
 			this._log.debug("js call setBarrageStatus:" + var_24);
-			try {
+			try
+			{
 				obj = com.adobe.serialization.json.JSON.decode(var_24);
 				sendNotification(BodyDef.NOTIFIC_JS_CALL_SET_BARRAGE_STATUS,obj);
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		private function setSelfSendBarrageInfo(param1:String) : void {
+		private function setSelfSendBarrageInfo(param1:String) : void
+		{
 			var obj:Object = null;
 			var var_24:String = param1;
 			this._log.debug("js call setSelfSendBarrageInfo:" + var_24);
-			try {
+			try
+			{
 				obj = com.adobe.serialization.json.JSON.decode(var_24);
 				sendNotification(BodyDef.NOTIFIC_JS_CALL_SET_SELF_SEND_BARRAGE_INFO,obj);
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		private function setSmallWindowMode(param1:String) : void {
+		private function setSmallWindowMode(param1:String) : void
+		{
 			var isSmallWindowMode:Boolean = false;
 			var var_24:String = param1;
 			this._log.debug("js call setSmallWindowMode:" + var_24);
-			try {
+			try
+			{
 				isSmallWindowMode = var_24 == "1";
 				sendNotification(BodyDef.NOTIFIC_JS_CALL_SET_SMALL_WINDOW_MODE,isSmallWindowMode);
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		private function setBarrageSetting(param1:String) : void {
+		private function setBarrageSetting(param1:String) : void
+		{
 			var obj:Object = null;
 			var var_24:String = param1;
 			this._log.debug("js call setBarrageSetting:" + var_24);
-			try {
+			try
+			{
 				obj = com.adobe.serialization.json.JSON.decode(var_24);
 				sendNotification(BodyDef.NOTIFIC_JS_CALL_SET_BARRAGE_SETTING,obj);
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 		
-		private function getCaptureURL(param1:String) : String {
+		private function getCaptureURL(param1:String) : String
+		{
 			var obj:Object = null;
 			var time:Number = NaN;
 			var mode:int = 0;
 			var var_24:String = param1;
 			this._log.debug("js call getCaptureURL:" + var_24);
-			try {
+			try
+			{
 				obj = com.adobe.serialization.json.JSON.decode(var_24);
 				time = -1;
 				mode = 1;
-				if(obj.time != undefined) {
+				if(obj.time != undefined)
+				{
 					time = Number(obj.time);
 				}
-				if(obj.mode != undefined) {
+				if(obj.mode != undefined)
+				{
 					mode = int(obj.mode);
 				}
 				return this._playerProxy.curActor.getCaptureURL(time,mode);
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 			return "";
 		}
 		
-		private function setActivityNoticeInfo(param1:String) : void {
+		private function setActivityNoticeInfo(param1:String) : void
+		{
 			var obj:Object = null;
 			var var_24:String = param1;
 			this._log.debug("js call setActivityNoticeInfo:" + var_24);
-			try {
+			try
+			{
 				obj = com.adobe.serialization.json.JSON.decode(var_24);
 				sendNotification(BodyDef.NOTIFIC_JS_CALL_SET_ACTIVITY_NOTICE_INFO,obj);
 			}
-			catch(error:Error) {
+			catch(error:Error)
+			{
 			}
 		}
 	}

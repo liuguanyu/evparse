@@ -1,9 +1,12 @@
-package feedback {
+package feedback
+{
 	import flash.display.SimpleButton;
 	
-	public dynamic class SearchBtn extends SimpleButton {
+	public dynamic class SearchBtn extends SimpleButton
+	{
 		
-		public function SearchBtn() {
+		public function SearchBtn()
+		{
 			super();
 		}
 	}

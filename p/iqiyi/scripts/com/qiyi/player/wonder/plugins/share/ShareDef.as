@@ -1,9 +1,7 @@
-package com.qiyi.player.wonder.plugins.share {
-	public class ShareDef extends Object {
-		
-		public function ShareDef() {
-			super();
-		}
+package com.qiyi.player.wonder.plugins.share
+{
+	public class ShareDef extends Object
+	{
 		
 		private static var statusBegin:int = 0;
 		
@@ -38,5 +36,10 @@ package com.qiyi.player.wonder.plugins.share {
 		public static const SHARE_TYPE_TENCENT:String = "v.t.qq.com";
 		
 		public static const SHARE_TYPE_QQ:String = "sns.qzone.qq.com";
+		
+		public function ShareDef()
+		{
+			super();
+		}
 	}
 }

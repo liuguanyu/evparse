@@ -1,9 +1,11 @@
-package com.iqiyi.components.panelSystem.interfaces {
+package com.iqiyi.components.panelSystem.interfaces
+{
 	import flash.events.IEventDispatcher;
 	import flash.display.DisplayObjectContainer;
 	import flash.geom.Rectangle;
 	
-	public interface IPanel extends IEventDispatcher {
+	public interface IPanel extends IEventDispatcher
+	{
 		
 		function get type() : int;
 		

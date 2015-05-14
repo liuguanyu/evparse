@@ -1,9 +1,12 @@
-package scenetile {
+package scenetile
+{
 	import flash.display.Sprite;
 	
-	public dynamic class ScoreSuccessIcon extends Sprite {
+	public dynamic class ScoreSuccessIcon extends Sprite
+	{
 		
-		public function ScoreSuccessIcon() {
+		public function ScoreSuccessIcon()
+		{
 			super();
 		}
 	}

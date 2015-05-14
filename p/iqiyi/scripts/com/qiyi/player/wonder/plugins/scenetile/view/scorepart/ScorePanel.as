@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.scenetile.view.scorepart {
+package com.qiyi.player.wonder.plugins.scenetile.view.scorepart
+{
 	import flash.display.Sprite;
 	import common.CommonBg;
 	import scenetile.ScoreCloseBtn;
@@ -12,14 +13,8 @@ package com.qiyi.player.wonder.plugins.scenetile.view.scorepart {
 	import com.qiyi.player.wonder.common.pingback.PingBackDef;
 	import flash.display.DisplayObject;
 	
-	public class ScorePanel extends Sprite {
-		
-		public function ScorePanel(param1:String, param2:Number) {
-			super();
-			this._videoName = param1;
-			this._curScoreNum = param2;
-			this.initPanel();
-		}
+	public class ScorePanel extends Sprite
+	{
 		
 		private static const FRAME_NAME_RED_HEART:String = "_redHeart";
 		
@@ -51,8 +46,17 @@ package com.qiyi.player.wonder.plugins.scenetile.view.scorepart {
 		
 		private var _curScoreNum:Number = 0;
 		
-		private function initPanel() : void {
-			var _loc1_:ScoreHeartItem = null;
+		public function ScorePanel(param1:String, param2:Number)
+		{
+			super();
+			this._videoName = param1;
+			this._curScoreNum = param2;
+			this.initPanel();
+		}
+		
+		private function initPanel() : void
+		{
+			var _loc1:ScoreHeartItem = null;
 			this._bg = new CommonBg();
 			this._bg.width = 310;
 			this._bg.height = 126;
@@ -73,27 +77,31 @@ package com.qiyi.player.wonder.plugins.scenetile.view.scorepart {
 			this._tfHeartDescribe.x = 12;
 			this._tfHeartDescribe.y = 52;
 			addChild(this._tfHeartDescribe);
-			if(this._curScoreNum > 0) {
+			if(this._curScoreNum > 0)
+			{
 				this._tfCurVideoScore.visible = this._tfFixed.visible = true;
 				this._tfCurVideoScore.text = this._curScoreNum.toString();
 				this._tfCurVideoScore.x = this._tfVideoName.x + this._tfVideoName.textWidth + 15;
 				this._tfFixed.x = this._tfCurVideoScore.x + this._tfCurVideoScore.width;
-			} else {
+			}
+			else
+			{
 				this._tfCurVideoScore.visible = this._tfFixed.visible = false;
 			}
 			this._mcScoreHeartVector = new Vector.<ScoreHeartItem>();
-			var _loc2_:uint = 0;
-			while(_loc2_ < SceneTileDef.SCORE_MAX_LEVEL) {
-				_loc1_ = new ScoreHeartItem(_loc2_);
-				_loc1_.heartState(FRAME_NAME_GRAY_HEART);
-				_loc1_.addEventListener(MouseEvent.CLICK,this.onHeartItemClick);
-				_loc1_.addEventListener(MouseEvent.ROLL_OVER,this.onHeartItemRollOver);
-				_loc1_.addEventListener(MouseEvent.ROLL_OUT,this.onHeartItemRollOut);
-				_loc1_.x = this._tfHeartDescribe.x + this._tfHeartDescribe.textWidth + _loc1_.width * _loc2_;
-				_loc1_.y = this._tfHeartDescribe.y + (this._tfHeartDescribe.height - _loc1_.height) / 2;
-				addChild(_loc1_);
-				this._mcScoreHeartVector.push(_loc1_);
-				_loc2_++;
+			var _loc2:uint = 0;
+			while(_loc2 < SceneTileDef.SCORE_MAX_LEVEL)
+			{
+				_loc1 = new ScoreHeartItem(_loc2);
+				_loc1.heartState(FRAME_NAME_GRAY_HEART);
+				_loc1.addEventListener(MouseEvent.CLICK,this.onHeartItemClick);
+				_loc1.addEventListener(MouseEvent.ROLL_OVER,this.onHeartItemRollOver);
+				_loc1.addEventListener(MouseEvent.ROLL_OUT,this.onHeartItemRollOut);
+				_loc1.x = this._tfHeartDescribe.x + this._tfHeartDescribe.textWidth + _loc1.width * _loc2;
+				_loc1.y = this._tfHeartDescribe.y + (this._tfHeartDescribe.height - _loc1.height) / 2;
+				addChild(_loc1);
+				this._mcScoreHeartVector.push(_loc1);
+				_loc2++;
 			}
 			this._tfLevelDescribe = FastCreator.createLabel(SceneTileDef.SCORE_LEVEL_DESCRIBE[0],16777215,12,TextFieldAutoSize.CENTER);
 			this._tfLevelDescribe.x = this._mcScoreHeartVector[SceneTileDef.SCORE_MAX_LEVEL - 1].x + this._mcScoreHeartVector[SceneTileDef.SCORE_MAX_LEVEL - 1].width + 8;
@@ -111,66 +119,82 @@ package com.qiyi.player.wonder.plugins.scenetile.view.scorepart {
 			this._closeBtn.addEventListener(MouseEvent.CLICK,this.onCloseBtnClick);
 		}
 		
-		private function onHeartItemClick(param1:MouseEvent) : void {
-			var _loc2_:ScoreHeartItem = param1.currentTarget as ScoreHeartItem;
-			if(_loc2_) {
-				dispatchEvent(new SceneTileEvent(SceneTileEvent.Evt_ScoreHeartClick,_loc2_.index));
+		private function onHeartItemClick(param1:MouseEvent) : void
+		{
+			var _loc2:ScoreHeartItem = param1.currentTarget as ScoreHeartItem;
+			if(_loc2)
+			{
+				dispatchEvent(new SceneTileEvent(SceneTileEvent.Evt_ScoreHeartClick,_loc2.index));
 			}
 			dispatchEvent(new SceneTileEvent(SceneTileEvent.Evt_ScoreClose));
 		}
 		
-		private function onHeartItemRollOver(param1:MouseEvent) : void {
-			var _loc2_:ScoreHeartItem = param1.target as ScoreHeartItem;
-			if(_loc2_) {
-				this.updateHeartState(_loc2_.index);
+		private function onHeartItemRollOver(param1:MouseEvent) : void
+		{
+			var _loc2:ScoreHeartItem = param1.target as ScoreHeartItem;
+			if(_loc2)
+			{
+				this.updateHeartState(_loc2.index);
 				this._tfLevelDescribe.visible = true;
-				this._tfLevelDescribe.text = SceneTileDef.SCORE_LEVEL_DESCRIBE[_loc2_.index];
+				this._tfLevelDescribe.text = SceneTileDef.SCORE_LEVEL_DESCRIBE[_loc2.index];
 			}
 		}
 		
-		private function onHeartItemRollOut(param1:MouseEvent) : void {
-			var _loc2_:ScoreHeartItem = param1.target as ScoreHeartItem;
-			if(_loc2_) {
+		private function onHeartItemRollOut(param1:MouseEvent) : void
+		{
+			var _loc2:ScoreHeartItem = param1.target as ScoreHeartItem;
+			if(_loc2)
+			{
 				this.updateHeartState(-1);
 				this._tfLevelDescribe.visible = false;
 			}
 		}
 		
-		private function updateHeartState(param1:int) : void {
-			var _loc2_:uint = 0;
-			while(_loc2_ < SceneTileDef.SCORE_MAX_LEVEL) {
-				if(_loc2_ <= param1) {
-					this._mcScoreHeartVector[_loc2_].heartState(FRAME_NAME_RED_HEART);
-				} else {
-					this._mcScoreHeartVector[_loc2_].heartState(FRAME_NAME_GRAY_HEART);
+		private function updateHeartState(param1:int) : void
+		{
+			var _loc2:uint = 0;
+			while(_loc2 < SceneTileDef.SCORE_MAX_LEVEL)
+			{
+				if(_loc2 <= param1)
+				{
+					this._mcScoreHeartVector[_loc2].heartState(FRAME_NAME_RED_HEART);
 				}
-				_loc2_++;
+				else
+				{
+					this._mcScoreHeartVector[_loc2].heartState(FRAME_NAME_GRAY_HEART);
+				}
+				_loc2++;
 			}
 		}
 		
-		private function onCloseBtnClick(param1:MouseEvent) : void {
+		private function onCloseBtnClick(param1:MouseEvent) : void
+		{
 			PingBack.getInstance().userActionPing(PingBackDef.SCORE_CLOSE_BTN_CLICK);
 			dispatchEvent(new SceneTileEvent(SceneTileEvent.Evt_ScoreClose));
 		}
 		
-		public function destory() : void {
-			var _loc1_:ScoreHeartItem = null;
-			var _loc2_:DisplayObject = null;
+		public function destory() : void
+		{
+			var _loc1:ScoreHeartItem = null;
+			var _loc2:DisplayObject = null;
 			this._closeBtn.removeEventListener(MouseEvent.CLICK,this.onCloseBtnClick);
-			while(this._mcScoreHeartVector.length > 0) {
-				_loc1_ = this._mcScoreHeartVector.shift();
-				_loc1_.removeEventListener(MouseEvent.CLICK,this.onHeartItemClick);
-				_loc1_.removeEventListener(MouseEvent.ROLL_OVER,this.onHeartItemRollOver);
-				_loc1_.removeEventListener(MouseEvent.ROLL_OUT,this.onHeartItemRollOut);
-				_loc1_.destory();
-				_loc1_ = null;
+			while(this._mcScoreHeartVector.length > 0)
+			{
+				_loc1 = this._mcScoreHeartVector.shift();
+				_loc1.removeEventListener(MouseEvent.CLICK,this.onHeartItemClick);
+				_loc1.removeEventListener(MouseEvent.ROLL_OVER,this.onHeartItemRollOver);
+				_loc1.removeEventListener(MouseEvent.ROLL_OUT,this.onHeartItemRollOut);
+				_loc1.destory();
+				_loc1 = null;
 			}
-			while(numChildren > 0) {
-				_loc2_ = getChildAt(0);
-				if(_loc2_.parent) {
-					_loc2_.parent.removeChild(_loc2_);
+			while(numChildren > 0)
+			{
+				_loc2 = getChildAt(0);
+				if(_loc2.parent)
+				{
+					_loc2.parent.removeChild(_loc2);
 				}
-				_loc2_ = null;
+				_loc2 = null;
 			}
 		}
 	}

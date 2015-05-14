@@ -1,8 +1,10 @@
-package com.qiyi.player.base.rpc {
+package com.qiyi.player.base.rpc
+{
 	import flash.events.IEventDispatcher;
 	import com.qiyi.player.base.pub.EnumItem;
 	
-	public interface IRemoteObject extends IEventDispatcher {
+	public interface IRemoteObject extends IEventDispatcher
+	{
 		
 		function get id() : Number;
 		

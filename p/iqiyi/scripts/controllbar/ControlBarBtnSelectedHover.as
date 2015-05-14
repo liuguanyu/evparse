@@ -1,9 +1,12 @@
-package controllbar {
+package controllbar
+{
 	import flash.display.Sprite;
 	
-	public dynamic class ControlBarBtnSelectedHover extends Sprite {
+	public dynamic class ControlBarBtnSelectedHover extends Sprite
+	{
 		
-		public function ControlBarBtnSelectedHover() {
+		public function ControlBarBtnSelectedHover()
+		{
 			super();
 		}
 	}

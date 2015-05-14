@@ -1,12 +1,9 @@
-package com.qiyi.player.user {
+package com.qiyi.player.user
+{
 	import flash.events.Event;
 	
-	public class UserManagerEvent extends Event {
-		
-		public function UserManagerEvent(param1:String, param2:String = "", param3:Boolean = false, param4:Boolean = false) {
-			super(param1,param3,param4);
-			this._code = param2;
-		}
+	public class UserManagerEvent extends Event
+	{
 		
 		public static const Evt_LoginSuccess:String = "loginSuccess";
 		
@@ -20,7 +17,14 @@ package com.qiyi.player.user {
 		
 		private var _code:String;
 		
-		public function get code() : String {
+		public function UserManagerEvent(param1:String, param2:String = "", param3:Boolean = false, param4:Boolean = false)
+		{
+			super(param1,param3,param4);
+			this._code = param2;
+		}
+		
+		public function get code() : String
+		{
 			return this._code;
 		}
 	}

@@ -1,5 +1,7 @@
-package com.qiyi.player.wonder.common.sw {
-	public interface ISwitch {
+package com.qiyi.player.wonder.common.sw
+{
+	public interface ISwitch
+	{
 		
 		function getSwitchID() : Vector.<int>;
 		

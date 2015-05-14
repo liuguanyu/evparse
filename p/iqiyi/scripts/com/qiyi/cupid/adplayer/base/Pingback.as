@@ -1,4 +1,5 @@
-package com.qiyi.cupid.adplayer.base {
+package com.qiyi.cupid.adplayer.base
+{
 	import flash.utils.Dictionary;
 	import flash.system.Capabilities;
 	import com.qiyi.cupid.adplayer.utils.CupidAdPlayerUtils;
@@ -6,11 +7,8 @@ package com.qiyi.cupid.adplayer.base {
 	import flash.net.sendToURL;
 	import com.qiyi.cupid.adplayer.utils.StringUtils;
 	
-	public class Pingback extends Object {
-		
-		public function Pingback() {
-			super();
-		}
+	public class Pingback extends Object
+	{
 		
 		private static var log:Log = new Log("pingback");
 		
@@ -54,7 +52,13 @@ package com.qiyi.cupid.adplayer.base {
 		
 		private var _errMsg:String;
 		
-		public function sendVisitPb(param1:Dictionary) : void {
+		public function Pingback()
+		{
+			super();
+		}
+		
+		public function sendVisitPb(param1:Dictionary) : void
+		{
 			this._pingbackType = PingbackConst.TYPE_VISIT;
 			this._subtype = PingbackConst.SUBTYPE_SUCCESS;
 			this._tvId = param1["tvId"];
@@ -68,7 +72,8 @@ package com.qiyi.cupid.adplayer.base {
 			this.send(param1);
 		}
 		
-		public function sendPlayerSuccess(param1:Dictionary, param2:int, param3:int) : void {
+		public function sendPlayerSuccess(param1:Dictionary, param2:int, param3:int) : void
+		{
 			this._pingbackType = PingbackConst.TYPE_PLAYER;
 			this._subtype = PingbackConst.SUBTYPE_SUCCESS;
 			this._requestDuration = param2;
@@ -76,7 +81,8 @@ package com.qiyi.cupid.adplayer.base {
 			this.send(param1);
 		}
 		
-		public function sendPlayerError(param1:Dictionary, param2:int, param3:String, param4:int) : void {
+		public function sendPlayerError(param1:Dictionary, param2:int, param3:String, param4:int) : void
+		{
 			this._pingbackType = PingbackConst.TYPE_PLAYER;
 			this._subtype = PingbackConst.SUBTYPE_ERROR;
 			this._requestCount = param4;
@@ -85,14 +91,16 @@ package com.qiyi.cupid.adplayer.base {
 			this.send(param1);
 		}
 		
-		public function sendStatisticsAdBlock(param1:Dictionary, param2:int) : void {
+		public function sendStatisticsAdBlock(param1:Dictionary, param2:int) : void
+		{
 			this._pingbackType = PingbackConst.TYPE_STATISTICS;
 			this._subtype = PingbackConst.SUBTYPE_ADBLOCK;
 			this._errCode = param2;
 			this.send(param1);
 		}
 		
-		private function send(param1:Dictionary) : void {
+		private function send(param1:Dictionary) : void
+		{
 			this._uaaUserId = param1["uaaUserId"];
 			this._cupidUserId = param1["cupidUserId"];
 			this._videoEventId = param1["videoEventId2"];
@@ -102,55 +110,62 @@ package com.qiyi.cupid.adplayer.base {
 			this.ping();
 		}
 		
-		private function ping() : void {
+		private function ping() : void
+		{
 			var urlRequest:URLRequest = null;
-			try {
+			try
+			{
 				urlRequest = new URLRequest(this.generateUrl());
 				sendToURL(urlRequest);
 			}
-			catch(e:Error) {
+			catch(e:Error)
+			{
 			}
 		}
 		
-		private function generateUrl() : String {
-			var _loc3_:String = null;
-			var _loc4_:String = null;
-			var _loc5_:String = null;
-			var _loc1_:Dictionary = new Dictionary();
-			_loc1_["p"] = this._pingbackType;
-			_loc1_["t"] = this._subtype;
-			_loc1_["u"] = this._uaaUserId;
-			_loc1_["a"] = this._cupidUserId;
-			_loc1_["v"] = this._tvId;
-			_loc1_["b"] = this._albumId;
-			_loc1_["c"] = this._channelId;
-			_loc1_["e"] = this._videoEventId;
-			_loc1_["y"] = this._adPlayerId;
-			_loc1_["x"] = this._customInfo;
-			_loc1_["s"] = new Date().time;
-			_loc1_["pp"] = this._passportId;
-			_loc1_["pl"] = this._isPreload;
-			_loc1_["fp"] = this._flashPlayerVersion;
-			_loc1_["lc"] = this._location;
-			_loc1_["av"] = this._adClientVersion;
-			_loc1_["vv"] = this._videoClientVersion;
-			_loc1_["rd"] = this._requestDuration > 0?this._requestDuration.toString():"";
-			_loc1_["rc"] = this._requestCount != 0?this._requestCount.toString():"";
-			_loc1_["ec"] = this._errCode != 0?this._errCode.toString():"";
-			_loc1_["em"] = this._errMsg;
-			var _loc2_:Array = new Array();
-			for(_loc3_ in _loc1_) {
-				_loc5_ = _loc1_[_loc3_];
-				if(!StringUtils.isEmpty(_loc5_)) {
-					if(PingbackConst.ENCODE_FIELDS.indexOf(_loc3_) >= 0) {
-						_loc5_ = encodeURIComponent(_loc5_);
+		private function generateUrl() : String
+		{
+			var _loc3:String = null;
+			var _loc4:String = null;
+			var _loc5:String = null;
+			var _loc1:Dictionary = new Dictionary();
+			_loc1["p"] = this._pingbackType;
+			_loc1["t"] = this._subtype;
+			_loc1["u"] = this._uaaUserId;
+			_loc1["a"] = this._cupidUserId;
+			_loc1["v"] = this._tvId;
+			_loc1["b"] = this._albumId;
+			_loc1["c"] = this._channelId;
+			_loc1["e"] = this._videoEventId;
+			_loc1["y"] = this._adPlayerId;
+			_loc1["x"] = this._customInfo;
+			_loc1["s"] = new Date().time;
+			_loc1["pp"] = this._passportId;
+			_loc1["pl"] = this._isPreload;
+			_loc1["fp"] = this._flashPlayerVersion;
+			_loc1["lc"] = this._location;
+			_loc1["av"] = this._adClientVersion;
+			_loc1["vv"] = this._videoClientVersion;
+			_loc1["rd"] = this._requestDuration > 0?this._requestDuration.toString():"";
+			_loc1["rc"] = this._requestCount != 0?this._requestCount.toString():"";
+			_loc1["ec"] = this._errCode != 0?this._errCode.toString():"";
+			_loc1["em"] = this._errMsg;
+			var _loc2:Array = new Array();
+			for(_loc3 in _loc1)
+			{
+				_loc5 = _loc1[_loc3];
+				if(!StringUtils.isEmpty(_loc5))
+				{
+					if(PingbackConst.ENCODE_FIELDS.indexOf(_loc3) >= 0)
+					{
+						_loc5 = encodeURIComponent(_loc5);
 					}
-					_loc2_.push(_loc3_ + "=" + _loc5_);
+					_loc2.push(_loc3 + "=" + _loc5);
 				}
 			}
-			_loc4_ = PingbackConst.SERVICE_URL + _loc2_.join("&");
-			log.debug("send",_loc4_);
-			return _loc4_;
+			_loc4 = PingbackConst.SERVICE_URL + _loc2.join("&");
+			log.debug("send",_loc4);
+			return _loc4;
 		}
 	}
 }

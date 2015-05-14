@@ -1,9 +1,7 @@
-package com.qiyi.player.wonder.plugins.tips {
-	public class TipsDef extends Object {
-		
-		public function TipsDef() {
-			super();
-		}
+package com.qiyi.player.wonder.plugins.tips
+{
+	public class TipsDef extends Object
+	{
 		
 		private static var statusBegin:int = 0;
 		
@@ -146,5 +144,10 @@ package com.qiyi.player.wonder.plugins.tips {
 		public static const AUTH_TIP_TYPE_NOT_TICKET:uint = 2;
 		
 		public static const AUTH_TIP_TYPE_TICKET:uint = 3;
+		
+		public function TipsDef()
+		{
+			super();
+		}
 	}
 }

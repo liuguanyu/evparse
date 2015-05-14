@@ -1,9 +1,7 @@
-package com.qiyi.player.wonder.common.config {
-	public class SystemConfig extends Object {
-		
-		public function SystemConfig() {
-			super();
-		}
+package com.qiyi.player.wonder.common.config
+{
+	public class SystemConfig extends Object
+	{
 		
 		public static const COMMON_COOKIE_NAME:String = "qiyi_player_common";
 		
@@ -56,5 +54,10 @@ package com.qiyi.player.wonder.common.config {
 		public static const VIP_HELP_DESK_URL:String = "http://vip.iqiyi.com/viphelpdesk.html?1-2";
 		
 		public static const MOVIE_INDIVIDUALIZATION_URL:String = "http://www.iqiyi.com/dianying/i_welcome.html";
+		
+		public function SystemConfig()
+		{
+			super();
+		}
 	}
 }

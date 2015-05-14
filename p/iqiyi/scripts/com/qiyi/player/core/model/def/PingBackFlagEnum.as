@@ -1,11 +1,9 @@
-package com.qiyi.player.core.model.def {
+package com.qiyi.player.core.model.def
+{
 	import com.qiyi.player.base.pub.EnumItem;
 	
-	public class PingBackFlagEnum extends Object {
-		
-		public function PingBackFlagEnum() {
-			super();
-		}
+	public class PingBackFlagEnum extends Object
+	{
 		
 		public static const ITEMS:Array = [];
 		
@@ -16,5 +14,10 @@ package com.qiyi.player.core.model.def {
 		public static const USER_ACT:EnumItem = new EnumItem(2,"usract",ITEMS);
 		
 		public static const STU_ENV:EnumItem = new EnumItem(3,"stuenv",ITEMS);
+		
+		public function PingBackFlagEnum()
+		{
+			super();
+		}
 	}
 }

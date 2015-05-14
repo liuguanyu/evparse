@@ -1,5 +1,7 @@
-package org.puremvc.as3.interfaces {
-	public interface IMediator {
+package org.puremvc.as3.interfaces
+{
+	public interface IMediator
+	{
 		
 		function listNotificationInterests() : Array;
 		

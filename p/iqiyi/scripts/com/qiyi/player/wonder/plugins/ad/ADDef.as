@@ -1,9 +1,7 @@
-package com.qiyi.player.wonder.plugins.ad {
-	public class ADDef extends Object {
-		
-		public function ADDef() {
-			super();
-		}
+package com.qiyi.player.wonder.plugins.ad
+{
+	public class ADDef extends Object
+	{
 		
 		private static var statusBegin:int = 0;
 		
@@ -72,5 +70,10 @@ package com.qiyi.player.wonder.plugins.ad {
 		public static const PRE_LOAD_TIME:int = 20000;
 		
 		public static const DOCK_HIND_DELAY:int = 3000;
+		
+		public function ADDef()
+		{
+			super();
+		}
 	}
 }

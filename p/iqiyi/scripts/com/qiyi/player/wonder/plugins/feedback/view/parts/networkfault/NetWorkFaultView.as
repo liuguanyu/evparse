@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.feedback.view.parts.networkfault {
+package com.qiyi.player.wonder.plugins.feedback.view.parts.networkfault
+{
 	import flash.display.Sprite;
 	import com.qiyi.player.wonder.IDestroy;
 	import flash.text.TextFormat;
@@ -11,12 +12,8 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.networkfault {
 	import flash.display.SimpleButton;
 	import flash.display.DisplayObject;
 	
-	public class NetWorkFaultView extends Sprite implements IDestroy {
-		
-		public function NetWorkFaultView() {
-			super();
-			this.initPanel();
-		}
+	public class NetWorkFaultView extends Sprite implements IDestroy
+	{
 		
 		private static const TEXT_TITLE:String = "呃......播放失败了";
 		
@@ -54,7 +51,14 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.networkfault {
 		
 		private var _isFeedBacked:Boolean;
 		
-		private function initPanel() : void {
+		public function NetWorkFaultView()
+		{
+			super();
+			this.initPanel();
+		}
+		
+		private function initPanel() : void
+		{
 			this._titleTF = FastCreator.createLabel(TEXT_TITLE,16777215,18);
 			addChild(this._titleTF);
 			this._clientExtendTF = FastCreator.createLabel(TEXT_CLIENT_EXTEND,13421772,14);
@@ -83,39 +87,46 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.networkfault {
 			this._helpBtn.addEventListener(MouseEvent.ROLL_OUT,this.onBtnRollOut);
 		}
 		
-		public function get downLoadBtn() : SimpleButton {
+		public function get downLoadBtn() : SimpleButton
+		{
 			return this._downLoadBtn;
 		}
 		
-		public function get isFeedBacked() : Boolean {
+		public function get isFeedBacked() : Boolean
+		{
 			return this._isFeedBacked;
 		}
 		
-		public function set isFeedBacked(param1:Boolean) : void {
+		public function set isFeedBacked(param1:Boolean) : void
+		{
 			this._isFeedBacked = param1;
 		}
 		
-		public function get helpBtn() : SimpleButton {
+		public function get helpBtn() : SimpleButton
+		{
 			return this._helpBtn;
 		}
 		
-		public function get refreshBtn() : SimpleButton {
+		public function get refreshBtn() : SimpleButton
+		{
 			return this._refreshBtn;
 		}
 		
-		public function get rejectMsg() : TextField {
+		public function get rejectMsg() : TextField
+		{
 			return this._describeTF;
 		}
 		
-		public function onResize(param1:int, param2:int) : void {
-			var _loc3_:Number = 0;
-			_loc3_ = _loc3_ + (this._titleTF.height + 10);
-			_loc3_ = _loc3_ + (this._clientExtendTF.height + 10);
-			_loc3_ = _loc3_ + (this._downLoadBtn.height + 20);
-			_loc3_ = _loc3_ + (this._helpBtn.height + 20);
-			_loc3_ = _loc3_ + this._describeTF.height;
+		public function onResize(param1:int, param2:int) : void
+		{
+			var _loc3:Number = 0;
+			_loc3 = _loc3 + (this._titleTF.height + 10);
+			_loc3 = _loc3 + (this._clientExtendTF.height + 10);
+			_loc3 = _loc3 + (this._downLoadBtn.height + 20);
+			_loc3 = _loc3 + (this._helpBtn.height + 20);
+			_loc3 = _loc3 + this._describeTF.height;
 			this._titleTF.x = (param1 - this._titleTF.width) * 0.5;
-			this._titleTF.y = (param2 - _loc3_) * 0.5;
+			this._titleTF.y = (param2 - _loc3) * 0.5;
 			this._clientExtendTF.x = (param1 - this._clientExtendTF.width) * 0.5;
 			this._clientExtendTF.y = this._titleTF.y + this._titleTF.height + 10;
 			this._downLoadBtn.x = (param1 - this._downLoadBtn.width) * 0.5;
@@ -134,8 +145,10 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.networkfault {
 			this._describeTF.y = this._refreshBtn.y + this._refreshBtn.height + 10;
 		}
 		
-		private function onBtnRollOver(param1:MouseEvent) : void {
-			switch(param1.target) {
+		private function onBtnRollOver(param1:MouseEvent) : void
+		{
+			switch(param1.target)
+			{
 				case this._helpBtn:
 					this._helpTF.defaultTextFormat = HOVER_FONT_COLOR;
 					this._helpTF.setTextFormat(HOVER_FONT_COLOR);
@@ -147,8 +160,10 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.networkfault {
 			}
 		}
 		
-		private function onBtnRollOut(param1:MouseEvent) : void {
-			switch(param1.target) {
+		private function onBtnRollOut(param1:MouseEvent) : void
+		{
+			switch(param1.target)
+			{
 				case this._helpBtn:
 					this._helpTF.defaultTextFormat = DEFAULT_FONT_COLOR;
 					this._helpTF.setTextFormat(DEFAULT_FONT_COLOR);
@@ -160,14 +175,17 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.networkfault {
 			}
 		}
 		
-		public function destroy() : void {
-			var _loc1_:DisplayObject = null;
-			while(numChildren > 0) {
-				_loc1_ = getChildAt(0);
-				if(_loc1_.parent) {
-					removeChild(_loc1_);
+		public function destroy() : void
+		{
+			var _loc1:DisplayObject = null;
+			while(numChildren > 0)
+			{
+				_loc1 = getChildAt(0);
+				if(_loc1.parent)
+				{
+					removeChild(_loc1);
 				}
-				_loc1_ = null;
+				_loc1 = null;
 			}
 		}
 	}

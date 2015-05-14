@@ -1,9 +1,11 @@
-package com.qiyi.player.core.model {
+package com.qiyi.player.core.model
+{
 	import com.qiyi.player.base.pub.EnumItem;
 	import com.qiyi.player.core.model.impls.Keyframe;
 	import com.qiyi.player.core.model.impls.ScreenInfo;
 	
-	public interface IMovieModel {
+	public interface IMovieModel
+	{
 		
 		function get curAudioTrackInfo() : IAudioTrackInfo;
 		

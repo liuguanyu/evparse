@@ -1,4 +1,5 @@
-package com.qiyi.player.core.model.impls {
+package com.qiyi.player.core.model.impls
+{
 	import flash.events.EventDispatcher;
 	import com.qiyi.player.core.IDestroy;
 	import com.qiyi.player.core.model.IDefinitionInfo;
@@ -20,15 +21,8 @@ package com.qiyi.player.core.model.impls {
 	import com.qiyi.player.core.model.utils.ErrorCodeUtils;
 	import com.qiyi.player.base.logging.Log;
 	
-	public class Definition extends EventDispatcher implements IDestroy, IDefinitionInfo {
-		
-		public function Definition(param1:ICorePlayer, param2:AudioTrack, param3:IMovie) {
-			this._log = Log.getLogger("com.qiyi.player.core.model.impls.Definition");
-			super();
-			this._holder = param1;
-			this._audioTrack = param2;
-			this._movie = param3;
-		}
+	public class Definition extends EventDispatcher implements IDestroy, IDefinitionInfo
+	{
 		
 		private var _audioTrack:AudioTrack;
 		
@@ -72,161 +66,218 @@ package com.qiyi.player.core.model.impls {
 		
 		private var _log:ILogger;
 		
-		public function get type() : EnumItem {
+		public function Definition(param1:ICorePlayer, param2:AudioTrack, param3:IMovie)
+		{
+			this._log = Log.getLogger("com.qiyi.player.core.model.impls.Definition");
+			super();
+			this._holder = param1;
+			this._audioTrack = param2;
+			this._movie = param3;
+		}
+		
+		public function get type() : EnumItem
+		{
 			return this._type;
 		}
 		
-		public function get vid() : String {
+		public function get vid() : String
+		{
 			return this._vid;
 		}
 		
-		public function get duration() : Number {
+		public function get duration() : Number
+		{
 			return this._duration;
 		}
 		
-		public function get flvWidth() : Number {
+		public function get flvWidth() : Number
+		{
 			return this._flvWidth;
 		}
 		
-		public function get flvHeight() : Number {
+		public function get flvHeight() : Number
+		{
 			return this._flvHeight;
 		}
 		
-		public function get segmentCount() : int {
-			if(this._segmentVec) {
+		public function get segmentCount() : int
+		{
+			if(this._segmentVec)
+			{
 				return this._segmentVec.length;
 			}
 			return 0;
 		}
 		
-		public function get videoConfigTag() : String {
+		public function get videoConfigTag() : String
+		{
 			return this._videoConfigTag;
 		}
 		
-		public function get audioConfigTag() : String {
+		public function get audioConfigTag() : String
+		{
 			return this._audioConfigTag;
 		}
 		
-		public function get meta() : Object {
+		public function get meta() : Object
+		{
 			return this._meta;
 		}
 		
-		public function get ready() : Boolean {
+		public function get ready() : Boolean
+		{
 			return this._ready;
 		}
 		
-		public function get metaIsReady() : Boolean {
+		public function get metaIsReady() : Boolean
+		{
 			return !(this._meta == null);
 		}
 		
-		public function get timestampContinuous() : Boolean {
+		public function get timestampContinuous() : Boolean
+		{
 			return this._timestampContinuous;
 		}
 		
-		public function initDefinition(param1:Object, param2:String, param3:String, param4:Boolean) : void {
-			var _loc6_:Object = null;
-			var _loc7_:* = 0;
-			var _loc8_:Segment = null;
-			var _loc9_:* = NaN;
-			var _loc10_:* = NaN;
-			var _loc11_:String = null;
-			var _loc12_:* = NaN;
-			var _loc13_:* = 0;
-			if(this._source != null) {
+		public function initDefinition(param1:Object, param2:String, param3:String, param4:Boolean) : void
+		{
+			var _loc6:Object = null;
+			var _loc7:* = 0;
+			var _loc8:Segment = null;
+			var _loc9:* = NaN;
+			var _loc10:* = NaN;
+			var _loc11:String = null;
+			var _loc12:* = NaN;
+			var _loc13:* = 0;
+			if(this._source != null)
+			{
 				return;
 			}
 			this._source = param1;
 			this._type = Utility.getItemById(DefinitionEnum.ITEMS,int(param1.bid));
 			this._vid = param1.vid.toString();
 			this._metaURL = param2 + param1.mu.toString();
-			if(param1.tag) {
-				if(param1.tag.vt) {
+			if(param1.tag)
+			{
+				if(param1.tag.vt)
+				{
 					this._videoConfigTag = param1.tag.vt;
 				}
-				if(param1.tag.at) {
+				if(param1.tag.at)
+				{
 					this._audioConfigTag = param1.tag.at;
 				}
 			}
 			this._duration = 0;
-			var _loc5_:Array = null;
-			if(param4) {
-				_loc5_ = param1.flvs as Array;
-			} else {
-				_loc5_ = param1.fs as Array;
+			var _loc5:Array = null;
+			if(param4)
+			{
+				_loc5 = param1.flvs as Array;
 			}
-			if(_loc5_) {
-				_loc6_ = null;
-				_loc7_ = _loc5_.length;
-				_loc8_ = null;
-				this._segmentVec = new Vector.<Segment>(_loc7_);
-				_loc9_ = 0;
-				_loc10_ = 0;
-				_loc11_ = "";
-				_loc12_ = 0;
-				_loc13_ = 0;
-				while(_loc13_ < _loc7_) {
-					_loc6_ = _loc5_[_loc13_];
-					if(this._type == DefinitionEnum.SUPER_HIGH || this._type == DefinitionEnum.FULL_HD || this._type == DefinitionEnum.FOUR_K) {
-						if(this._movie.ver == "01") {
-							if(String(_loc6_.l).indexOf("/") == -1) {
-								_loc11_ = param3 + KeyUtils.getVrsEncodeCode(_loc6_.l.toString());
-							} else {
-								_loc11_ = param3 + _loc6_.l.toString();
+			else
+			{
+				_loc5 = param1.fs as Array;
+			}
+			if(_loc5)
+			{
+				_loc6 = null;
+				_loc7 = _loc5.length;
+				_loc8 = null;
+				this._segmentVec = new Vector.<Segment>(_loc7);
+				_loc9 = 0;
+				_loc10 = 0;
+				_loc11 = "";
+				_loc12 = 0;
+				_loc13 = 0;
+				while(_loc13 < _loc7)
+				{
+					_loc6 = _loc5[_loc13];
+					if(this._type == DefinitionEnum.SUPER_HIGH || this._type == DefinitionEnum.FULL_HD || this._type == DefinitionEnum.FOUR_K)
+					{
+						if(this._movie.ver == "01")
+						{
+							if(String(_loc6.l).indexOf("/") == -1)
+							{
+								_loc11 = param3 + KeyUtils.getVrsEncodeCode(_loc6.l.toString());
 							}
-						} else {
-							_loc11_ = param3 + _loc6_.l.toString();
+							else
+							{
+								_loc11 = param3 + _loc6.l.toString();
+							}
 						}
-					} else {
-						_loc11_ = param3 + _loc6_.l.toString();
+						else
+						{
+							_loc11 = param3 + _loc6.l.toString();
+						}
 					}
-					_loc12_ = Number(_loc6_.d.toString());
-					if(this._movie.streamType == StreamEnum.RTMP) {
-						_loc12_ = _loc12_ * 1000;
+					else
+					{
+						_loc11 = param3 + _loc6.l.toString();
 					}
-					_loc8_ = new Segment(this._holder,this._vid,_loc13_,_loc9_,_loc10_,_loc11_,Number(_loc6_.b.toString()),_loc12_);
-					_loc9_ = _loc9_ + (_loc8_.totalTime + 30);
-					_loc10_ = _loc10_ + _loc8_.totalBytes;
-					this._segmentVec[_loc13_] = _loc8_;
-					this._duration = this._duration + _loc8_.totalTime;
-					_loc13_++;
+					_loc12 = Number(_loc6.d.toString());
+					if(this._movie.streamType == StreamEnum.RTMP)
+					{
+						_loc12 = _loc12 * 1000;
+					}
+					_loc8 = new Segment(this._holder,this._vid,_loc13,_loc9,_loc10,_loc11,Number(_loc6.b.toString()),_loc12);
+					_loc9 = _loc9 + (_loc8.totalTime + 30);
+					_loc10 = _loc10 + _loc8.totalBytes;
+					this._segmentVec[_loc13] = _loc8;
+					this._duration = this._duration + _loc8.totalTime;
+					_loc13++;
 				}
 			}
 		}
 		
-		public function findSegmentAt(param1:int) : Segment {
-			if(param1 < 0 || param1 >= this.segmentCount) {
+		public function findSegmentAt(param1:int) : Segment
+		{
+			if(param1 < 0 || param1 >= this.segmentCount)
+			{
 				throw new Error("out of range segments");
-			} else {
+			}
+			else
+			{
 				return this._segmentVec[param1];
 			}
 		}
 		
-		public function findSegmentByRid(param1:String) : Segment {
-			var _loc2_:* = 0;
-			var _loc3_:Segment = null;
-			var _loc4_:* = 0;
-			if((this._segmentVec) && (param1)) {
-				_loc2_ = this.segmentCount;
-				_loc3_ = null;
-				_loc4_ = 0;
-				while(_loc4_ < _loc2_) {
-					_loc3_ = this._segmentVec[_loc4_];
-					if((_loc3_) && _loc3_.rid == param1) {
-						return _loc3_;
+		public function findSegmentByRid(param1:String) : Segment
+		{
+			var _loc2:* = 0;
+			var _loc3:Segment = null;
+			var _loc4:* = 0;
+			if((this._segmentVec) && (param1))
+			{
+				_loc2 = this.segmentCount;
+				_loc3 = null;
+				_loc4 = 0;
+				while(_loc4 < _loc2)
+				{
+					_loc3 = this._segmentVec[_loc4];
+					if((_loc3) && _loc3.rid == param1)
+					{
+						return _loc3;
 					}
-					_loc4_++;
+					_loc4++;
 				}
 			}
 			return null;
 		}
 		
-		public function startLoadMeta() : void {
-			if(this._rm == null && this._timer == null) {
-				if(this._movie.streamType == StreamEnum.RTMP) {
+		public function startLoadMeta() : void
+		{
+			if(this._rm == null && this._timer == null)
+			{
+				if(this._movie.streamType == StreamEnum.RTMP)
+				{
 					this._ready = true;
-				} else if(this._movie.streamType == StreamEnum.HTTP) {
-					if(this._meta == null) {
-						if(this._timeout) {
+				}
+				else if(this._movie.streamType == StreamEnum.HTTP)
+				{
+					if(this._meta == null)
+					{
+						if(this._timeout)
+						{
 							clearTimeout(this._timeout);
 						}
 						ProcessesTimeRecord.STime_meta = getTimer();
@@ -238,8 +289,10 @@ package com.qiyi.player.core.model.impls {
 			}
 		}
 		
-		private function reLoadMeta() : void {
-			if(this._rm) {
+		private function reLoadMeta() : void
+		{
+			if(this._rm)
+			{
 				this._rm.removeEventListener(RemoteObjectEvent.Evt_StatusChanged,this.onMetaStatusChanged);
 				this._rm.destroy();
 			}
@@ -248,39 +301,48 @@ package com.qiyi.player.core.model.impls {
 			this._rm.initialize();
 		}
 		
-		private function initMeta() : void {
-			var _loc1_:XMLList = this._meta.flv.keyframesequences.keyframes;
-			var _loc2_:Segment = null;
-			var _loc3_:int = this.segmentCount;
+		private function initMeta() : void
+		{
+			var _loc1:XMLList = this._meta.flv.keyframesequences.keyframes;
+			var _loc2:Segment = null;
+			var _loc3:int = this.segmentCount;
 			this._flvWidth = int(this._meta.flv.width.toString());
 			this._flvHeight = int(this._meta.flv.height.toString());
 			this._timestampContinuous = int(this._meta.flv.timestampcontinuous) == 1;
-			var _loc4_:* = 0;
-			while(_loc4_ < _loc3_) {
-				_loc2_ = this._segmentVec[_loc4_];
-				_loc2_.setKeyframesByXML(_loc1_[_loc4_],int(this._meta.flv.timestampcontinuous) == 1);
-				_loc4_++;
+			var _loc4:* = 0;
+			while(_loc4 < _loc3)
+			{
+				_loc2 = this._segmentVec[_loc4];
+				_loc2.setKeyframesByXML(_loc1[_loc4],int(this._meta.flv.timestampcontinuous) == 1);
+				_loc4++;
 			}
-			this._duration = this._segmentVec[_loc3_ - 1].endTime;
+			this._duration = this._segmentVec[_loc3 - 1].endTime;
 		}
 		
-		private function onMetaStatusChanged(param1:RemoteObjectEvent) : void {
+		private function onMetaStatusChanged(param1:RemoteObjectEvent) : void
+		{
 			var errorCode:int = 0;
 			var event:RemoteObjectEvent = param1;
-			if(this._timer) {
+			if(this._timer)
+			{
 				this._timer.removeEventListener(TimerEvent.TIMER,this.onTimer);
 				this._timer.stop();
 				this._timer = null;
 			}
 			errorCode = 0;
-			try {
-				if(this._rm.status == RemoteObjectStatusEnum.Success) {
+			try
+			{
+				if(this._rm.status == RemoteObjectStatusEnum.Success)
+				{
 					this._meta = this._rm.getData() as XML;
 					this.initMeta();
 					dispatchEvent(new MovieEvent(MovieEvent.Evt_Meta_Ready));
-				} else if(this._rm.status != RemoteObjectStatusEnum.Processing) {
+				}
+				else if(this._rm.status != RemoteObjectStatusEnum.Processing)
+				{
 					errorCode = ErrorCodeUtils.getErrorCodeByRemoteObject(this._rm,this._rm.status);
-					if((this._holder) && !this._pingBackFlag) {
+					if((this._holder) && !this._pingBackFlag)
+					{
 						this._holder.pingBack.sendError(errorCode);
 						this._pingBackFlag = true;
 					}
@@ -290,9 +352,11 @@ package com.qiyi.player.core.model.impls {
 				}
 				
 			}
-			catch(e:Error) {
+			catch(e:Error)
+			{
 				errorCode = ErrorCodeUtils.getErrorCodeByRemoteObject(_rm,_rm.status);
-				if((_holder) && !_pingBackFlag) {
+				if((_holder) && !_pingBackFlag)
+				{
 					_holder.pingBack.sendError(errorCode);
 					_pingBackFlag = true;
 				}
@@ -306,28 +370,34 @@ package com.qiyi.player.core.model.impls {
 			this.setReady();
 		}
 		
-		private function setReady() : void {
-			if(ProcessesTimeRecord.STime_meta > 0) {
+		private function setReady() : void
+		{
+			if(ProcessesTimeRecord.STime_meta > 0)
+			{
 				ProcessesTimeRecord.usedTime_meta = getTimer() - ProcessesTimeRecord.STime_meta;
 			}
-			if(this._timeout) {
+			if(this._timeout)
+			{
 				clearTimeout(this._timeout);
 			}
 			this._timeout = 0;
-			if(!this._ready) {
+			if(!this._ready)
+			{
 				this._ready = true;
 				dispatchEvent(new MovieEvent(MovieEvent.Evt_Ready));
 			}
 		}
 		
-		private function onTimer(param1:TimerEvent) : void {
+		private function onTimer(param1:TimerEvent) : void
+		{
 			this.reLoadMeta();
 		}
 		
-		public function destroy() : void {
-			var _loc1_:Segment = null;
-			var _loc2_:* = 0;
-			var _loc3_:* = 0;
+		public function destroy() : void
+		{
+			var _loc1:Segment = null;
+			var _loc2:* = 0;
+			var _loc3:* = 0;
 			this._audioTrack = null;
 			this._movie = null;
 			this._source = null;
@@ -335,16 +405,19 @@ package com.qiyi.player.core.model.impls {
 			this._type = null;
 			this._vid = "";
 			this._metaURL = "";
-			if(this._segmentVec) {
-				_loc1_ = null;
-				_loc2_ = this._segmentVec.length;
-				_loc3_ = 0;
-				while(_loc3_ < _loc2_) {
-					_loc1_ = this._segmentVec[_loc3_];
-					if(_loc1_) {
-						_loc1_.destroy();
+			if(this._segmentVec)
+			{
+				_loc1 = null;
+				_loc2 = this._segmentVec.length;
+				_loc3 = 0;
+				while(_loc3 < _loc2)
+				{
+					_loc1 = this._segmentVec[_loc3];
+					if(_loc1)
+					{
+						_loc1.destroy();
 					}
-					_loc3_++;
+					_loc3++;
 				}
 				this._segmentVec = null;
 			}
@@ -353,16 +426,19 @@ package com.qiyi.player.core.model.impls {
 			this._flvHeight = 0;
 			this._ready = false;
 			this._pingBackFlag = false;
-			if(this._timeout) {
+			if(this._timeout)
+			{
 				clearTimeout(this._timeout);
 			}
 			this._timeout = 0;
-			if(this._timer) {
+			if(this._timer)
+			{
 				this._timer.removeEventListener(TimerEvent.TIMER,this.onTimer);
 				this._timer.stop();
 				this._timer = null;
 			}
-			if(this._rm) {
+			if(this._rm)
+			{
 				this._rm.removeEventListener(RemoteObjectEvent.Evt_StatusChanged,this.onMetaStatusChanged);
 				this._rm.destroy();
 				this._rm = null;

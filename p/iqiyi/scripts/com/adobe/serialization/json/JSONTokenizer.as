@@ -1,7 +1,22 @@
-package com.adobe.serialization.json {
-	public class JSONTokenizer extends Object {
+package com.adobe.serialization.json
+{
+	public class JSONTokenizer extends Object
+	{
 		
-		public function JSONTokenizer(param1:String, param2:Boolean) {
+		private var ch:String;
+		
+		private var loc:int;
+		
+		private var jsonString:String;
+		
+		private var strict:Boolean;
+		
+		private var controlCharsRegExp:RegExp;
+		
+		private var obj:Object;
+		
+		public function JSONTokenizer(param1:String, param2:Boolean)
+		{
 			controlCharsRegExp = new RegExp("[\\x00-\\x1F]");
 			super();
 			jsonString = param1;
@@ -10,12 +25,16 @@ package com.adobe.serialization.json {
 			nextChar();
 		}
 		
-		private function skipComments() : void {
-			if(ch == "/") {
+		private function skipComments() : void
+		{
+			if(ch == "/")
+			{
 				nextChar();
-				switch(ch) {
+				switch(ch)
+				{
 					case "/":
-						do {
+						do
+						{
 							nextChar();
 						}
 						while(!(ch == "\n") && !(ch == ""));
@@ -24,16 +43,22 @@ package com.adobe.serialization.json {
 						break;
 					case "*":
 						nextChar();
-						while(true) {
-							if(ch == "*") {
+						while(true)
+						{
+							if(ch == "*")
+							{
 								nextChar();
-								if(ch == "/") {
+								if(ch == "/")
+								{
 									break;
 								}
-							} else {
+							}
+							else
+							{
 								nextChar();
 							}
-							if(ch == "") {
+							if(ch == "")
+							{
 								parseError("Multi-line comment not closed");
 							}
 						}
@@ -45,331 +70,386 @@ package com.adobe.serialization.json {
 			}
 		}
 		
-		private function isDigit(param1:String) : Boolean {
+		private function isDigit(param1:String) : Boolean
+		{
 			return param1 >= "0" && param1 <= "9";
 		}
 		
-		private var ch:String;
-		
-		private function readNumber() : JSONToken {
-			var _loc3_:JSONToken = null;
-			var _loc1_:* = "";
-			if(ch == "-") {
-				_loc1_ = _loc1_ + "-";
+		private function readNumber() : JSONToken
+		{
+			var _loc3:JSONToken = null;
+			var _loc1:* = "";
+			if(ch == "-")
+			{
+				_loc1 = _loc1 + "-";
 				nextChar();
 			}
-			if(!isDigit(ch)) {
+			if(!isDigit(ch))
+			{
 				parseError("Expecting a digit");
 			}
-			if(ch == "0") {
-				_loc1_ = _loc1_ + ch;
+			if(ch == "0")
+			{
+				_loc1 = _loc1 + ch;
 				nextChar();
-				if(isDigit(ch)) {
+				if(isDigit(ch))
+				{
 					parseError("A digit cannot immediately follow 0");
-				} else if(!strict && ch == "x") {
-					_loc1_ = _loc1_ + ch;
+				}
+				else if(!strict && ch == "x")
+				{
+					_loc1 = _loc1 + ch;
 					nextChar();
-					if(isHexDigit(ch)) {
-						_loc1_ = _loc1_ + ch;
+					if(isHexDigit(ch))
+					{
+						_loc1 = _loc1 + ch;
 						nextChar();
-					} else {
+					}
+					else
+					{
 						parseError("Number in hex format require at least one hex digit after \"0x\"");
 					}
-					while(isHexDigit(ch)) {
-						_loc1_ = _loc1_ + ch;
+					while(isHexDigit(ch))
+					{
+						_loc1 = _loc1 + ch;
 						nextChar();
 					}
 				}
 				
-			} else {
-				while(isDigit(ch)) {
-					_loc1_ = _loc1_ + ch;
+			}
+			else
+			{
+				while(isDigit(ch))
+				{
+					_loc1 = _loc1 + ch;
 					nextChar();
 				}
 			}
-			if(ch == ".") {
-				_loc1_ = _loc1_ + ".";
+			if(ch == ".")
+			{
+				_loc1 = _loc1 + ".";
 				nextChar();
-				if(!isDigit(ch)) {
+				if(!isDigit(ch))
+				{
 					parseError("Expecting a digit");
 				}
-				while(isDigit(ch)) {
-					_loc1_ = _loc1_ + ch;
+				while(isDigit(ch))
+				{
+					_loc1 = _loc1 + ch;
 					nextChar();
 				}
 			}
-			if(ch == "e" || ch == "E") {
-				_loc1_ = _loc1_ + "e";
+			if(ch == "e" || ch == "E")
+			{
+				_loc1 = _loc1 + "e";
 				nextChar();
-				if(ch == "+" || ch == "-") {
-					_loc1_ = _loc1_ + ch;
+				if(ch == "+" || ch == "-")
+				{
+					_loc1 = _loc1 + ch;
 					nextChar();
 				}
-				if(!isDigit(ch)) {
+				if(!isDigit(ch))
+				{
 					parseError("Scientific notation number needs exponent value");
 				}
-				while(isDigit(ch)) {
-					_loc1_ = _loc1_ + ch;
+				while(isDigit(ch))
+				{
+					_loc1 = _loc1 + ch;
 					nextChar();
 				}
 			}
-			var _loc2_:Number = Number(_loc1_);
-			if((isFinite(_loc2_)) && !isNaN(_loc2_)) {
-				_loc3_ = new JSONToken();
-				_loc3_.type = JSONTokenType.NUMBER;
-				_loc3_.value = _loc2_;
-				return _loc3_;
+			var _loc2:Number = Number(_loc1);
+			if((isFinite(_loc2)) && !isNaN(_loc2))
+			{
+				_loc3 = new JSONToken();
+				_loc3.type = JSONTokenType.NUMBER;
+				_loc3.value = _loc2;
+				return _loc3;
 			}
-			parseError("Number " + _loc2_ + " is not valid!");
+			parseError("Number " + _loc2 + " is not valid!");
 			return null;
 		}
 		
-		private var loc:int;
-		
-		private var jsonString:String;
-		
-		private var strict:Boolean;
-		
-		public function unescapeString(param1:String) : String {
-			var _loc6_:* = undefined;
-			var _loc7_:* = undefined;
-			var _loc8_:* = undefined;
-			var _loc9_:* = undefined;
-			var _loc10_:* = undefined;
-			if((strict) && (controlCharsRegExp.test(param1))) {
+		public function unescapeString(param1:String) : String
+		{
+			var _loc6:* = undefined;
+			var _loc7:* = undefined;
+			var _loc8:* = undefined;
+			var _loc9:* = undefined;
+			var _loc10:* = undefined;
+			if((strict) && (controlCharsRegExp.test(param1)))
+			{
 				parseError("String contains unescaped control character (0x00-0x1F)");
 			}
-			var _loc2_:* = "";
-			var _loc3_:* = 0;
-			var _loc4_:* = 0;
-			var _loc5_:int = param1.length;
-			while(true) {
-				_loc3_ = param1.indexOf("\\",_loc4_);
-				if(_loc3_ >= 0) {
-					_loc2_ = _loc2_ + param1.substr(_loc4_,_loc3_ - _loc4_);
-					_loc4_ = _loc3_ + 2;
-					_loc6_ = _loc3_ + 1;
-					_loc7_ = param1.charAt(_loc6_);
-					switch(_loc7_) {
+			var _loc2:* = "";
+			var _loc3:* = 0;
+			var _loc4:* = 0;
+			var _loc5:int = param1.length;
+			while(true)
+			{
+				_loc3 = param1.indexOf("\\",_loc4);
+				if(_loc3 >= 0)
+				{
+					_loc2 = _loc2 + param1.substr(_loc4,_loc3 - _loc4);
+					_loc4 = _loc3 + 2;
+					_loc6 = _loc3 + 1;
+					_loc7 = param1.charAt(_loc6);
+					switch(_loc7)
+					{
 						case "\"":
-							_loc2_ = _loc2_ + "\"";
+							_loc2 = _loc2 + "\"";
 							break;
 						case "\\":
-							_loc2_ = _loc2_ + "\\";
+							_loc2 = _loc2 + "\\";
 							break;
 						case "n":
-							_loc2_ = _loc2_ + "\n";
+							_loc2 = _loc2 + "\n";
 							break;
 						case "r":
-							_loc2_ = _loc2_ + "\r";
+							_loc2 = _loc2 + "\r";
 							break;
 						case "t":
-							_loc2_ = _loc2_ + "\t";
+							_loc2 = _loc2 + "\t";
 							break;
 						case "u":
-							_loc8_ = "";
-							if(_loc4_ + 4 > _loc5_) {
+							_loc8 = "";
+							if(_loc4 + 4 > _loc5)
+							{
 								parseError("Unexpected end of input.  Expecting 4 hex digits after \\u.");
 							}
-							_loc9_ = _loc4_;
-							while(_loc9_ < _loc4_ + 4) {
-								_loc10_ = param1.charAt(_loc9_);
-								if(!isHexDigit(_loc10_)) {
-									parseError("Excepted a hex digit, but found: " + _loc10_);
+							_loc9 = _loc4;
+							while(_loc9 < _loc4 + 4)
+							{
+								_loc10 = param1.charAt(_loc9);
+								if(!isHexDigit(_loc10))
+								{
+									parseError("Excepted a hex digit, but found: " + _loc10);
 								}
-								_loc8_ = _loc8_ + _loc10_;
-								_loc9_++;
+								_loc8 = _loc8 + _loc10;
+								_loc9++;
 							}
-							_loc2_ = _loc2_ + String.fromCharCode(parseInt(_loc8_,16));
-							_loc4_ = _loc4_ + 4;
+							_loc2 = _loc2 + String.fromCharCode(parseInt(_loc8,16));
+							_loc4 = _loc4 + 4;
 							break;
 						case "f":
-							_loc2_ = _loc2_ + "\f";
+							_loc2 = _loc2 + "\f";
 							break;
 						case "/":
-							_loc2_ = _loc2_ + "/";
+							_loc2 = _loc2 + "/";
 							break;
 						case "b":
-							_loc2_ = _loc2_ + "\b";
+							_loc2 = _loc2 + "\b";
 							break;
 						default:
-							_loc2_ = _loc2_ + ("\\" + _loc7_);
+							_loc2 = _loc2 + ("\\" + _loc7);
 					}
-					if(_loc4_ >= _loc5_) {
+					if(_loc4 >= _loc5)
+					{
 						break;
 					}
 					continue;
 				}
-				_loc2_ = _loc2_ + param1.substr(_loc4_);
+				_loc2 = _loc2 + param1.substr(_loc4);
 				break;
 			}
-			return _loc2_;
+			return _loc2;
 		}
 		
-		private var controlCharsRegExp:RegExp;
-		
-		private function skipWhite() : void {
-			while(isWhiteSpace(ch)) {
+		private function skipWhite() : void
+		{
+			while(isWhiteSpace(ch))
+			{
 				nextChar();
 			}
 		}
 		
-		private function isWhiteSpace(param1:String) : Boolean {
-			if(param1 == " " || param1 == "\t" || param1 == "\n" || param1 == "\r") {
+		private function isWhiteSpace(param1:String) : Boolean
+		{
+			if(param1 == " " || param1 == "\t" || param1 == "\n" || param1 == "\r")
+			{
 				return true;
 			}
-			if(!strict && param1.charCodeAt(0) == 160) {
+			if(!strict && param1.charCodeAt(0) == 160)
+			{
 				return true;
 			}
 			return false;
 		}
 		
-		public function parseError(param1:String) : void {
+		public function parseError(param1:String) : void
+		{
 			throw new JSONParseError(param1,loc,jsonString);
 		}
 		
-		private function readString() : JSONToken {
-			var _loc3_:* = undefined;
-			var _loc4_:* = undefined;
-			var _loc1_:int = loc;
-			while(true) {
-				_loc1_ = jsonString.indexOf("\"",_loc1_);
-				if(_loc1_ >= 0) {
-					_loc3_ = 0;
-					_loc4_ = _loc1_ - 1;
-					while(jsonString.charAt(_loc4_) == "\\") {
-						_loc3_++;
-						_loc4_--;
+		private function readString() : JSONToken
+		{
+			var _loc3:* = undefined;
+			var _loc4:* = undefined;
+			var _loc1:int = loc;
+			while(true)
+			{
+				_loc1 = jsonString.indexOf("\"",_loc1);
+				if(_loc1 >= 0)
+				{
+					_loc3 = 0;
+					_loc4 = _loc1 - 1;
+					while(jsonString.charAt(_loc4) == "\\")
+					{
+						_loc3++;
+						_loc4--;
 					}
-					if(_loc3_ % 2 == 0) {
+					if(_loc3 % 2 == 0)
+					{
 						break;
 					}
-					_loc1_++;
-				} else {
+					_loc1++;
+				}
+				else
+				{
 					parseError("Unterminated string literal");
 				}
 			}
-			var _loc2_:JSONToken = new JSONToken();
-			_loc2_.type = JSONTokenType.STRING;
-			_loc2_.value = unescapeString(jsonString.substr(loc,_loc1_ - loc));
-			loc = _loc1_ + 1;
+			var _loc2:JSONToken = new JSONToken();
+			_loc2.type = JSONTokenType.STRING;
+			_loc2.value = unescapeString(jsonString.substr(loc,_loc1 - loc));
+			loc = _loc1 + 1;
 			nextChar();
-			return _loc2_;
+			return _loc2;
 		}
 		
-		private var obj:Object;
-		
-		private function nextChar() : String {
+		private function nextChar() : String
+		{
 			return ch = jsonString.charAt(loc++);
 		}
 		
-		private function skipIgnored() : void {
-			var _loc1_:* = 0;
-			do {
-				_loc1_ = loc;
+		private function skipIgnored() : void
+		{
+			var _loc1:* = 0;
+			do
+			{
+				_loc1 = loc;
 				skipWhite();
 				skipComments();
 			}
-			while(_loc1_ != loc);
+			while(_loc1 != loc);
 			
 		}
 		
-		private function isHexDigit(param1:String) : Boolean {
+		private function isHexDigit(param1:String) : Boolean
+		{
 			return (isDigit(param1)) || param1 >= "A" && param1 <= "F" || param1 >= "a" && param1 <= "f";
 		}
 		
-		public function getNextToken() : JSONToken {
-			var _loc2_:String = null;
-			var _loc3_:String = null;
-			var _loc4_:String = null;
-			var _loc5_:String = null;
-			var _loc1_:JSONToken = new JSONToken();
+		public function getNextToken() : JSONToken
+		{
+			var _loc2:String = null;
+			var _loc3:String = null;
+			var _loc4:String = null;
+			var _loc5:String = null;
+			var _loc1:JSONToken = new JSONToken();
 			skipIgnored();
-			switch(ch) {
+			switch(ch)
+			{
 				case "{":
-					_loc1_.type = JSONTokenType.LEFT_BRACE;
-					_loc1_.value = "{";
+					_loc1.type = JSONTokenType.LEFT_BRACE;
+					_loc1.value = "{";
 					nextChar();
 					break;
 				case "}":
-					_loc1_.type = JSONTokenType.RIGHT_BRACE;
-					_loc1_.value = "}";
+					_loc1.type = JSONTokenType.RIGHT_BRACE;
+					_loc1.value = "}";
 					nextChar();
 					break;
 				case "[":
-					_loc1_.type = JSONTokenType.LEFT_BRACKET;
-					_loc1_.value = "[";
+					_loc1.type = JSONTokenType.LEFT_BRACKET;
+					_loc1.value = "[";
 					nextChar();
 					break;
 				case "]":
-					_loc1_.type = JSONTokenType.RIGHT_BRACKET;
-					_loc1_.value = "]";
+					_loc1.type = JSONTokenType.RIGHT_BRACKET;
+					_loc1.value = "]";
 					nextChar();
 					break;
 				case ",":
-					_loc1_.type = JSONTokenType.COMMA;
-					_loc1_.value = ",";
+					_loc1.type = JSONTokenType.COMMA;
+					_loc1.value = ",";
 					nextChar();
 					break;
 				case ":":
-					_loc1_.type = JSONTokenType.COLON;
-					_loc1_.value = ":";
+					_loc1.type = JSONTokenType.COLON;
+					_loc1.value = ":";
 					nextChar();
 					break;
 				case "t":
-					_loc2_ = "t" + nextChar() + nextChar() + nextChar();
-					if(_loc2_ == "true") {
-						_loc1_.type = JSONTokenType.TRUE;
-						_loc1_.value = true;
+					_loc2 = "t" + nextChar() + nextChar() + nextChar();
+					if(_loc2 == "true")
+					{
+						_loc1.type = JSONTokenType.TRUE;
+						_loc1.value = true;
 						nextChar();
-					} else {
-						parseError("Expecting \'true\' but found " + _loc2_);
+					}
+					else
+					{
+						parseError("Expecting \'true\' but found " + _loc2);
 					}
 					break;
 				case "f":
-					_loc3_ = "f" + nextChar() + nextChar() + nextChar() + nextChar();
-					if(_loc3_ == "false") {
-						_loc1_.type = JSONTokenType.FALSE;
-						_loc1_.value = false;
+					_loc3 = "f" + nextChar() + nextChar() + nextChar() + nextChar();
+					if(_loc3 == "false")
+					{
+						_loc1.type = JSONTokenType.FALSE;
+						_loc1.value = false;
 						nextChar();
-					} else {
-						parseError("Expecting \'false\' but found " + _loc3_);
+					}
+					else
+					{
+						parseError("Expecting \'false\' but found " + _loc3);
 					}
 					break;
 				case "n":
-					_loc4_ = "n" + nextChar() + nextChar() + nextChar();
-					if(_loc4_ == "null") {
-						_loc1_.type = JSONTokenType.NULL;
-						_loc1_.value = null;
+					_loc4 = "n" + nextChar() + nextChar() + nextChar();
+					if(_loc4 == "null")
+					{
+						_loc1.type = JSONTokenType.NULL;
+						_loc1.value = null;
 						nextChar();
-					} else {
-						parseError("Expecting \'null\' but found " + _loc4_);
+					}
+					else
+					{
+						parseError("Expecting \'null\' but found " + _loc4);
 					}
 					break;
 				case "N":
-					_loc5_ = "N" + nextChar() + nextChar();
-					if(_loc5_ == "NaN") {
-						_loc1_.type = JSONTokenType.NAN;
-						_loc1_.value = NaN;
+					_loc5 = "N" + nextChar() + nextChar();
+					if(_loc5 == "NaN")
+					{
+						_loc1.type = JSONTokenType.NAN;
+						_loc1.value = NaN;
 						nextChar();
-					} else {
-						parseError("Expecting \'NaN\' but found " + _loc5_);
+					}
+					else
+					{
+						parseError("Expecting \'NaN\' but found " + _loc5);
 					}
 					break;
 				case "\"":
-					_loc1_ = readString();
+					_loc1 = readString();
 					break;
 				default:
-					if((isDigit(ch)) || ch == "-") {
-						_loc1_ = readNumber();
-					} else {
-						if(ch == "") {
+					if((isDigit(ch)) || ch == "-")
+					{
+						_loc1 = readNumber();
+					}
+					else
+					{
+						if(ch == "")
+						{
 							return null;
 						}
 						parseError("Unexpected " + ch + " encountered");
 					}
 			}
-			return _loc1_;
+			return _loc1;
 		}
 	}
 }

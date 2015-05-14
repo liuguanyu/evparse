@@ -1,4 +1,5 @@
-package com.qiyi.player.core.model.remote {
+package com.qiyi.player.core.model.remote
+{
 	import com.qiyi.player.base.rpc.impl.BaseRemoteObject;
 	import com.qiyi.player.core.player.coreplayer.ICorePlayer;
 	import com.qiyi.player.base.logging.ILogger;
@@ -20,9 +21,17 @@ package com.qiyi.player.core.model.remote {
 	import com.qiyi.player.core.model.utils.ErrorCodeUtils;
 	import com.qiyi.player.base.logging.Log;
 	
-	public class AuthenticationRemote extends BaseRemoteObject {
+	public class AuthenticationRemote extends BaseRemoteObject
+	{
 		
-		public function AuthenticationRemote(param1:int, param2:ICorePlayer) {
+		private var _holder:ICorePlayer;
+		
+		private var _segmentIndex:int;
+		
+		private var _log:ILogger;
+		
+		public function AuthenticationRemote(param1:int, param2:ICorePlayer)
+		{
 			this._log = Log.getLogger("com.qiyi.player.core.model.remote.AuthenticationRemote");
 			super(0,"AuthenticationRemote");
 			this._holder = param2;
@@ -31,17 +40,13 @@ package com.qiyi.player.core.model.remote {
 			_retryMaxCount = 2;
 		}
 		
-		private var _holder:ICorePlayer;
-		
-		private var _segmentIndex:int;
-		
-		private var _log:ILogger;
-		
-		override public function initialize() : void {
+		override public function initialize() : void
+		{
 			super.initialize();
 		}
 		
-		override protected function getRequest() : URLRequest {
+		override protected function getRequest() : URLRequest
+		{
 			var s:String = null;
 			var ut:Number = NaN;
 			var utt:String = null;
@@ -50,7 +55,8 @@ package com.qiyi.player.core.model.remote {
 			var uts:String = null;
 			var request:URLRequest = null;
 			var variables:URLVariables = null;
-			try {
+			try
+			{
 				this._holder.runtimeData.authenticationError = false;
 				s = uint(0 ^ 2.391461978E9).toString();
 				ut = new Date().time;
@@ -69,78 +75,97 @@ package com.qiyi.player.core.model.remote {
 				variables.utt = utt;
 				variables.v = vt;
 				variables.version = "1.0";
-				if((UserManager.getInstance().user) && (UserManager.getInstance().user.P00001)) {
+				if((UserManager.getInstance().user) && (UserManager.getInstance().user.P00001))
+				{
 				}
 				variables.uuid = UUIDManager.instance.uuid;
-				if(this._holder.runtimeData.playerType) {
+				if(this._holder.runtimeData.playerType)
+				{
 					variables.playType = this._holder.runtimeData.playerType.name;
 				}
 				variables.platform = "b6c13e26323c537d";
 				request.method = URLRequestMethod.POST;
 				request.data = variables;
 			}
-			catch(e:Error) {
+			catch(e:Error)
+			{
 				_log.warn("AuthenticationRemote create URLRequest error");
 				return null;
 			}
 			return request;
 		}
 		
-		override protected function onComplete(param1:Event) : void {
+		override protected function onComplete(param1:Event) : void
+		{
 			var property:String = null;
 			var tryWatchType:EnumItem = null;
 			var s:String = null;
 			var event:Event = param1;
 			clearTimeout(_waitingResponse);
 			_waitingResponse = 0;
-			try {
+			try
+			{
 				this._log.debug("AuthenticationRemote result:" + _loader.data);
 				_data = com.adobe.serialization.json.JSON.decode(_loader.data);
-				if(_data.code == "A00000") {
+				if(_data.code == "A00000")
+				{
 					this._holder.runtimeData.key = _data.data.t;
 					this._holder.runtimeData.QY00001 = _data.data.u;
 					this._holder.runtimeData.isTryWatch = _data.data.prv == "1";
-					if(this._holder.runtimeData.isTryWatch) {
-						if(_data.hasOwnProperty("previewType")) {
+					if(this._holder.runtimeData.isTryWatch)
+					{
+						if(_data.hasOwnProperty("previewType"))
+						{
 							tryWatchType = Utility.getItemById(TryWatchEnum.ITEMS,int(_data.previewType));
-							if(tryWatchType) {
+							if(tryWatchType)
+							{
 								this._holder.runtimeData.tryWatchType = tryWatchType;
 							}
 						}
-						if(_data.hasOwnProperty("previewTime")) {
+						if(_data.hasOwnProperty("previewTime"))
+						{
 							this._holder.runtimeData.tryWatchTime = int(_data.previewTime) * 60 * 1000;
 						}
-						if(_data.hasOwnProperty("previewEpisodes")) {
+						if(_data.hasOwnProperty("previewEpisodes"))
+						{
 						}
 					}
 					this._holder.runtimeData.dispatcherServerTime = Number(_data.data.st);
 					this._holder.runtimeData.dispatchFlashRunTime = int(getTimer() / 1000);
-				} else {
+				}
+				else
+				{
 					this._holder.runtimeData.authenticationError = true;
 				}
-				for(property in _data) {
+				for(property in _data)
+				{
 					this._holder.runtimeData.authentication[property] = _data[property];
 				}
 				super.onComplete(event);
 			}
-			catch(e:Error) {
+			catch(e:Error)
+			{
 				_log.error("AuthenticationRemote parse JSON error");
 				s = _loader.data;
-				if(s) {
+				if(s)
+				{
 					_log.info(s.substr(0,100));
 				}
 				setStatus(RemoteObjectStatusEnum.DataError);
 			}
 		}
 		
-		override protected function setStatus(param1:EnumItem) : void {
-			var _loc2_:* = 0;
-			if(param1 == RemoteObjectStatusEnum.Timeout || param1 == RemoteObjectStatusEnum.ConnectError || param1 == RemoteObjectStatusEnum.DataError || param1 == RemoteObjectStatusEnum.AuthenticationError || param1 == RemoteObjectStatusEnum.SecurityError || param1 == RemoteObjectStatusEnum.UnknownError) {
-				_loc2_ = ErrorCodeUtils.getErrorCodeByRemoteObject(this,param1);
-				if(this._holder.pingBack) {
-					this._holder.pingBack.sendError(_loc2_);
+		override protected function setStatus(param1:EnumItem) : void
+		{
+			var _loc2:* = 0;
+			if(param1 == RemoteObjectStatusEnum.Timeout || param1 == RemoteObjectStatusEnum.ConnectError || param1 == RemoteObjectStatusEnum.DataError || param1 == RemoteObjectStatusEnum.AuthenticationError || param1 == RemoteObjectStatusEnum.SecurityError || param1 == RemoteObjectStatusEnum.UnknownError)
+			{
+				_loc2 = ErrorCodeUtils.getErrorCodeByRemoteObject(this,param1);
+				if(this._holder.pingBack)
+				{
+					this._holder.pingBack.sendError(_loc2);
 				}
-				this._holder.runtimeData.errorCode = _loc2_;
+				this._holder.runtimeData.errorCode = _loc2;
 			}
 			super.setStatus(param1);
 		}

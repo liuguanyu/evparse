@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.videolink.view.part {
+package com.qiyi.player.wonder.plugins.videolink.view.part
+{
 	import flash.display.Sprite;
 	import com.qiyi.player.wonder.IDestroy;
 	import common.CommonCloseBtn;
@@ -18,12 +19,8 @@ package com.qiyi.player.wonder.plugins.videolink.view.part {
 	import com.qiyi.player.wonder.plugins.videolink.view.VideoLinkEvent;
 	import flash.display.DisplayObject;
 	
-	public class VideoLinkPanel extends Sprite implements IDestroy {
-		
-		public function VideoLinkPanel() {
-			super();
-			this.initUI();
-		}
+	public class VideoLinkPanel extends Sprite implements IDestroy
+	{
 		
 		private static const CONST_DISTANCE:uint = 70;
 		
@@ -39,7 +36,14 @@ package com.qiyi.player.wonder.plugins.videolink.view.part {
 		
 		private var _loader:Loader;
 		
-		private function initUI() : void {
+		public function VideoLinkPanel()
+		{
+			super();
+			this.initUI();
+		}
+		
+		private function initUI() : void
+		{
 			this._commanBg = new CommonBg();
 			this._commanBg.width = 290;
 			this._commanBg.height = 70;
@@ -66,10 +70,12 @@ package com.qiyi.player.wonder.plugins.videolink.view.part {
 			this._closeBtn.addEventListener(MouseEvent.CLICK,this.onCloseBtnClick);
 		}
 		
-		public function updateInfo(param1:VideoLinkInfo) : void {
+		public function updateInfo(param1:VideoLinkInfo) : void
+		{
 			this._descriptionTf.text = param1.title;
 			this.loaderPNG(param1.picUrl);
-			switch(param1.btnType) {
+			switch(param1.btnType)
+			{
 				case VideoLinkDef.BTN_TYPE_PLAY:
 					this._linkBtnTF.text = "立即观看";
 					break;
@@ -82,10 +88,12 @@ package com.qiyi.player.wonder.plugins.videolink.view.part {
 			}
 		}
 		
-		public function onResize(param1:int, param2:int) : void {
+		public function onResize(param1:int, param2:int) : void
+		{
 		}
 		
-		private function loaderPNG(param1:String) : void {
+		private function loaderPNG(param1:String) : void
+		{
 			this.destroyUpLoader();
 			this._loader = new Loader();
 			this._loader.contentLoaderInfo.addEventListener(Event.COMPLETE,this.onComplete);
@@ -94,18 +102,23 @@ package com.qiyi.player.wonder.plugins.videolink.view.part {
 			this._loader.load(new URLRequest(param1));
 		}
 		
-		private function onComplete(param1:Event) : void {
+		private function onComplete(param1:Event) : void
+		{
 			addChild(this._loader);
 		}
 		
-		private function onIOError(param1:Event) : void {
+		private function onIOError(param1:Event) : void
+		{
 		}
 		
-		private function destroyUpLoader() : void {
-			if(this._loader == null) {
+		private function destroyUpLoader() : void
+		{
+			if(this._loader == null)
+			{
 				return;
 			}
-			if(this._loader.parent) {
+			if(this._loader.parent)
+			{
 				removeChild(this._loader);
 			}
 			this._loader.contentLoaderInfo.removeEventListener(Event.COMPLETE,this.onComplete);
@@ -114,25 +127,30 @@ package com.qiyi.player.wonder.plugins.videolink.view.part {
 			this._loader = null;
 		}
 		
-		private function onWatchVideoClick(param1:MouseEvent) : void {
+		private function onWatchVideoClick(param1:MouseEvent) : void
+		{
 			dispatchEvent(new VideoLinkEvent(VideoLinkEvent.Evt_BtnAndIconClick));
 		}
 		
-		private function onCloseBtnClick(param1:MouseEvent) : void {
+		private function onCloseBtnClick(param1:MouseEvent) : void
+		{
 			dispatchEvent(new VideoLinkEvent(VideoLinkEvent.Evt_Close));
 		}
 		
-		public function destroy() : void {
-			var _loc1_:DisplayObject = null;
+		public function destroy() : void
+		{
+			var _loc1:DisplayObject = null;
 			this.destroyUpLoader();
 			this._linkBtn.removeEventListener(MouseEvent.CLICK,this.onWatchVideoClick);
 			this._closeBtn.removeEventListener(MouseEvent.CLICK,this.onCloseBtnClick);
-			while(numChildren) {
-				_loc1_ = getChildAt(0);
-				if(_loc1_.parent) {
-					removeChild(_loc1_);
+			while(numChildren)
+			{
+				_loc1 = getChildAt(0);
+				if(_loc1.parent)
+				{
+					removeChild(_loc1);
 				}
-				_loc1_ = null;
+				_loc1 = null;
 			}
 		}
 	}

@@ -1,4 +1,5 @@
-package com.qiyi.player.core.model.utils {
+package com.qiyi.player.core.model.utils
+{
 	import com.qiyi.player.base.pub.EnumItem;
 	import com.qiyi.player.base.rpc.RemoteObjectStatusEnum;
 	import com.qiyi.player.core.model.remote.RequestMetaRemote;
@@ -8,17 +9,22 @@ package com.qiyi.player.core.model.utils {
 	import com.qiyi.player.core.model.remote.MixerRemote;
 	import com.qiyi.player.core.model.remote.AuthenticationRemote;
 	
-	public class ErrorCodeUtils extends Object {
+	public class ErrorCodeUtils extends Object
+	{
 		
-		public function ErrorCodeUtils() {
+		public function ErrorCodeUtils()
+		{
 			super();
 		}
 		
-		private static function getRemoteObjectErrorCode(param1:int, param2:EnumItem) : int {
-			if(param2 == null) {
+		private static function getRemoteObjectErrorCode(param1:int, param2:EnumItem) : int
+		{
+			if(param2 == null)
+			{
 				return 0;
 			}
-			switch(param2) {
+			switch(param2)
+			{
 				case RemoteObjectStatusEnum.Timeout:
 					return param1 + 1;
 				case RemoteObjectStatusEnum.ConnectError:
@@ -36,26 +42,34 @@ package com.qiyi.player.core.model.utils {
 			}
 		}
 		
-		public static function getErrorCodeByRemoteObject(param1:Object, param2:EnumItem) : int {
-			if(param1 == null || param2 == null) {
+		public static function getErrorCodeByRemoteObject(param1:Object, param2:EnumItem) : int
+		{
+			if(param1 == null || param2 == null)
+			{
 				return 0;
 			}
-			if(param1 is RequestMetaRemote) {
+			if(param1 is RequestMetaRemote)
+			{
 				return getRemoteObjectErrorCode(200,param2);
 			}
-			if(param1 is FirstDispatchRemote) {
+			if(param1 is FirstDispatchRemote)
+			{
 				return getRemoteObjectErrorCode(3100,param2);
 			}
-			if(param1 is SecondDispatchRemote) {
+			if(param1 is SecondDispatchRemote)
+			{
 				return getRemoteObjectErrorCode(3200,param2);
 			}
-			if(param1 is MemberDispatchRemote) {
+			if(param1 is MemberDispatchRemote)
+			{
 				return getRemoteObjectErrorCode(3200,param2);
 			}
-			if(param1 is MixerRemote) {
+			if(param1 is MixerRemote)
+			{
 				return getRemoteObjectErrorCode(700,param2);
 			}
-			if(param1 is AuthenticationRemote) {
+			if(param1 is AuthenticationRemote)
+			{
 				return getRemoteObjectErrorCode(500,param2);
 			}
 			return 0;

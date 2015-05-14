@@ -1,9 +1,7 @@
-package com.qiyi.player.wonder.plugins.topbar {
-	public class TopBarDef extends Object {
-		
-		public function TopBarDef() {
-			super();
-		}
+package com.qiyi.player.wonder.plugins.topbar
+{
+	public class TopBarDef extends Object
+	{
 		
 		private static var statusBegin:int = 0;
 		
@@ -38,5 +36,10 @@ package com.qiyi.player.wonder.plugins.topbar {
 		public static const SCALE_VALUE_FULL:int = 0;
 		
 		public static const TOP_BAR_HIND_DELAY:int = 3000;
+		
+		public function TopBarDef()
+		{
+			super();
+		}
 	}
 }

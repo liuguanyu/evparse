@@ -1,11 +1,9 @@
-package com.qiyi.player.core.model.def {
+package com.qiyi.player.core.model.def
+{
 	import com.qiyi.player.base.pub.EnumItem;
 	
-	public class ChannelEnum extends Object {
-		
-		public function ChannelEnum() {
-			super();
-		}
+	public class ChannelEnum extends Object
+	{
 		
 		public static const ITEMS:Array = [];
 		
@@ -81,8 +79,15 @@ package com.qiyi.player.core.model.def {
 		
 		public static const TEST:EnumItem = new EnumItem(99,"Test",ITEMS);
 		
-		public static function inShortChannel(param1:EnumItem) : Boolean {
-			if(param1 == ChannelEnum.AD || param1 == ChannelEnum.ENTERTAINMENT || param1 == ChannelEnum.MUSIC || param1 == ChannelEnum.FASHION || param1 == ChannelEnum.MICRO_FILM || param1 == ChannelEnum.AD_MICRO_VIDEO || param1 == ChannelEnum.LIFE_MICRO_VIDEO || param1 == ChannelEnum.HUMOR || param1 == ChannelEnum.FINANCE) {
+		public function ChannelEnum()
+		{
+			super();
+		}
+		
+		public static function inShortChannel(param1:EnumItem) : Boolean
+		{
+			if(param1 == ChannelEnum.AD || param1 == ChannelEnum.ENTERTAINMENT || param1 == ChannelEnum.MUSIC || param1 == ChannelEnum.FASHION || param1 == ChannelEnum.MICRO_FILM || param1 == ChannelEnum.AD_MICRO_VIDEO || param1 == ChannelEnum.LIFE_MICRO_VIDEO || param1 == ChannelEnum.HUMOR || param1 == ChannelEnum.FINANCE)
+			{
 				return true;
 			}
 			return false;

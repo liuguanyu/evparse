@@ -1,9 +1,7 @@
-package com.qiyi.player.wonder.common.utils {
-	public class ConstUtils extends Object {
-		
-		public function ConstUtils() {
-			super();
-		}
+package com.qiyi.player.wonder.common.utils
+{
+	public class ConstUtils extends Object
+	{
 		
 		public static const S_2_MS:uint = 1000;
 		
@@ -24,5 +22,10 @@ package com.qiyi.player.wonder.common.utils {
 		public static const D_2_S:uint = D_2_H * H_2_S;
 		
 		public static const D_2_MIN:uint = D_2_H * H_2_MIN;
+		
+		public function ConstUtils()
+		{
+			super();
+		}
 	}
 }

@@ -1,11 +1,9 @@
-package com.qiyi.player.wonder.plugins.controllbar.view {
+package com.qiyi.player.wonder.plugins.controllbar.view
+{
 	import com.qiyi.player.wonder.common.event.CommonEvent;
 	
-	public class ControllBarEvent extends CommonEvent {
-		
-		public function ControllBarEvent(param1:String, param2:Object = null) {
-			super(param1,param2);
-		}
+	public class ControllBarEvent extends CommonEvent
+	{
 		
 		public static const Evt_Open:String = "evtControllBarOpen";
 		
@@ -44,5 +42,10 @@ package com.qiyi.player.wonder.plugins.controllbar.view {
 		public static const Evt_D3BtnClick:String = "evtD3BtnClick";
 		
 		public static const Evt_CaptionOrTrackBtnClick:String = "evtCaptionOrTrackBtnClick";
+		
+		public function ControllBarEvent(param1:String, param2:Object = null)
+		{
+			super(param1,param2);
+		}
 	}
 }

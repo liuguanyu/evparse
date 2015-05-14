@@ -1,4 +1,5 @@
-package com.qiyi.player.core.player {
+package com.qiyi.player.core.player
+{
 	import flash.events.IEventDispatcher;
 	import com.qiyi.player.core.IDestroy;
 	import com.qiyi.player.core.model.IReadStatus;
@@ -11,7 +12,8 @@ package com.qiyi.player.core.player {
 	import flash.geom.Rectangle;
 	import com.qiyi.player.core.video.engine.dm.provider.MediaData;
 	
-	public interface IPlayer extends IEventDispatcher, IDestroy, IReadStatus {
+	public interface IPlayer extends IEventDispatcher, IDestroy, IReadStatus
+	{
 		
 		function initialize(param1:Sprite, param2:Boolean = true) : void;
 		

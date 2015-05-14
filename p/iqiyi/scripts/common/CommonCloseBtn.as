@@ -1,9 +1,12 @@
-package common {
+package common
+{
 	import flash.display.SimpleButton;
 	
-	public dynamic class CommonCloseBtn extends SimpleButton {
+	public dynamic class CommonCloseBtn extends SimpleButton
+	{
 		
-		public function CommonCloseBtn() {
+		public function CommonCloseBtn()
+		{
 			super();
 		}
 	}

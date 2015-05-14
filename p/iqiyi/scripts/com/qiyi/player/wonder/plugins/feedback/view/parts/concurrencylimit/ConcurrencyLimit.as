@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.feedback.view.parts.concurrencylimit {
+package com.qiyi.player.wonder.plugins.feedback.view.parts.concurrencylimit
+{
 	import flash.display.Sprite;
 	import com.qiyi.player.wonder.IDestroy;
 	import feedback.ConcurrencyLimitImg;
@@ -14,13 +15,8 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.concurrencylimit {
 	import com.qiyi.player.wonder.plugins.feedback.view.FeedbackEvent;
 	import flash.display.DisplayObject;
 	
-	public class ConcurrencyLimit extends Sprite implements IDestroy {
-		
-		public function ConcurrencyLimit(param1:Boolean) {
-			super();
-			this._isMemberVideo = param1;
-			this.initPanel();
-		}
+	public class ConcurrencyLimit extends Sprite implements IDestroy
+	{
 		
 		private static const STR_LIMIT_EXPLAIN:String = "您的VIP帐号已被多人使用观看视频，\n您已无法继续使用该帐号的会员权益。";
 		
@@ -52,7 +48,15 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.concurrencylimit {
 		
 		private var _isMemberVideo:Boolean = false;
 		
-		private function initPanel() : void {
+		public function ConcurrencyLimit(param1:Boolean)
+		{
+			super();
+			this._isMemberVideo = param1;
+			this.initPanel();
+		}
+		
+		private function initPanel() : void
+		{
 			this._limitImg = new ConcurrencyLimitImg();
 			addChild(this._limitImg);
 			this._limitExplain = FastCreator.createLabel(STR_LIMIT_EXPLAIN,16777215,18);
@@ -77,14 +81,16 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.concurrencylimit {
 			this._skipMemberAuthTF = FastCreator.createLabel(STR_SKIP_MEMBER_BTN,16777215,16);
 			this._skipMemberAuthTF.selectable = this._skipMemberAuthTF.mouseEnabled = false;
 			addChild(this._skipMemberAuthTF);
-			if(this._isMemberVideo) {
+			if(this._isMemberVideo)
+			{
 				this._skipMemberAuthBtn.visible = this._skipMemberAuthTF.visible = false;
 			}
 			this._changePasswordBtn.addEventListener(MouseEvent.CLICK,this.onChangePasswordBtnClick);
 			this._skipMemberAuthBtn.addEventListener(MouseEvent.CLICK,this.onSkipMemberAuthBtnClick);
 		}
 		
-		public function onResize(param1:int, param2:int) : void {
+		public function onResize(param1:int, param2:int) : void
+		{
 			graphics.clear();
 			graphics.beginFill(0);
 			graphics.drawRect(0,0,param1,param2);
@@ -99,12 +105,15 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.concurrencylimit {
 			this._warnSuggestionHandle.y = this._cutoffRule.y + this._cutoffRule.height + 25;
 			this._warnChangePassword.x = (param1 - this._warnChangePassword.width) * 0.5;
 			this._warnChangePassword.y = this._warnSuggestionHandle.y + this._warnSuggestionHandle.height + 5;
-			if(this._isMemberVideo) {
+			if(this._isMemberVideo)
+			{
 				this._changePasswordBtn.x = (param1 - this._changePasswordBtn.width) * 0.5;
 				this._changePasswordBtn.y = this._warnChangePassword.y + this._warnChangePassword.height + 25;
 				this._changePasswordTF.x = this._changePasswordBtn.x + (this._changePasswordBtn.width - this._changePasswordTF.width) * 0.5;
 				this._changePasswordTF.y = this._changePasswordBtn.y + (this._changePasswordBtn.height - this._changePasswordTF.height) * 0.5;
-			} else {
+			}
+			else
+			{
 				this._skipMemberAuthBtn.visible = this._skipMemberAuthTF.visible = true;
 				this._changePasswordBtn.x = (param1 - this._changePasswordBtn.width - this._skipMemberAuthBtn.width - 50) * 0.5;
 				this._changePasswordBtn.y = this._warnChangePassword.y + this._warnChangePassword.height + 25;
@@ -117,28 +126,36 @@ package com.qiyi.player.wonder.plugins.feedback.view.parts.concurrencylimit {
 			}
 		}
 		
-		private function onChangePasswordBtnClick(param1:MouseEvent) : void {
-			if(this._isMemberVideo) {
+		private function onChangePasswordBtnClick(param1:MouseEvent) : void
+		{
+			if(this._isMemberVideo)
+			{
 				PingBack.getInstance().userActionPing_4_0(PingBackDef.CONCUR_LIMIT_VIP_PW_CLICK);
-			} else {
+			}
+			else
+			{
 				PingBack.getInstance().userActionPing_4_0(PingBackDef.CONCUR_LIMIT_PASSWORD_CLICK);
 			}
 			navigateToURL(new URLRequest("http://www.iqiyi.com/u/password"),"_blank");
 		}
 		
-		private function onSkipMemberAuthBtnClick(param1:MouseEvent) : void {
+		private function onSkipMemberAuthBtnClick(param1:MouseEvent) : void
+		{
 			PingBack.getInstance().userActionPing_4_0(PingBackDef.CONCUR_LIMIT_INITPLAY_CLICK);
 			dispatchEvent(new FeedbackEvent(FeedbackEvent.Evt_SkipMemberAuthBtnClick));
 		}
 		
-		public function destroy() : void {
-			var _loc1_:DisplayObject = null;
-			while(numChildren > 0) {
-				_loc1_ = getChildAt(0);
-				if(_loc1_.parent) {
-					removeChild(_loc1_);
+		public function destroy() : void
+		{
+			var _loc1:DisplayObject = null;
+			while(numChildren > 0)
+			{
+				_loc1 = getChildAt(0);
+				if(_loc1.parent)
+				{
+					removeChild(_loc1);
 				}
-				_loc1_ = null;
+				_loc1 = null;
 			}
 		}
 	}

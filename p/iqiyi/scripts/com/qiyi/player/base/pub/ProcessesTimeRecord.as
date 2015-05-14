@@ -1,9 +1,7 @@
-package com.qiyi.player.base.pub {
-	public class ProcessesTimeRecord extends Object {
-		
-		public function ProcessesTimeRecord() {
-			super();
-		}
+package com.qiyi.player.base.pub
+{
+	public class ProcessesTimeRecord extends Object
+	{
 		
 		public static var needRecord:Boolean = true;
 		
@@ -54,5 +52,10 @@ package com.qiyi.player.base.pub {
 		public static var usedTime_adInit:uint = 0;
 		
 		public static var usedTime_vms:uint = 0;
+		
+		public function ProcessesTimeRecord()
+		{
+			super();
+		}
 	}
 }

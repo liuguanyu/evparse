@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.plugins.videolink.view.part {
+package com.qiyi.player.wonder.plugins.videolink.view.part
+{
 	import flash.display.Sprite;
 	import com.qiyi.player.wonder.IDestroy;
 	import common.CommonCloseBtn;
@@ -12,12 +13,8 @@ package com.qiyi.player.wonder.plugins.videolink.view.part {
 	import com.qiyi.player.wonder.plugins.videolink.view.VideoLinkEvent;
 	import flash.display.DisplayObject;
 	
-	public class ActivityNoticePanel extends Sprite implements IDestroy {
-		
-		public function ActivityNoticePanel() {
-			super();
-			this.initUI();
-		}
+	public class ActivityNoticePanel extends Sprite implements IDestroy
+	{
 		
 		private static const TEXT_LINK:String = "<a href=\'event:onTextEventClick\'>去看看</a>";
 		
@@ -31,7 +28,14 @@ package com.qiyi.player.wonder.plugins.videolink.view.part {
 		
 		private var _linkTF:TextField;
 		
-		private function initUI() : void {
+		public function ActivityNoticePanel()
+		{
+			super();
+			this.initUI();
+		}
+		
+		private function initUI() : void
+		{
 			this._commanBg = new CommonBg();
 			this._commanBg.width = 290;
 			this._commanBg.height = 70;
@@ -57,31 +61,38 @@ package com.qiyi.player.wonder.plugins.videolink.view.part {
 			this._closeBtn.addEventListener(MouseEvent.CLICK,this.onCloseBtnClick);
 		}
 		
-		public function updateInfo(param1:String) : void {
+		public function updateInfo(param1:String) : void
+		{
 			this._descriptionTf.text = "      " + param1;
 		}
 		
-		public function onResize(param1:int, param2:int) : void {
+		public function onResize(param1:int, param2:int) : void
+		{
 		}
 		
-		private function onWatchVideoClick(param1:TextEvent) : void {
+		private function onWatchVideoClick(param1:TextEvent) : void
+		{
 			dispatchEvent(new VideoLinkEvent(VideoLinkEvent.Evt_BtnAndIconClick));
 		}
 		
-		private function onCloseBtnClick(param1:MouseEvent) : void {
+		private function onCloseBtnClick(param1:MouseEvent) : void
+		{
 			dispatchEvent(new VideoLinkEvent(VideoLinkEvent.Evt_Close));
 		}
 		
-		public function destroy() : void {
-			var _loc1_:DisplayObject = null;
+		public function destroy() : void
+		{
+			var _loc1:DisplayObject = null;
 			this._linkTF.removeEventListener(TextEvent.LINK,this.onWatchVideoClick);
 			this._closeBtn.removeEventListener(MouseEvent.CLICK,this.onCloseBtnClick);
-			while(numChildren) {
-				_loc1_ = getChildAt(0);
-				if(_loc1_.parent) {
-					removeChild(_loc1_);
+			while(numChildren)
+			{
+				_loc1 = getChildAt(0);
+				if(_loc1.parent)
+				{
+					removeChild(_loc1);
 				}
-				_loc1_ = null;
+				_loc1 = null;
 			}
 		}
 	}

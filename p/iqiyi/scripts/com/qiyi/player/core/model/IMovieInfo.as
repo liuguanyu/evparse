@@ -1,9 +1,11 @@
-package com.qiyi.player.core.model {
+package com.qiyi.player.core.model
+{
 	import com.qiyi.player.core.model.impls.subtitle.Language;
 	import com.qiyi.player.core.model.impls.FocusTip;
 	import com.qiyi.player.base.pub.EnumItem;
 	
-	public interface IMovieInfo {
+	public interface IMovieInfo
+	{
 		
 		function get info() : String;
 		

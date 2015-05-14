@@ -1,4 +1,5 @@
-package com.qiyi.player.wonder.body.view {
+package com.qiyi.player.wonder.body.view
+{
 	import flash.display.Sprite;
 	import com.iqiyi.components.global.GlobalStage;
 	import com.qiyi.player.wonder.common.config.FlashVarConfig;
@@ -7,15 +8,8 @@ package com.qiyi.player.wonder.body.view {
 	import flash.events.Event;
 	import flash.events.FullScreenEvent;
 	
-	public class AppView extends Sprite {
-		
-		public function AppView() {
-			super();
-			this.initLayer();
-			GlobalStage.stage.addEventListener(Event.RESIZE,this.onStageResize);
-			GlobalStage.stage.addEventListener(FullScreenEvent.FULL_SCREEN,this.onFullScreen);
-			GlobalStage.stage.addEventListener(Event.MOUSE_LEAVE,this.onMouseLeaveStage);
-		}
+	public class AppView extends Sprite
+	{
 		
 		private var _curVideoLayer:Sprite;
 		
@@ -35,47 +29,66 @@ package com.qiyi.player.wonder.body.view {
 		
 		private var _popupLayer:Sprite;
 		
-		public function get curVideoLayer() : Sprite {
+		public function AppView()
+		{
+			super();
+			this.initLayer();
+			GlobalStage.stage.addEventListener(Event.RESIZE,this.onStageResize);
+			GlobalStage.stage.addEventListener(FullScreenEvent.FULL_SCREEN,this.onFullScreen);
+			GlobalStage.stage.addEventListener(Event.MOUSE_LEAVE,this.onMouseLeaveStage);
+		}
+		
+		public function get curVideoLayer() : Sprite
+		{
 			return this._curVideoLayer;
 		}
 		
-		public function get preVideoLayer() : Sprite {
+		public function get preVideoLayer() : Sprite
+		{
 			return this._preVideoLayer;
 		}
 		
-		public function get barrageLayer() : Sprite {
+		public function get barrageLayer() : Sprite
+		{
 			return this._barrageLayer;
 		}
 		
-		public function get ADLayer() : Sprite {
+		public function get ADLayer() : Sprite
+		{
 			return this._ADLayer;
 		}
 		
-		public function get fixLayer() : Sprite {
+		public function get fixLayer() : Sprite
+		{
 			return this._fixLayer;
 		}
 		
-		public function get fixSub1Layer() : Sprite {
+		public function get fixSub1Layer() : Sprite
+		{
 			return this._fixSub1Layer;
 		}
 		
-		public function get sceneTileToolLayer() : Sprite {
+		public function get sceneTileToolLayer() : Sprite
+		{
 			return this._sceneTileToolLayer;
 		}
 		
-		public function get popupLayer() : Sprite {
+		public function get popupLayer() : Sprite
+		{
 			return this._popupLayer;
 		}
 		
-		public function switchPreLayer() : void {
+		public function switchPreLayer() : void
+		{
 			removeChild(this._curVideoLayer);
 			addChildAt(this._preVideoLayer,0);
-			var _loc1_:Sprite = this._curVideoLayer;
+			var _loc1:Sprite = this._curVideoLayer;
 			this._curVideoLayer = this._preVideoLayer;
-			this._preVideoLayer = _loc1_;
+			this._preVideoLayer = _loc1;
 		}
 		
-		private function initLayer() : void {
+		private function initLayer() : void
+		{
 			this._curVideoLayer = new Sprite();
 			addChildAt(this._curVideoLayer,0);
 			this._preVideoLayer = new Sprite();
@@ -86,9 +99,12 @@ package com.qiyi.player.wonder.body.view {
 			this._mouseClickLayer.width = GlobalStage.stage.stageWidth;
 			this._mouseClickLayer.height = GlobalStage.stage.stageHeight;
 			this._mouseClickLayer.doubleClickEnabled = true;
-			if(FlashVarConfig.owner == FlashVarConfig.OWNER_CLIENT) {
+			if(FlashVarConfig.owner == FlashVarConfig.OWNER_CLIENT)
+			{
 				GlobalStage.stage.addEventListener(MouseEvent.MOUSE_DOWN,this.onMouseLayerClick);
-			} else {
+			}
+			else
+			{
 				this._mouseClickLayer.addEventListener(MouseEvent.CLICK,this.onMouseLayerClick);
 			}
 			this._mouseClickLayer.addEventListener(MouseEvent.DOUBLE_CLICK,this.onMouseLayerDoubleClick);
@@ -107,38 +123,48 @@ package com.qiyi.player.wonder.body.view {
 			addChild(this._popupLayer);
 		}
 		
-		private function onMouseLayerClick(param1:MouseEvent) : void {
-			if(FlashVarConfig.owner == FlashVarConfig.OWNER_CLIENT) {
-				if(param1.target == GlobalStage.stage && param1.delta == 1) {
+		private function onMouseLayerClick(param1:MouseEvent) : void
+		{
+			if(FlashVarConfig.owner == FlashVarConfig.OWNER_CLIENT)
+			{
+				if(param1.target == GlobalStage.stage && param1.delta == 1)
+				{
 					TweenLite.killTweensOf(this.onMouseLayerClickHandler);
 					TweenLite.delayedCall(0.35,this.onMouseLayerClickHandler);
 				}
-			} else {
+			}
+			else
+			{
 				TweenLite.killTweensOf(this.onMouseLayerClickHandler);
 				TweenLite.delayedCall(0.35,this.onMouseLayerClickHandler);
 			}
 		}
 		
-		private function onMouseLayerClickHandler() : void {
+		private function onMouseLayerClickHandler() : void
+		{
 			dispatchEvent(new BodyEvent(BodyEvent.Evt_MouseLayerClick));
 		}
 		
-		private function onMouseLayerDoubleClick(param1:MouseEvent) : void {
+		private function onMouseLayerDoubleClick(param1:MouseEvent) : void
+		{
 			TweenLite.killTweensOf(this.onMouseLayerClickHandler);
 			dispatchEvent(new BodyEvent(BodyEvent.Evt_MouseLayerDoubleClick));
 		}
 		
-		private function onStageResize(param1:Event) : void {
+		private function onStageResize(param1:Event) : void
+		{
 			this._mouseClickLayer.width = GlobalStage.stage.stageWidth;
 			this._mouseClickLayer.height = GlobalStage.stage.stageHeight;
 			dispatchEvent(new BodyEvent(BodyEvent.Evt_StageResize));
 		}
 		
-		private function onFullScreen(param1:FullScreenEvent) : void {
+		private function onFullScreen(param1:FullScreenEvent) : void
+		{
 			dispatchEvent(new BodyEvent(BodyEvent.Evt_FullScreen,param1.fullScreen));
 		}
 		
-		private function onMouseLeaveStage(param1:Event) : void {
+		private function onMouseLeaveStage(param1:Event) : void
+		{
 			dispatchEvent(new BodyEvent(BodyEvent.Evt_LeaveStage));
 		}
 	}

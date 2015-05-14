@@ -1,12 +1,9 @@
-package com.qiyi.player.core.model.events {
+package com.qiyi.player.core.model.events
+{
 	import flash.events.Event;
 	
-	public class MovieEvent extends Event {
-		
-		public function MovieEvent(param1:String, param2:Object = null, param3:Boolean = false, param4:Boolean = false) {
-			super(param1,param3,param4);
-			this._data = param2;
-		}
+	public class MovieEvent extends Event
+	{
 		
 		public static const Evt_Ready:String = "ready";
 		
@@ -24,7 +21,14 @@ package com.qiyi.player.core.model.events {
 		
 		private var _data:Object;
 		
-		public function get data() : Object {
+		public function MovieEvent(param1:String, param2:Object = null, param3:Boolean = false, param4:Boolean = false)
+		{
+			super(param1,param3,param4);
+			this._data = param2;
+		}
+		
+		public function get data() : Object
+		{
 			return this._data;
 		}
 	}

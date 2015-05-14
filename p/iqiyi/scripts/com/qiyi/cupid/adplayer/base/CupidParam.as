@@ -1,12 +1,10 @@
-package com.qiyi.cupid.adplayer.base {
+package com.qiyi.cupid.adplayer.base
+{
 	import flash.events.IEventDispatcher;
 	import flash.display.DisplayObjectContainer;
 	
-	public class CupidParam extends Object {
-		
-		public function CupidParam() {
-			super();
-		}
+	public class CupidParam extends Object
+	{
 		
 		public var videoPlayerVersion:String;
 		
@@ -74,16 +72,23 @@ package com.qiyi.cupid.adplayer.base {
 		
 		public var videoPlaySecondsOfDay:int;
 		
-		public function toObject() : Object {
-			var _loc1_:* = "videoPlayerVersion playerUrl videoId tvId channelId collectionId " + "playerId albumId adContainer stageWidth stageHeight userId webEventId dispatcher " + "cacheMachineIp videoEventId vipRight terminal duration passportId passportCookie " + "videoDefinitionId passportKey baiduMainVideo disablePreroll disableSkipAd " + "enableVideoCore volume videoIndex isUGC couponCode couponVer videoPlaySecondsOfDay";
-			var _loc2_:Object = {};
-			var _loc3_:Array = _loc1_.split(" ");
-			var _loc4_:* = 0;
-			while(_loc4_ < _loc3_.length) {
-				_loc2_[_loc3_[_loc4_]] = this[_loc3_[_loc4_]] + "";
-				_loc4_++;
+		public function CupidParam()
+		{
+			super();
+		}
+		
+		public function toObject() : Object
+		{
+			var _loc1:* = "videoPlayerVersion playerUrl videoId tvId channelId collectionId " + "playerId albumId adContainer stageWidth stageHeight userId webEventId dispatcher " + "cacheMachineIp videoEventId vipRight terminal duration passportId passportCookie " + "videoDefinitionId passportKey baiduMainVideo disablePreroll disableSkipAd " + "enableVideoCore volume videoIndex isUGC couponCode couponVer videoPlaySecondsOfDay";
+			var _loc2:Object = {};
+			var _loc3:Array = _loc1.split(" ");
+			var _loc4:* = 0;
+			while(_loc4 < _loc3.length)
+			{
+				_loc2[_loc3[_loc4]] = this[_loc3[_loc4]] + "";
+				_loc4++;
 			}
-			return _loc2_;
+			return _loc2;
 		}
 	}
 }

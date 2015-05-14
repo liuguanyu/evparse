@@ -1,4 +1,5 @@
-package loader.vod {
+package loader.vod
+{
 	import flash.events.EventDispatcher;
 	import flash.net.URLLoader;
 	import flash.system.ApplicationDomain;
@@ -17,12 +18,8 @@ package loader.vod {
 	import flash.utils.ByteArray;
 	import flash.utils.clearTimeout;
 	
-	public class P2PFileLoader extends EventDispatcher {
-		
-		public function P2PFileLoader(param1:SingletonClass) {
-			super();
-			this._dict = new Dictionary();
-		}
+	public class P2PFileLoader extends EventDispatcher
+	{
 		
 		public static const LoadCorePingBack:String = "http://msg.video.qiyi.com/vodpb.gif?url=";
 		
@@ -33,13 +30,6 @@ package loader.vod {
 		public static const Evt_LoadError:String = "Evt_LoadError";
 		
 		private static var _instance:P2PFileLoader;
-		
-		public static function get instance() : P2PFileLoader {
-			if(_instance == null) {
-				_instance = new P2PFileLoader(new SingletonClass());
-			}
-			return _instance;
-		}
 		
 		private var _loader:URLLoader;
 		
@@ -65,40 +55,66 @@ package loader.vod {
 		
 		private var _dict:Dictionary;
 		
-		public function loadCore(param1:String = "") : void {
+		public function P2PFileLoader(param1:SingletonClass)
+		{
+			super();
+			this._dict = new Dictionary();
+		}
+		
+		public static function get instance() : P2PFileLoader
+		{
+			if(_instance == null)
+			{
+				_instance = new P2PFileLoader(new SingletonClass());
+			}
+			return _instance;
+		}
+		
+		public function loadCore(param1:String = "") : void
+		{
 			var done:Function = null;
 			var var_4:String = param1;
-			done = function():void {
+			done = function():void
+			{
 				_isLoading = false;
 				_loadDone = true;
 				dispatchEvent(new Event(Evt_LoadDone));
 			};
-			if(this._domain != null) {
-				try {
+			if(this._domain != null)
+			{
+				try
+				{
 					this._instanceClass = this._domain.getDefinition("com.iqiyi.file.File") as Class;
-					if(this._instanceClass != null) {
+					if(this._instanceClass != null)
+					{
 						this._isLoading = true;
 						setTimeout(done,10);
 						return;
 					}
 				}
-				catch(name_1:*) {
+				catch(name_1:*)
+				{
 					_instanceClass = null;
 				}
 			}
-			if(this._domain != null) {
-				try {
+			if(this._domain != null)
+			{
+				try
+				{
 					this._instanceClass = ApplicationDomain.currentDomain.getDefinition("com.iqiyi.file.File") as Class;
-					if(this._instanceClass != null) {
+					if(this._instanceClass != null)
+					{
 						this._isLoading = true;
 						setTimeout(done,10);
 						return;
 					}
 				}
-				catch(name_1:*) {
+				catch(name_1:*)
+				{
 					_instanceClass = null;
 				}
-				if(var_4 != "") {
+				if(var_4 != "")
+				{
 					this._url = var_4;
 				}
 				Security.allowDomain("*");
@@ -113,12 +129,14 @@ package loader.vod {
 				return;
 			}
 			this._instanceClass = ApplicationDomain.currentDomain.getDefinition("com.iqiyi.file.File") as Class;
-			if(this._instanceClass != null) {
+			if(this._instanceClass != null)
+			{
 				this._isLoading = true;
 				setTimeout(done,10);
 				return;
 			}
-			if(var_4 != "") {
+			if(var_4 != "")
+			{
 				this._url = var_4;
 			}
 			Security.allowDomain("*");
@@ -132,11 +150,13 @@ package loader.vod {
 			this._startTime = getTimer();
 		}
 		
-		private function onCoreComplete(param1:Event) : void {
+		private function onCoreComplete(param1:Event) : void
+		{
 			var swfLoader:Loader = null;
 			var done:Function = null;
 			var var_5:Event = param1;
-			done = function(param1:Event):void {
+			done = function(param1:Event):void
+			{
 				sendToURL(new URLRequest(LoadCorePingBack + _url + "&tag=done&curl=" + _url + "&useTime=" + (getTimer() - _startTime) + "&dur=" + getTimer()));
 				_isLoading = false;
 				swfLoader.removeEventListener(Event.COMPLETE,done);
@@ -154,7 +174,8 @@ package loader.vod {
 			swfLoader.loadBytes(this._loader.data as ByteArray,context);
 		}
 		
-		private function onError(param1:*) : void {
+		private function onError(param1:*) : void
+		{
 			this._loader.removeEventListener(Event.COMPLETE,this.onCoreComplete);
 			this._loader.removeEventListener(IOErrorEvent.IO_ERROR,this.onError);
 			this._loader.removeEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onError);
@@ -162,10 +183,12 @@ package loader.vod {
 			this._retryTimeout = setTimeout(this.retry,1000);
 		}
 		
-		private function retry() : void {
+		private function retry() : void
+		{
 			clearTimeout(this._retryTimeout);
 			this._retryCount++;
-			if(this._retryCount > retryMaxCount) {
+			if(this._retryCount > retryMaxCount)
+			{
 				sendToURL(new URLRequest(LoadCorePingBack + this._url + "&tag=lost&curl=" + this._url + "&useTime=" + (getTimer() - this._startTime) + "&dur=" + getTimer()));
 				this._loadErr = true;
 				this._isLoading = false;
@@ -176,53 +199,66 @@ package loader.vod {
 			this._loader.load(new URLRequest(this._url + "?rn=" + getTimer()));
 		}
 		
-		public function getFile() : File {
-			if(this._instanceClass == null) {
+		public function getFile() : File
+		{
+			if(this._instanceClass == null)
+			{
 				return null;
 			}
 			this._dict[this._fileIndex.toString()] = new this._instanceClass();
-			var _loc1_:File = new File(this._fileIndex.toString());
+			var _loc1:File = new File(this._fileIndex.toString());
 			this._fileIndex++;
-			return _loc1_;
+			return _loc1;
 		}
 		
-		public function method_1(param1:String) : Object {
+		public function method_1(param1:String) : Object
+		{
 			return this._dict[param1];
 		}
 		
-		public function deleteFile(param1:String) : void {
-			var _loc2_:* = undefined;
-			if(param1 in this._dict) {
-				_loc2_ = this._dict[param1];
-				_loc2_["clear"]();
+		public function deleteFile(param1:String) : void
+		{
+			var _loc2:* = undefined;
+			if(param1 in this._dict)
+			{
+				_loc2 = this._dict[param1];
+				_loc2["clear"]();
 				delete this._dict[param1];
 				true;
 			}
 		}
 		
-		public function get loadDone() : Boolean {
+		public function get loadDone() : Boolean
+		{
 			return this._loadDone;
 		}
 		
-		public function get loadErr() : Boolean {
+		public function get loadErr() : Boolean
+		{
 			return this._loadErr;
 		}
 		
-		public function get isLoading() : Boolean {
+		public function get isLoading() : Boolean
+		{
 			return this._isLoading;
 		}
 		
-		public function get version() : String {
-			if(this._instanceClass == null) {
+		public function get version() : String
+		{
+			if(this._instanceClass == null)
+			{
 				return "";
 			}
 			return this._instanceClass["version"];
 		}
 	}
 }
-class SingletonClass extends Object {
+
+class SingletonClass extends Object
+{
 	
-	function SingletonClass() {
+	function SingletonClass()
+	{
 		super();
 	}
 }

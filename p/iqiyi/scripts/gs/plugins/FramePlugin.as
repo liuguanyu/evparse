@@ -1,15 +1,10 @@
-package gs.plugins {
+package gs.plugins
+{
 	import flash.display.MovieClip;
 	import gs.TweenLite;
 	
-	public class FramePlugin extends TweenPlugin {
-		
-		public function FramePlugin() {
-			super();
-			this.propName = "frame";
-			this.overwriteProps = ["frame"];
-			this.round = true;
-		}
+	public class FramePlugin extends TweenPlugin
+	{
 		
 		public static const VERSION:Number = 1.01;
 		
@@ -17,8 +12,20 @@ package gs.plugins {
 		
 		protected var _target:MovieClip;
 		
-		override public function onInitTween(param1:Object, param2:*, param3:TweenLite) : Boolean {
-			if(!(param1 is MovieClip) || (isNaN(param2))) {
+		public var frame:int;
+		
+		public function FramePlugin()
+		{
+			super();
+			this.propName = "frame";
+			this.overwriteProps = ["frame"];
+			this.round = true;
+		}
+		
+		override public function onInitTween(param1:Object, param2:*, param3:TweenLite) : Boolean
+		{
+			if(!(param1 is MovieClip) || (isNaN(param2)))
+			{
 				return false;
 			}
 			_target = param1 as MovieClip;
@@ -27,9 +34,8 @@ package gs.plugins {
 			return true;
 		}
 		
-		public var frame:int;
-		
-		override public function set changeFactor(param1:Number) : void {
+		override public function set changeFactor(param1:Number) : void
+		{
 			updateTweens(param1);
 			_target.gotoAndStop(this.frame);
 		}
