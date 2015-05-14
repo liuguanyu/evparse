@@ -5,7 +5,7 @@ package com.qiyi.player.wonder
 	public class WonderVersion extends Object
 	{
 		
-		public static const VERSION_WONDER:String = "5.2.20.6";
+		public static const VERSION_WONDER:String = "5.2.21";
 		
 		public static const VERSION_AD_PLUGINS:String = CupidAdPlayer.VERSION;
 		

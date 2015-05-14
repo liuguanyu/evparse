@@ -72,7 +72,7 @@ package com.qiyi.player.core.model.remote
 			{
 				_loc2 = 0;
 			}
-			var _loc3:* = "aw6UWGtp";
+			var _loc3:* = "Qakh4T0A";
 			var _loc4:uint = getTimer();
 			var _loc5:String = MD5.calculate(_loc3 + String(_loc4) + this._holder.runtimeData.tvid);
 			var _loc6:String = MD5.calculate(MD5.calculate(this._holder.runtimeData.ugcAuthKey) + String(_loc4) + this._holder.runtimeData.tvid);
@@ -157,13 +157,13 @@ package com.qiyi.player.core.model.remote
 		private function sendHijackPingBack(param1:String) : void
 		{
 			var request:URLRequest = null;
-			var var_35:String = param1;
-			if(var_35)
+			var var_56:String = param1;
+			if(var_56)
 			{
 				try
 				{
 					request = new URLRequest();
-					request.url = "http://msg.video.qiyi.com/tmpstats.gif?type=isphijack20140210&rt=" + encodeURIComponent(var_35.substr(0,500)) + "&tn=" + Math.random();
+					request.url = "http://msg.video.qiyi.com/tmpstats.gif?type=isphijack20140210&rt=" + encodeURIComponent(var_56.substr(0,500)) + "&tn=" + Math.random();
 					sendToURL(request);
 				}
 				catch(e:Error)

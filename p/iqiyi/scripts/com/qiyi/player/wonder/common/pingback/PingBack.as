@@ -394,8 +394,12 @@ package com.qiyi.player.wonder.common.pingback
 			var _loc2:PlayerProxy = this._facade.retrieveProxy(PlayerProxy.NAME) as PlayerProxy;
 			var _loc3:UserProxy = this._facade.retrieveProxy(UserProxy.NAME) as UserProxy;
 			var _loc4:String = UserManager.getInstance().user?UserManager.getInstance().user.passportID:"";
-			var _loc5:String = UserManager.getInstance().user?UserManager.getInstance().user.profileID:"";
-			var _loc6:String = SystemConfig.MOVIE_SCORE_URL + "set_score?ppuid=" + _loc4 + "&uid=" + _loc2.curActor.uuid + "&pru=" + _loc5 + "&entity_id=" + (_loc2.curActor.movieModel?_loc2.curActor.movieModel.tvid:"") + "&score=" + param1 + "&rn=" + Math.random();
+			var _loc5:* = "";
+			if(UserManager.getInstance().user)
+			{
+				_loc5 = UserManager.getInstance().user.P00001;
+			}
+			var _loc6:String = SystemConfig.MOVIE_SCORE_URL + "add_movie_score?qipu_id=" + _loc2.curActor.movieModel.tvid + "&uid=" + _loc4 + "&authcookie=" + _loc5 + "&appid=21" + "&score=" + param1 + "&rn=" + Math.random();
 			this.pingRequestServer(_loc6,false);
 		}
 		

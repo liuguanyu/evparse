@@ -531,7 +531,8 @@ package com.qiyi.player.wonder.plugins.controllbar.view
 			else
 			{
 				this._controllBarProxy.removeStatus(ControllBarDef.STATUS_IMAGE_PREVIEW_SHOW);
-				this.hideSeekBar();
+				TweenLite.killTweensOf(this.hideSeekBar);
+				TweenLite.delayedCall(ControllBarDef.SEEKBAR_THIN_DELAY / 1000,this.hideSeekBar);
 			}
 		}
 		

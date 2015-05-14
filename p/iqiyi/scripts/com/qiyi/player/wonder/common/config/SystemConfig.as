@@ -47,7 +47,7 @@ package com.qiyi.player.wonder.common.config
 		
 		public static const MEMBER_TICKET_USE_URL:String = "http://serv.vip.iqiyi.com/services/use_vodcoupon.action";
 		
-		public static const MOVIE_SCORE_URL:String = "http://qiyu.iqiyi.com/movie_p13n/";
+		public static const MOVIE_SCORE_URL:String = "http://score.video.iqiyi.com/beaver-api/external/";
 		
 		public static const BARRAGE_STAR_INTERACT_URL:String = "http://cmts.iqiyi.com/bullet/config/access_config";
 		

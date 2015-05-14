@@ -50,8 +50,37 @@ package loader.vod
 		
 		public function initFile(param1:DisplayObjectContainer, param2:NetStream, param3:String, param4:String, param5:Number, param6:Number, param7:Array, param8:Array, param9:Number, param10:String, param11:Number, param12:Number, param13:String, param14:String, param15:Number, param16:String, param17:Boolean, param18:Boolean, param19:String, param20:Object, param21:Boolean, param22:String) : void
 		{
-			this._file["initFile"](this.finalFail,this.stateChange,param1,param2,param3,param4,param5,param6,param7,param8,param9,param10,param11,param12,param13,param14,param15,param16,param17,param18,param19,param20,param21,param22);
-			this._fileState = new FileState(this._key);
+			var var_34:DisplayObjectContainer = param1;
+			var var_35:NetStream = param2;
+			var var_36:String = param3;
+			var var_37:String = param4;
+			var var_38:Number = param5;
+			var var_39:Number = param6;
+			var var_40:Array = param7;
+			var var_41:Array = param8;
+			var var_42:Number = param9;
+			var var_43:String = param10;
+			var var_44:Number = param11;
+			var var_45:Number = param12;
+			var var_46:String = param13;
+			var var_47:String = param14;
+			var var_48:Number = param15;
+			var var_49:String = param16;
+			var var_50:Boolean = param17;
+			var var_51:Boolean = param18;
+			var var_52:String = param19;
+			var var_53:Object = param20;
+			var var_54:Boolean = param21;
+			var var_55:String = param22;
+			try
+			{
+				this._file["initFile"](this.finalFail,this.stateChange,var_34,var_35,var_36,var_37,var_38,var_39,var_40,var_41,var_42,var_43,var_44,var_45,var_46,var_47,var_48,var_49,var_50,var_51,var_52,var_53,var_54,var_55);
+				this._fileState = new FileState(this._key);
+			}
+			catch(name_1:Error)
+			{
+				var_53["info"]("__P2P__ : init Error" + " : " + name_1.message);
+			}
 			this._init = true;
 		}
 		

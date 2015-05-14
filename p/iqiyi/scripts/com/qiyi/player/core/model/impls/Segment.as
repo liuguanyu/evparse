@@ -186,16 +186,16 @@ package com.qiyi.player.core.model.impls
 			var pos:XMLList = null;
 			var i:int = 0;
 			var n:int = 0;
-			var var_32:XML = param1;
-			var var_33:Boolean = param2;
-			if(var_32 == null || (this._keyframes))
+			var var_31:XML = param1;
+			var var_32:Boolean = param2;
+			if(var_31 == null || (this._keyframes))
 			{
 				return;
 			}
 			try
 			{
-				times = var_32.times.value;
-				pos = var_32.filepositions.value;
+				times = var_31.times.value;
+				pos = var_31.filepositions.value;
 				this._keyframes = new Vector.<Keyframe>(times.length());
 				i = 1;
 				n = times.length();
@@ -203,7 +203,7 @@ package com.qiyi.player.core.model.impls
 				{
 					keyframe = new Keyframe();
 					keyframe.index = Number(times[i].@id) - 1;
-					if(var_33)
+					if(var_32)
 					{
 						keyframe.position = Number(pos[i].toString());
 						keyframe.time = Number(times[i].toString()) * 1000;
@@ -237,7 +237,7 @@ package com.qiyi.player.core.model.impls
 				this._keyframes.shift();
 				this._firstKeyframe = new Keyframe();
 				this._firstKeyframe.segmentTime = 0;
-				if(var_33)
+				if(var_32)
 				{
 					this._firstKeyframe.position = Number(pos[0].toString());
 				}
@@ -245,7 +245,7 @@ package com.qiyi.player.core.model.impls
 				{
 					this._firstKeyframe.position = Number(pos[0].toString()) + 30;
 				}
-				this._keyframeAdjusted = var_33;
+				this._keyframeAdjusted = var_32;
 				this._keyframeInited = true;
 			}
 			catch(e:Error)
@@ -260,15 +260,15 @@ package com.qiyi.player.core.model.impls
 			var pos:Array = null;
 			var i:int = 0;
 			var n:int = 0;
-			var var_32:Object = param1;
-			if((this._keyframes) || (var_32 == null) || var_32.keyframes == null)
+			var var_31:Object = param1;
+			if((this._keyframes) || (var_31 == null) || var_31.keyframes == null)
 			{
 				return;
 			}
 			try
 			{
-				times = var_32.keyframes.times;
-				pos = var_32.keyframes.filepositions;
+				times = var_31.keyframes.times;
+				pos = var_31.keyframes.filepositions;
 				if((times && pos) && (times.length > 0) && pos.length > 0)
 				{
 					if(this._index == 0)

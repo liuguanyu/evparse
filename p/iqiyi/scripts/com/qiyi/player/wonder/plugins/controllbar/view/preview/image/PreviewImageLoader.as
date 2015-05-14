@@ -87,10 +87,10 @@ package com.qiyi.player.wonder.plugins.controllbar.view.preview.image
 		public function imgLoader(param1:String) : void
 		{
 			var i:uint = 0;
-			var var_36:String = param1;
+			var var_57:String = param1;
 			if(!this._loading)
 			{
-				this._log.debug("PreviewImageLoader request image imgUrl = " + var_36);
+				this._log.debug("PreviewImageLoader request image imgUrl = " + var_57);
 				try
 				{
 					if(this._loader)
@@ -110,20 +110,20 @@ package com.qiyi.player.wonder.plugins.controllbar.view.preview.image
 				this._loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,this.onErrorHandler);
 				this._loader.contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onErrorHandler);
 				this._loading = true;
-				this._loader.load(new URLRequest(var_36),new LoaderContext(true));
+				this._loader.load(new URLRequest(var_57),new LoaderContext(true));
 			}
 			else
 			{
 				i = 0;
 				while(i < this._waitLoadVec.length)
 				{
-					if(this._waitLoadVec[i] == var_36)
+					if(this._waitLoadVec[i] == var_57)
 					{
 						return;
 					}
 					i++;
 				}
-				this._waitLoadVec.push(var_36);
+				this._waitLoadVec.push(var_57);
 			}
 			if(!this._loading)
 			{

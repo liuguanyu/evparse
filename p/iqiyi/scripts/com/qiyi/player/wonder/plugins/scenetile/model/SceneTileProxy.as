@@ -25,6 +25,7 @@ package com.qiyi.player.wonder.plugins.scenetile.model
 	import com.qiyi.player.wonder.common.event.CommonEvent;
 	import com.qiyi.player.wonder.body.model.JavascriptAPIProxy;
 	import com.qiyi.player.wonder.body.model.PlayerProxy;
+	import com.qiyi.player.wonder.common.loader.LoaderManager;
 	import com.qiyi.player.base.logging.Log;
 	import com.qiyi.player.wonder.common.config.FlashVarConfig;
 	
@@ -588,103 +589,35 @@ package com.qiyi.player.wonder.plugins.scenetile.model
 		
 		public function requestScored(param1:String, param2:String, param3:String, param4:String) : void
 		{
-			var var_8:String = param1;
-			var var_30:String = param2;
-			var var_18:String = param3;
-			var var_31:String = param4;
-			this._tvid = var_8;
-			this._ppuid = var_30;
-			this._uid = var_18;
-			this._pru = var_31;
-			try
-			{
-				if(this._scoreLoader)
-				{
-					this._scoreLoader.removeEventListener(Event.COMPLETE,this.onScoredCompleteHandler);
-					this._scoreLoader.removeEventListener(IOErrorEvent.IO_ERROR,this.onErrorHander);
-					this._scoreLoader.removeEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onErrorHander);
-					this._scoreLoader.close();
-					this._scoreLoader = null;
-				}
-			}
-			catch(e:Error)
-			{
-			}
-			var url:String = SystemConfig.MOVIE_SCORE_URL + "scored" + "?entity_ids=" + this._tvid + "&ppuid=" + var_30 + "&uid=" + var_18 + "&pru=" + var_31 + "&rn=" + Math.random();
-			this._scoreLoader = new URLLoader();
-			this._scoreLoader.addEventListener(Event.COMPLETE,this.onScoredCompleteHandler);
-			this._scoreLoader.addEventListener(IOErrorEvent.IO_ERROR,this.onErrorHander);
-			this._scoreLoader.addEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onErrorHander);
-			this._scoreLoader.load(new URLRequest(url));
-			this._log.debug("SceneTileProxy request scored data :" + url);
+			this._tvid = param1;
+			this._ppuid = param2;
+			this._uid = param3;
+			this._pru = param4;
+			var _loc5:String = SystemConfig.MOVIE_SCORE_URL + "get_user_movie_score" + "?qipu_id=" + this._tvid + "&udid=" + param3 + "&uid=" + param2 + "&appid=21" + "&rn=" + Math.random();
+			LoaderManager.instance.loader(_loc5,this.callbackRequestScoredComplete,null,LoaderManager.TYPE_URLlOADER);
 		}
 		
-		private function onScoredCompleteHandler(param1:Event) : void
+		private function callbackRequestScoredComplete(param1:Object) : void
 		{
 			var obj:Object = null;
-			var var_5:Event = param1;
-			var urlLoader:URLLoader = var_5.target as URLLoader;
+			var var_30:Object = param1;
 			try
 			{
-				obj = com.adobe.serialization.json.JSON.decode(urlLoader.data);
-				if(obj.code == "A00000" && obj.data[0].scored == 0)
-				{
-					this.requestCurScore();
-				}
-				this._log.debug("SceneTileProxy request scored data back code :" + obj.data[0].scored);
-			}
-			catch(e:Error)
-			{
-				_log.debug("SceneTileProxy request scored data : error");
-			}
-		}
-		
-		private function requestCurScore() : void
-		{
-			try
-			{
-				if(this._scoreLoader)
-				{
-					this._scoreLoader.removeEventListener(Event.COMPLETE,this.onScoreCompleteHandler);
-					this._scoreLoader.removeEventListener(IOErrorEvent.IO_ERROR,this.onErrorHander);
-					this._scoreLoader.removeEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onErrorHander);
-					this._scoreLoader.close();
-					this._scoreLoader = null;
-				}
-			}
-			catch(e:Error)
-			{
-			}
-			var url:String = SystemConfig.MOVIE_SCORE_URL + "score" + "?entity_ids=" + this._tvid + "&ppuid=" + this._ppuid + "&uid=" + this._uid + "&pru=" + this._pru + "&rn=" + Math.random();
-			this._scoreLoader = new URLLoader();
-			this._scoreLoader.addEventListener(Event.COMPLETE,this.onScoreCompleteHandler);
-			this._scoreLoader.addEventListener(IOErrorEvent.IO_ERROR,this.onErrorHander);
-			this._scoreLoader.addEventListener(SecurityErrorEvent.SECURITY_ERROR,this.onErrorHander);
-			this._scoreLoader.load(new URLRequest(url));
-			this._log.debug("SceneTileProxy request score data :" + url);
-		}
-		
-		private function onScoreCompleteHandler(param1:Event) : void
-		{
-			var obj:Object = null;
-			var var_5:Event = param1;
-			var urlLoader:URLLoader = var_5.target as URLLoader;
-			try
-			{
-				obj = com.adobe.serialization.json.JSON.decode(urlLoader.data);
+				obj = com.adobe.serialization.json.JSON.decode(var_30.toString());
 				if(obj.code == "A00000")
 				{
-					if((obj.data) && (obj.data[0]))
+					if((obj.data) && obj.data.length > 0)
 					{
-						this._curScoreNum = Number(obj.data[0].score);
+						this._curScoreNum = Number(obj.data[0].sns_score);
+						if((obj.data[0].score) && (obj.data[0].score.length > 0) && obj.data[0].score[0] == -1)
+						{
+							this.addStatus(SceneTileDef.STATUS_SCORE_OPEN);
+						}
 					}
-					this.addStatus(SceneTileDef.STATUS_SCORE_OPEN);
 				}
-				this._log.debug("SceneTileProxy request score data back code :" + obj.data[0].scored);
 			}
 			catch(e:Error)
 			{
-				_log.debug("SceneTileProxy request score data : error");
 			}
 		}
 	}

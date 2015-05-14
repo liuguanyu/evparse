@@ -29,13 +29,13 @@ package com.qiyi.player.core.video.engine.dm.provider
 			var a:Array = null;
 			var property:String = null;
 			var tryWatchType:EnumItem = null;
-			var var_34:Provider = param1;
-			if(var_34 == null || var_34.fileState == null)
+			var var_33:Provider = param1;
+			if(var_33 == null || var_33.fileState == null)
 			{
 				return;
 			}
-			var stateCode:int = var_34.fileState.stateCode;
-			var data:String = var_34.fileState.data;
+			var stateCode:int = var_33.fileState.stateCode;
+			var data:String = var_33.fileState.data;
 			var json:Object = null;
 			if(stateCode == FileState.FirstDispatch + FileState.State_Success)
 			{
@@ -73,7 +73,7 @@ package com.qiyi.player.core.video.engine.dm.provider
 				{
 					this._holder.runtimeData.errorCode = 0;
 					json = com.adobe.serialization.json.JSON.decode(data);
-					this._holder.runtimeData.userDisInfo[var_34.fileState.index] = {
+					this._holder.runtimeData.userDisInfo[var_33.fileState.index] = {
 						"t":json.t,
 						"z":json.z
 					};
@@ -205,7 +205,7 @@ package com.qiyi.player.core.video.engine.dm.provider
 				{
 					this._holder.runtimeData.errorCode = 0;
 					json = com.adobe.serialization.json.JSON.decode(data);
-					this._holder.runtimeData.userDisInfo[var_34.fileState.index] = {
+					this._holder.runtimeData.userDisInfo[var_33.fileState.index] = {
 						"t":json.t,
 						"z":json.z
 					};
