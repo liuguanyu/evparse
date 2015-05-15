@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # entry.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # evparse:lib/entry: evparse main lib entry. 
-# version 0.0.7.0 test201505071458
+# version 0.0.8.0 test201505151501
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -56,18 +56,24 @@ LIST_URL_TO_EXTRACTOR = {	# re of url to extractor_name
     # http://www.letv.com/ptv/vplay/22695165.html
     # http://www.letv.com/ptv/vplay/22699924.html
     '^http://www\.letv\.com/ptv/vplay/[0-9]+\.html$' : 'letv', 
+    # http://www.hunantv.com/v/2/150668/f/1518250.html#
+    # http://www.hunantv.com/v/2/51717/f/692063.html#
+    # http://www.hunantv.com/v/2/107768/f/1517224.html#
+    '^http://www\.hunantv\.com/v/2/[0-9]+/f/[0-9]+\.html' : 'hunantv', 
 }
 
 LIST_SITE = {	# list of site to site_name
     'iqiyi' : '爱奇艺', 
     'sohu' : '搜狐视频', 
     'letv' : '乐视网', 
+    'hunantv' : '芒果tv', 
 }
 
 LIST_EXTRACTOR_NAME = {	# export evinfo extractor_name
     'iqiyi' : 'iqiyi1', 
     'sohu' : 'sohu1', 
     'letv' : 'letv1', 
+    'hunantv' : 'hunantv1', 
 }
 
 # functions
@@ -97,11 +103,16 @@ def extractor_import_letv():
     from .letv import entry as entry0
     return entry0
 
+def extractor_import_hunantv():
+    from .hunantv import entry as entry0
+    return entry0
+
 # list used for extractor_name to extractor
 EXTRACTOR_IMPORT_LIST = {
     'iqiyi' : extractor_import_iqiyi, 
     'sohu' : extractor_import_sohu, 
     'letv' : extractor_import_letv, 
+    'hunantv' : extractor_import_hunantv, 
 }
 
 def dy_import_extractor(extractor_name):
