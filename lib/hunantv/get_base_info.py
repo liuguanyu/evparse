@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # get_base_info.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # evparse: lib/hunantv/get_base_info
-# version 0.0.2.0 test201505151703
+# version 0.0.3.0 test201505151717
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -30,7 +30,20 @@
 from .o import exports
 from .. import base
 
-# global vars
+# base funciton
+def get_first_int_from_string(text):
+    t2 = ''
+    flag = False
+    for c in text:
+        try:
+            if 0 <= int(c) and 9 >= int(c):
+                flag = True
+                t2 += c
+        except ValueError:
+            if flag:
+                break
+    # done
+    return int(t2)
 
 # functions
 
@@ -43,8 +56,8 @@ def get_info(vid_info, flag_debug=False):
     # get api url
     api_url = pp.Init()
     # debug info
-    print('evparse: lib.hunantv: DEBUG: got api_url \"' + api_url + '\" ')
-    
+    if flag_debug:
+        print('evparse: lib.hunantv: DEBUG: got api_url \"' + api_url + '\" ')
     # load it
     info = base.get_json_info(api_url)
     # get more info
@@ -55,13 +68,13 @@ def get_info(vid_info, flag_debug=False):
 def get_more_info(info):
     more = {}	# more info
     data = info['data']['info']
-    # TODO
+    # get it
     more['title'] = data['title']
     more['sub_title'] = data['sub_title']
     more['short_title'] = ''
     if 'collection_name' in data:
         more['short_title'] = data['collection_name']
-    more['no'] = 0	# TODO not supported yet
+    more['no'] = get_first_int_from_string(data['series'])
     # done
     return more
 

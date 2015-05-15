@@ -19,7 +19,7 @@ class parmParse(object):
     def GetServerAddress(self):
         return mServerAddress + self.vid
     
-    def GetMovieInfo(self, param1);
+    def GetMovieInfo(self, param1):
         url_to = param1 + '&random=' + Encrypt.creatRandomCode(8)
         return url_to
     

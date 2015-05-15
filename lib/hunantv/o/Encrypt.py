@@ -26,9 +26,9 @@ class Encrypt(object):
         
         _loc3_ = _loc3_.replace('.', '')
         if len(_loc3_) > param1 + 1:
-            _loc3_ = _loc3_[1, param1]
+            _loc3_ = _loc3_[1:param1]
         else:
-            _loc3_ = _loc3_[1, len(_loc3_) - 1]
+            _loc3_ = _loc3_[1:len(_loc3_) - 1]
         return _loc3_
     
     # end Encrypt class

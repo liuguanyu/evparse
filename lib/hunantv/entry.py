@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # entry.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # entry: evparse/lib/hunantv
-# version 0.0.1.0 test201505151656
+# version 0.0.3.0 test201505151750
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -49,16 +49,16 @@ RE_VID = 'http://www\.hunantv\.com/v/2/[0-9]+/f/([0-9]+)\.html'
 # global config obj
 etc = {}	# NOTE should be set
 etc['flag_debug'] = False
-etc['hd_max'] = 0
 etc['hd_min'] = 0
+etc['hd_max'] = 0
 
 # functions
 
 def set_config(config):
     # just copy it
     etc['flag_debug'] = config['flag_debug']
-    etc['hd_max'] = config['hd_max']
     etc['hd_min'] = config['hd_min']
+    etc['hd_max'] = config['hd_max']
 
 # get vid
 def get_vid(url_to):
@@ -94,9 +94,8 @@ def parse(url_to):	# this site entry main entry function
     evinfo['info']['title_sub'] = more['sub_title']
     evinfo['info']['title_short'] = more['short_title']
     evinfo['info']['title_no'] = more['no']
-    # TODO FIXME reserved
     # get video info
-    # evinfo['video'] = get_video_info.get_info(info, hd_max=etc['hd_max'], hd_min=etc['hd_min'], flag_debug=etc['flag_debug'])
+    evinfo['video'] = get_video_info.get_info(info, hd_min=etc['hd_min'], hd_max=etc['hd_max'], flag_debug=etc['flag_debug'])
     # done
     return evinfo
 
