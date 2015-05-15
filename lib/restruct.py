@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-# restruct.py, part for parse_video : a fork from parseVideo. 
-# parse_video:lib/restruct: restruct output evinfo, key sort. 
-# version 0.1.1.0 test201505062207
+# restruct.py, part for evparse : EisF Video Parse, evdh Video Parse. 
+# evparse:lib/restruct: restruct output evinfo, key sort. 
+# version 0.1.2.0 test201505151439
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
 # This is FREE SOFTWARE, released under GNU GPLv3+ 
 # please see README.md and LICENSE for more information. 
 #
-#    parse_video : a fork from parseVideo. 
+#    evparse : EisF Video Parse, evdh Video Parse. 
 #    Copyright (C) 2015 sceext <sceext@foxmail.com> 
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -34,7 +34,8 @@ import collections
 def restruct_key(old, key_list):
     obj = collections.OrderedDict()
     for key in key_list:
-        obj[key] = old[key]
+        if key in old:
+            obj[key] = old[key]
     return obj
 
 def restruct_info(old):
@@ -87,6 +88,8 @@ def restruct_one_file(old):
         'size', 
         'time_s', 
         'url', 
+        'user_agent', 
+        'referer', 
     ]
     return restruct_key(old, key_list)
 
