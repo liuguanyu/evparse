@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # entry.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # entry: evparse/lib/hunantv
-# version 0.0.3.0 test201505151750
+# version 0.1.0.0 test201505151816
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -37,7 +37,7 @@ from . import get_video_info
 # global vars
 
 # version of this extractor
-THIS_EXTRACTOR_VERSION = 'evparse lib/hunantv version 0.0.1.0 test201505151654'
+THIS_EXTRACTOR_VERSION = 'evparse lib/hunantv version 0.1.0.0 test201505151816'
 
 # http://www.hunantv.com/v/2/150668/f/1518250.html#
 # http://www.hunantv.com/v/2/51717/f/692063.html#
