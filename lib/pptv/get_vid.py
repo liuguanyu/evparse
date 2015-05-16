@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # get_vid.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # get_vid: evparse/lib/pptv
-# version 0.0.1.0 test201505162049
+# version 0.0.2.0 test201505162054
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -57,6 +57,7 @@ def get_vid(url_to):
     vid_info = {}
     vid_info['pid'] = pid
     vid_info['webcfg'] = json.loads(webcfg)	# decode by json format
+    vid_info['url'] = url_to
     return vid_info
 
 # end get_vid.py
