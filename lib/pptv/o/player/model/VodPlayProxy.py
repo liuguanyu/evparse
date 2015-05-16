@@ -4,6 +4,8 @@
 
 # import
 
+from urllib import parse as parse0
+
 from ..common import VodParser, VodCommon
 
 # global static data
@@ -16,6 +18,7 @@ class VodPlayProxy(object):
         self.count = 0
         self.isVip = '0'	# NOTE can be '0'
         self.vvid = ''	# TODO
+        self.pctx = ''	# TODO, CTXQuery.pctx
     
     # def get_playUrl(self): String
     def get_playUrl(self):
@@ -48,19 +51,16 @@ class VodPlayProxy(object):
             if VodCommon.smart:
                 _loc2_ += '&open=1'
         # if end
-        # TODO encodeURL ...
-        _loc2_ += '&username=' + encodeURIComponent(VodParser.un)
-        # TODO encodeURIComponent
-        _loc2_ += '&param=' + encodeURIComponent('type=' + VodCommon.playType + '&userType=' + self.isVip + '&o=' + VodParser.os)
+        _loc2_ += '&username=' + parse0.quote(VodParser.un)
+        # NOTE encodeURIComponent to urllib.parse.quote
+        _loc2_ += '&param=' + parse0.quote('type=' + VodCommon.playType + '&userType=' + self.isVip + '&o=' + VodParser.os)
         # _loc2_ += (CTXQuery.pctx != '' ? '&' : '') + CTXQuery.pctx
-        if CTXQuery.pctx != '':	# TODO
-            _loc2_ += '&' + CTXQuery.pctx	# TODO
+        if self.pctx != '':
+            _loc2_ += '&' + self.pctx
         _loc2_ += '&' + VodParser.ctx
         _loc2_ += '&r=' + new Date().valueOf()	# TODO
         # done
         return _loc2_
-        # TODO end
-    
     # end VodPlayProxy class
 
 # end VodPlayProxy.py

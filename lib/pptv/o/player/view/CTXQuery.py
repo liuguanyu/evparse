@@ -70,12 +70,12 @@ def getCTX(param2, param1=ctx):
     # _loc3_ :*
     _loc4_ = None
     _loc3_ = ''
-    if param1[param2]:
+    if param2 in param1:
         for _loc4_ in param1[param2]:
             if _loc4_ != 'isVip':
                 if _loc3_ != '':
                     _loc3_ += '&'
-                _loc3_ += + _loc4_ + '=' + parse0.quote(param1[param2][_loc4_])
+                _loc3_ += _loc4_ + '=' + parse0.quote(param1[param2][_loc4_])
                 if _loc4_ == 'type' and flag_isVip and (not 'vip' in param1[param2][_loc4_]):
                     _loc3_ += '.vip'
     return _loc3_

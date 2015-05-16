@@ -24,7 +24,7 @@ cid = None	# TODO
 os = '0'	# NOTE can be '0'
 
 # ctx :String
-ctx = None	# TODO
+ctx = None	# NOTE should be set
 
 aplus = 'http://player.aplus.pptv.com/config/v1'
 
