@@ -81,11 +81,18 @@ def getCTX(param2, param1=ctx):
     return _loc3_
     # end getCTX()
 
+# def setAttr(param1 :String, param2 :String): void
+def setAttr(param1, param2):
+    if not 'c' in ctx:
+        ctx['c'] = {}
+    ctx['c'][param1] = param2
+    # done
+
 def pctx():
-    pass
+    return getCTX('p')
 
 def cctx():
-    pass
+    return getCTX('c')
 
 # end CTXQuery.py
 

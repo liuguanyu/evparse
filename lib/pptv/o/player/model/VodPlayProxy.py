@@ -4,6 +4,7 @@
 
 # import
 
+import time
 from urllib import parse as parse0
 
 from ..common import VodParser, VodCommon
@@ -17,6 +18,7 @@ class VodPlayProxy(object):
     def __init__(self):
         self.count = 0
         self.isVip = '0'	# NOTE can be '0'
+        self.time_zone = 8	# NOTE can be 8
         self.vvid = ''	# TODO
         self.pctx = ''	# TODO, CTXQuery.pctx
     
@@ -44,7 +46,8 @@ class VodPlayProxy(object):
             else:
                 _loc2_ += 'webplay4'
             _loc2_ += '-0-' + VodParser.cid + '.xml'
-            _loc2_ += '?zone=' + -(new Date().getTimezoneOffset() / 60)	# TODO
+            # _loc2_ += '?zone=' + -(new Date().getTimezoneOffset() / 60)
+            _loc2_ += '?zone=' + str(self.time_zone)
             _loc2_ += '&pid=' + VodCommon.pid
             _loc2_ += '&vvid=' + self.vvid
             _loc2_ += '&version=4'
@@ -57,8 +60,9 @@ class VodPlayProxy(object):
         # _loc2_ += (CTXQuery.pctx != '' ? '&' : '') + CTXQuery.pctx
         if self.pctx != '':
             _loc2_ += '&' + self.pctx
-        _loc2_ += '&' + VodParser.ctx
-        _loc2_ += '&r=' + new Date().valueOf()	# TODO
+        _loc2_ += '&' + VodParser.ctx()
+        # _loc2_ += '&r=' + new Date().valueOf()
+        _loc2_ += '&r=' + str(round(time.time() * 1e3))
         # done
         return _loc2_
     # end VodPlayProxy class

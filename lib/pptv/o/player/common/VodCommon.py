@@ -17,7 +17,7 @@ pid = None	# NOTE should be set
 # smart :String
 smart = None	# NOTE can be None
 
-playType = 'web.fpp'
+playType = 'web.fpp'	# NOTE can be ''web.fpp''
 
 version = '3.4.0.12'
 
