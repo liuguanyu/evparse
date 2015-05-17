@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # entry.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # entry: evparse/lib/pptv
-# version 0.0.2.0 test201505171303
+# version 0.1.0.0 test201505172313
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -38,7 +38,7 @@ from . import get_video_info
 # global vars
 
 # version of this extractor
-THIS_EXTRACTOR_VERSION = 'evparse lib/pptv version 0.0.2.0 test201505171924'
+THIS_EXTRACTOR_VERSION = 'evparse lib/pptv version 0.1.0.0 test201505172313'
 
 # http://v.pptv.com/show/PfQMiaicNZyQdq6FA.html
 # http://v.pptv.com/show/9Vs1sxuB8SibSEHg.html?rcc_src=L1
@@ -79,13 +79,11 @@ def parse(url_to):	# this site entry main entry function
     evinfo['info']['title_sub'] = more['sub_title']
     evinfo['info']['title_short'] = more['short_title']
     evinfo['info']['title_no'] = more['no']
-    # TODO start
     # get video info
     info = {}
     info['vid_info'] = vid_info
     info['raw_text'] = raw_text
     evinfo['video'] = get_video_info.get_info(info, hd_min=etc['hd_min'], hd_max=etc['hd_max'], flag_debug=etc['flag_debug'])
-    # TODO end
     # done
     return evinfo
 
