@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # VodFacade.py, part for evparse : EisF Video Parse, evdh Video Parse. 
-# VodFacade: pptv, VodFacade
+# VodFacade: pptv, player4player2: VodFacade
 
 # import
 

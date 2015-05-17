@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # VodPlayProxy.py, part for evparse : EisF Video Parse, evdh Video Parse. 
-# VodPlayProxy: pptv, cn.pplive.player.model.VodPlayProxy
+# VodPlayProxy: pptv, player4player2: cn.pplive.player.model.VodPlayProxy
 
 # import
 

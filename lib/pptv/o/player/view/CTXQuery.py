@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # CTXQuery.py, part for evparse : EisF Video Parse, evdh Video Parse. 
-# CTXQuery: pptv, cn.pplive.player.view.source.CTXQuery
+# CTXQuery: pptv, player4player2: cn.pplive.player.view.source.CTXQuery
 
 # import
 
