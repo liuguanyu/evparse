@@ -16,16 +16,16 @@ class PlayInfo(object):
         # important data
         self.key = ''		# NOTE should be set
         self.k = ''		# default value is '', NOTE should be set
-        self.variables = ''	# NOTE should be set
-        
-        self.ft = '0'		# default value is '0', NOTE should be set
-        self.type = 'type=web.fpp'	# default value is 'type=web.fpp'
-        
-        self.host = ''		# NOTE should be set
         self.fileName = ''	# NOTE should be set
+        
+        self.type = 'type=web.fpp'	# default value is 'type=web.fpp'
+        self.variables = ''	# NOTE can be ''
+        
+        self.host = 'ccf.pptv.com'	# NOTE can be 'ccf.pptv.com'
         
         # other data
         self.isVip = False	# default value is False
+        self.ft = '0'		# default value is '0'
         # self.bwType :uint
         # self.segments :Vector.<SegmentInfo>
         # self.backupHostVector :Vector.<String>
