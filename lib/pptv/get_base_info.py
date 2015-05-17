@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # get_base_info.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # evparse: lib/pptv/get_base_info
-# version 0.0.2.0 test201505171506
+# version 0.0.3.0 test201505171924
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -33,6 +33,8 @@ from .o import exports
 from .. import base
 
 # base funciton
+
+# TODO reserved
 def get_first_int_from_string(text):
     t2 = ''
     flag = False
@@ -76,11 +78,7 @@ def get_more_info(raw_text):
     more['short_title'] = ''
     if 'hjnm' in data:
         more['short_title'] = data['hjnm']
-    # get no
-    try:
-        more['no'] = get_first_int_from_string(more['title'])
-    except Exception:
-        more['no'] = -1	# get no failed
+    more['no'] = -1	# TODO not support this now
     # done
     return more
 

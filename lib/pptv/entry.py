@@ -38,7 +38,7 @@ from . import get_video_info
 # global vars
 
 # version of this extractor
-THIS_EXTRACTOR_VERSION = 'evparse lib/pptv version 0.0.1.0 test201505171258'
+THIS_EXTRACTOR_VERSION = 'evparse lib/pptv version 0.0.2.0 test201505171924'
 
 # http://v.pptv.com/show/PfQMiaicNZyQdq6FA.html
 # http://v.pptv.com/show/9Vs1sxuB8SibSEHg.html?rcc_src=L1
