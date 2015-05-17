@@ -60,7 +60,7 @@ class VodPlayProxy(object):
         # _loc2_ += (CTXQuery.pctx != '' ? '&' : '') + CTXQuery.pctx
         if self.pctx != '':
             _loc2_ += '&' + self.pctx
-        _loc2_ += '&' + VodParser.ctx()
+        _loc2_ += '&' + VodParser.ctx
         # _loc2_ += '&r=' + new Date().valueOf()
         _loc2_ += '&r=' + str(round(time.time() * 1e3))
         # done

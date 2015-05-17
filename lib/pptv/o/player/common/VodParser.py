@@ -18,7 +18,7 @@ lm = True	# NOTE can be True
 un = ''		# NOTE can be ''
 
 # cid :String
-cid = None	# TODO
+cid = None	# NOTE should be set
 
 # os = '-1'	# default value
 os = '0'	# NOTE can be '0'
