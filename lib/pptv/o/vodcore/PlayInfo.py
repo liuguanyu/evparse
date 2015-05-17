@@ -15,7 +15,7 @@ class PlayInfo(object):
     def __init__(self):
         # important data
         self.key = ''		# NOTE should be set
-        self.k = ''		# default value is '', NOTE should be set
+        self.k = ''		# NOTE should be set
         self.fileName = ''	# NOTE should be set
         
         self.type = 'type=web.fpp'	# default value is 'type=web.fpp'

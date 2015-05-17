@@ -14,6 +14,8 @@ from .player.common import VodParser as VodParser0
 from .player.model import VodPlayProxy as VodPlayProxy0
 from . import VodFacade as VodFacade0
 
+from .vodcore import PlayInfo as PlayInfo0
+
 # set in
 
 # functions
@@ -49,6 +51,19 @@ def get_first_url():
     # done
     return url
 
+# get file download cdn url
+def get_cdn_url(info):
+    # create PlayInfo obj
+    pi = PlayInfo0.PlayInfo()
+    # set pi
+    pi.key = info['dt_id']
+    pi.k = info['dt_key']
+    pi.fileName = info['file_item_rid']
+    # get url
+    cdn_url = pi.constructCdnURL(info['no'])
+    # done
+    return cdn_url
+
 # exports
 
 CTXQuery = CTXQuery0
@@ -56,6 +71,7 @@ VodCommon = VodCommon0
 VodParser = VodParser0
 VodPlayProxy = VodPlayProxy0
 VodFacade = VodFacade0
+PlayInfo = PlayInfo0
 
 # end exports.py
 
