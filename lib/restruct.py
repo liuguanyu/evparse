@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # restruct.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # evparse:lib/restruct: restruct output evinfo, key sort. 
-# version 0.1.2.0 test201505151439
+# version 0.1.3.0 test201505172255
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -90,6 +90,7 @@ def restruct_one_file(old):
         'url', 
         'user_agent', 
         'referer', 
+        'http_ok_code', 
     ]
     return restruct_key(old, key_list)
 

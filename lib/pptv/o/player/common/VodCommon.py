@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # VodCommon.py, part for evparse : EisF Video Parse, evdh Video Parse. 
-# VodCommon: pptv, cn.pplive.player.common.VodCommon
+# VodCommon: pptv, player4player2: cn.pplive.player.common.VodCommon
 
 # import
 

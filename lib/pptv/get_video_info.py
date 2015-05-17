@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # get_video_info.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # get_video_info: evparse/lib/pptv
-# version 0.0.1.7 test201505171451
+# version 0.1.0.0 test201505172314
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -29,18 +29,21 @@
 
 import xml.etree.ElementTree as ET
 
-# TODO reserved
-from .. import base
+from .o import exports
 
 # global vars
 
 VIDEO_FT_TO_HD = {	# translate pptv video ft to evparse hd number
-    0 : 0, 	# TODO reserved
-    1 : 1, 	# TODO
+    0 : 0, 	# NOTE may be not right
+    1 : 1, 	# NOTE reserved
     2 : 2, 	# 720p
     3 : 4, 	# 1080p
     4 : 5, 	# high bitrate 1080p
 }
+
+FIX_USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0'
+FIX_REFERER = 'http://player.pplive.cn/vodcore/1.3.0.18/VodCore.swf'
+FIX_HTTP_OK_CODE = 206
 
 # base functions
 def number(text):
@@ -52,9 +55,24 @@ def number(text):
 
 # functions
 
-# TODO get file real download url
+# get real file download url
+def get_file_url(info, raw):
+    # get info
+    file_name = info['item'].attrib['rid']
+    file_key = info['dt'].find('key').text
+    file_id = info['dt'].find('id').text
+    file_no = raw['no']
+    # make info obj
+    to = {}
+    to['dt_id'] = file_id
+    to['dt_key'] = file_key
+    to['file_item_rid'] = file_name
+    to['no'] = file_no
+    # just get url
+    file_url = exports.get_cdn_url(to)
+    # done
+    return file_url
 
-# TODO reserved
 def get_file_info(info, flist):
     finfo = []	# file info
     # get each file info
@@ -63,7 +81,13 @@ def get_file_info(info, flist):
         raw = one.attrib
         item['size'] = number(raw['fs'])
         item['time_s'] = number(raw['dur'])
-        item['url'] = ''	# TODO no support this now
+        # get file real download url
+        file_url = get_file_url(info, raw)
+        item['url'] = file_url
+        # add file fix info
+        item['user_agent'] = FIX_USER_AGENT
+        item['referer'] = FIX_REFERER
+        item['http_ok_code'] = FIX_HTTP_OK_CODE
         # get one file done
         finfo.append(item)
     # done
@@ -112,6 +136,11 @@ def get_info(info, hd_min=0, hd_max=0, flag_debug=False):
     for one in dragdata:
         ft = one.attrib['ft']
         info_list[int(ft)]['dragdata'] = one
+    # add channel>file>item to list
+    items = root.find('channel').find('file').findall('item')
+    for one in items:
+        ft = one.attrib['ft']
+        info_list[int(ft)]['item'] = one
     # sort list by ft
     info_list.sort(key=lambda x:x['ft'], reverse=True)
     # add hd
@@ -124,7 +153,7 @@ def get_info(info, hd_min=0, hd_max=0, flag_debug=False):
         hd = one['hd']
         if hd >= hd_min and hd <= hd_max:
             one['flag_get_file'] = True
-    # get each info, TODO use base.map_do()
+    # get each info, just use for
     vinfo = []
     for one in info_list:
         item = get_one_info(one)
