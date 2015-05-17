@@ -45,11 +45,11 @@ class VodPlayProxy(object):
                 _loc2_ += 'webplay3'
             else:
                 _loc2_ += 'webplay4'
-            _loc2_ += '-0-' + VodParser.cid + '.xml'
+            _loc2_ += '-0-' + str(VodParser.cid) + '.xml'
             # _loc2_ += '?zone=' + -(new Date().getTimezoneOffset() / 60)
             _loc2_ += '?zone=' + str(self.time_zone)
-            _loc2_ += '&pid=' + VodCommon.pid
-            _loc2_ += '&vvid=' + self.vvid
+            _loc2_ += '&pid=' + str(VodCommon.pid)
+            _loc2_ += '&vvid=' + str(self.vvid)
             _loc2_ += '&version=4'
             if VodCommon.smart:
                 _loc2_ += '&open=1'
