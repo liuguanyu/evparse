@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # entry.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # evparse:lib/entry: evparse main lib entry. 
-# version 0.1.1.0 test201505161230
+# version 0.1.2.0 test201505171258
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -60,8 +60,9 @@ LIST_URL_TO_EXTRACTOR = {	# re of url to extractor_name
     # http://www.hunantv.com/v/2/51717/f/692063.html#
     # http://www.hunantv.com/v/2/107768/f/1517224.html#
     '^http://www\.hunantv\.com/v/2/[0-9]+/f/[0-9]+\.html' : 'hunantv', 
-    # TODO, for pptv
-    # '' TODO : 'pptv', 
+    # http://v.pptv.com/show/PfQMiaicNZyQdq6FA.html
+    # http://v.pptv.com/show/9Vs1sxuB8SibSEHg.html?rcc_src=L1
+    '^http://v\.pptv\.com/show/[A-Za-z0-9]+\.html' : 'pptv', 
 }
 
 LIST_SITE = {	# list of site to site_name
