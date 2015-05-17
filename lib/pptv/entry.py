@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # entry.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # entry: evparse/lib/pptv
-# version 0.1.0.0 test201505172313
+# version 0.1.1.0 test201505172355
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -38,7 +38,7 @@ from . import get_video_info
 # global vars
 
 # version of this extractor
-THIS_EXTRACTOR_VERSION = 'evparse lib/pptv version 0.1.0.0 test201505172313'
+THIS_EXTRACTOR_VERSION = 'evparse lib/pptv version 0.1.1.0 test201505172355'
 
 # http://v.pptv.com/show/PfQMiaicNZyQdq6FA.html
 # http://v.pptv.com/show/9Vs1sxuB8SibSEHg.html?rcc_src=L1
