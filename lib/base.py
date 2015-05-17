@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # base.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # base: base part. 
-# version 0.0.6.0 test201505032133
+# version 0.0.7.1 test201505171443
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -68,6 +68,10 @@ def simple_http_get(url, user_agent, referer):
     content = data.decode(ch, 'ignore')
     # done
     return content
+
+# just return text
+def get_http_text(url, user_agent=USER_AGENT, referer=None):
+    return simple_http_get(url, user_agent=user_agent, referer=referer)
 
 # return the html content of url as string
 def get_html_content(url, user_agent=USER_AGENT, referer=None):

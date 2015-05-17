@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # get_video_info.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # get_video_info: evparse/lib/pptv
-# version 0.0.1.0 test201505171427
+# version 0.0.1.7 test201505171451
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -61,11 +61,11 @@ def get_file_info(info, flist):
     for one in flist:
         item = {}
         raw = one.attrib
-        item['size'] = raw['fs']
-        item['time_s'] = raw['dur']
+        item['size'] = number(raw['fs'])
+        item['time_s'] = number(raw['dur'])
         item['url'] = ''	# TODO no support this now
         # get one file done
-        finfo.push(item)
+        finfo.append(item)
     # done
     return finfo
 
@@ -75,7 +75,7 @@ def get_one_info(info):
     dragdata = info['dragdata'].attrib
     # add some info
     vinfo = {}
-    vinfo['hd'] = item['hd']
+    vinfo['hd'] = info['hd']
     vinfo['format'] = 'mp4'	# the format of video file is mp4 now
     vinfo['size_px'] = [dragdata['vw'], dragdata['vh']]
     vinfo['file'] = []
@@ -83,7 +83,7 @@ def get_one_info(info):
     vinfo['size_byte'] = number(dragdata['fs'])
     vinfo['time_s'] = number(dragdata['du'])
     # check flag, and get file info
-    if item['flag_get_file']:
+    if info['flag_get_file']:
         flist = info['dragdata'].findall('sgm')
         vinfo['file'] = get_file_info(info, flist)
         # clear size_byte and time_s
@@ -113,10 +113,10 @@ def get_info(info, hd_min=0, hd_max=0, flag_debug=False):
         ft = one.attrib['ft']
         info_list[int(ft)]['dragdata'] = one
     # sort list by ft
-    info_list.sort(reverse=True)
+    info_list.sort(key=lambda x:x['ft'], reverse=True)
     # add hd
     for one in info_list:
-        hd = VIDEO_FT_TO_HD[one['ft']]
+        hd = VIDEO_FT_TO_HD[int(one['ft'])]
         one['hd'] = hd
     # set flag_get_file
     for one in info_list:
@@ -126,7 +126,7 @@ def get_info(info, hd_min=0, hd_max=0, flag_debug=False):
             one['flag_get_file'] = True
     # get each info, TODO use base.map_do()
     vinfo = []
-    for one in raw_list:
+    for one in info_list:
         item = get_one_info(one)
         vinfo.append(item)
     # done
