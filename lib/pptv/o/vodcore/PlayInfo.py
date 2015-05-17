@@ -38,14 +38,10 @@ class PlayInfo(object):
         _loc5 = None
         if param2 == None:
             param2 = self.host
-        # NOTE fix it, param3 == 0 and param4 == 0
-        # FIX start
-        # if param3 == 0 and param4 == 0:
-        #     _loc5 = 'http://' + param2 + '/' + param1 + '/' + self.fileName
-        # else:
-        # FIX, just add /0/0/ to url
-        _loc5 = 'http://' + param2 + '/' + str(param1) + '/' + str(param3) + '/' + str(param4) + '/' + self.fileName
-        # FIX end
+        if param3 == 0 and param4 == 0:
+            _loc5 = 'http://' + param2 + '/' + param1 + '/' + self.fileName
+        else:
+            _loc5 = 'http://' + param2 + '/' + str(param1) + '/' + str(param3) + '/' + str(param4) + '/' + self.fileName
         _loc5 += '?fpp.ver=' + Version.version
         return self.addVariables(_loc5)
     
