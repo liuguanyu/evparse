@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # get_video_info.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # get_video_info: evparse/lib/pptv
-# version 0.1.0.0 test201505172314
+# version 0.1.2.0 test201505172355
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -41,9 +41,7 @@ VIDEO_FT_TO_HD = {	# translate pptv video ft to evparse hd number
     4 : 5, 	# high bitrate 1080p
 }
 
-FIX_USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0'
 FIX_REFERER = 'http://player.pplive.cn/vodcore/1.3.0.18/VodCore.swf'
-FIX_HTTP_OK_CODE = 206
 
 # base functions
 def number(text):
@@ -85,9 +83,9 @@ def get_file_info(info, flist):
         file_url = get_file_url(info, raw)
         item['url'] = file_url
         # add file fix info
-        item['user_agent'] = FIX_USER_AGENT
+        # NOTE in fact, any referer is OK, 
+        # but empty referer or no referer is not
         item['referer'] = FIX_REFERER
-        item['http_ok_code'] = FIX_HTTP_OK_CODE
         # get one file done
         finfo.append(item)
     # done
