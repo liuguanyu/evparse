@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # get_base_info.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # evparse: lib/pptv/get_base_info
-# version 0.0.3.0 test201505171924
+# version 0.0.4.0 test201505171925
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -57,7 +57,8 @@ def get_info(vid_info, flag_debug=False):
     # get first url
     first_url = exports.get_first_url()
     # debug info
-    print('evparse: lib.pptv: DEBUG: got first_url \"' + first_url + '\" ')
+    if flag_debug:
+        print('evparse: lib.pptv: DEBUG: got first_url \"' + first_url + '\" ')
     # load it as text
     raw_text = base.get_http_text(first_url)
     # get more info
