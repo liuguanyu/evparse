@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # evparse.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # evparse:bin/evparse: evparse main bin file. 
-# version 0.1.3.0 test201505172316
+# version 0.1.5.0 test201505221247
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -25,8 +25,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# TODO to support --max --min --debug command line options. 
-# TODO support --fix-unicode output option. 
+# NOTE support --max --min --debug command line options. 
+# NOTE support --fix-unicode output option. 
 
 # import
 
@@ -46,17 +46,17 @@ def set_import(entry0, error0):
 
 # global config obj
 
-EVPARSE_VERSION = 'evparse version 0.1.2.0 test201505172316'
+EVPARSE_VERSION = 'evparse version 0.1.3.0 test201505221247'
 
 etc = {}
 etc['flag_debug'] = False
 etc['flag_fix_unicode'] = False
 etc['flag_evinfo_sort_keys'] = False
-etc['hd_max'] = None
 etc['hd_min'] = None
+etc['hd_max'] = None
 
-# default mode, show help information
-etc['global_mode'] = 'mode_help'
+# default mode, analyse url
+etc['global_mode'] = 'mode_url'
 etc['url_to'] = ''	# url to analyse
 
 # functions
@@ -95,15 +95,18 @@ def print_help():
     print('evparse: HELP')
     print('''
 Usage:
-    evp <url>
+    evp [OPTIONS] <url>
     evp --version
     evp --help
 Options:
-    <url>     URL of the video play page, to be analysed 
-              and get information from. 
+    <url>           URL of the video play page, to be analysed 
+                    and get information from. 
     
-    --version show version of evparse
-    --help    show this help information of evparse
+    --min <hd_min>  set min hd number of video info to get
+    --max <hd_max>  set max hd number of video info to get
+    
+    --version       show version of evparse
+    --help          show this help information of evparse
   
   More help info please see <https://github.com/sceext2/evparse> 
 ''')
@@ -114,7 +117,11 @@ def print_help_notice():
 
 # start parse
 def start_parse():
-    # TODO reserved, to set parse
+    # set parse
+    if etc['hd_min'] != None:
+        entry.etc['hd_min'] = etc['hd_min']
+    if etc['hd_max'] != None:
+        entry.etc['hd_max'] = etc['hd_max']
     # set lib
     entry.etc['flag_debug'] = etc['flag_debug']
     url_to = etc['url_to']
@@ -133,22 +140,35 @@ def start_parse():
 def get_args():
     # get args
     args = sys.argv[1:]
-    # FIXME easy support for --version and --help
     # check args length
     if len(args) < 1:
         etc['global_mode'] = 'mode_help_notice'
-    else:
-        # get first arg
-        first = args[0]
-        arg_type = {}
-        arg_type['--help'] = 'mode_help'
-        arg_type['--version'] = 'mode_version'
-        arg_type[''] = 'mode_help_notice'
-        if first in arg_type:
-            etc['global_mode'] = arg_type[first]
-        else:	# frist arg should be a url
-            etc['global_mode'] = 'mode_url'
-            etc['url_to'] = first
+        return
+    # process each arg
+    rest = args
+    while len(rest) > 0:
+        one = rest[0]
+        rest = rest[1:]
+        if one == '--help':
+            etc['global_mode'] = 'mode_help'
+        elif one == '--version':
+            etc['global_mode'] = 'mode_version'
+        elif one == '':
+            etc['global_mode'] = 'mode_help_notice'
+        elif one == '--debug':
+            etc['flag_debug'] = True
+        elif one == '--fix-unicode':
+            etc['flag_fix_unicode'] = True
+        elif one == '--min':	# next arg should be hd_min
+            next = rest[0]
+            rest = rest[1:]
+            etc['hd_min'] = int(next)
+        elif one == '--max':	# next arg should be hd_max
+            next = rest[0]
+            rest = rest[1:]
+            etc['hd_max'] = int(next)
+        else:	# should be url_to
+            etc['url_to'] = one
     # done
 
 # main function
