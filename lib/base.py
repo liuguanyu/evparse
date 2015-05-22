@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # base.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # base: base part. 
-# version 0.0.7.1 test201505171443
+# version 0.0.8.0 test201505221512
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -30,7 +30,7 @@
 from urllib import request
 import re
 import json
-import multiprocessing
+import multiprocessing.dummy as multiprocessing
 
 # global vars
 # USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64; rv:37.0) Gecko/20100101 Firefox/37.0'
