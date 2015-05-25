@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # get_video_info.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # get_video_info: evparse/lib/iqiyi 
-# version 0.0.3.0 test201505050135
+# version 0.0.4.0 test201505251458
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -90,6 +90,10 @@ def get_one_info(one_raw):
     vinfo['size_byte'] = number(meta['filesize'])
     vinfo['time_s'] = number(meta['duration'])
     vinfo['size_px'] = [number(meta['width']), number(meta['height'])]
+    # add count
+    vinfo['count'] = 0
+    if 'fs' in raw:
+        vinfo['count'] = len(raw['fs'])
     # check flag_get_file
     if raw['flag_get_file']:
         pass	# TODO get real urls

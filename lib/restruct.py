@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # restruct.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # evparse:lib/restruct: restruct output evinfo, key sort. 
-# version 0.1.3.0 test201505172255
+# version 0.1.4.0 test201505251452
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -28,6 +28,9 @@
 # import
 
 import collections
+
+# global vars
+EV_INFO_VERSION = 'evdh info_source info_version 0.2.1.0 test201505251439'
 
 # functions
 
@@ -73,6 +76,7 @@ def restruct_one_video(old):
         'size_byte', 
         'time_s', 
         'format', 
+        'count', 
     ]
     one = restruct_key(old, key_list)
     # restruct files

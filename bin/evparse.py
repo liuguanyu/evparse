@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # evparse.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # evparse:bin/evparse: evparse main bin file. 
-# version 0.1.5.0 test201505221247
+# version 0.1.6.0 test201505251511
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -46,7 +46,7 @@ def set_import(entry0, error0):
 
 # global config obj
 
-EVPARSE_VERSION = 'evparse version 0.1.3.0 test201505221247'
+EVPARSE_VERSION = 'evparse version 0.1.4.0 test201505251510'
 
 etc = {}
 etc['flag_debug'] = False
