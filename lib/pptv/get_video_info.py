@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # get_video_info.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # get_video_info: evparse/lib/pptv
-# version 0.1.2.0 test201505172355
+# version 0.1.3.0 test201505251504
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -104,9 +104,12 @@ def get_one_info(info):
     # add size_byte and time_s
     vinfo['size_byte'] = number(dragdata['fs'])
     vinfo['time_s'] = number(dragdata['du'])
+    # add count
+    vinfo['count'] = 0
+    flist = info['dragdata'].findall('sgm')
+    vinfo['count'] = len(flist)
     # check flag, and get file info
     if info['flag_get_file']:
-        flist = info['dragdata'].findall('sgm')
         vinfo['file'] = get_file_info(info, flist)
         # clear size_byte and time_s
         del vinfo['size_byte']

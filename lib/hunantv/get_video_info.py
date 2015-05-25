@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # get_video_info.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # get_video_info: evparse/lib/hunantv 
-# version 0.0.3.0 test201505151817
+# version 0.0.4.0 test201505251455
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -67,6 +67,7 @@ def get_one_info(item, info):	# item, todo_item
     vinfo['hd'] = item['hd']
     vinfo['format'] = 'fhv'	# the format of video file is fhv now
     vinfo['size_px'] = [-1, -1]	# TODO not support this now
+    vinfo['count'] = 1	# NOTE hunantv, only 1 file
     vinfo['file'] = []
     # add size_byte and time_s
     vinfo['size_byte'] = -1	# TODO not support this now

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # entry.py, part for evparse : EisF Video Parse, evdh Video Parse. 
 # evparse:lib/entry: evparse main lib entry. 
-# version 0.1.2.0 test201505171258
+# version 0.1.4.0 test201505251453
 # author sceext <sceext@foxmail.com> 2009EisF2015, 2015.05. 
 # copyright 2015 sceext
 #
@@ -43,8 +43,8 @@ etc['flag_restruct'] = True
 etc['hd_max'] = hd_quality.HD_MAX
 etc['hd_min'] = hd_quality.HD_MIN
 
-etc['EV_INFO_VERSION'] = 'evdh info_source info_version 0.2.0.0 test201505031420'
-etc['EV_INFO_SOURCE'] = 'evparse1'
+etc['EV_INFO_VERSION'] = restruct.EV_INFO_VERSION
+etc['EV_INFO_SOURCE'] = 'evparse'
 
 # lists
 
