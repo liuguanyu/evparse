@@ -1,5 +1,5 @@
 :: README.md for evparse
-*last update* `2015-05-26 19:45 GMT+0800 CST`
+*last update* `2015-05-26 19:51 GMT+0800 CST`
 
 
 # evparse
@@ -13,13 +13,18 @@ evparse: first hand code from video player of flash. (1st hand code)
 ## Features
 
 **Supported sites**
+
 > 
+
 + `sohu` *(搜狐)* [**高码4K, h265**] *(high bit rate 4K video, with h265 encoding)*
 + `pptv` *(PPTV聚力)* [**高码1080p**] *(high bit rate 1080p video)*
 + `hunantv` *(芒果tv)* [**720p**] *(超清)*
+
 > 
+
 + **[info only]** *(仅信息)* `iqiyi` (271) *[1080p]*
 + **[info only]** *(仅信息)* `letv` *(乐视网)* *[1080p]*
+
 > 
 
 
